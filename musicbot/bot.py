@@ -397,11 +397,6 @@ class MusicBot(discord.Client):
             
         await self.change_status(game)
 
-    async def random_game():
-        try:
-            await client.change_status(game=choice(games_list), idle=False)
-            await asyncio.sleep(3600)
-
     async def safe_send_message(self, dest, content, *, tts=False, expire_in=0, also_delete=None, quiet=False):
         msg = None
         try:
@@ -746,6 +741,9 @@ class MusicBot(discord.Client):
 
     async def cmd_kys(self, message):
         return Response("kill urself fgt.", delete_after=35)
+
+    async def cmd_dab(self, message):
+        return Response("​http://i.giphy.com/lae7QSMFxEkkE.gif", delete_after=0)
 
     @owner_only
     async def cmd_joinserver(self, message):
