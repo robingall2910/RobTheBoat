@@ -54,6 +54,28 @@ class SkipState:
         self.skip_msgs.add(msg)
         return self.skip_count
 
+dis_games = [
+    discord.Game(name='with fire'),
+    discord.Game(name='with Robin'),
+    discord.Game(name='baa'),
+    discord.Game(name='Denzel Curry - Ultimate'),
+    discord.Game(name='Windows XP'),
+    discord.Game(name='Drake - Jumpman'),
+    discord.Game(name='with Kyle'),
+    discord.Game(name='Super Smash Bros. Melee'),
+    discord.Game(name='.help for help!'),
+    discord.Game(name='how to lose a phone'),
+    discord.Game(name='with memes'),
+    discord.Game(name='Sergal'),
+    discord.Game(name='Fox'),
+    discord.Game(name='Dragon'),
+    discord.Game(name='with some floof'),
+    discord.Game(name='with Napstabot'),
+    discord.Game(name='Doom (1993)'),
+    discord.Game(name='Doom (2016)'),
+    discord.Game(name='DramaNation'),
+    discord.Game(name='browsing 4chan')
+]
 
 class Response:
     def __init__(self, content, reply=False, delete_after=0):
@@ -369,12 +391,16 @@ class MusicBot(discord.Client):
         game = None
         if entry:
             prefix = u'\u275A\u275A ' if is_paused else ''
-
+    
             name = u'{}{}'.format(prefix, entry.title)[:128]
             game = discord.Game(name=name)
             
         await self.change_status(game)
 
+    async def random_game():
+        try:
+            await client.change_status(game=choice(games_list), idle=False)
+            await asyncio.sleep(3600)
 
     async def safe_send_message(self, dest, content, *, tts=False, expire_in=0, also_delete=None, quiet=False):
         msg = None
@@ -598,16 +624,17 @@ class MusicBot(discord.Client):
         await client.send_message(message.channel, answer)
 
     async def cmd_test(self):
-        return Response("oh ok, this is a test message", delete_after=0)
+        return Response("( ͡° ͜ʖ ͡°) I love you", delete_after=0)
+
 
     async def cmd_nope(self):
         return Response("http://giphy.com/gifs/morning-good-reaction-ihWcaj6R061wc", delete_after=0)
 
     @owner_only
     async def cmd_regam(client, message):
-        game = discord.Game
         input = game
-        await client.change_status.game(input)
+        discord.Game(name=game)
+
     @owner_only
     async def cmd_debug(client, message):
         if(message.content.startswith('.debug')):
