@@ -583,7 +583,7 @@ class MusicBot(discord.Client):
 
         helpmsg += ", ".join(commands)
         helpmsg += "```"
-        helpmsg += "https://github.com/RobinGall2910/MusicBot/wiki/Commands-list"
+        helpmsg += "https://robingall2910.github.io/robtheboat/info.html"
 
         return Response(helpmsg, reply=True, delete_after=60)
 
@@ -598,7 +598,7 @@ class MusicBot(discord.Client):
         await client.send_message(message.channel, answer)
 
     async def cmd_test(self):
-        return Response("oh ok", delete_after=0)
+        return Response("oh ok, this is a test message", delete_after=0)
 
     async def cmd_nope(self):
         return Response("http://giphy.com/gifs/morning-good-reaction-ihWcaj6R061wc", delete_after=0)
