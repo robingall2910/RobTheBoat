@@ -740,8 +740,9 @@ class MusicBot(discord.Client):
             print(type(e).__name__ + ': ' + str(e))
 
     async def cmd_kys(self, message):
-        return Response("kill urself fgt.", delete_after=35)
-
+        #return Response("kill yourself and never _EVER_ come back to me again, you stupid peasant. how dare you ask me to die. like fucking hell, why not do it yourself to satisfy yourself?", delete_after=0)
+        # Enable in 4/20 - forever ^^^
+        return Response("kill yourself and don't come back again to ask me to kill myself, stupid peasant.", delete_after=0)
     async def cmd_dab(self, message):
         return Response("​http://i.giphy.com/lae7QSMFxEkkE.gif", delete_after=0)
 
