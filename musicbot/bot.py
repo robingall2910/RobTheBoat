@@ -621,6 +621,8 @@ class MusicBot(discord.Client):
     async def cmd_test(self):
         return Response("( ͡° ͜ʖ ͡°) I love you", delete_after=0)
 
+    async def cmd_say(self, client, message):
+        return Response(message.content[len(".say "):].strip(), delete_after=0)
 
     async def cmd_nope(self):
         return Response("http://giphy.com/gifs/morning-good-reaction-ihWcaj6R061wc", delete_after=0)
@@ -1500,9 +1502,10 @@ class MusicBot(discord.Client):
         if not handler:
             return
 
-        if message.channel.is_private and command != 'joinserver' and message.author.id != self.config.owner_id:
-            await self.send_message(message.channel, 'You cannot use me in private messages...')
-            return
+        if message.channel.is_private:
+             if command != 'joinserver' and message.author.id != self.config.owner_id:
+                 await self.send_message(message.channel, 'You cannot use this bot in private messages.')
+                 return
 
         if int(message.author.id) in self.blacklist and message.author.id != self.config.owner_id:
             self.safe_print("[User blacklisted] {0.id}/{0.name} ({1})".format(message.author, message_content))
@@ -1622,9 +1625,12 @@ class MusicBot(discord.Client):
             traceback.print_exc()
 
     async def on_voice_state_update(self, before, after):
-        if before.voice_channel == after.voice_channel:
-            return  # they didn't move channels
+        if not all([before, after]):
+            return
 
+        if not self.config.auto_pause:
+             return
+ 
         my_voice_channel = after.server.me.voice_channel  # This should always work, right?
 
         if not my_voice_channel:
