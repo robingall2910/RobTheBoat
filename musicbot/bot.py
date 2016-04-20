@@ -744,7 +744,8 @@ class MusicBot(discord.Client):
     async def cmd_kys(self, message):
         #return Response("kill yourself and never _EVER_ come back to me again, you stupid peasant. how dare you ask me to die. like fucking hell, why not do it yourself to satisfy yourself?", delete_after=0)
         # Enable in 4/20 - forever ^^^
-        return Response("kill yourself and don't come back again to ask me to kill myself, stupid peasant.", delete_after=0)
+         return Response("Seriously? You're such a fucking faggot. Kill yourself, unironically, hell, I'd kill you myself you fucking scumrag.", delete_after=0)
+        #return Response("kill yourself and don't come back again to ask me to kill myself, stupid peasant.", delete_after=0)
     async def cmd_dab(self, message):
         return Response("​http://i.giphy.com/lae7QSMFxEkkE.gif", delete_after=0)
 
