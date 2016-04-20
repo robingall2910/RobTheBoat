@@ -609,7 +609,7 @@ class MusicBot(discord.Client):
         return Response(helpmsg, reply=True, delete_after=60)
 
     async def cmd_date(self):
-        return Response("Current Date: **" + time.strftime("%A, %B %d, %Y") + '**' + '\nCurrent Time (Eastern): **' + time.strftime("%I:%M:%S %p") + '**', delete_after=0)
+        return Response("Current Date: **" + time.strftime("%A, %B %d, %Y") + '**' + '\nCurrent Time (Eastern): **' + time.strftime("%I:%M:%S %p") + '**' + '\nHappy 420 day, enjoy your memes, fucking fags!', delete_after=0)
 
     async def cmd_talk(client, message):
         cb1 = cleverbot.Cleverbot()
@@ -623,6 +623,13 @@ class MusicBot(discord.Client):
 
     async def cmd_say(self, client, message):
         return Response(message.content[len(".say "):].strip(), delete_after=0)
+
+    async def cmd_ship(self, client, message):
+        """
+        Usage: .ship (person) x (person)
+        """
+        return Response("I hereby ship " + message.content[len(".ship"):].strip() + "!", delete_after=0)
+        #todo: remove messages that wont make sense, like "no"
 
     async def cmd_nope(self):
         return Response("http://giphy.com/gifs/morning-good-reaction-ihWcaj6R061wc", delete_after=0)
@@ -758,7 +765,7 @@ class MusicBot(discord.Client):
 
         OAuth Link:  https://discordapp.com/oauth2/authorize?&client_id=171309939946553344&scope=bot&permissions=0
         """
-        return Response("https://discordapp.com/oauth2/authorize?&client_id=171309939946553344&scope=bot&permissions=0", delete_after=0)
+        return Response("This method isn't supported anymore. Use the following link: https://discordapp.com/oauth2/authorize?&client_id=171309939946553344&scope=bot&permissions=1822828", delete_after=0)
         #try:
         #    await self.accept_invite(server_link)
         #    return Response(":+1:")
@@ -1405,7 +1412,7 @@ class MusicBot(discord.Client):
             float(amount)  # lazy check
             amount = int(amount)
         except:
-            return Response("enter a number.  NUMBER.  That means digits.  `5`.  Etc.", reply=True, delete_after=5)
+            return Response("enter a number.  NUMBER.  That means digits.  `5`.  etc.", reply=True, delete_after=5)
 
         def is_possible_command_invoke(entry):
             valid_call = any(
