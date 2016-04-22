@@ -14,6 +14,7 @@ class ConfigDefaults:
     owner_id = None
     command_prefix = '!'
     bound_channels = set()
+    autojoin_channels = set()
 
     default_volume = 0.15
     white_list_check = False
@@ -24,6 +25,8 @@ class ConfigDefaults:
     auto_summon = True
     auto_playlist = True
     auto_pause = True
+    delete_messages = True
+    delete_invoking = False
     debug_mode = False
 
     options_file = 'config/options.ini'
@@ -91,6 +94,7 @@ class Config:
         self.owner_id = config.get('Permissions', 'OwnerID', fallback=ConfigDefaults.owner_id)
         self.command_prefix = config.get('Chat', 'CommandPrefix', fallback=ConfigDefaults.command_prefix)
         self.bound_channels = config.get('Chat', 'BindToChannels', fallback=ConfigDefaults.bound_channels)
+        self.autojoin_channels =  config.get('Chat', 'AutojoinChannels', fallback=ConfigDefaults.autojoin_channels)
 
         self.default_volume = config.getfloat('MusicBot', 'DefaultVolume', fallback=ConfigDefaults.default_volume)
         self.white_list_check = config.getboolean('MusicBot', 'WhiteListCheck', fallback=ConfigDefaults.white_list_check)
@@ -101,6 +105,8 @@ class Config:
         self.auto_summon = config.getboolean('MusicBot', 'AutoSummon', fallback=ConfigDefaults.auto_summon)
         self.auto_playlist = config.getboolean('MusicBot', 'UseAutoPlaylist', fallback=ConfigDefaults.auto_playlist)
         self.auto_pause = config.getboolean('MusicBot', 'AutoPause', fallback=ConfigDefaults.auto_pause)
+        self.delete_messages  = config.getboolean('MusicBot', 'DeleteMessages', fallback=ConfigDefaults.delete_messages)
+        self.delete_invoking = config.getboolean('MusicBot', 'DeleteInvoking', fallback=ConfigDefaults.delete_invoking)
         self.debug_mode = config.getboolean('MusicBot', 'DebugMode', fallback=ConfigDefaults.debug_mode)
 
         self.blacklist_file = config.get('Files', 'BlacklistFile', fallback=ConfigDefaults.blacklist_file)
@@ -148,11 +154,11 @@ class Config:
 
 
         if self.owner_id and self.owner_id.isdigit():
-            if int(self.owner_id) == 0:
+            if int(self.owner_id) < 10000:
                 raise HelpfulError(
                     "OwnerID was not set.",
 
-                    "Please set your OwnerID in the config.  If you "
+                    "Please set the OwnerID in the config.  If you "
                     "don't know what that is, use the %sid command" % self.command_prefix,
                     preface=confpreface)
 
@@ -171,6 +177,15 @@ class Config:
             except:
                 print("[Warning] BindToChannels data invalid, will not bind to any channels")
                 self.bound_channels = set()
+
+        if self.autojoin_channels:
+            try:
+                self.autojoin_channels = set(x for x in self.autojoin_channels.split() if x)
+            except:
+                print("[Warning] AutojoinChannels data invalid, will not autojoin any channels")
+                self.autojoin_channels = set()
+
+        self.delete_invoking = self.delete_invoking and self.delete_messages
 
     # TODO: Add save function for future editing of options with commands
     #       Maybe add warnings about fields missing from the config file

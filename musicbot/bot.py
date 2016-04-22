@@ -15,6 +15,7 @@ from discord import utils
 from discord.object import Object
 from discord.enums import ChannelType
 from discord.voice_client import VoiceClient
+from io import BytesIO
 from datetime import datetime
 
 from random import choice
@@ -128,6 +129,10 @@ class MusicBot(discord.Client):
 
         return wrapper
 
+    @staticmethod
+    def _fixg(x, dp=2):
+        return ('{:.%sf}' % dp).format(x).rstrip('0').rstrip('.')
+
     def _get_variable(self, name):
         stack = inspect.stack()
         try:
@@ -137,10 +142,6 @@ class MusicBot(discord.Client):
                     return current_locals[name]
         finally:
             del stack
-
-    @staticmethod
-    def _fixg(x, dp=2):
-        return ('{:.%sf}' % dp).format(x).rstrip('0').rstrip('.')
 
     def _get_owner(self, voice=False):
         if voice:
@@ -174,9 +175,46 @@ class MusicBot(discord.Client):
         owner = self._get_owner(voice=True)
         if owner:
             await self.cmd_summon(owner.voice_channel, owner, None)
-            return True
-        else:
-            return False
+            return owner.voice_channel
+
+    async def _autojoin_channels(self):
+        joined_servers = []
+
+        for chid in self.config.autojoin_channels:
+            channel = self.get_channel(chid)
+
+            if channel.server in joined_servers:
+                print("Already joined a channel in %s, skipping" % channel.server.name)
+                continue
+
+            if channel and channel.type == discord.ChannelType.voice:
+                self.safe_print("Attempting to autojoin %s in %s" % (channel.name, channel.server.name))
+
+                chperms = channel.permissions_for(channel.server.me)
+
+                if not chperms.connect:
+                    self.safe_print("Cannot join channel \"%s\", no permission." % channel.name)
+                    continue
+
+                elif not chperms.speak:
+                    self.safe_print("Will not join channel \"%s\", no permission to speak." % channel.name)
+                    continue
+
+                player = await self.get_player(channel, create=True)
+
+                if player.is_stopped:
+                    player.play()
+
+                if self.config.auto_playlist:
+                    await self.on_finished_playing(player)
+
+                joined_servers.append(channel.server)
+
+            elif channel:
+                print("Not joining %s on %s, that's a text channel." % (channel.name, channel.server.name))
+
+            else:
+                print("Invalid channel id: " + chid)
 
     async def _wait_delete_msg(self, message, after):
         await asyncio.sleep(after)
@@ -376,7 +414,7 @@ class MusicBot(discord.Client):
                 if info.get('entries', None):  # or .get('_type', '') == 'playlist'
                     pass  # Wooo playlist
                     # Blarg how do I want to do this
-
+                # TODO: better checks here
                 await player.playlist.add_entry(song_url, channel=None, author=None)
                 break
 
@@ -541,11 +579,11 @@ class MusicBot(discord.Client):
         print()
 
         if self.config.bound_channels:
-            print("Bound to channels:")
+            print("Bound to text channels:")
             chlist = [self.get_channel(i) for i in self.config.bound_channels if i]
             [self.safe_print(' - %s/%s' % (ch.server.name.rstrip(), ch.name.lstrip())) for ch in chlist if ch]
         else:
-            print("Not bound to any channels")
+            print("Not bound to any text channels.")
 
         print()
 
@@ -569,18 +607,21 @@ class MusicBot(discord.Client):
             else:
                 print("Could not delete old audio cache, moving on.")
 
-        if self.config.auto_summon:
+        if self.config.autojoin_channels:
+            await self._autojoin_channels()
+
+        elif self.config.auto_summon:
             print("Attempting to autosummon...", flush=True)
 
-            as_ok = await self._auto_summon()
+            owner_vc = await self._auto_summon()
 
-            if as_ok:
+            if owner_vc:
                 print("Done!", flush=True)  # TODO: Change this to "Joined server/channel"
                 if self.config.auto_playlist:
                     print("Starting auto-playlist")
-                    await self.on_finished_playing(await self.get_player(owner.voice_channel, create=True))
+                    await self.on_finished_playing(await self.get_player(owner_vc))
             else:
-                print("Owner not found in a voice channel, could not autosummon.")
+                print("Owner was not found in a voice channel, not autosummoning...")
 
         print()
         # t-t-th-th-that's all folks!
@@ -609,7 +650,7 @@ class MusicBot(discord.Client):
         return Response(helpmsg, reply=True, delete_after=60)
 
     async def cmd_date(self):
-        return Response("Current Date: **" + time.strftime("%A, %B %d, %Y") + '**' + '\nCurrent Time (Eastern): **' + time.strftime("%I:%M:%S %p") + '**' + '\nHappy 420 day, enjoy your memes, fucking fags!', delete_after=0)
+        return Response("Current Date: _" + time.strftime("%A, %B %d, %Y") + '_' + '\nCurrent Time (Eastern): _' + time.strftime("%I:%M:%S %p") + '_', delete_after=0)
 
     async def cmd_talk(client, message):
         cb1 = cleverbot.Cleverbot()
@@ -622,6 +663,9 @@ class MusicBot(discord.Client):
         return Response("( ͡° ͜ʖ ͡°) I love you", delete_after=0)
 
     async def cmd_say(self, client, message):
+        """
+        Usage: .say (faggot)
+        """
         return Response(message.content[len(".say "):].strip(), delete_after=0)
 
     async def cmd_ship(self, client, message):
@@ -750,8 +794,7 @@ class MusicBot(discord.Client):
 
     async def cmd_kys(self, message):
         #return Response("kill yourself and never _EVER_ come back to me again, you stupid peasant. how dare you ask me to die. like fucking hell, why not do it yourself to satisfy yourself?", delete_after=0)
-        # Enable in 4/20 - forever ^^^
-         return Response("Seriously? You're such a fucking faggot. Kill yourself, unironically, hell, I'd kill you myself you fucking scumrag.", delete_after=0)
+        return Response("Seriously? You're such a fucking faggot. Kill yourself, unironically, hell, I'd kill you myself you fucking little shit, stupid fucking shitrag.", delete_after=0)
         #return Response("kill yourself and don't come back again to ask me to kill myself, stupid peasant.", delete_after=0)
     async def cmd_dab(self, message):
         return Response("​http://i.giphy.com/lae7QSMFxEkkE.gif", delete_after=0)
@@ -1399,67 +1442,106 @@ class MusicBot(discord.Client):
         message = '\n'.join(lines)
         return Response(message, delete_after=30)
 
-    @owner_only  # TODO: improve this (users only clean up theirs, arg for all messages, etc, more control)
-    async def cmd_clean(self, message, channel, author, amount):
+    async def cmd_clean(self, message, channel, author, search_range=50):
         """
         Usage:
-            {command_prefix}clean amount
+            {command_prefix}clean [range]
 
-        Removes amount messages the bot has posted in chat.
+        Removes up to [range] messages the bot has posted in chat. Default: 50, Max: 1000
         """
 
         try:
-            float(amount)  # lazy check
-            amount = int(amount)
+            float(search_range) #lazy check
+            search_range = min(int(search_range), 1000)
         except:
-            return Response("enter a number.  NUMBER.  That means digits.  `5`.  etc.", reply=True, delete_after=5)
+            return Response("enter a number.  NUMBER.  That means digits.  `15`.  etc.", reply=True, delete_after=8)
+
+        await self.safe_delete_message(message, quiet=True)
 
         def is_possible_command_invoke(entry):
-            valid_call = any(
-                entry.content.startswith(prefix) for prefix in [self.config.command_prefix])  # can be expanded
-            return valid_call and not entry.content[1:2].isspace()
-
-        await self.safe_delete_message(message)
+              valid_call = any(
+                  entry.content.startswith(prefix) for prefix in [self.config.command_prefix])  # can be expanded
+              return valid_call and not entry.content[1:2].isspace()
+  
 
         msgs = 0
         delete_invokes = True
-        async for entry in self.logs_from(channel, limit=int(amount)):
-            if entry.author == self.user and entry != self.last_np_msg:
-                await self.safe_delete_message(entry)
-                msgs += 1
+        delete_all = channel.permissions_for(author).manage_messages or self.config.owner_id == author.id
 
-            if is_possible_command_invoke(entry) and delete_invokes:
-                try:
-                    await self.safe_delete_message(entry)
-                except discord.Forbidden:
-                    delete_invokes = False
-                else:
-                    msgs += 1
+        async for entry in self.logs_from(channel, search_range, before=message):
+            if entry == self.last_np_msg:
+                continue
 
-        # Becuase of how this works, you can do `clean 20` and <20 messages will get deleted
+            if entry.author == self.user:
+                  await self.safe_delete_message(entry)
+                  msgs += 1
+
+            if delete_all or entry.author == author:
+                    try:
+                        await self.delete_message(entry)
+                        msgs += 1
+                    except discord.Forbidden:
+                        delete_invokes = False
 
         return Response('Cleaned up {} message{}.'.format(msgs, '' if msgs == 1 else 's'), delete_after=10)
 
-    async def cmd_listroles(self, server, author):
+    async def cmd_listids(self, server, author, leftover_args, cat='all'):
         """
         Usage:
-            {command_prefix}listroles
+            {command_prefix}listids [categories]
 
         Lists the roles on the server for setting up permissions
         """
 
-        lines = ['Role list for %s' % server.name, '```', '```']
-        for role in server.roles:
-            role.name = role.name.replace('@everyone', '@\u200Beveryone')  # ZWS for sneaky names
-            nextline = role.id + " " + role.name
+        cats = ['channels', 'roles', 'users']
 
-            if len('\n'.join(lines)) + len(nextline) < DISCORD_MSG_CHAR_LIMIT:
-                lines.insert(len(lines) - 1, nextline)
-            else:
-                await self.send_message(author, '\n'.join(lines))
-                lines = ['```', '```']
+        if cat not in cats and cat != 'all':
+            return Response(
+                "Valid categories: " + ' '.join(['`%s`' % c for c in cats]),
+                reply=True,
+                delete_after=25
+            )
 
-        await self.send_message(author, '\n'.join(lines))
+        if cat == 'all':
+            requested_cats = cats
+        else:
+            requested_cats = [cat] + [c.strip(',') for c in leftover_args]
+
+        data = ['Your ID: %s' % author.id]
+
+        for cur_cat in requested_cats:
+            rawudata = None
+
+            if cur_cat == 'users':
+                data.append("\nUser IDs:")
+                rawudata = ['%s #%s: %s' % (m.name, m.discriminator, m.id) for m in server.members]
+
+            elif cur_cat == 'roles':
+                data.append("\nRole IDs:")
+                rawudata = ['%s: %s' % (r.name, r.id) for r in server.roles]
+
+            elif cur_cat == 'channels':
+                data.append("\nText Channel IDs:")
+                tchans = [c for c in server.channels if c.type == discord.ChannelType.text]
+                rawudata = ['%s: %s' % (c.name, c.id) for c in tchans]
+
+                rawudata.append("\nVoice Channel IDs:")
+                vchans = [c for c in server.channels if c.type == discord.ChannelType.voice]
+                rawudata.extend('%s: %s' % (c.name, c.id) for c in vchans)
+
+            if rawudata:
+                data.extend(rawudata)
+
+        bdata = b'\n'.join(d.encode('utf-8') for d in data)
+
+        bd = BytesIO()
+        bd.write(bdata)
+        bd.seek(0)
+
+        # TODO: Fix naming (Discord20API-ids.txt)
+        await self.send_file(author, bd, filename='%s-ids-%s.txt' % (server.name.replace(' ', '_'), cat))
+
+
         return Response(":mailbox_with_mail:", delete_after=20)
 
     async def cmd_perms(self, author, channel, server, permissions):
@@ -1511,7 +1593,7 @@ class MusicBot(discord.Client):
             return
 
         if message.channel.is_private:
-             if command != 'joinserver' and message.author.id != self.config.owner_id:
+             if not (message.author.id == self.config.owner_id and command == 'joinserver'):
                  await self.send_message(message.channel, 'You cannot use this bot in private messages.')
                  return
 
@@ -1617,8 +1699,10 @@ class MusicBot(discord.Client):
                     content = '%s, %s' % (message.author.mention, content)
 
                 sentmsg = await self.safe_send_message(
-                    message.channel, content, expire_in=response.delete_after)  # also_delete=message
-                # TODO: Add options for deletion toggling
+                    message.channel, content,
+                    expire_in=response.delete_after if self.config.delete_messages else 0,
+                    also_delete=message if self.config.delete_invoking else None
+                )
 
         except (exceptions.CommandError, exceptions.HelpfulError) as e:
             print(e.message)
