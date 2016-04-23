@@ -662,6 +662,16 @@ class MusicBot(discord.Client):
     async def cmd_test(self):
         return Response("( ͡° ͜ʖ ͡°) I love you", delete_after=0)
 
+    async def cmd_kill(self, client, message, author):
+        """
+        Usage: .kill (person)
+            Pretty self explanitory.
+        """
+        if message.content[len(".kill"):].strip() != message.author.mention:
+            return Response("You've killed " + message.content[len(".kill"):].strip() + "... What have you done..... Bastard....", delete_after=0)
+        elif message.content[len(".kill"):].strip() == message.author.mention:
+            return Response("<@" + message.author.id + ">" + " Nice one on your suicide.", delete_after=0)
+
     async def cmd_say(self, client, message):
         """
         Usage: .say (faggot)
