@@ -1542,7 +1542,7 @@ class MusicBot(discord.Client):
         await self.send_file(author, bd, filename='%s-ids-%s.txt' % (server.name.replace(' ', '_'), cat))
 
 
-        return Response(":mailbox_with_mail:", delete_after=20)
+        return Response("Check your DMs, I have sent you a text file.", delete_after=20)
 
     async def cmd_perms(self, author, channel, server, permissions):
         """
