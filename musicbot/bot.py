@@ -668,9 +668,9 @@ class MusicBot(discord.Client):
             Pretty self explanitory.
         """
         if message.content[len(".kill"):].strip() != message.author.mention:
-            return Response("You've killed " + message.content[len(".kill"):].strip() + "... What have you done..... Bastard....", delete_after=0)
+            return Response("You've killed " + message.content[len(".kill"):].strip() + "... what the hell did you do... _idiot_ **fool**.", delete_after=0)
         elif message.content[len(".kill"):].strip() == message.author.mention:
-            return Response("<@" + message.author.id + ">" + " Nice one on your suicide.", delete_after=0)
+            return Response("<@" + message.author.id + ">" + " Nice one on your suicide. Just, it's so great.", delete_after=0)
 
     async def cmd_say(self, client, message):
         """
@@ -678,11 +678,14 @@ class MusicBot(discord.Client):
         """
         return Response(message.content[len(".say "):].strip(), delete_after=0)
 
-    async def cmd_ship(self, client, message):
+    async def cmd_ship(self, client, message, content):
         """
         Usage: .ship (person) x (person)
         """
-        return Response("I hereby ship " + message.content[len(".ship"):].strip() + "!", delete_after=0)
+        if message.content != '<@163698730866966528> x <@163698730866966528>':
+            return Response("I hereby ship " + message.content[len(".ship"):].strip() + "!", delete_after=0)
+        elif message.content == '<@163698730866966528> x <@163698730866966528>':
+            return Response("I hereby ship, myself.... forever.... alone........ ;-;", delete_after=0)
         #todo: remove messages that wont make sense, like "no"
 
     async def cmd_nope(self):
@@ -1452,7 +1455,7 @@ class MusicBot(discord.Client):
         message = '\n'.join(lines)
         return Response(message, delete_after=30)
 
-    async def cmd_clean(self, message, channel, author, search_range=50):
+    async def cmd_clean(self, message, bot, channel, author, search_range=50):
         """
         Usage:
             {command_prefix}clean [range]
@@ -1466,34 +1469,12 @@ class MusicBot(discord.Client):
         except:
             return Response("enter a number.  NUMBER.  That means digits.  `15`.  etc.", reply=True, delete_after=8)
 
-        await self.safe_delete_message(message, quiet=True)
-
-        def is_possible_command_invoke(entry):
-              valid_call = any(
-                  entry.content.startswith(prefix) for prefix in [self.config.command_prefix])  # can be expanded
-              return valid_call and not entry.content[1:2].isspace()
-  
-
-        msgs = 0
-        delete_invokes = True
-        delete_all = channel.permissions_for(author).manage_messages or self.config.owner_id == author.id
-
-        async for entry in self.logs_from(channel, search_range, before=message):
-            if entry == self.last_np_msg:
-                continue
-
-            if entry.author == self.user:
-                  await self.safe_delete_message(entry)
-                  msgs += 1
-
-            if delete_all or entry.author == author:
-                    try:
-                        await self.delete_message(entry)
-                        msgs += 1
-                    except discord.Forbidden:
-                        delete_invokes = False
-
-        return Response('Cleaned up {} message{}.'.format(msgs, '' if msgs == 1 else 's'), delete_after=10)
+        if number > 0 and number < 10000:
+                async for x in self.bot.logs_from(channel, limit=number+1):
+                    await self.bot.delete_message(x)
+                    await self.bot.say('Cleaned up {} message{}.'.format(msgs, '' if msgs == 1 else 's'))
+        elif discord.Forbidden:
+            await self.bot.say("I'm missing the ""Manage Messages"" Permission.")
 
     async def cmd_listids(self, server, author, leftover_args, cat='all'):
         """
