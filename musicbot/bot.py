@@ -29,11 +29,11 @@ from musicbot.config import Config, ConfigDefaults
 from musicbot.permissions import Permissions, PermissionsDefaults
 from musicbot.utils import load_file, extract_user_id, write_file, sane_round_int
 
+from . import exceptions
 from . import downloader
 from .opus_loader import load_opus_lib
 from .constants import VERSION as BOTVERSION
 from .constants import DISCORD_MSG_CHAR_LIMIT, AUDIO_CACHE_PATH
-from . import exceptions
 
 load_opus_lib()
 
@@ -819,9 +819,9 @@ class MusicBot(discord.Client):
             {command_prefix}joinserver
         Tells you how to join a server.
 
-        OAuth Link:  https://discordapp.com/oauth2/authorize?&client_id=171309939946553344&scope=bot&permissions=0
+        OAuth Link:  http://inv.rtb.lulzcraft.net
         """
-        return Response("This method isn't supported anymore. Use the following link: https://discordapp.com/oauth2/authorize?&client_id=171309939946553344&scope=bot&permissions=1822828", delete_after=0)
+        return Response("This method isn't supported anymore. Use the following link: http://inv.rtb.lulzcraft.net", delete_after=0)
         #try:
         #    await self.accept_invite(server_link)
         #    return Response(":+1:")
@@ -1301,7 +1301,17 @@ class MusicBot(discord.Client):
         """
 
         player.playlist.shuffle()
-        return Response('*shuffleshuffleshuffle* then *shuffles more intensively after that*', delete_after=10)
+        cards = [':spades:',':clubs:',':hearts:',':diamonds:']
+        hand = await self.send_message(channel, ' '.join(cards))
+        await asyncio.sleep(0.6)
+
+        for x in range(4):
+            shuffle(cards)
+            await self.safe_edit_message(hand, ' '.join(cards))
+            await asyncio.sleep(0.6)
+
+        await self.safe_delete_message(hand, quiet=True)
+        return Response("shuffled perfectly af :ok_hand:", delete_after=21)
 
     async def cmd_clear(self, player, author):
         """
@@ -1436,7 +1446,7 @@ class MusicBot(discord.Client):
             else:
                 nextline = '`{}.` **{}**'.format(i, item.title).strip()
 
-            currentlinesum = sum([len(x) + 1 for x in lines])  # +1 is for newline char
+            currentlinesum = sum(len(x) + 1 for x in lines)  # +1 is for newline char
 
             if currentlinesum + len(nextline) + len(andmoretext) > DISCORD_MSG_CHAR_LIMIT:
                 if currentlinesum + len(andmoretext):
