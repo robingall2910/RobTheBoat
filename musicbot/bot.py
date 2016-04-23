@@ -1324,7 +1324,7 @@ class MusicBot(discord.Client):
         player.playlist.clear()
         return Response('Cleared. Probably some stupid music trash was in there I bet smh', delete_after=10)
 
-    async def cmd_skip(self, player, channel, author, message, voice_channel):
+    async def cmd_skip(self, player, channel, author, permissions, message, voice_channel):
         """
         Usage:
             {command_prefix}skip
@@ -1336,9 +1336,9 @@ class MusicBot(discord.Client):
             raise exceptions.CommandError("Can't skip? I'm not playing anything!")
 
         if not player.current_entry:  # Do more checks here to see
-            print("Something's wrong. Notify the host of the bot to restart it.")
+            print("Something's wrong. Notify <@117678528220233731> to restart the bot.")
 
-        if author.id == self.config.owner_id:
+        if author.id == self.config.owner_id or permissions.instaskip:
             player.skip()  # check autopause stuff here
             return
 
