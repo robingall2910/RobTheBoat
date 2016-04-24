@@ -10,6 +10,7 @@ import traceback
 import json
 import io
 import cleverbot
+import re
 
 from discord import utils
 from discord.object import Object
@@ -801,9 +802,7 @@ class MusicBot(discord.Client):
 
     async def cmd_ping(self, message):
         try:
-            pingtime = time.time()
-            pt = time.time()
-            return Response("took %.01f" % (pingtime - pt,) + " to ping.", delete_after=0)
+            return Response("took %.01f" % (time.time() - time.time()) + " to ping.", delete_after=0)
         except Exception as e:
             print(type(e).__name__ + ': ' + str(e))
 
@@ -823,8 +822,9 @@ class MusicBot(discord.Client):
         Attempt on trying to create a meme command, .memeg (template/line1/line2)
         List: http://memegen.link/templates/
         """
-        if message.content > 0:
-            return Response("http://memegen.link/" + message.content[len(".memeg "):].strip(), delete_after=0)
+        genmeme = message.content[len(".memeg "):].strip()
+        if message.content != 0:
+            return Response("http://memegen.link/" +  re.sub(r"\s+", '-', genmeme) + ".jpg", delete_after=0)
         else:
             return Response("You didn't enter a message. Templates: http://memegen.link/templates/", delete_after=0)
 
@@ -1481,26 +1481,23 @@ class MusicBot(discord.Client):
         message = '\n'.join(lines)
         return Response(message, delete_after=30)
 
-    async def cmd_clean(self, message, bot, channel, author, search_range=50):
+    async def cmd_clean(self, message, channel, author, search_range=50):
         """
         Usage:
             {command_prefix}clean [range]
-
         Removes up to [range] messages the bot has posted in chat. Default: 50, Max: 1000
         """
 
+        # if not channel.permissions_for(channel.server.me).manage_messages:
+        #     return Response("I don't have Manage Messages permission in this channel.", reply=True, delete_after=15)
+
         try:
-            float(search_range) #lazy check
+            float(search_range)  # lazy check
             search_range = min(int(search_range), 1000)
         except:
-            return Response("enter a number.  NUMBER.  That means digits.  `15`.  etc.", reply=True, delete_after=8)
+            return Response("enter a number.  NUMBER.  That means digits.  `15`.  Etc.", reply=True, delete_after=8)
 
-        if number > 0 and number < 10000:
-                async for x in self.bot.logs_from(channel, limit=number+1):
-                    await self.bot.delete_message(x)
-                    await self.bot.say('Cleaned up {} message{}.'.format(msgs, '' if msgs == 1 else 's'))
-        elif discord.Forbidden:
-            await self.bot.say("I'm missing the ""Manage Messages"" Permission.")
+        await self.safe_delete_message(message, quiet=True)
 
     async def cmd_listids(self, server, author, leftover_args, cat='all'):
         """
