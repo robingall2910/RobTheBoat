@@ -11,6 +11,7 @@ import json
 import io
 import cleverbot
 import re
+import random
 
 from discord import utils
 from discord.object import Object
@@ -76,7 +77,10 @@ dis_games = [
     discord.Game(name='Doom (1993)'),
     discord.Game(name='Doom (2016)'),
     discord.Game(name='DramaNation'),
-    discord.Game(name='browsing 4chan')
+    discord.Game(name='browsing 4chan'),
+    discord.Game(name="Guns N' Roses"),
+    discord.Game(name='vaporwave'),
+    discord.Game(name='being wierd')
 ]
 
 class Response:
@@ -693,11 +697,27 @@ class MusicBot(discord.Client):
         return Response("http://giphy.com/gifs/morning-good-reaction-ihWcaj6R061wc", delete_after=0)
 
     @owner_only
-    async def cmd_regam(client, random, message):
-        """
-        Should rename the game to another one in the list.
-        """
-        discord.Game(random, dis_games)
+    async def cmd_rga(self):
+        #Picks a random game thing from the list.
+        whatever = random.choice(dis_games)
+        discord.Game(Name=whatever)
+
+        await self.change_status(whatever)
+
+    @owner_only
+    async def cmd_gsh(self):
+        discord.Game(name='.help for help!')
+
+        await self.change_status(discord.Game(name='.help for help!'))
+
+    @owner_only
+    async def cmd_setgame(client, self, message):
+        discord.Game(name=message.content[len(".setgame "):].strip())
+        whateverthatwassaid = discord.Game(name=message.content[len(".setgame "):].strip())
+        await self.change_status(whateverthatwassaid)
+
+    async def cmd_info(self):
+        return Response("Hi, my name is RobTheBoat. I come from the bot MusicBot and my creator, Robin, added more commands and such to me. You can do .help for more help. That is all, for now.", delete_after=35)
 
     @owner_only
     async def cmd_debug(client, message):
@@ -712,7 +732,8 @@ class MusicBot(discord.Client):
                     debug = traceback.format_exc()
                     debug = str(debug)
                     await client.send_message(message.channel, "```python\n" + debug + "\n```")
-
+            elif discord.Forbidden:
+                return Response("Nice try, but I wouldn't let you do this.", delete_after=0)
     async def cmd_whitelist(self, message, option, username):
         """
         Usage:
@@ -802,7 +823,7 @@ class MusicBot(discord.Client):
 
     async def cmd_ping(self, message):
         try:
-            return Response("took %.01f" % (time.time() - time.time()) + " to ping.", delete_after=0)
+            return Response("took " + (time.time() - time.time()) + " to ping.", delete_after=0)
         except Exception as e:
             print(type(e).__name__ + ': ' + str(e))
 
