@@ -317,6 +317,7 @@ class MusicBot(discord.Client):
 
     async def disconnect_voice_client(self, server):
         await self.voice_clients[server.id].disconnect()
+        self.voice_clients[server.id] = None
 
     async def _update_voice_state(self, channel, *, mute=False, deaf=False):
         if isinstance(channel, Object):
@@ -715,6 +716,9 @@ class MusicBot(discord.Client):
         discord.Game(name=message.content[len(".setgame "):].strip())
         whateverthatwassaid = discord.Game(name=message.content[len(".setgame "):].strip())
         await self.change_status(whateverthatwassaid)
+
+    async def cmd_disconnect(self, server, message):
+        await self.disconnect_voice_client(server)
 
     async def cmd_info(self):
         return Response("Hi, my name is RobTheBoat. I come from the bot MusicBot and my creator, Robin, added more commands and such to me. You can do .help for more help. That is all, for now.", delete_after=35)
