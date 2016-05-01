@@ -1,3 +1,5 @@
+#until I'm TOO behind on the main repo, then I'll update. For now, this stays.
+
 import os
 import sys
 import time
@@ -637,13 +639,12 @@ class MusicBot(discord.Client):
         print()
         # t-t-th-th-that's all folks!
 
-    async def cmd_help(self):
+    async def cmd_help2(self):
         """
         Usage:
             {command_prefix}help
 
-        Prints a help message
-        """
+        Prints a help message"""
 
         helpmsg = "**Commands**\n```"
         commands = []
@@ -659,6 +660,13 @@ class MusicBot(discord.Client):
         helpmsg += "https://robingall2910.github.io/robtheboat/info.html"
 
         return Response(helpmsg, reply=True, delete_after=60)
+
+    # always remember to update this everytime you do an edit
+    async def cmd_ver(self):
+        return Response("Ver. 1.1.42 Build Date: May 1st, 2016 at 1:42 PM EDT.", delete_after=0)
+
+    async def cmd_help(self):
+        return Response("Due to it looks much better on the website, I have removed the current list. https://dragonfire.me/robtheboat/info.html Any other help? DM @Robin#5908 or <@117678528220233731> for more help.", delete_after=0)
 
     async def cmd_date(self):
         return Response("Current Date: _" + time.strftime("%A, %B %d, %Y") + '_' + '\nCurrent Time (Eastern): _' + time.strftime("%I:%M:%S %p") + '_', delete_after=0)
@@ -865,9 +873,9 @@ class MusicBot(discord.Client):
             {command_prefix}joinserver
         Tells you how to join a server.
 
-        OAuth Link:  http://inv.rtb.lulzcraft.net
+        OAuth Link:  http://inv.rtb.dragonfire.me
         """
-        return Response("This method isn't supported anymore. Use the following link: http://inv.rtb.lulzcraft.net", delete_after=0)
+        return Response("This method isn't supported anymore. Use the following link: http://inv.rtb.dragonfire.me", delete_after=0)
         #try:
         #    await self.accept_invite(server_link)
         #    return Response(":+1:")
