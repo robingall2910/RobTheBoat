@@ -1,3 +1,3 @@
 from .bot import MusicBot
 
-__all__ = ['RobTheBoat']
+__all__ = ['MusicBot']
