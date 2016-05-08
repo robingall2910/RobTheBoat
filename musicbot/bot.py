@@ -1727,10 +1727,10 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_ver(self):
-        return Response("`Ver. 2.0.23 Build Date: May 8th, 2016 at 12:19 PM EDT. Happy Mothers Day everyone!`", delete_after=0)
+        return Response("`Ver. 2.0.26 Build Date: May 8th, 2016 at 1:25 PM EDT. Happy Mothers Day everyone!`", delete_after=0)
 
     async def cmd_updates(self):
-        return Response("What's new in 2.0.23: `nothing but a message. c:`", delete_after=0)
+        return Response("What's new in 2.0.26: `nothing but a message. c:`", delete_after=0)
 
     @owner_only
     async def cmd_twitter(self, message):
