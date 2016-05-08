@@ -97,6 +97,15 @@ tweetsthatareokhand = [
     "http://i.imgur.com/7Y94F7L.png"
 ]
 
+suicidalmemes = [
+    "what the hell did you do idiot",
+    "wtf ok idiot fool",
+    "you killed him nice job.",
+    "lmao you killed him gg on your killing :ok_hand:",
+    "party on his death? lit",
+    "fuckin fag wtf no.... y..."
+]
+
 class SkipState:
     def __init__(self):
         self.skippers = set()
@@ -1718,10 +1727,10 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_ver(self):
-        return Response("`Ver. 2.0.22 Build Date: May 6th, 2016 at 6:23 PM EDT.`", delete_after=0)
+        return Response("`Ver. 2.0.23 Build Date: May 8th, 2016 at 12:19 PM EDT. Happy Mothers Day everyone!`", delete_after=0)
 
     async def cmd_updates(self):
-        return Response("What's new in 2.0.22: `fixes`", delete_after=0)
+        return Response("What's new in 2.0.23: `nothing but a message. c:`", delete_after=0)
 
     @owner_only
     async def cmd_twitter(self, message):
@@ -1760,9 +1769,9 @@ class MusicBot(discord.Client):
         elif message.content[len(".rtb "):].strip() == "massren":
             return Response("NTS: Finish it.", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "setgame":
-            discord.Game(name=message.content[len(".rtb setgame "):].strip())
-            whateverthatwassaid = discord.Game(name=message.content[len(".rtb setgame "):].strip())
-            await self.change_status(whateverthatwassaid)
+            discord.Game(name=message.content[len("setgame "):].strip())  
+            await self.change_status(discord.Game(name=message.content[len("setgame "):].strip()))
+
         elif message.content[len(".rtb "):].strip() == "sg":
             game = discord.Game(message.content[len(".rtb sg "):].strip())
             await self.change_status(game=game)
@@ -1785,6 +1794,8 @@ class MusicBot(discord.Client):
             return Response("Ayy, it's dat boi!", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "sysinfo":
             return Response(platform.uname(), delete_after=0)
+        elif message.content[len(".rtb "):].strip() == "KYLE AINT BAE ENOUGH":
+            return Response("AY YA KNOW ITS TRUE GIRLFRIEND", delete_after=0)
 
 
     async def cmd_ping(self, message):
@@ -1806,7 +1817,7 @@ class MusicBot(discord.Client):
         return Response("Help List: https://dragonfire.me/robtheboat/info.html Any other help? DM @Robin#5908 for more help.", delete_after=0)
 
     async def cmd_date(self):
-        return Response("Current Date: _" + time.strftime("%A, %B %d, %Y") + '_' + '\nCurrent Time (Eastern): _' + time.strftime("%I:%M:%S %p") + '_', delete_after=0)
+        return Response("Current Date: _" + time.strftime("%A, %B %d, %Y") + '_' + '\nCurrent Time (Eastern): _' + time.strftime("%I:%M:%S %p") + '_' + "\nHappy Mothers Day/Feliz Día de las Madres!", delete_after=0)
 
     async def cmd_talk(client, message):
         cb1 = cleverbot.Cleverbot()
@@ -1824,11 +1835,11 @@ class MusicBot(discord.Client):
             Pretty self explanitory.
         """
         if message.content[len(".kill"):].strip() != message.author.mention:
-            return Response("You've killed " + message.content[len(".kill "):].strip() + "... what the hell did you do... _idiot_ **fool**.", delete_after=0)
-        elif message.content[len(".kill"):].strip() == message.author.mention:
-            return Response("<@" + message.author.id + ">" + " Nice one on your suicide. Just, it's so great.", delete_after=0)
+            return Response("You've killed " + message.content[len(".kill "):].strip() + suicidalmemes, delete_after=0)
         elif message.content[len(".kill"):].strip() == "<@163698730866966528>":
             return Response("can u not im not gonna die", delete_after=0)
+        elif message.content[len(".kill"):].strip() == message.author.mention:
+            return Response("<@" + message.author.id + ">" + " Nice one on your suicide. Just, it's so great.", delete_after=0)
 
     async def cmd_say(self, client, message):
         """
@@ -1864,6 +1875,12 @@ class MusicBot(discord.Client):
         discord.Game(name='.help for help!')
 
         await self.change_status(discord.Game(name='.help for help!'))
+
+    @owner_only
+    async def cmd_testin(self, message):
+        discord.Game(name=message.content[len(".testin "):].strip())
+        
+        await self.change_status(discord.Game(name=message.content[len(".testin "):].strip()))
 
     async def cmd_disconnect(self, server, message):
         await self.disconnect_voice_client(server)
