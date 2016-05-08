@@ -1769,9 +1769,7 @@ class MusicBot(discord.Client):
         elif message.content[len(".rtb "):].strip() == "massren":
             return Response("NTS: Finish it.", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "setgame":
-            discord.Game(name=message.content[len("setgame "):].strip())  
-            await self.change_status(discord.Game(name=message.content[len("setgame "):].strip()))
-
+            return Response("Use .setgame you idiotic nerd", delete_after=15)
         elif message.content[len(".rtb "):].strip() == "sg":
             game = discord.Game(message.content[len(".rtb sg "):].strip())
             await self.change_status(game=game)
@@ -1797,8 +1795,11 @@ class MusicBot(discord.Client):
         elif message.content[len(".rtb "):].strip() == "KYLE AINT BAE ENOUGH":
             return Response("AY YA KNOW ITS TRUE GIRLFRIEND", delete_after=0)
 
+    async def cmd_setgame(self, message):
+        discord.Game(name=message.content[len(".rtb setgame "):].strip())  
+        await self.change_status(discord.Game(name=message.content[len("setgame "):].strip()))
 
-    async def cmd_ping(self, message):
+    async def cmd_ping(self):
         pt = time.time()
         ptm = time.time() - time.time()
         return Response("Took %.01f" % (ptm) + " to ping", delete_after=25)
