@@ -72,6 +72,16 @@ dis_games = [
     discord.Game(name='Microsoft Messaging')
 ]
 
+boi = [
+    "https://pravi.us/C0R",
+    "https://cdn.discordapp.com/attachments/142361999538520065/179344711943716865/k5BqbxH.jpg",
+    "https://cdn.discordapp.com/attachments/142361999538520065/179344733242392588/riXIKEq.jpg",
+    "https://cdn.discordapp.com/attachments/142361999538520065/179344806043058177/Hx06UHz.jpg",
+    "https://cdn.discordapp.com/attachments/142361999538520065/179344849823203329/2VeEUTS.jpg",
+    "https://cdn.discordapp.com/attachments/142361999538520065/179344891988410370/fhHuvIP.jpg",
+    "known as the faggot called Taicius"
+]
+
 tweetsthatareokhand = [
     "http://i.imgur.com/lkMJ1O9.png",
     "http://i.imgur.com/rbGmZqV.png",
@@ -104,6 +114,97 @@ suicidalmemes = [
     "lmao you killed him gg on your killing :ok_hand:",
     "party on his death? lit",
     "fuckin fag wtf no.... y..."
+]
+
+throwaf = [
+    "a keyboard",
+    "a Playstation 4",
+    "a PSP with Crash Bandicoot 2 on it",
+    "a fur coat",
+    "furtrash called art",
+    "a british trash can",
+    "a raincoat made with :heart:",
+    "some shitty pencil, it's definitely useless",
+    "a dragon",
+    "a Lightning Dragon",
+    "Mαxie",
+    "Robin",
+    "a water bucket",
+    "water",
+    "a shamrock shake",
+    "flowers",
+    "some fisting",
+    "a RoboNitori message",
+    "a ice cream cone",
+    "hot ass pie, and it's strawberry",
+    "a strawberry ice cream cone",
+    "Visual Studio 2015",
+    "Toshiba Satellite laptop with Spotify, Guild Wars 2 and Visual Studio on it",
+    "a compass",
+    "honk honk",
+    "pomfpomfpomf",
+    "⑨",
+    "a watermelone",
+    "FUCKING PAPERCLIP",
+    "HTTP Error 403",
+    "Error 429",
+    "`never`",
+    "`an error that should be regretted of`",
+    "Georgia",
+    "New York",
+    "Nevada",
+    "Michigan",
+    "Florida",
+    "California",
+    "TEEEEEEXASSSSSSS",
+    "a climaxing dragon picture"
+    "Nebraska",
+    "an ok ok please message",
+    "a pleb called EJH2",
+    "15 dust bunnies, a water bottle, and a iron hammer to ban people with",
+    "a broken glass (dance bitch)",
+    "ok ok",
+    "allergy pills",
+    "a Chocolate Calculator",
+    "probably not Bad Dragon toy",
+    "aww yiss a piece of WORLD DOMINATION POWER",
+    "a prime minister from Canada",
+    "Indiana",
+    "a coca-cola bottle",
+    "a DJ System",
+    "a fridge with wifi enabled",
+    "a router",
+    "a modem box",
+    "a Napstabot",
+    "another RoboNitori sentence",
+    "a phone",
+    "a fan",
+    "a pair of earphones",
+    "Excel document",
+    "Paint Tool SAI painting",
+    "Word Document",
+    "Visual Studio Project",
+    "nerd thing",
+    "python 3.5 py",
+    "fuckin office tool",
+    "clippy",
+    "dat boi meme",
+    "random.jpeg",
+    "Danny DeVito",
+    "Deadpool",
+    "a Lenovo Keyboard",
+    "Life of Pablo",
+    "a Mexican called Ambrosio",
+    "the most obvious dick master",
+    "Motopuffs",
+    "Motopuffs",
+    "the dick master called Motopuffs"
+]
+
+honkhonkfgt = [
+    "https://cdn.discordapp.com/attachments/171655149977206784/179320457600827393/32e.gif",
+    "https://www.youtube.com/watch?v=c3vONDqvayo",
+    "https://www.youtube.com/watch?v=hdss-U0H7fA"
 ]
 
 class SkipState:
@@ -805,7 +906,7 @@ class MusicBot(discord.Client):
 
         OAuth Link:  http://inv.rtb.dragonfire.me
         """
-        return Response("This method isn't supported anymore. Use the following link: http://inv.rtb.dragonfire.me", delete_after=0)
+        return Response("For all of the damn bots I see around here: https://dragonfire.me/links/bots.html (Mainly for #Clip.py and Napsta)", delete_after=0)
 
     async def cmd_play(self, player, channel, author, permissions, leftover_args, song_url):
         """
@@ -1676,7 +1777,7 @@ class MusicBot(discord.Client):
             lines.insert(len(lines) - 1, "%s: %s" % (perm, permissions.__dict__[perm]))
 
         await self.send_message(author, '\n'.join(lines))
-        return Response(":mailbox_with_mail:", delete_after=20)
+        return Response("Check them PMs fam", delete_after=20)
 
     async def cmd_kys(self, message):
         #return Response("kill yourself and never _EVER_ come back to me again, you stupid peasant. how dare you ask me to die. like fucking hell, why not do it yourself to satisfy yourself?", delete_after=0)
@@ -1727,10 +1828,10 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_ver(self):
-        return Response("`Ver. 2.0.26 Build Date: May 8th, 2016 at 1:25 PM EDT. Happy Mothers Day everyone!`", delete_after=0)
+        return Response("`Ver. 2.3.1 Build Date: May 10th, 4:47 PM EDT. (btw special bday of someone who I know)`", delete_after=0)
 
     async def cmd_updates(self):
-        return Response("What's new in 2.0.26: `nothing but a message. c:`", delete_after=0)
+        return Response("What's new in 2.3.1: `More messages in .throw, fixed some of them, and added 3 commands, it's under .help2`", delete_after=0)
 
     @owner_only
     async def cmd_twitter(self, message):
@@ -1743,12 +1844,6 @@ class MusicBot(discord.Client):
             return Response("┬─┬﻿ ノ( ゜-゜ノ)", delete_after=0)
         else:
             pass
-
-    @owner_only
-    async def cmd_changenick(self, nickname, message, users:discord.User):
-            for user in users:
-                await self.change_nickname(message.author.id,nickname)
-            return Response("Nickname changed for {} to {}".format(message.author.id,nickname), delete_after=25)
         
     @owner_only
     async def cmd_rtb(self, message, client):
@@ -1756,9 +1851,7 @@ class MusicBot(discord.Client):
         RTB System.
         Only Robin#5908 is allowed, or the Bot Owner if this isn't the main bot, RobTheBoat#9091
         """
-        if message.content[len(".rtb "):].strip() == "rename":
-            await self.edit_profile(username=message.content[len(".rtb rename "):].strip())
-        elif message.content[len(".rtb "):].strip() == "servers":
+        if message.content[len(".rtb "):].strip() == "servers":
             return Response("``` \n" + len(client.servers) + "\n ```", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "betamode":
             discord.Game(name='in Beta Mode')
@@ -1770,9 +1863,6 @@ class MusicBot(discord.Client):
             return Response("NTS: Finish it.", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "setgame":
             return Response("Use .setgame you idiotic nerd", delete_after=15)
-        elif message.content[len(".rtb "):].strip() == "sg":
-            game = discord.Game(message.content[len(".rtb sg "):].strip())
-            await self.change_status(game=game)
         elif message.content[len(".rtb "):].strip() == "cleargame":
             await self.change_status(game=None)
             return Response("done", delete_after=15)
@@ -1795,14 +1885,63 @@ class MusicBot(discord.Client):
         elif message.content[len(".rtb "):].strip() == "KYLE AINT BAE ENOUGH":
             return Response("AY YA KNOW ITS TRUE GIRLFRIEND", delete_after=0)
 
+    async def cmd_whoami(self):
+        id = property(discord.Member.id)
+        discrim = property(discord.Member.discriminator)
+        joinat = property(discord.Member.joined_at)
+        username = property(discord.Member.name)
+        durl = property(discord.Member.default_avatar_url)
+        game = property(discord.Member.game)
+        status = property(discord.Member.status)
+        roles = property(discord.Member.roles)
+        return Response("```\nDiscord ID: " + str(id) + "\nDiscriminator: " + str(discrim) + "\nJoined At: " + str(joinat) + "\nName: " + str(username) + "\nCurrent Game: " + str(game) + "\nStatus: " + str(status) + "\nRole(s): " + str(roles) + "\nAvatar URL: ```" + str(durl), delete_after=0)
+    @owner_only
+    async def cmd_renamebot(self, message):
+        """
+        Renames the bot.
+            Part from the RTB System.
+        """
+        botrenamed = message.content[len(".renamebot "):].strip()
+        await self.edit_profile(username=message.content[len(".renamebot "):].strip())
+        return Response("Bot name changed to `" + botrenamed + "`", delete_after=5)
+        if discord.errors.ClientException:
+            return Response("Either you aren't a bot account, or you didn't put a name in. Either one.", delete_after=0)
+            
+    async def cmd_honk(self):
+        return Response(random.choice(honkhonkfgt), delete_after=0)
+
+    async def cmd_force(self):
+        return Response("forces", delete_after=0)
+    
+    async def cmd_deny(self):
+        return Response("fuckin denied amirite", delete_after=0)
+
+    async def cmd_allow(self):
+        return Response("bitch please allow what", delete_after=0)
+
+    async def cmd_throw(self, message):
+        if message.content[len(".throw "):].strip() == message.author.mention:
+            return Response("throws " + random.choice(throwaf) + " towards you", delete_after=0)
+        elif message.content == ".throw":
+            return Response("throws " + random.choice(throwaf) + " towards you", delete_after=0)
+        elif message.content[len(".throw "):].strip() == "<@!163698730866966528>":
+            return Response("you are throwin ***NOTHIN*** to me, ok? ok.", delete_after=15)
+        elif message.content[len(".throw "):].strip() != message.author.mention:
+            return Response("throws " + random.choice(throwaf) + " to " + message.content[len(".throw "):].strip(), delete_after=0)
+
     async def cmd_setgame(self, message):
-        discord.Game(name=message.content[len(".rtb setgame "):].strip())  
+        trashcan = name=message.content[len("setgame "):].strip()
+        discord.Game(name=message.content[len(".setgame "):].strip())  
         await self.change_status(discord.Game(name=message.content[len("setgame "):].strip()))
+        return Response("Successful, set as `" + trashcan + "`", delete_after=5)
 
     async def cmd_ping(self):
         pt = time.time()
         ptm = time.time() - time.time()
         return Response("Took %.01f" % (ptm) + " to ping", delete_after=25)
+
+    async def cmd_boi(self):
+        return Response(random.choice(boi), delete_after=0)
 
     async def cmd_kym(self, message):
         """
@@ -1818,7 +1957,7 @@ class MusicBot(discord.Client):
         return Response("Help List: https://dragonfire.me/robtheboat/info.html Any other help? DM @Robin#5908 for more help.", delete_after=0)
 
     async def cmd_date(self):
-        return Response("Current Date: _" + time.strftime("%A, %B %d, %Y") + '_' + '\nCurrent Time (Eastern): _' + time.strftime("%I:%M:%S %p") + '_' + "\nHappy Mothers Day/Feliz Día de las Madres!", delete_after=0)
+        return Response("Current Date: _" + time.strftime("%A, %B %d, %Y") + '_' + '\nCurrent Time (Eastern): _' + time.strftime("%I:%M:%S %p") + '_', delete_after=0)
 
     async def cmd_talk(client, message):
         cb1 = cleverbot.Cleverbot()
