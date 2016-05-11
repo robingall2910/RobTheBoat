@@ -1887,7 +1887,7 @@ class MusicBot(discord.Client):
         elif message.content[len(".rtb "):].strip() == "KYLE AINT BAE ENOUGH":
             return Response("AY YA KNOW ITS TRUE GIRLFRIEND", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "cb selfspam":
-            cb = Cleverbot()
+            cb = cleverbot.Cleverbot()
             iask = (cb.ask("hi"))
             while True:
                 return Response(iask, delete_after=0)
