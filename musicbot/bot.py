@@ -204,9 +204,7 @@ throwaf = [
 honkhonkfgt = [
     "https://cdn.discordapp.com/attachments/171655149977206784/179320457600827393/32e.gif",
     "https://www.youtube.com/watch?v=c3vONDqvayo",
-    "https://www.youtube.com/watch?v=hdss-U0H7fA",
-    "https://www.youtube.com/watch?v=jrTAjJCGrTQ",
-    "https://www.youtube.com/watch?v=im3UMwYQHMw"
+    "https://www.youtube.com/watch?v=hdss-U0H7fA"
 ]
 
 class SkipState:
