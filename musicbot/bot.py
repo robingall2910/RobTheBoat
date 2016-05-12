@@ -14,7 +14,8 @@ import re
 import random
 import aiohttp
 import platform
-
+import wikipedia
+import wikipedia.exceptions
 
 from discord import utils
 from discord.object import Object
@@ -198,7 +199,12 @@ throwaf = [
     "the most obvious dick master",
     "Motopuffs",
     "Motopuffs",
-    "the dick master called Motopuffs"
+    "the dick master called Motopuffs",
+    "a weeaboo",
+    "Ryulise, the stupid smash master",
+    "death, at its finest",
+    "morth, but not in its final form",
+    "some flaccid sword"
 ]
 
 honkhonkfgt = [
@@ -1654,6 +1660,8 @@ class MusicBot(discord.Client):
                         msgs += 1
                     except discord.Forbidden:
                         delete_invokes = False
+                    except HTTPException:
+                        return Response("Being rate limited, yeah.", delete_after=0)
 
         return Response('Cleaned up {} message{}.'.format(msgs, '' if msgs == 1 else 's'), delete_after=15)
 
@@ -1828,16 +1836,10 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_ver(self):
-        return Response("`Ver. 2.3.1 Build Date: May 10th, 4:47 PM EDT. (btw special bday of someone who I know)`", delete_after=0)
+        return Response("`Ver. 2.4 Build Date: May 12th, 2016 @ 6:33 PM EDT.`", delete_after=0)
 
     async def cmd_updates(self):
-        return Response("What's new in 2.3.1: `More messages in .throw, fixed some of them, and added 3 commands, it's under .help2`", delete_after=0)
-
-    @owner_only
-    async def cmd_twitter(self, message):
-        oauth = OAuth('1483738351-0j74JIa3qZC2iIxXh7mZPtgm4LcpcPruKtnmlnm', 'w1U1QJoSN6uwY83tuplHpfka4ziVezj3vDFEAQD4MbSXh', 'UiPeMhFSR2xvBgnIoZP72oQN4', '3FymXWTNKVoQBL3LQn1a51Qdl1GHV4yZQWBQf5Gfv8TW67rRUE')
-        twitter = Twitter(auth=oauth)
-        return Response(twitter.search.tweets(q=message.content[len(".twitter "):].strip()), delete_after=0)
+        return Response("What's new in 2.4: `.wikipedia, removed .twitter`", delete_after=0)
 
     async def tableflip(self, message):
         if message.content == "(╯°□°）╯︵ ┻━┻":
@@ -1884,7 +1886,7 @@ class MusicBot(discord.Client):
             return Response(platform.uname(), delete_after=0)
         elif message.content[len(".rtb "):].strip() == "KYLE AINT BAE ENOUGH":
             return Response("AY YA KNOW ITS TRUE GIRLFRIEND", delete_after=0)
-        elif message.content[len(".rtb "):].strip() == "cb selfspam":
+        elif message.content[len(".rtb "):].strip() == "cb selfspam": #thanks lukkan99 fam
             cb = cleverbot.Cleverbot()
             iask = (cb.ask("hi"))
             while True:
@@ -1913,7 +1915,18 @@ class MusicBot(discord.Client):
         return Response("Bot name changed to `" + botrenamed + "`", delete_after=5)
         if discord.errors.ClientException:
             return Response("Either you aren't a bot account, or you didn't put a name in. Either one.", delete_after=0)
-            
+    async def wiki(self, query:str, channel):
+        """
+        Wikipedia.
+        Search the infinite pages!
+        {}wikipedia (page)
+        """
+        q = wikipedia.page(query)
+        await self.send_typing(channel)
+        await self.send_message("{}:\n```\n{}\n```\nFor more information, visit <{}>".format(q.title,wikipedia.summary(query, sentences=5),q.url))
+        if wikipedia.exceptions.PageError:
+            await self.send_message("Error 404.")
+
     async def cmd_honk(self):
         return Response(random.choice(honkhonkfgt), delete_after=0)
 
@@ -1948,6 +1961,7 @@ class MusicBot(discord.Client):
         return Response("Took %.01f" % (ptm) + " to ping", delete_after=25)
 
     async def cmd_boi(self):
+        await self.send_typing(channel)
         return Response(random.choice(boi), delete_after=0)
 
     async def cmd_kym(self, message):
