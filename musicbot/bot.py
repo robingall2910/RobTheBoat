@@ -1836,10 +1836,10 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_ver(self):
-        return Response("`Ver. 2.4 Build Date: May 12th, 2016 @ 6:33 PM EDT.`", delete_after=0)
+        return Response("`Ver. 2.4.1 Build Date: May 12th, 2016 @ 6:33 PM EDT.`", delete_after=0)
 
     async def cmd_updates(self):
-        return Response("What's new in 2.4: `.wikipedia, removed .twitter`", delete_after=0)
+        return Response("What's new in 2.4.1: `.wiki, removed .twitter`", delete_after=0)
 
     async def tableflip(self, message):
         if message.content == "(╯°□°）╯︵ ┻━┻":
@@ -1915,7 +1915,7 @@ class MusicBot(discord.Client):
         return Response("Bot name changed to `" + botrenamed + "`", delete_after=5)
         if discord.errors.ClientException:
             return Response("Either you aren't a bot account, or you didn't put a name in. Either one.", delete_after=0)
-    async def wiki(self, query:str, channel):
+    async def cmd_wiki(self, query:str, channel):
         """
         Wikipedia.
         Search the infinite pages!
