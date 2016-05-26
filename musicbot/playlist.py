@@ -1,4 +1,5 @@
 import os
+import json
 import asyncio
 import aiohttp
 import datetime
@@ -23,6 +24,7 @@ class Playlist(EventEmitter):
         self.bot = bot
         self.loop = bot.loop
         self.downloader = bot.downloader
+        self.config = bot.config
         self.entries = deque()
 
     def __iter__(self):
@@ -61,7 +63,7 @@ class Playlist(EventEmitter):
                 # unfortunately this is literally broken
                 # https://github.com/KeepSafe/aiohttp/issues/758
                 # https://github.com/KeepSafe/aiohttp/issues/852
-                content_type = await get_header(self.bot.session, info['url'], 'CONTENT-TYPE')
+                content_type = await get_header(self.bot.aiosession, info['url'], 'CONTENT-TYPE')
                 print("Got content type", content_type)
 
             except Exception as e:
@@ -70,7 +72,7 @@ class Playlist(EventEmitter):
 
             if content_type:
                 if content_type.startswith(('application/', 'image/')):
-                    if '/ogg' not in content_type: # How does a server say `application/ogg` what the actual fuck
+                    if '/ogg' not in content_type:  # How does a server say `application/ogg` what the actual fuck
                         raise ExtractionError("Invalid content type \"%s\" for url %s" % (content_type, song_url))
 
                 elif not content_type.startswith(('audio/', 'video/')):
@@ -149,7 +151,6 @@ class Playlist(EventEmitter):
             :param playlist_url: The playlist url to be cut into individual urls and added to the playlist
             :param meta: Any additional metadata to add to the playlist entry
         """
-
 
         try:
             info = await self.downloader.safe_extract_info(self.loop, playlist_url, download=False, process=False)
@@ -293,23 +294,45 @@ class PlaylistEntry:
         return bool(self.filename)
 
     @classmethod
-    def from_json(cls, data):
-        pass
+    def from_json(cls, playlist, jsonstring):
+        data = json.loads(jsonstring)
+        print(data)
+        # TODO: version check
+        url = data['url']
+        title = data['title']
+        duration = data['duration']
+        downloaded = data['downloaded']
+        filename = data['filename'] if downloaded else None
+        meta = {}
+
+        # TODO: Better [name] fallbacks
+        if 'channel' in data['meta']:
+            ch = playlist.bot.get_channel(data['meta']['channel']['id'])
+            meta['channel'] = ch or data['meta']['channel']['name']
+
+        if 'author' in data['meta']:
+            meta['author'] = meta['channel'].server.get_member(data['meta']['author']['id'])
+
+        return cls(playlist, url, title, duration, filename, **meta)
 
     def to_json(self):
         data = {
+            'version': 1,
             'url': self.url,
             'title': self.title,
             'duration': self.duration,
-            # I think filename might have to be regenerated
-
-            # I think these are only channels and members (author)
-            'meta': {i: {'type': self.meta[i].__class__.__name__, 'id': self.meta[i].id} for i in self.meta}
+            'downloaded': self.is_downloaded,
+            'filename': self.filename,
+            'meta': {
+                i: {
+                    'type': self.meta[i].__class__.__name__,
+                    'id': self.meta[i].id,
+                    'name': self.meta[i].name
+                    } for i in self.meta
+                }
             # Actually I think I can just getattr instead, getattr(discord, type)
-
-            # I do need to test if these can be pickled properly
         }
-        return data
+        return json.dumps(data, indent=2)
 
     # noinspection PyTypeChecker
     async def _download(self):
@@ -333,7 +356,7 @@ class PlaylistEntry:
 
                 if expected_fname_noex in flistdir:
                     try:
-                        rsize = int(await get_header(self.playlist.bot.session, self.url, 'CONTENT-LENGTH'))
+                        rsize = int(await get_header(self.playlist.bot.aiosession, self.url, 'CONTENT-LENGTH'))
                     except:
                         rsize = 0
 
@@ -359,18 +382,23 @@ class PlaylistEntry:
             else:
                 ldir = os.listdir(self.download_folder)
                 flistdir = [f.rsplit('.', 1)[0] for f in ldir]
-                expected_fname_noex = os.path.basename(self.expected_filename.rsplit('.', 1)[0])
+                expected_fname_base = os.path.basename(self.expected_filename)
+                expected_fname_noex = expected_fname_base.rsplit('.', 1)[0]
 
                 # idk wtf this is but its probably legacy code
                 # or i have youtube to blame for changing shit again
 
-                if self.expected_filename in ldir:
-                    self.filename = ldir.index(self.expected_filename)
+                if expected_fname_base in ldir:
+                    self.filename = os.path.join(self.download_folder, expected_fname_base)
                     print("[Download] Cached:", self.url)
 
                 elif expected_fname_noex in flistdir:
-                    self.filename = self.expected_filename
                     print("[Download] Cached (different extension):", self.url)
+                    self.filename = os.path.join(self.download_folder, ldir[flistdir.index(expected_fname_noex)])
+                    print("Expected %s, got %s" % (
+                        self.expected_filename.rsplit('.', 1)[-1],
+                        self.filename.rsplit('.', 1)[-1]
+                    ))
 
                 else:
                     await self._really_download()
@@ -388,6 +416,8 @@ class PlaylistEntry:
     # noinspection PyShadowingBuiltins
     async def _really_download(self, *, hash=False):
         print("[Download] Started:", self.url)
+        if self.playlist.config.log_downloads:
+            await self.playlist.bot.log(":inbox_tray: Downloading: <{}>".format(self.url))
 
         try:
             result = await self.playlist.downloader.extract_info(self.playlist.loop, self.url, download=True)
@@ -395,6 +425,8 @@ class PlaylistEntry:
             raise ExtractionError(e)
 
         print("[Download] Complete:", self.url)
+        if self.playlist.config.log_downloads:
+            await self.playlist.bot.log(":inbox_tray: Complete: <{}>".format(self.url))
 
         if result is None:
             raise ExtractionError("ytdl broke and hell if I know why")
@@ -412,7 +444,6 @@ class PlaylistEntry:
             else:
                 # Move the temporary file to it's final location.
                 os.rename(unhashed_fname, self.filename)
-
 
     def get_ready_future(self):
         """
@@ -461,6 +492,7 @@ def md5sum(filename, limit=0):
         for chunk in iter(lambda: f.read(8192), b""):
             fhash.update(chunk)
     return fhash.hexdigest()[-limit:]
+
 
 async def get_header(session, url, headerfield=None, *, timeout=5):
     with aiohttp.Timeout(timeout):
