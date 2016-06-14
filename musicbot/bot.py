@@ -29,7 +29,6 @@ from textwrap import dedent
 from datetime import timedelta
 from random import choice, shuffle
 from collections import defaultdict
-from twitter import Twitter, OAuth, TwitterHTTPError, TwitterStream
 
 from musicbot.playlist import Playlist
 from musicbot.player import MusicPlayer
@@ -37,7 +36,7 @@ from musicbot.config import Config, ConfigDefaults
 from musicbot.permissions import Permissions, PermissionsDefaults
 from musicbot.playlist import Playlist
 from musicbot.utils import load_file, write_file, sane_round_int, extract_user_id
-from musicbot.creds import app_id
+from musicbot.credentials import app_id
 
 from . import exceptions
 from . import downloader
@@ -50,9 +49,6 @@ from .constants import BDATE as BUILD
 
 load_opus_lib()
 st = time.time()
-# Wolfram Alpha credentials and client session
-app_id = credentials.app_id
-waclient = wolframalpha.Client(app_id)
 
 dis_games = [
     discord.Game(name='with fire'),
@@ -795,7 +791,7 @@ class MusicBot(discord.Client):
             await self.logout()
 
         else:
-            super().on_error(event, *args, **kwargs)
+            traceback.print_exc()
 
     async def on_ready(self):
         print('\rConnected!  Musicbot v%s\n' % BOTVERSION)
@@ -1938,7 +1934,7 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_updates(self):
-        return Response("What's new in " + VERSION + ": `.purge, fixing right now`", delete_after=0)
+        return Response("What's new in " + VERSION + ": `Fixed voice channel not updating when moved`", delete_after=0)
         
     async def cmd_setnick(self, server, channel, leftover_args, nick):
         """
@@ -2160,8 +2156,11 @@ class MusicBot(discord.Client):
             return Response("You didn't enter a message, or you didn't put in a meme.", delete_after=0)
 
     async def cmd_help(self):
-        return Response("Help List: https://dragonfire.me/robtheboat/info.html Any other help? DM @Robin#5908 for more help.", delete_after=0)
-
+        return Response("Help List: https://dragonfire.me/robtheboat/info.html Any other help? DM @Robin#5908 for more help, or do .serverinv to join #ViralBot and Napsta for some RTB help somewhere.", delete_after=0)
+    
+    async def cmd_serverinv(self):
+        await self.safe_send_message("https://discord.gg/0xyhWAU4n2gRrpXv - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
+    
     async def cmd_date(self):
         return Response("Current Date: _" + time.strftime("%A, %B %d, %Y") + '_' + '\nCurrent Time (Eastern): _' + time.strftime("%I:%M:%S %p") + '_', delete_after=0)
 
@@ -2430,13 +2429,17 @@ class MusicBot(discord.Client):
         if before.server.id not in self.players:
             return
 
+        my_voice_channel = after.server.me.voice_channel  # This should always work, right?
+
+        auto_paused = self.server_specific_data[after.server]['auto_paused']
+        player = await self.get_player(my_voice_channel)
+
+        if after == after.server.me and after.voice_channel:
+            player.voice_client.channel = after.voice_channel
+
         if not self.config.auto_pause:
             return
 
-        my_voice_channel = after.server.me.voice_channel  # This should always work, right?
-        auto_paused = self.server_specific_data[after.server]['auto_paused']
-
-        player = await self.get_player(my_voice_channel)
 
         num_deaf = sum(1 for m in my_voice_channel.voice_members if (
             m.deaf or m.self_deaf))
