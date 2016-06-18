@@ -2,7 +2,7 @@ import os.path
 
 VERSION = '2.7.4'
 MAIN_VERSION = '2'
-SUB_VERSION = '-rev 1 '
+SUB_VERSION = '-rev 2A '
 CODENAME = '"Cis Whitemails"'
 VER = VERSION + SUB_VERSION
 BDATE = 'June 18, 2016 @ 1:26 AM EDT'
