@@ -2087,6 +2087,16 @@ class MusicBot(discord.Client):
 
              await self.change_status(discord.Game(name='.help for help!'))
 
+    async def cmd_e621(self, message):
+        await self.send_message(message.channel, "Look, I know you might be horny, but... Though I'm like some furry dragon and the developer is a furry, I'm not going to let you do this, literally, get your shit from the actual website, and get your lazy ass of Discord, and search.")
+        asyncio.sleep(2)
+        await self.send_message(message.channel, "yeah, just uh... do that... and if you aren't horny... then, STOP TRYING.")
+        await self.log(":warning: lol attempted furry porn detected. Username: {} Server: {}".format(message.author.name, message.server.name))
+        #Drew's a furry, watch him be the first one to try this command.
+    async def cmd_rule34(self, message):
+        await self.send_message(message.channel, "If you really want porn, there's the fucking internet. Like, there's Google Chrome and Mozilla Firefox. You can fap on those browsers. Even on mobile. Get your porn from somewhere else, pls.")
+        await self.log(":warning: lol attempted rule34 porn detected. Username: {} Server: {}".format(message.author.name, message.server.name))
+        #Watch Fardin be in this one first.
     async def cmd_yourinfo(self, message):
         try:
             if not message.content == message.content[len(".yourinfo "):].strip():
