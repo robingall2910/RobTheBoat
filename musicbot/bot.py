@@ -1957,7 +1957,7 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_updates(self):
-        return Response("What's new in " + VER + ": `New .info visual, .rate, changes on .ship, probably a .say bugfix, new codename, new version increment, and well, new author name. check out .ver and such if you wish. Added .yourinfo, .serverdata, and disabled mentioning in .rate and .say", delete_after=0)
+        return Response("What's new in " + VER + ": `Porn commands~ totally.... .rule34 and .e621`", delete_after=0)
         
     async def cmd_setnick(self, server, channel, leftover_args, nick):
         """
