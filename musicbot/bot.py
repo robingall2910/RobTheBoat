@@ -1531,7 +1531,7 @@ class MusicBot(discord.Client):
         else:
             raise exceptions.CommandError("I'm not playing anything.", expire_in=30)
 
-    async def cmd_resume(self, player):
+    async def cmd_resume(self, message, player):
         """
         Usage:
             {command_prefix}resume
