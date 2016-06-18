@@ -2,7 +2,7 @@ import os.path
 
 VERSION = '2.7.4'
 MAIN_VERSION = '2'
-SUB_VERSION = '-rev 2A '
+SUB_VERSION = '-rev 1 '
 CODENAME = '"Not Safe For Discord"'
 VER = VERSION + SUB_VERSION
 BDATE = 'June 18, 2016 @ 1 PM EDT'
