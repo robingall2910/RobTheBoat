@@ -1483,7 +1483,7 @@ class MusicBot(discord.Client):
         """
 
         if not author.voice_channel:
-            raise exceptions.CommandError("You ain't in a voice channel!")
+            raise exceptions.CommandError("Get your lazy good for nothing ass in a voice channel before giving me demands bitch. (AUTHOR_NOT_IN_CHANNEL)")
 
         voice_client = self.the_voice_clients.get(channel.server.id, None)
         if voice_client and voice_client.channel.server == author.voice_channel.server:
@@ -1666,7 +1666,7 @@ class MusicBot(discord.Client):
             new_volume = int(new_volume)
 
         except ValueError:
-            raise exceptions.CommandError('{} THIS NUMBER RIGHT THERE, NOT AIN\'T A NUMBER.'.format(new_volume), expire_in=20)
+            raise exceptions.CommandError('{} <-- Really? I know you can do better. It\'s obviously some shameful decimal number, or it\'s not a fucking number. Think harder next time.'.format(new_volume), expire_in=20)
 
         if relative:
             vol_change = new_volume
