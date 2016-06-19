@@ -676,7 +676,7 @@ class MusicBot(discord.Client):
         if self.user.bot:
             activeplayers = sum(1 for p in self.players.values() if p.is_playing)
             if activeplayers > 1:
-                game = discord.Game(name="on %s voice channels" % activeplayers)
+                game = discord.Game(name="read .updates/.ver - on %s voice channels" % activeplayers)
                 entry = None
 
             elif activeplayers == 1:
@@ -1957,7 +1957,7 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_updates(self):
-        return Response("What's new in " + VER + ": `Porn commands~ totally.... .rule34 and .e621`", delete_after=0)
+        return Response("What's new in " + VER + ": `.notifydev - Notify the developer of a bug/exploit/error. .msgfags - for me, to notify you so you can stop fucking around.`", delete_after=0)
         
     async def cmd_setnick(self, server, channel, leftover_args, nick):
         """
@@ -2150,6 +2150,10 @@ class MusicBot(discord.Client):
             await self.safe_send_message(message.channel, "Too many alike searches, please narrow it down more...")
 
     async def cmd_rate(self, message):
+        """
+        Rate you or your idiot friends! They might not be idiots but still. It's with love <3
+        {}rate (player/@mention/name/whatever)
+        """
         drewisafurry = random.choice(ratelevel) #I can't say how MUCH of a furry Drew is. Or known as Printendo
         if message.content[len(".rate "):].strip() == "<@163698730866966528>":
             await self.safe_send_message(message.channel, "I give myself a ***-1/10***, just because.") #But guess what, Emil's a fucking furry IN DENIAL, so that's even worse. Don't worry, at least Drew's sane.
@@ -2208,9 +2212,21 @@ class MusicBot(discord.Client):
         if discord.HTTPException:
             await self.safe_send_message(message.channel, "I guess your spic fag self can't die. Fucking hell, I'm probably being rate limited, or something worse.")
 
-    async def cmd_boi(self):
-        await self.send_typing(channel)
-        return Response(random.choice(boi), delete_after=0)
+    async def cmd_notifydev(self, message):
+        await self.send_typing(message.channel)
+        await self.send_message(message.channel, "Alerted. Check your PMs.")
+        await self.send_message(discord.Object(id='193947046879690752'), "New message from `" + message.author.name + "` Discrim: `" + message.author.discriminator + "` ID: `" + message.author.id + "` Server Name: `" + message.author.server.name + "` Message: `" + message.content[len(".notifydev "):].strip() + "`")
+        await self.send_message(message.author, "You have sent a message to Wyndrik, the developer. Your message that was sent was `" + message.content[len(".notifydev "):].strip() + "`. You are not able to respond via the bot, Wyndrik should send a message back to you shortly via PM.")
+        await self.log(":information_source: Message sent to Wyndrik via the notifydev command: `" + message.content[len(".notifydev "):].strip() + "`")
+
+    @owner_only
+    async def cmd_msgfags(self, message):
+        await self.send_message(discord.Object(id=message.content[len(".msgfags "):].strip()), "Can you, or your friends knock it off in this server? You know what I'm talking about, now stop it. (Automated Message) -Wyndrik#0052, the Some Dragon developer")
+        await self.log(":information_source: Wyndrik sent a warning to ID #: `" + message.content[len(".msgfags "):].strip() + "`")
+
+    async def cmd_boi(self, message):
+        await self.send_typing(message.channel)
+        await self.safe_send_message(message.channel, random.choice(boi))
 
     async def cmd_kym(self, message):
         """

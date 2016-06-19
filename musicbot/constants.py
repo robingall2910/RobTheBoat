@@ -1,11 +1,11 @@
 import os.path
 
-VERSION = '2.7.4'
+VERSION = '2.8.0'
 MAIN_VERSION = '2'
-SUB_VERSION = '-rev 2 '
-CODENAME = '"Not Safe For Discord"'
+SUB_VERSION = '-rev A '
+CODENAME = '"Pester ALL The People"'
 VER = VERSION + SUB_VERSION
-BDATE = 'June 18, 2016 @ 1 PM EDT'
+BDATE = 'June 18, 2016 @ 11:05 PM EDT'
 MAINVER = VERSION + SUB_VERSION + CODENAME
 BUILD_USERNAME = "Wyndrik"
 AUDIO_CACHE_PATH = os.path.join(os.getcwd(), 'audio_cache')
