@@ -2,10 +2,10 @@ import os.path
 
 VERSION = '2.8.0'
 MAIN_VERSION = '2'
-SUB_VERSION = '-rev A '
+SUB_VERSION = '-rev E '
 CODENAME = '"Pester ALL The People"'
 VER = VERSION + SUB_VERSION
-BDATE = 'June 18, 2016 @ 11:05 PM EDT'
+BDATE = 'June 19, 2016 @ 1:19 AM EDT'
 MAINVER = VERSION + SUB_VERSION + CODENAME
 BUILD_USERNAME = "Wyndrik"
 AUDIO_CACHE_PATH = os.path.join(os.getcwd(), 'audio_cache')

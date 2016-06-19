@@ -1026,7 +1026,7 @@ class MusicBot(discord.Client):
 
         OAuth Link:  http://inv.rtb.dragonfire.me
         """
-        return Response("For all of the damn bots I see around here: https://dragonfire.me/links/bots.html (Mainly for #ViralBot and Napsta)", delete_after=0)
+        return Response("http://inv.rtb.dragonfire.me - OAuth Link - If it doesn't work, report with .notifydev", delete_after=0)
 
     async def cmd_play(self, player, channel, author, permissions, leftover_args, song_url):
         """
@@ -2160,6 +2160,8 @@ class MusicBot(discord.Client):
         elif message.content[len(".rate "):].strip() != "<@163698730866966528>":
             await self.safe_send_message(message.channel, "I give `" + message.content[len(".rate "):].strip().replace("@everyone", ">insert attempt to tag everyone here").replace("@here", ">attempt to tag online users here") + "` a ***" + drewisafurry + "/10***")
         
+    async def cmd_asshole(self, message):
+        await self.send_file(message.channel, "imgs/asshole.jpg")
 
     async def cmd_honk(self):
         return Response(random.choice(honkhonkfgt), delete_after=0)
@@ -2215,18 +2217,14 @@ class MusicBot(discord.Client):
     async def cmd_notifydev(self, message):
         await self.send_typing(message.channel)
         await self.send_message(message.channel, "Alerted. Check your PMs.")
-        await self.send_message(discord.Object(id='193947046879690752'), "New message from `" + message.author.name + "` Discrim: `" + message.author.discriminator + "` ID: `" + message.author.id + "` Server Name: `" + message.author.server.name + "` Message: `" + message.content[len(".notifydev "):].strip() + "`")
+        await self.send_message(discord.User(id='117678528220233731'), "New message from `" + message.author.name + "` Discrim: `" + message.author.discriminator + "` ID: `" + message.author.id + "` Server Name: `" + message.author.server.name + "` Message: `" + message.content[len(".notifydev "):].strip() + "`")
         await self.send_message(message.author, "You have sent a message to Wyndrik, the developer. Your message that was sent was `" + message.content[len(".notifydev "):].strip() + "`. You are not able to respond via the bot, Wyndrik should send a message back to you shortly via PM.")
         await self.log(":information_source: Message sent to Wyndrik via the notifydev command: `" + message.content[len(".notifydev "):].strip() + "`")
 
     @owner_only
     async def cmd_msgfags(self, message):
-        await self.send_message(discord.Object(id=message.content[len(".msgfags "):].strip()), "Can you, or your friends knock it off in this server? You know what I'm talking about, now stop it. (Automated Message) -Wyndrik#0052, the Some Dragon developer")
+        await self.send_message(discord.User(id=message.content[len(".msgfags "):].strip()), "Can you, or your friends knock it off in this server? You know what I'm talking about, now stop it. (Automated Message) -Wyndrik#0052, the Some Dragon developer")
         await self.log(":information_source: Wyndrik sent a warning to ID #: `" + message.content[len(".msgfags "):].strip() + "`")
-
-    async def cmd_boi(self, message):
-        await self.send_typing(message.channel)
-        await self.safe_send_message(message.channel, random.choice(boi))
 
     async def cmd_kym(self, message):
         """
@@ -2334,13 +2332,13 @@ class MusicBot(discord.Client):
 
     async def cmd_reboot(self, message):
         await self.safe_send_message(message.channel, "Bot is restarting, please wait...")
-        await self.log(":warning: Bot is restarting.")
+        await self.log(":warning: Bot is restarting by user " + message.author)
         await self.disconnect_all_voice_clients()
         raise exceptions.RestartSignal
 
     async def cmd_timetodie(self, message):
         await self.safe_send_message(message.channel, "Bot is shutting down...")
-        await self.log(":warning: Bot is shutting down.")
+        await self.log(":warning: Bot is shutting down by user " + message.author)
         await self.disconnect_all_voice_clients()
         raise exceptions.TerminateSignal
 
