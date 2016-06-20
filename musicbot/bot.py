@@ -284,6 +284,7 @@ class MusicBot(discord.Client):
             self.config.auto_playlist = False
 
         self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION
+        #self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION
 
         # TODO: Fix these
         # These aren't multi-server compatible, which is ok for now, but will have to be redone when multi-server is possible
@@ -1957,7 +1958,7 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_updates(self):
-        return Response("What's new in " + VER + ": `.notifydev - Notify the developer of a bug/exploit/error. .msgfags - for me, to notify you so you can stop fucking around.`", delete_after=0)
+        return Response("What's new in " + VER + ": `.notifydev - Notify the developer of a bug/exploit/error. .msgfags - for me, to notify you so you can stop fucking around. Also added .fursecute, .asshole, .furfag, .rate(fixes), and .uploadfile. More info can be on the .help website.`", delete_after=0)
         
     async def cmd_setnick(self, server, channel, leftover_args, nick):
         """
@@ -2114,6 +2115,8 @@ class MusicBot(discord.Client):
         except Exception as e:
             self.safe_send_message(message.channel, wrap.format(type(e).__name__ + ': ' + str(e)))
 
+    
+
     async def cmd_serverdata(self, message):
         server = message.server
         if len(server.icon_url) < 1:
@@ -2162,6 +2165,11 @@ class MusicBot(discord.Client):
         
     async def cmd_asshole(self, message):
         await self.send_file(message.channel, "imgs/asshole.jpg")
+
+    async def cmd_lameme(self, message):
+        await self.send_message(message.channel, "la meme xD xD xD")
+        asyncio.sleep(5)
+        await self.send_file(message.channel, "imgs/lameme.jpg")
 
     async def cmd_honk(self):
         return Response(random.choice(honkhonkfgt), delete_after=0)
@@ -2216,15 +2224,40 @@ class MusicBot(discord.Client):
 
     async def cmd_notifydev(self, message):
         await self.send_typing(message.channel)
-        await self.send_message(message.channel, "Alerted. Check your PMs.")
+        await self.send_message(message.channel, "Alerted, might as well check your PMs.")
         await self.send_message(discord.User(id='117678528220233731'), "New message from `" + message.author.name + "` Discrim: `" + message.author.discriminator + "` ID: `" + message.author.id + "` Server Name: `" + message.author.server.name + "` Message: `" + message.content[len(".notifydev "):].strip() + "`")
         await self.send_message(message.author, "You have sent a message to Wyndrik, the developer. Your message that was sent was `" + message.content[len(".notifydev "):].strip() + "`. You are not able to respond via the bot, Wyndrik should send a message back to you shortly via PM.")
         await self.log(":information_source: Message sent to Wyndrik via the notifydev command: `" + message.content[len(".notifydev "):].strip() + "`")
 
+    async def cmd_fursecute(self, message, mentions, fursona):
+        """
+        Fursecution! Command totally not stolen from some Minecraft server.
+        .fursecute @mention "furry species"
+        """
+        fursona = message.content[len(".fursecute " + mentions):].strip()
+        await self.send_typing(message.channel)
+        asyncio.sleep(15)
+        await self.send_message(message.channel, "Uh-oh! Retard alert! Retard alert, class!")
+        asyncio.sleep(15)
+        await self.send_message(message.channel, mentions + ", do you really believe you're a " + fursona + ", bubblehead?!")
+        asyncio.sleep(15)
+        await self.send_message(message.channel, "Come on, you, you're going to have to sit in the dunce chair.")
+
+    async def cmd_furfag(self, message, mention):
+        try:
+            await self.send_message(message.channel, "Oh look, looks like we have a retard.")
+            await self.change_nickname(message.author, "Furfag")
+            asyncio.sleep(100)
+            await self.send_typing(message.channel)
+            await self.send_message(message.channel, "Idiot.")
+        except discord.errors.Forbidden:
+            await self.send_message(message.channel, "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
+
     @owner_only
-    async def cmd_msgfags(self, message):
-        await self.send_message(discord.User(id=message.content[len(".msgfags "):].strip()), "Can you, or your friends knock it off in this server? You know what I'm talking about, now stop it. (Automated Message) -Wyndrik#0052, the Some Dragon developer")
-        await self.log(":information_source: Wyndrik sent a warning to ID #: `" + message.content[len(".msgfags "):].strip() + "`")
+    async def cmd_msgfags(self, message, id, reason):
+        reason = message.content[len(".msgfags " + id):].strip()
+        await self.send_message(discord.User(id=id), reason)
+        await self.log(":information_source: Wyndrik sent a warning to ID #: `" + id + "`")
 
     async def cmd_kym(self, message):
         """
@@ -2235,6 +2268,9 @@ class MusicBot(discord.Client):
             return Response("http://knowyourmeme.com/memes/" +  re.sub(r"\s+", '-', kym) + "/", delete_after=0)
         elif message.content[len(".kym"):].strip() == 0:
             return Response("You didn't enter a message, or you didn't put in a meme.", delete_after=0)
+
+    async def cmd_uploadfile(self, message):
+        await self.send_file(message.channel, message.content[len(".uploadfile "):].strip())
 
     async def cmd_help(self):
         return Response("Help List: https://dragonfire.me/robtheboat/info.html Any other help? DM @Wyndrik#0052 for more help, or do .serverinv to join #ViralBot and Napsta for some RTB help somewhere.", delete_after=0)
@@ -2332,13 +2368,13 @@ class MusicBot(discord.Client):
 
     async def cmd_reboot(self, message):
         await self.safe_send_message(message.channel, "Bot is restarting, please wait...")
-        await self.log(":warning: Bot is restarting by user " + message.author)
+        await self.log(":warning: Bot is restarting by user")
         await self.disconnect_all_voice_clients()
         raise exceptions.RestartSignal
 
     async def cmd_timetodie(self, message):
         await self.safe_send_message(message.channel, "Bot is shutting down...")
-        await self.log(":warning: Bot is shutting down by user " + message.author)
+        await self.log(":warning: Bot is shutting down")
         await self.disconnect_all_voice_clients()
         raise exceptions.TerminateSignal
 
