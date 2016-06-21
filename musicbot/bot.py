@@ -2056,13 +2056,13 @@ class MusicBot(discord.Client):
         Only Wyndrik#0052 is allowed, or the Bot Owner if this isn't the main bot, RobTheBoat#9091
         """
         if message.content[len(".rtb "):].strip() == "servers":
-            return Response("``` \n" + len(self.servers) + "\n ```", delete_after=0)
+            return Response("``` \n" + self.servers + "\n ```", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "betamode":
             discord.Game(name='in Beta Mode')
             await self.change_status(discord.Game(name='in Beta Mode'))
             return Response("(!) Now in Beta mode.", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "bye":
-            await self.leave_server(client.server)
+            await self.leave_server(message.server)
         elif message.content[len(".rtb "):].strip() == "massren":
             return Response("NTS: Finish it.", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "setgame":
@@ -2071,16 +2071,16 @@ class MusicBot(discord.Client):
             await self.change_status(game=None)
             return Response("done", delete_after=15)
         elif message.content[len(".rtb "):].strip() == "listrtb":
-            return Response("Current switches: listrtb, setav, cleargame, sg, setgame, bye, betamode, servers, rename, dat boi, sysinfo", delete_after=15)
+            return Response("Current switches: listrtb, setav, cleargame, cb selfspam, setgame, bye, betamode, servers, rename, dat boi, sysinfo", delete_after=15)
         elif message.content[len(".rtb "):].strip() == "dat boi":
             return Response("Ayy, it's dat boi!", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "sysinfo":
-            return Response(platform.uname(), delete_after=0)
+            await self.safe_send_message(message.channel, platform.uname())
         elif message.content[len(".rtb "):].strip() == "cb selfspam": #thanks lukkan99 fam
             cb = cleverbot.Cleverbot()
             iask = (cb.ask("hi"))
             while 1 == 1:
-                return Response(iask, delete_after=0)
+                await self.send_message(message.channel, iask)
                 iask = (cb.ask(iask))
                 asyncio.sleep(.95)
         elif message.content[len(".rtb "):].strip() == "gsh":
@@ -2279,7 +2279,7 @@ class MusicBot(discord.Client):
         await self.safe_send_message(message.channel, "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
     
     async def cmd_date(self):
-        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p") + '\n```', delete_after=0)
+        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p") + '\n Happy first day of summer in the northern hemisphere! ;D\n```', delete_after=0)
 
     async def cmd_talk(client, message):
         cb1 = cleverbot.Cleverbot()
