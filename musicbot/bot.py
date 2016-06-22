@@ -283,8 +283,9 @@ class MusicBot(discord.Client):
             print("Warning: Autoplaylist is empty, disabling.")
             self.config.auto_playlist = False
 
-        self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION
-        #self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION
+        self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION # Windows
+        #self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION # UNIX
+        # ^ for somewhat reason
 
         # TODO: Fix these
         # These aren't multi-server compatible, which is ok for now, but will have to be redone when multi-server is possible
@@ -2082,7 +2083,7 @@ class MusicBot(discord.Client):
             while 1 == 1:
                 await self.send_message(message.channel, iask)
                 iask = (cb.ask(iask))
-                asyncio.sleep(.95)
+                asyncio.sleep(5)#I need some kind of slowdown.
         elif message.content[len(".rtb "):].strip() == "gsh":
              discord.Game(name='.help for help!')
 
@@ -2253,6 +2254,21 @@ class MusicBot(discord.Client):
         except discord.errors.Forbidden:
             await self.send_message(message.channel, "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
 
+    async def cmd_nick(self, message, username, thingy):
+        try:
+            thingy = message.content[len(".nick " + username):].strip()
+            await self.change_nickname(username, thingy)
+            await self.send_message(message.channel, "Changed nickname of " + username + "to " + thingy)
+        except discord.errors.Forbidden:
+            await self.send_message(message.channel, "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
+
+    async def cmd_nickreset(self, message, username):
+        try:
+            await self.change_nickname(username, username)
+            await self.send_message(message.channel, "Reset the nick name of " + username)
+        except discord.errors.Forbidden:
+            await self.send_message(message.channel, "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
+
     @owner_only
     async def cmd_msgfags(self, message, id, reason):
         reason = message.content[len(".msgfags " + id):].strip()
@@ -2271,6 +2287,8 @@ class MusicBot(discord.Client):
 
     async def cmd_uploadfile(self, message):
         await self.send_file(message.channel, message.content[len(".uploadfile "):].strip())
+        if FileNotFoundError:
+            await self.send_message(message.channel, "There was no such thing found in the system.")
 
     async def cmd_help(self):
         return Response("Help List: https://dragonfire.me/robtheboat/info.html Any other help? DM @Wyndrik#0052 for more help, or do .serverinv to join #ViralBot and Napsta for some RTB help somewhere.", delete_after=0)
@@ -2279,7 +2297,7 @@ class MusicBot(discord.Client):
         await self.safe_send_message(message.channel, "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
     
     async def cmd_date(self):
-        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p") + '\n Happy first day of summer in the northern hemisphere! ;D\n```', delete_after=0)
+        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p"), delete_after=0)
 
     async def cmd_talk(client, message):
         cb1 = cleverbot.Cleverbot()
@@ -2368,7 +2386,7 @@ class MusicBot(discord.Client):
 
     async def cmd_reboot(self, message):
         await self.safe_send_message(message.channel, "Bot is restarting, please wait...")
-        await self.log(":warning: Bot is restarting by user")
+        await self.log(":warning: Bot is restarting")
         await self.disconnect_all_voice_clients()
         raise exceptions.RestartSignal
 
