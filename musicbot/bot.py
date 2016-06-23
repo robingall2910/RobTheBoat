@@ -283,8 +283,8 @@ class MusicBot(discord.Client):
             print("Warning: Autoplaylist is empty, disabling.")
             self.config.auto_playlist = False
 
-        self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION # Windows
-        #self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION # UNIX
+        self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION # Now it's reverse.
+        #self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION 
         # ^ for somewhat reason
 
         # TODO: Fix these
