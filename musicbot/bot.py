@@ -45,20 +45,20 @@ from .constants import VERSION as BOTVERSION
 from .constants import DISCORD_MSG_CHAR_LIMIT, AUDIO_CACHE_PATH
 from .constants import VER
 from .constants import BDATE as BUILD
-from .constants import MAINVER as MVER 
-from .constants import BUILD_USERNAME as BUNAME 
+from .constants import MAINVER as MVER
+from .constants import BUILD_USERNAME as BUNAME
 from _operator import contains
 
-#I'm just going to pretend that I'm drunk. idk 
+#I'm just going to pretend that I'm drunk. idk
 #American idiots yas
 #dundundundundndndundudnundudnudndundudnundunudndndundudnudndundudnudnudndundundundudnudnudndundundudnudndndnundudndunud
 #UDNDUNDUNDUNDUDNUDNDUNDUNDUNDUNDUNDUDNUDNDUNDUNDUNDUNDUNDUNDUNDNUDNDUNDUNDUNDUNDUNDUNDUDNUDNDNDUDNUDNUDNUDNDUUDNUDNU
-# DONT WANNA BE AN AMERICAN IDIOT 
+# DONT WANNA BE AN AMERICAN IDIOT
 # CONTROLLED BY THE MEDIA
 # what am i doing with my life
 # UDNUDNDUNDUNDUNDUDNUDNUDNDU ND UNUNDU NDU NDUDUNDUNDUNDUNDUNDUNDUDNUUN
 # *guitar intensifies*
-# yes yes yes yes 
+# yes yes yes yes
 #I did this in RTB...fucking hell. whatever lol
 #merlin is a retard
 #watch him burn his house down
@@ -128,7 +128,7 @@ tweetsthatareokhand = [
     "https://cdn.discordapp.com/attachments/173887966031118336/177222715147550721/goals.PNG",
     "https://cdn.discordapp.com/attachments/173887966031118336/177222711867604993/disturbing_fetish.PNG",
 #    "here's a message from the coder of this: I FUCKING RAN OUT NEEDS MORE CHEESE",
-# not anymore, its like what 21 links 
+# not anymore, its like what 21 links
    "​https://cdn.discordapp.com/attachments/173886531080159234/176425292426903553/f20e683862a17ef49633eed742fc2b22eb17220eef5a1d607cda2e7a7758720b_1.jpg",
     "http://i.imgur.com/m71nJAg.png",
     "http://i.imgur.com/m5fx7U9.png",
@@ -297,8 +297,8 @@ class MusicBot(discord.Client):
             print("Warning: Autoplaylist is empty, disabling.")
             self.config.auto_playlist = False
 
-        self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION # Now it's reverse.
-        #self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION 
+        #self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION # Now it's reverse.
+        self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION
         # ^ for somewhat reason
 
         # TODO: Fix these
@@ -676,7 +676,7 @@ class MusicBot(discord.Client):
 
     async def update_furry_playing_state(self, entry= None, is_paused=False):
         game = None
-        
+
         if self.user.bot:
             activeplayers = sum(1 for p in self.players.values() if p.is_playing)
             if activeplayers < 1:
@@ -861,7 +861,7 @@ class MusicBot(discord.Client):
 
         print()
 
-        
+
         if self.config.log_masterchannel:
             print("Logging to master channel:")
             channel = self.get_channel(self.config.log_masterchannel)
@@ -1931,7 +1931,7 @@ class MusicBot(discord.Client):
     @owner_only
     async def cmd_spamthefuckoutofeveryone(self, message):
         return Response("( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°)", delete_after=0)
-   
+
     async def cmd_memeg(author, self, message):
         """
         Attempt on trying to create a meme command, .memeg (template/line1/line2)
@@ -1974,7 +1974,7 @@ class MusicBot(discord.Client):
     # always remember to update this everytime you do an edit
     async def cmd_updates(self):
         return Response("What's new in " + VER + ": `.wiki fix and .f & ver incrementation, and .python`", delete_after=0)
-        
+
     async def cmd_setnick(self, server, channel, leftover_args, nick):
         """
         Usage:
@@ -2051,7 +2051,7 @@ class MusicBot(discord.Client):
                 raise CommandError('Invalid message count found : {}'.format(count))
             msg_count = 0
             async for msg in self.logs_from(channel):
-                await self.log(':bomb: Purged `{}` message{} in #`{}`'.format(len(deleted), 's' * bool(deleted), channel.name), channel) 
+                await self.log(':bomb: Purged `{}` message{} in #`{}`'.format(len(deleted), 's' * bool(deleted), channel.name), channel)
                 if msg.author in mentions and msg_count < count:
                     await self.delete_message(msg)
                     msg_count += 1
@@ -2093,7 +2093,7 @@ class MusicBot(discord.Client):
             await self.safe_send_message(message.channel, platform.uname())
         elif message.content[len(".rtb "):].strip() == "cb selfspam": #thanks lukkan99 fam
             cb = cleverbot.Cleverbot()
-            iask = (cb.ask("Hello."))
+            iask = (cb.ask("*blushes.*"))
             while 1 == 1:
                 await self.send_message(message.channel, iask)
                 iask = (cb.ask(iask))
@@ -2130,7 +2130,7 @@ class MusicBot(discord.Client):
         except Exception as e:
             self.safe_send_message(message.channel, wrap.format(type(e).__name__ + ': ' + str(e)))
 
-    
+
 
     async def cmd_serverdata(self, message):
         server = message.server
@@ -2187,7 +2187,7 @@ class MusicBot(discord.Client):
             await self.safe_send_message(message.channel, "I give myself a ***-1/10***, just because.") #But guess what, Emil's a fucking furry IN DENIAL, so that's even worse. Don't worry, at least Drew's sane.
         elif message.content[len(".rate "):].strip() != "<@163698730866966528>":
             await self.safe_send_message(message.channel, "I give `" + message.content[len(".rate "):].strip().replace("@everyone", ">insert attempt to tag everyone here").replace("@here", ">attempt to tag online users here") + "` a ***" + drewisafurry + "/10***")
-        
+
     async def cmd_asshole(self, message):
         await self.send_file(message.channel, "imgs/asshole.jpg")
 
@@ -2201,7 +2201,7 @@ class MusicBot(discord.Client):
 
     async def cmd_force(self):
         return Response("*forces*", delete_after=0)
-    
+
     async def cmd_deny(self):
         return Response("fuckin denied amirite", delete_after=0)
 
@@ -2220,7 +2220,7 @@ class MusicBot(discord.Client):
 
     async def cmd_setgame(self, message):
         trashcan = name=message.content[len("setgame "):].strip()
-        discord.Game(name=message.content[len(".setgame "):].strip())  
+        discord.Game(name=message.content[len(".setgame "):].strip())
         await self.change_status(discord.Game(name=message.content[len("setgame "):].strip()))
         return Response("Successful, set as `" + trashcan + "`", delete_after=5)
 
@@ -2228,7 +2228,7 @@ class MusicBot(discord.Client):
         pingtime = time.time()
         pingms = await self.send_message(message.channel, "pinging server...")
         ping = time.time() - pingtime
-        await self.edit_message(pingms, "It took %.01fms" % (ping) + " to ping.")
+        await self.edit_message(pingms, "It took %.01f secs" % (ping) + " to ping.")
 
     async def cmd_spamandkys(self, message):
         await self.safe_send_message(message.channel, "Kys fag")
@@ -2318,12 +2318,12 @@ class MusicBot(discord.Client):
 
     async def cmd_help(self):
         return Response("Help List: https://dragonfire.me/robtheboat/info.html Any other help? DM @Wyndrik#0052 for more help, or do .serverinv to join #ViralBot and Napsta for some RTB help somewhere.", delete_after=0)
-    
+
     async def cmd_serverinv(self, message):
         await self.safe_send_message(message.channel, "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
-    
+
     async def cmd_date(self):
-        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p") + "Happy birthday to the ones today, you'd know who you are. <3 ```", delete_after=0)
+        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p") + "```", delete_after=0)
 
     async def cmd_talk(client, message):
         cb1 = cleverbot.Cleverbot()
@@ -2378,7 +2378,7 @@ class MusicBot(discord.Client):
         await self.change_status(whatever)
 
     async def cmd_uptime(self):
-        seconds = time.time() - st
+        second = time.time() - st
         minute, second = divmod(second, 60)
         hour, minute = divmod(minute, 60)
         day, hour = divmod(hour, 24)
@@ -2388,7 +2388,7 @@ class MusicBot(discord.Client):
         return Response(str(discord.Invite.url), delete_after=0)
     async def cmd_info(client):
         return Response("```xl\n ~~~~~~RTB System~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n ~~~~~~~~~~~~~~~~~~~~~~\n\n Need help? Use the .help command, or message Robin from the #ViralBot and Napsta Discord Server.\n\n Don't have that? Then do .serverinv to grab the invite.\n```".format(BUNAME, MVER, BUILD, len(set(client.get_all_members())), len(set(client.messages)), len(client.servers), len(set(client.get_all_channels())), len(set(client.private_channels)), discord.__version__), delete_after=0)
-    
+
     async def cmd_debug(self, message):
         if(message.content.startswith('.debug')):
             if message.author.id == '117678528220233731':
@@ -2577,14 +2577,14 @@ class MusicBot(discord.Client):
 
     async def on_server_remove(self, server):
         if self.config.log_interaction:
-            await self.log(":performing_arts: `%s#%s` left: `%s`" % (self.user.name, self.user.discriminator, server.name))         
+            await self.log(":performing_arts: `%s#%s` left: `%s`" % (self.user.name, self.user.discriminator, server.name))
 
     async def on_server_update(self, before:discord.Server, after:discord.Server):
           if before.region != after.region:
               self.safe_print("[Servers] \"%s\" changed regions: %s -> %s" % (after.name, before.region, after.region))
           if self.config.log_interaction:
                 await self.log(":house: `{}` changed regions: `{}` to `{}`".format(after.name, before.region, after.region))
-  
+
           await self.reconnect_voice_client(after)
 
     async def on_voice_state_update(self, before, after):
@@ -2622,7 +2622,7 @@ class MusicBot(discord.Client):
 
         if before.voice_channel == after.voice_channel:
             return
-  
+
         if not my_voice_channel:
             return
 
