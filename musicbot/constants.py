@@ -1,9 +1,9 @@
 import os.path
 
-VERSION = '2.8.2'
+VERSION = '2.8.3'
 MAIN_VERSION = '2'
-SUB_VERSION = '-beta 1'
-CODENAME = '"りゅう が わ てき を くえる"'
+SUB_VERSION = '-rev 1'
+CODENAME = '"Please don\'t make any sudden moves..."'
 VER = VERSION + SUB_VERSION
 BDATE = 'June 24, 2016 @ 12:35 AM EDT'
 MAINVER = VERSION + SUB_VERSION + CODENAME

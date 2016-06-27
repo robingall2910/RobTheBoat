@@ -1973,7 +1973,7 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_updates(self):
-        return Response("What's new in " + VER + ": `.notifydev - Notify the developer of a bug/exploit/error. .msgfags - for me, to notify you so you can stop fucking around. Also added .fursecute, .asshole, .furfag, .rate(fixes), and .uploadfile. More info can be on the .help website.`", delete_after=0)
+        return Response("What's new in " + VER + ": `.wiki fix and .f`", delete_after=0)
         
     async def cmd_setnick(self, server, channel, leftover_args, nick):
         """
@@ -2166,6 +2166,16 @@ class MusicBot(discord.Client):
             await self.safe_send_message(message.channel, "Error 404. Try another.")
         elif wikipedia.exceptions.DisambiguationError:
             await self.safe_send_message(message.channel, "Too many alike searches, please narrow it down more...")
+
+    async def cmd_f(self, message):
+        """
+        RESPECTS PAID
+        FEEL THE WAVES
+        {}f
+        """
+        await self.safe_send_message(message.channel, message.author + " has paid their respects.")
+        await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000))
+        await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
 
     async def cmd_rate(self, message):
         """
