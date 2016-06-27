@@ -283,8 +283,8 @@ class MusicBot(discord.Client):
             print("Warning: Autoplaylist is empty, disabling.")
             self.config.auto_playlist = False
 
-        self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION # Now it's reverse.
-        #self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION 
+        #self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION # Now it's reverse.
+        self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION 
         # ^ for somewhat reason
 
         # TODO: Fix these
@@ -2297,7 +2297,7 @@ class MusicBot(discord.Client):
         await self.safe_send_message(message.channel, "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
     
     async def cmd_date(self):
-        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p"), delete_after=0)
+        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p") + "Happy birthday to the ones today, you'd know who you are. <3 ```", delete_after=0)
 
     async def cmd_talk(client, message):
         cb1 = cleverbot.Cleverbot()
@@ -2315,7 +2315,7 @@ class MusicBot(discord.Client):
             Pretty self explanitory.
         """
         if message.content[len(".kill"):].strip() != message.author.mention:
-            await self.safe_send_message(message.channel, "You've killed " + message.content[len(".kill "):].strip() + suicidalmemes)
+            await self.safe_send_message(message.channel, "You've killed " + message.content[len(".kill "):].strip() + random.choice(suicidalmemes))
         elif message.content[len(".kill"):].strip() == "<@163698730866966528>":
             await self.safe_send_message(message.channel, "can u not im not gonna die")
         elif message.content[len(".kill"):].strip() == message.author.mention:

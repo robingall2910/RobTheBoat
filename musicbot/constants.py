@@ -2,10 +2,10 @@ import os.path
 
 VERSION = '2.8.2'
 MAIN_VERSION = '2'
-SUB_VERSION = '-rev 2 '
-CODENAME = '"The Fucking Internet"'
+SUB_VERSION = '-beta 1'
+CODENAME = '"りゅう が わ てき を くえる"'
 VER = VERSION + SUB_VERSION
-BDATE = 'June 23, 2016 @ 12:30 AM EDT'
+BDATE = 'June 24, 2016 @ 12:35 AM EDT'
 MAINVER = VERSION + SUB_VERSION + CODENAME
 BUILD_USERNAME = "Wyndrik"
 AUDIO_CACHE_PATH = os.path.join(os.getcwd(), 'audio_cache')
