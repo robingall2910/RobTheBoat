@@ -297,8 +297,8 @@ class MusicBot(discord.Client):
             print("Warning: Autoplaylist is empty, disabling.")
             self.config.auto_playlist = False
 
-        #self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION # Now it's reverse.
-        self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION 
+        self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION # Now it's reverse.
+        #self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION 
         # ^ for somewhat reason
 
         # TODO: Fix these
@@ -1973,7 +1973,7 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_updates(self):
-        return Response("What's new in " + VER + ": `.wiki fix and .f & ver incrementation`", delete_after=0)
+        return Response("What's new in " + VER + ": `.wiki fix and .f & ver incrementation, and .python`", delete_after=0)
         
     async def cmd_setnick(self, server, channel, leftover_args, nick):
         """
@@ -2093,7 +2093,7 @@ class MusicBot(discord.Client):
             await self.safe_send_message(message.channel, platform.uname())
         elif message.content[len(".rtb "):].strip() == "cb selfspam": #thanks lukkan99 fam
             cb = cleverbot.Cleverbot()
-            iask = (cb.ask("hi"))
+            iask = (cb.ask("Hello."))
             while 1 == 1:
                 await self.send_message(message.channel, iask)
                 iask = (cb.ask(iask))
@@ -2162,9 +2162,9 @@ class MusicBot(discord.Client):
         await self.send_typing(channel)
         await self.send_message(message.channel, "{}:\n```\n{}\n```\nFor more information, visit <{}>".format(q.title,wikipedia.summary(query, sentences=5),q.url))
         await self.safe_send_message(message.channel, cont)
-        if wikipedia.exceptions.PageError:
+        if wikipedia.exceptions.PageError == True:
             await self.safe_send_message(message.channel, "Error 404. Try another.")
-        elif wikipedia.exceptions.DisambiguationError:
+        elif wikipedia.exceptions.DisambiguationError == True:
             await self.safe_send_message(message.channel, "Too many alike searches, please narrow it down more...")
 
     async def cmd_f(self, message):
@@ -2173,7 +2173,7 @@ class MusicBot(discord.Client):
         FEEL THE WAVES
         {}f
         """
-        await self.safe_send_message(message.channel, message.author + " has paid their respects.")
+        await self.safe_send_message(message.channel, message.author.name + " has paid their respects.")
         await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000)))
         await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
 
@@ -2311,8 +2311,10 @@ class MusicBot(discord.Client):
 
     async def cmd_uploadfile(self, message):
         await self.send_file(message.channel, message.content[len(".uploadfile "):].strip())
-        if FileNotFoundError:
+        if FileNotFoundError == True:
             await self.send_message(message.channel, "There was no such thing found in the system.")
+    async def cmd_python(self, message):
+        await self.send_file(message.channel, "imgs/python.png")
 
     async def cmd_help(self):
         return Response("Help List: https://dragonfire.me/robtheboat/info.html Any other help? DM @Wyndrik#0052 for more help, or do .serverinv to join #ViralBot and Napsta for some RTB help somewhere.", delete_after=0)
@@ -2328,7 +2330,7 @@ class MusicBot(discord.Client):
         unsplit = message.content.split("talk")
         split = unsplit[1]
         answer = (cb1.ask(split))
-        await client.send_message(message.channel, answer)
+        await client.send_message(message.channel, message.author.name + ": " + answer)
 
     async def cmd_test(self):
         return Response("( ͡° ͜ʖ ͡°) I love you", delete_after=0)
