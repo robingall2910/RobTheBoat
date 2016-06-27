@@ -2157,7 +2157,7 @@ class MusicBot(discord.Client):
         {}wikipedia (page)
         """
         cont2 = message.content[len(".wiki "):].strip()
-        cont = re.sub(r"\s+", '_', cont2)
+        cont = re.sub(r"\s+", '_', query)
         q = wikipedia.page(query)
         await self.send_typing(channel)
         await self.send_message(message.channel, "{}:\n```\n{}\n```\nFor more information, visit <{}>".format(q.title,wikipedia.summary(query, sentences=5),q.url))
