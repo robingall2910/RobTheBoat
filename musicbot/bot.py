@@ -1973,7 +1973,7 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_updates(self):
-        return Response("What's new in " + VER + ": `.wiki fix and .f`", delete_after=0)
+        return Response("What's new in " + VER + ": `.wiki fix and .f & ver incrementation`", delete_after=0)
         
     async def cmd_setnick(self, server, channel, leftover_args, nick):
         """
@@ -2174,7 +2174,7 @@ class MusicBot(discord.Client):
         {}f
         """
         await self.safe_send_message(message.channel, message.author + " has paid their respects.")
-        await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000))
+        await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000)))
         await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
 
     async def cmd_rate(self, message):
