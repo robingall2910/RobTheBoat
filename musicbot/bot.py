@@ -49,6 +49,20 @@ from .constants import MAINVER as MVER
 from .constants import BUILD_USERNAME as BUNAME 
 from _operator import contains
 
+#I'm just going to pretend that I'm drunk. idk 
+#American idiots yas
+#dundundundundndndundudnundudnudndundudnundunudndndundudnudndundudnudnudndundundundudnudnudndundundudnudndndnundudndunud
+#UDNDUNDUNDUNDUDNUDNDUNDUNDUNDUNDUNDUDNUDNDUNDUNDUNDUNDUNDUNDUNDNUDNDUNDUNDUNDUNDUNDUNDUDNUDNDNDUDNUDNUDNUDNDUUDNUDNU
+# DONT WANNA BE AN AMERICAN IDIOT 
+# CONTROLLED BY THE MEDIA
+# what am i doing with my life
+# UDNUDNDUNDUNDUNDUDNUDNUDNDU ND UNUNDU NDU NDUDUNDUNDUNDUNDUNDUNDUDNUUN
+# *guitar intensifies*
+# yes yes yes yes 
+#I did this in RTB...fucking hell. whatever lol
+#merlin is a retard
+#watch him burn his house down
+#-everyone
 
 load_opus_lib()
 st = time.time()
