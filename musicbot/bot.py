@@ -692,7 +692,7 @@ class MusicBot(discord.Client):
         if self.user.bot:
             activeplayers = sum(1 for p in self.players.values() if p.is_playing)
             if activeplayers > 1:
-                game = discord.Game(name="read .updates/.ver - on %s voice channels" % activeplayers)
+                game = discord.Game(name=".donate and .updates - on %s voice channels" % activeplayers)
                 entry = None
 
             elif activeplayers == 1:
@@ -1973,7 +1973,7 @@ class MusicBot(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_updates(self):
-        return Response("What's new in " + VER + ": `.wiki fix and .f & ver incrementation, and .python`", delete_after=0)
+        return Response("What's new in " + VER + ": `Added .donate because I need help with the server, and... I'm pretty much done with commands until you PM me with an idea or something...`", delete_after=0)
 
     async def cmd_setnick(self, server, channel, leftover_args, nick):
         """
@@ -2293,6 +2293,9 @@ class MusicBot(discord.Client):
         except discord.errors.Forbidden:
             await self.send_message(message.channel, "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
 
+    async def cmd_github(self, message):
+        await self.send_message(message.channel, "https://github.com/RobinGall2910/RobTheBoat - I'll try to maintain to be open source.")
+
     @owner_only
     async def cmd_msgfags(self, message, id, reason):
         reason = message.content[len(".msgfags " + id):].strip()
@@ -2353,6 +2356,9 @@ class MusicBot(discord.Client):
         """
         troyhasnodongs = message.content[len(".say "):].strip()
         return Response(troyhasnodongs.replace("@everyone", "everyone"), delete_after=0)
+
+    async def cmd_donate(self, message):
+        return Response("http://donate.dragonfire.me - Here I guess. I can't keep up with the server, so I'm going to need all the help I can get. Thanks.")
 
     async def cmd_ship(self, client, message, content):
         """
