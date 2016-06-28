@@ -1,8 +1,8 @@
 import os.path
 
-VERSION = '2.8.5'
+VERSION = '2.8.6'
 MAIN_VERSION = '2'
-SUB_VERSION = '-rev 1 '
+SUB_VERSION = '-rev 2 '
 CODENAME = '"Twenty One Pilots"' #I WANNA BE KNOWN BY YOUUU
 VER = VERSION + SUB_VERSION
 BDATE = 'June 27, 2016 @ 2:35 PM EDT'
