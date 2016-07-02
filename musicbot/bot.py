@@ -2168,14 +2168,16 @@ class MusicBot(discord.Client):
             await self.safe_send_message(message.channel, "Too many alike searches, please narrow it down more...")
 
     async def cmd_f(self, message):
-        """
-        RESPECTS PAID
-        FEEL THE WAVES
-        {}f
-        """
-        await self.safe_send_message(message.channel, message.author.name + " has paid their respects.")
-        await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000)))
-        await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
+        if message.content.startswith("f"):
+            if message.server.id != "110373943822540800":
+                await self.safe_send_message(message.channel, message.author.name + " has paid their respects.")
+                await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000)))
+                await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
+        else:
+            await self.safe_send_message(message.channel, message.author.name + " has paid their respects.")
+            await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000)))
+            await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
+
 
     async def cmd_rate(self, message):
         """
@@ -2229,7 +2231,7 @@ class MusicBot(discord.Client):
         pingms = await self.send_message(message.channel, "pinging server...")
         ping = time.time() - pingtime
         await self.edit_message(pingms, "It took %.01f secs" % (ping) + " to ping.")
-
+    @owner_only
     async def cmd_spamandkys(self, message):
         await self.safe_send_message(message.channel, "Kys fag")
         await self.safe_send_message(message.channel, "Kys fag")
@@ -2272,9 +2274,10 @@ class MusicBot(discord.Client):
         try:
             await self.send_message(message.channel, "Oh look, looks like we have a retard.")
             await self.change_nickname(message.author, "Furfag")
-            asyncio.sleep(100)
+            asyncio.sleep(1000)
             await self.send_typing(message.channel)
             await self.send_message(message.channel, "Idiot.")
+            await self.change_nickname(message.author, message.author.name)
         except discord.errors.Forbidden:
             await self.send_message(message.channel, "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
 
@@ -2294,7 +2297,7 @@ class MusicBot(discord.Client):
             await self.send_message(message.channel, "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
 
     async def cmd_github(self, message):
-        await self.send_message(message.channel, "https://github.com/RobinGall2910/RobTheBoat - I'll try to maintain to be open source.")
+        await self.send_message(message.channel, "https://github.com/RobinGall2910/RobTheBoat - Open source repos are fun.")
 
     @owner_only
     async def cmd_msgfags(self, message, id, reason):
@@ -2320,13 +2323,14 @@ class MusicBot(discord.Client):
         await self.send_file(message.channel, "imgs/python.png")
 
     async def cmd_help(self):
-        return Response("Help List: https://dragonfire.me/robtheboat/info.html Any other help? DM @Wyndrik#0052 for more help, or do .serverinv to join #ViralBot and Napsta for some RTB help somewhere.", delete_after=0)
+        return Response("The help list is on here: https://dragonfire.me/robtheboat/info.html", delete_after=0)
 
     async def cmd_serverinv(self, message):
-        await self.safe_send_message(message.channel, "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
+        await self.safe_send_message(message.channel, "Sent via a PM.")
+        await self.safe_send_message(message.author, "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
 
     async def cmd_date(self):
-        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p") + "```", delete_after=0)
+        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p") + "\n Happy Fourth of July Weekend!\n" + "```", delete_after=0)
 
     async def cmd_talk(client, message):
         cb1 = cleverbot.Cleverbot()
@@ -2358,7 +2362,7 @@ class MusicBot(discord.Client):
         return Response(troyhasnodongs.replace("@everyone", "everyone"), delete_after=0)
 
     async def cmd_donate(self, message):
-        return Response("http://donate.dragonfire.me - Here I guess. I can't keep up with the server, so I'm going to need all the help I can get. Thanks.")
+        return Response("`http://donate.dragonfire.me` - Here I guess. I can't keep up with the server, so I'm going to need all the help I can get. Thanks.")
 
     async def cmd_ship(self, client, message, content):
         """
@@ -2389,7 +2393,7 @@ class MusicBot(discord.Client):
         hour, minute = divmod(minute, 60)
         day, hour = divmod(hour, 24)
         week, day = divmod(day, 7)
-        return Response("I have been up for %dw :" % (week) + " %dd :" % (day) + " %dh :" % (hour) + " %dm :" % (minute) + " %ds" % (second), delete_after=0)
+        return Response("I have been up for %d weeks," % (week) + " %d days," % (day) + " %d hours," % (hour) + " %d minutes," % (minute) + " and %d seconds." % (second), delete_after=0)
     async def cmd_createinv(self):
         return Response(str(discord.Invite.url), delete_after=0)
     async def cmd_info(client):
