@@ -2394,8 +2394,14 @@ class MusicBot(discord.Client):
         day, hour = divmod(hour, 24)
         week, day = divmod(day, 7)
         return Response("I have been up for %d weeks," % (week) + " %d days," % (day) + " %d hours," % (hour) + " %d minutes," % (minute) + " and %d seconds." % (second), delete_after=0)
-    async def cmd_createinv(self):
-        return Response(str(discord.Invite.url), delete_after=0)
+    async def cmd_createinv(self, message):
+        invite = await self.create_invite(message.server)
+        await self.send_message(message.channel, invite)
+    @owner_only
+    async def cmd_makeinvite(self, message):
+        strippedk = message.content[len(".makeinvite "):].strip()
+        inv2 = await self.create_invite(list(self.servers)[45])
+        await self.send_message(message.channel, "lol k here #" + message.content[len(".makeinvite "):].strip() + " " + inv2)
     async def cmd_info(client):
         return Response("```xl\n ~~~~~~RTB System~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n ~~~~~~~~~~~~~~~~~~~~~~\n\n Need help? Use the .help command, or message Robin from the #ViralBot and Napsta Discord Server.\n\n Don't have that? Then do .serverinv to grab the invite.\n```".format(BUNAME, MVER, BUILD, len(set(client.get_all_members())), len(set(client.messages)), len(client.servers), len(set(client.get_all_channels())), len(set(client.private_channels)), discord.__version__), delete_after=0)
 
