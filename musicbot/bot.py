@@ -2436,6 +2436,7 @@ class MusicBot(discord.Client):
         if message.author.bot == True:
             return
         await self.wait_until_ready()
+
         message_content = message.content.strip()
         if not message_content.startswith(self.config.command_prefix):
             return
