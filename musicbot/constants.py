@@ -2,7 +2,7 @@ import os.path
 
 VERSION = '2.8.7'
 MAIN_VERSION = '2'
-SUB_VERSION = '-rev 1 '
+SUB_VERSION = '-rev 2 '
 CODENAME = '"Gorgeous - X Ambassadors"' #Screw everything, time to put the codename of what I was listening to.
 VER = VERSION + SUB_VERSION
 BDATE = 'July 2, 2016 @ 3:20 AM EDT' #Yay for my birthmonth
