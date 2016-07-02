@@ -1,11 +1,11 @@
 import os.path
 
-VERSION = '2.8.5'
+VERSION = '2.8.6'
 MAIN_VERSION = '2'
-SUB_VERSION = '-rev 1 '
+SUB_VERSION = '-rev 3 '
 CODENAME = '"Twenty One Pilots"' #I WANNA BE KNOWN BY YOUUU
 VER = VERSION + SUB_VERSION
-BDATE = 'June 27, 2016 @ 2:35 PM EDT'
+BDATE = 'June 28, 2016 @ 8:17 OM EDT'
 MAINVER = VERSION + SUB_VERSION + CODENAME
 BUILD_USERNAME = "Wyndrik"
 AUDIO_CACHE_PATH = os.path.join(os.getcwd(), 'audio_cache')
