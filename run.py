@@ -158,11 +158,11 @@ def main():
         # It'd save me a lot of pain with all that awful exception type checking
 
         try:
-            from musicbot import MusicBot
+            from rtb import RTB
 
-            m = MusicBot()
+            r = RTB()
             print("Connecting...", end='', flush=True)
-            m.run()
+            r.run()
 
         except SyntaxError:
             traceback.print_exc()
@@ -190,7 +190,7 @@ def main():
                 break
 
         except Exception as e:
-            if hasattr(e, '__module__') and e.__module__ == 'musicbot.exceptions':
+            if hasattr(e, '__module__') and e.__module__ == 'rtb.exceptions':
                 if e.__class__.__name__ == 'HelpfulError':
                     print(e.message)
                     break
