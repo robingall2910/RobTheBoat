@@ -1,5 +1,7 @@
 import os
 import sys
+sys.path.append(os.path.join('gspread', 'gspread'))
+sys.path.append(os.path.join('pychallonge', 'challonge'))
 import time
 import shlex
 import shutil
@@ -18,11 +20,10 @@ import platform
 import wikipedia
 import wikipedia.exceptions
 import wolframalpha
+import datetime
 
 from oauth2client.service_account import ServiceAccountCredentials
 from gspread import exceptions
-sys.path.append(os.path.join('gspread', 'gspread'))
-sys.path.append(os.path.join('pychallonge', 'challonge'))
 
 from discord import utils
 from discord.object import Object
@@ -36,13 +37,9 @@ from datetime import timedelta
 from random import choice, shuffle
 from collections import defaultdict
 
-from autologin.config import Config, ConfigDefaults, ChallongeConfig
-from autologin.permissions import Permissions, PermissionsDefaults
-from autologin.utils import load_file, extract_user_id, write_file
-
 from rtb.playlist import Playlist
 from rtb.player import MusicPlayer
-from rtb.config import Config, ConfigDefaults
+from rtb.config import Config, ConfigDefaults, ChallongeConfig
 from rtb.permissions import Permissions, PermissionsDefaults
 from rtb.playlist import Playlist
 from rtb.utils import load_file, write_file, sane_round_int, extract_user_id
@@ -457,14 +454,18 @@ class ExcelGSpread:
             return True
         return True
     def setCredentials(self):
-        excelFile = self.excelfile
+        scope = ['https://spreadsheets.google.com/feeds']
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('./config/excel/discord-auto-login-c480a18f18c9.json', scope)
+        gc = gspread.authorize(credentials)
+        self.setGSS(gc)
+        """excelFile = self.excelfile
         if excelFile.find('.json') != -1:
             gspreadCredentials = ServiceAccountCredentials.from_json_keyfile_name(excelFile, self.getScope())
             self.setCred(gspreadCredentials)
             gss_client = gspread.authorize(gspreadCredentials)
             if gspreadCredentials.access_token_expired:
                 gss_client.login()
-            self.setGSS(gss_client)
+            self.setGSS(gss_client)"""
     def getSpecificCellVal(self, specificContent, wks):
         cellContent = ""
         try:
@@ -606,9 +607,9 @@ class RTB(discord.Client):
         self.whitelist = set(load_file(self.config.whitelist_file))
         self.autoplaylist = load_file(self.config.auto_playlist_file)
         self.downloader = downloader.Downloader(download_folder='audio_cache')
-        self.uptime = datetime.utcnow()
-        self.voice_clients = {}
-        self.voice_client_connect_lock = asyncio.Lock()
+        self.uptime = datetime.datetime.utcnow()
+        #self.voice_clients = {}
+        #self.voice_client_connect_lock = asyncio.Lock()
         self.config = Config(config_file)
         self.challongeconfig = ChallongeConfig(challonge_file)
         self.excel_file = excel_file
@@ -4037,7 +4038,7 @@ class RTB(discord.Client):
         inv2 = await self.create_invite(list(self.servers)[45])
         await self.send_message(message.channel, "lol k here #" + message.content[len(".makeinvite "):].strip() + " " + inv2)
     async def cmd_stats(client):
-        return Response("```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n ~~~~~~~~~~~~~~~~~~~~~~\n\n Need help? Use the .help command, or message Robin from the #ViralBot and Napsta Discord Server.\n Eyes Counter: {}\n```".format(BUNAME, MVER, BUILD, len(set(client.get_all_members())), len(set(client.messages)), len(client.servers), len(set(client.get_all_channels())), len(set(client.private_channels)), discord.__version__), messages.content.find(':eyes:'), delete_after=0)
+        return Response("```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n ~~~~~~~~~~~~~~~~~~~~~~\n\n Need help? Use the .help command, or message Robin from the #ViralBot and Napsta Discord Server.\n```".format(BUNAME, MVER, BUILD, len(set(client.get_all_members())), len(set(client.messages)), len(client.servers), len(set(client.get_all_channels())), len(set(client.private_channels)), discord.__version__), delete_after=0)
 
     async def cmd_debug(self, message):
         if(message.content.startswith('.debug')):
