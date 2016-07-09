@@ -1412,15 +1412,6 @@ class RTB(discord.Client):
                 return Response('Funny count updated', reply=True)
             else:
                 return Response('Sorry, that command does not exist', reply=True)
-
-    @owner_only
-    async def cmd_leaveserver(self, message):
-        """
-        Usage: {command_prefix}leaveserver
-        Asks the bot to leave a server.
-        """
-        await self.send_message(message.channel, "bye")
-        await self.leave_server(message.channel)
     
     async def cmd_listchannelspecs(self, server, author, message, channel_Name=None):
         """
@@ -3686,7 +3677,6 @@ class RTB(discord.Client):
                     await self.send_message(message.channel, user.name + " was rekterino from the server.")
             except discord.HTTPException:
                 await self.send_message(message.channel, "Ban failed. Maybe you were trying to ban yourself or someone higher on the role chart?")
-
     @owner_only
     async def cmd_rtb(self, message, client):
         """
@@ -3700,7 +3690,8 @@ class RTB(discord.Client):
             await self.change_status(discord.Game(name='in Beta Mode'))
             return Response("(!) Now in Beta mode.", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "bye":
-            await self.leave_server(message.server)
+            await self.send_message(message.channel, "bye")
+            await self.leave_server(message.channel)
         elif message.content[len(".rtb "):].strip() == "massren":
             return Response("NTS: Finish it.", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "setgame":
@@ -3753,8 +3744,6 @@ class RTB(discord.Client):
         except Exception as e:
             self.safe_send_message(message.channel, wrap.format(type(e).__name__ + ': ' + str(e)))
 
-
-
     async def cmd_serverdata(self, message):
         server = message.server
         if len(server.icon_url) < 1:
@@ -3762,6 +3751,7 @@ class RTB(discord.Client):
         else:
             url = server.icon_url
         await self.send_message(message.channel, "```xl\n Server Data:\n Name: {0.name}\n ID: {0.id}\n Owner: {0.owner}\n Region: {0.region}\n Default Channel: {0.default_channel}\n Channels: {1}\n Members: {2}\n Roles: {3}\n Icon: {4}\n```".format(server,len(server.channels),len(server.members),', '.join(map(str, server.roles)).replace("@", "@\u200b"),url))
+
     @owner_only
     async def cmd_renamebot(self, message):
         """
@@ -3773,6 +3763,7 @@ class RTB(discord.Client):
         return Response("Bot name changed to `" + botrenamed + "`", delete_after=5)
         if discord.errors.ClientException:
             return Response("Either you aren't a bot account, or you didn't put a name in. Either one.", delete_after=0)
+
     async def cmd_wiki(self, query:str, channel, message):
         """
         Wikipedia.
@@ -3781,7 +3772,7 @@ class RTB(discord.Client):
         """
         cont2 = message.content[len(".wiki "):].strip()
         cont = re.sub(r"\s+", '_', query)
-        q = wikipedia.page(query)
+        q = wikipedia.page(cont)
         await self.send_typing(channel)
         await self.send_message(message.channel, "{}:\n```\n{}\n```\nFor more information, visit <{}>".format(q.title,wikipedia.summary(query, sentences=5),q.url))
         await self.safe_send_message(message.channel, cont)
@@ -3958,7 +3949,7 @@ class RTB(discord.Client):
         await self.safe_send_message(message.author, "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
 
     async def cmd_date(self):
-        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p") + "\n Happy Fourth of July Weekend!\n" + "```", delete_after=0)
+        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p") + "\n" + "```", delete_after=0)
 
     async def cmd_talk(client, message):
         cb1 = cleverbot.Cleverbot()
@@ -4037,9 +4028,8 @@ class RTB(discord.Client):
         strippedk = message.content[len(".makeinvite "):].strip()
         inv2 = await self.create_invite(list(self.servers)[45])
         await self.send_message(message.channel, "lol k here #" + message.content[len(".makeinvite "):].strip() + " " + inv2)
-    async def cmd_stats(client):
-        return Response("```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n ~~~~~~~~~~~~~~~~~~~~~~\n\n Need help? Use the .help command, or message Robin from the #ViralBot and Napsta Discord Server.\n```".format(BUNAME, MVER, BUILD, len(set(client.get_all_members())), len(set(client.messages)), len(client.servers), len(set(client.get_all_channels())), len(set(client.private_channels)), discord.__version__), delete_after=0)
-
+    async def cmd_stats(client, message):
+        await client.send_message(message.channel, "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(BUNAME, MVER, BUILD, len(set(client.get_all_members())), len(set(client.messages)), len(client.servers), len(set(client.get_all_channels())), len(set(client.private_channels)), discord.__version__, time.strftime("%A, %B %d, %Y"), time.strftime("%I:%M:%S %p")))
     async def cmd_debug(self, message):
         if(message.content.startswith('.debug')):
             if message.author.id == '117678528220233731':
@@ -4259,7 +4249,6 @@ class RTB(discord.Client):
 
         if not self.config.auto_pause:
             return
-
 
         num_deaf = sum(1 for m in my_voice_channel.voice_members if (
             m.deaf or m.self_deaf))
