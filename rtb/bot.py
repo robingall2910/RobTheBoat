@@ -283,9 +283,9 @@ class Lmgtfy:
         print('query in lmgtfy: ' + str(query))
         payload = {'format': 'json', 'url': self.lmgtfy_url(query)}
         r = requests.get('http://is.gd/create.php', params=payload)
-        print('response shortlink: ' + str(r.json()['shorturl'])) 
+        print('response shortlink: ' + str(r.json()['shorturl']))
         return r.json()['shorturl']
-     
+
 class Challonge:
     def __init__(self):
         self.username = None
@@ -590,7 +590,7 @@ class Response:
         self.delete_after = delete_after
 
 
-class RTB(discord.Client):  
+class RTB(discord.Client):
     def __init__(self, config_file=ConfigDefaults.options_file, perms_file=PermissionsDefaults.perms_file, excel_file=ConfigDefaults.excel_file, challonge_file=ConfigDefaults.challonge_file, saying_file=ConfigDefaults.saying_file):
         super().__init__()
 
@@ -1006,7 +1006,7 @@ class RTB(discord.Client):
 
     async def on_entry_added(self, playlist, entry, **_):
         pass
-    
+
     async def update_now_playing(self, entry=None, is_paused=False):
         game = None
 
@@ -1299,12 +1299,12 @@ class RTB(discord.Client):
     async def cmd_listchannels(self, server, author):
         """
         Usage: {command_prefix}listchannels
-        
+
         List the channels on the server for setting up permissions
         """
         if not self._check_server_exist(server):
             return await self.send_message(author, 'You cannot use this bot in private messages.')
-        
+
         lines = ['Channel list for %s' % server.name, '```', '```']
         for channel in server.channels:
             nextline = channel.id + ' ' + channel.name
@@ -1315,7 +1315,7 @@ class RTB(discord.Client):
                 lines = ['```', '```']
         await self.send_message(author, '\n'.join(lines))
         return Response("Check your DMs")
-        
+
     async def cmd_listroles(self, server, author):
         """
         Usage: {command_prefix}listroles
@@ -1412,7 +1412,7 @@ class RTB(discord.Client):
                 return Response('Funny count updated', reply=True)
             else:
                 return Response('Sorry, that command does not exist', reply=True)
-    
+
     async def cmd_listchannelspecs(self, server, author, message, channel_Name=None):
         """
         Usage: {command_prefix}listchannel <channel_Name>
@@ -1450,7 +1450,7 @@ class RTB(discord.Client):
                             lines = ['```', '```']
             await self.send_message(author, '\n'.join(lines))
             return Response(":mailbox_with_mail:")
-    
+
     async def cmd_register(self, message, author, tournamentType='1v1', member_2=None, member_3=None):
         """
         Usage: {command_prefix}register <tournamentType> [member_2] [member_3]
@@ -1500,9 +1500,9 @@ class RTB(discord.Client):
         Usage: {command_prefix}livebracketlink
         Command that gets the full tournament link
         """
-        strLink = 'Live link: ' + str(self.challonge.getTourneyLink()) 
+        strLink = 'Live link: ' + str(self.challonge.getTourneyLink())
         responseCheck = self._check_challonge_perms(str(strLink))
-        
+
         if bool(responseCheck[0]):
             return Response(str(responseCheck[1]), reply=True)
         else:
@@ -1518,7 +1518,7 @@ class RTB(discord.Client):
         strLink = 'Live bracket image link: ' + str(self.challonge.getLiveImgUrl())
 
         responseCheck = self._check_challonge_perms(str(strLink))
-        
+
         if bool(responseCheck[0]):
             return Response(str(responseCheck[1]), reply=True)
         else:
@@ -1530,11 +1530,11 @@ class RTB(discord.Client):
         """
         Usage: {command_prefix}livebracketstarted
         Command that returns the live bracket when it started
-        """ 
+        """
         strLink = 'Live bracket started at: ' + str(self.challonge.getTimeStartedAt())
 
         responseCheck = self._check_challonge_perms(str(strLink))
-        
+
         if bool(responseCheck[0]):
             return Response(str(responseCheck[1]), reply=True)
         else:
@@ -1547,11 +1547,11 @@ class RTB(discord.Client):
         """
         Usage: {command_prefix}livebracketprogress
         Command that gets the progress of the live bracket (out of 100 percent)
-        """ 
+        """
         strLink = 'Live bracket image link: ' + str(self.challonge.getTourneyProgress())
 
         responseCheck = self._check_challonge_perms(str(strLink))
-        
+
         if bool(responseCheck[0]):
             return Response(str(responseCheck[1]), reply=True)
         else:
@@ -1564,7 +1564,7 @@ class RTB(discord.Client):
         """
         Usage: {command_prefix}livebracketstate
         Command that gets the progress of the live bracket state
-        """ 
+        """
         strLink = 'Live tournament bracket state: ' + str(self.challonge.getTourneyState())
 
         return Response(str(self._check_challonge_perms(str(strLink)[1])),reply=True)
@@ -1601,7 +1601,7 @@ class RTB(discord.Client):
                                     suggested_num = int(attrVal['suggested-play-order'])
                                     suggested_num_id = int(attrVal['id'])
                                     break
-                            
+
                             if(type(suggested_num) is int and suggested_num != '') and (type(suggested_num_id) is int and suggested_num_id != ''):
                                 requestedMatchShow = challonge.matches.show(tourneyID, suggested_num_id)
                                 scores = requestedMatchShow['scores-csv']
@@ -1656,7 +1656,7 @@ class RTB(discord.Client):
                 if not self.challonge.getLogin():
                     contentResp += '\nChallonge is not logged in correctly.'
                 return Response(contentResp, reply=True)
-    
+
     async def cmd_reportscores(self, message, author, matchNum=None, score=None):
         """
         Usage: {command_prefix}reportscores <match number> <score>
@@ -1732,7 +1732,7 @@ class RTB(discord.Client):
                                                 errorNotANumMsg += str(rightSide) + " is not a digit"
                                                 firstDigitValid = True
                                             return Response(str(errorNotANumMsg), reply=True)
-                                            
+
                                     else:
                                         errorNotFormatCorrectly = "The format for a score is with no spaces (i.e. 2-1) and it indicates that the top player (when looking in a match) is the first number and not the second number."
                                         return Response(str(errorNotFormatCorrectly), reply=True)
@@ -1797,7 +1797,7 @@ class RTB(discord.Client):
         platformUName = 'Specs: ' + str(self.platform.getPlatUName())
         platformSys = 'Sys: ' + str(self.platform.getSys())
         platformProcessor = 'Processor: ' + str(self.platform.getProcessor())
-        compSpecs = '**PC Specs**:' 
+        compSpecs = '**PC Specs**:'
         compSpecs += '\n\t' + platform
         compSpecs += '\n\t' + platformVersion
         compSpecs += '\n\t' + platformMachine
@@ -1866,14 +1866,14 @@ class RTB(discord.Client):
         Logins to either the excel api or the challonge api
         """
         user_id = None
-                
+
         if option in ['excel', 'challonge']:
             if option == 'excel':
                 if self.excelSpread.getExcelKey() is None:
-                    await self.send_message(message.channel, 
+                    await self.send_message(message.channel,
                                             'The Excel Spreadsheet key was not '
                                             'set correctly.')
-                    return False                    
+                    return False
                 else:
                     if self.excelSpread.getExcelKeyType() == 'key':
                         self.excelSpread.checkExpired()
@@ -1911,7 +1911,7 @@ class RTB(discord.Client):
         else:
             await self.send_message(message.channel, 'That is not a valid command')
             return False
-    
+
     async def cmd_load(self, message, option, keyType):
         """
         Usage: {command_prefix}load <excel | challonge> <url_link | key | number>
@@ -1980,7 +1980,7 @@ class RTB(discord.Client):
         else:
             await self.safe_send_message(message.channel, ('That is not a valid command'))
             return False
-    
+
     async def cmd_unlockchannel(self, message, option):
         """
         Usage: {command_prefix}unlockchannel <channel Name>
@@ -2017,11 +2017,11 @@ class RTB(discord.Client):
                     self.safe_print("channel: " + str(channel.id) + "\ntarget: " + str(target))
                     await self.edit_channel_permissions(channel, target, allow=allow_cmd, deny=deny_cmd)
                     self.challonge.setChannelLock(False)
-                    
+
                     tourney_setup_channel = [channel for channel in
                                              message.channel.server.channels if
                                              str(122608820919861248) == str(channel.id)]
-                   
+
                     if len(tourney_setup_channel) == 0:
                         await self.safe_send_message(message.channel, ('The channel, ' +
                                         str(122608820919861248) + ', does '
@@ -2037,7 +2037,7 @@ class RTB(discord.Client):
 
             else:
                 return Response('The tournament is not open yet.', reply=True)
-   
+
     def _check_challonge_perms(self, requestStr):
         """
         Function that returns True if allowed to post what is being requested
@@ -2047,7 +2047,7 @@ class RTB(discord.Client):
         if self.challonge.getChallongeLink() is None:
             return (False, 'The challonge link was not set.')
         else:
-            if self.challonge.getChannelLock(): 
+            if self.challonge.getChannelLock():
                 return (True, requestStr)
             else:
                 contentResp = ''
@@ -2127,8 +2127,8 @@ class RTB(discord.Client):
                                message.channel.server.channels if
                                str(tourney_setup_channel_id) == str(channel.id)]
                     if len(tourney_setup_channel) == 0:
-                        await self.safe_send_message(mesage.channel, ('The channel, ' + 
-                                        str(tourney_setup_channel_id) + 
+                        await self.safe_send_message(mesage.channel, ('The channel, ' +
+                                        str(tourney_setup_channel_id) +
                                         ', does not exist or was typed incorrectly.'))
                     else:
                         tourney_setup_channel = tourney_setup_channel[0]
@@ -2138,7 +2138,7 @@ class RTB(discord.Client):
                                          str(Channel_Name) + ' to be verified by '
                                          'one of the managers and/or moderators.'))
             else:
-                return Response('The tournament is not open yet.', reply=True)                
+                return Response('The tournament is not open yet.', reply=True)
         else:
             return Response('Cannot send any messages since it does not have a specific channel', reply=True)
 
@@ -2218,13 +2218,13 @@ class RTB(discord.Client):
                                 foundName2 = True
                         if foundName1 == foundName2 and foundName1:
                             break
-                    
+
                     printMsg =  "Match " + str(matchNum) + " identifier: " + str(requestedNumMatch_Identifier)
                     printMsg += "\nMatch " + str(matchNum) + " tourney id: " + str(requestedNumMatch_tournamentId)
                     printMsg += "\nMatch " + str(matchNum) + " group id: " + str(requestedNumMatch_groupId)
                     printMsg += "\nMatch " + str(matchNum) + " id: " + str(requestedNumMatch_id)
                     printMsg += "\nMatch " + str(matchNum) + " round: " + str(requestedNumMatch_round)
-                    printMsg += "\nMatch " + str(matchNum) + " Player 1 Id: " + str(requestedNumMatch_P1_Id) 
+                    printMsg += "\nMatch " + str(matchNum) + " Player 1 Id: " + str(requestedNumMatch_P1_Id)
                     printMsg += "\nMatch " + str(matchNum) + " Player 1 name: " + str(requestedNumMatch_P1_Name)
                     printMsg += "\nMatch " + str(matchNum) + " Player 2 Id: " + str(requestedNumMatch_P2_Id)
                     printMsg += "\nMatch " + str(matchNum) + " Player 2 name: " + str(requestedNumMatch_P2_Name)
@@ -2389,7 +2389,7 @@ class RTB(discord.Client):
                                 adminMsg += '\n\nThe username for the lobby is: '
                                 adminMsg += game_username + '\nThe password is: ' + game_password
 
-                            
+
                             for caster_id in self.config.casters:
                                 self.safe_print('caster id: ' +
                                                 str(caster_id))
@@ -2424,7 +2424,7 @@ class RTB(discord.Client):
             return Response(content,reply=True)
         except requests.exceptions.ConnectionError:
             self.safe_print('No Internet Connection')
-    
+
     async def cmd_togglecheckin(self, message):
         """
         Usage: {command_prefix}togglecheckin
@@ -2432,10 +2432,10 @@ class RTB(discord.Client):
         """
         self.checkinActive = not self.checkinActive
         if not self.checkinActive:
-            await self.safe_send_message(message.channel, 
+            await self.safe_send_message(message.channel,
                     ('Check-In is closed.  checkinActive: ' +
                      str(self.checkinActive)))
-    
+
     def _check_on_probation(self, member):
         if member.server.id == self.config.organization.server_id:
             for role in member.roles:
@@ -2452,7 +2452,7 @@ class RTB(discord.Client):
         _caseSense = True
         if not self.lock_checkin:
             self.lock_checkin = True
-        
+
         if self.lock_checkin:
             _caseSense = True
             if channel_Name is None:
@@ -2564,7 +2564,7 @@ class RTB(discord.Client):
                                             if self.config.debug_mode:
                                                 await self.safe_send_message(member_p1, 'The channel provided is not a voice channel.')
                                                 await self.safe_send_message(ownerMember, 'Tried moving ' + str(member_p1.name) + ' to the ' + str(finalChannel.name) + ' voice channel but failed because of InvalidArgument.')
-                                            #logs(client, message)   
+                                            #logs(client, message)
                                         except discord.errors.HTTPException:
                                             if self.config.debug_mode:
                                                 await self.safe_send_message(member_p1, 'Moving the member failed.')
@@ -2607,11 +2607,11 @@ class RTB(discord.Client):
                     #time.sleep(60)
                     await asyncio.sleep(60)
             self.lock_checkin = False
-    
+
     async def cmd_reloadfile(self, message, keyType):
         """
         Usage: {command_prefix}reloadFile <login>
-        Reloads the ini file 
+        Reloads the ini file
         """
         if keyType in ['login']:
             content = 'Reloading the current path for ' + str(keyType) + '.... but this is a work-in-progress'
@@ -2627,7 +2627,7 @@ class RTB(discord.Client):
         Checks to see if the username is a partipant on challonge
         """
         user_id = extract_user_id(username)
-        
+
         if option in ['challonge']:
             if not user_id:
                 #assuming it is the original person
@@ -4031,7 +4031,7 @@ class RTB(discord.Client):
         await self.send_message(message.channel, "lol k here #" + message.content[len(".makeinvite "):].strip() + " " + inv2)
     async def cmd_stats(client, message):
         await client.send_message(message.channel, "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Status: ok \n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(BUNAME, MVER, BUILD, len(set(client.get_all_members())), len(set(client.messages)), len(client.servers), len(set(client.get_all_channels())), len(set(client.private_channels)), discord.__version__, time.strftime("%A, %B %d, %Y"), time.strftime("%I:%M:%S %p")))
-    async def cmd_debug(self, message):
+    """async def cmd_debug(self, message):
         if(message.content.startswith('.debug')):
             if message.author.id == '117678528220233731':
                 debug = message.content[len(".debug "):].strip()
@@ -4044,8 +4044,8 @@ class RTB(discord.Client):
                     debug = str(debug)
                     await self.send_message(message.channel, "```python\n" + debug + "\n```")
             else:
-                pass
-    async def cmd_eval(self, message):
+                pass"""
+    async def cmd_debug(self, message):
         if(message.content.startswith('.eval ')):
             if message.author.id == '117678528220233731':
                 debug = message.content[len(".eval "):].strip()
