@@ -4046,9 +4046,9 @@ class RTB(discord.Client):
             else:
                 pass"""
     async def cmd_debug(self, message):
-        if(message.content.startswith('.eval ')):
+        if(message.content.startswith('.debug ')):
             if message.author.id == '117678528220233731':
-                debug = message.content[len(".eval "):].strip()
+                debug = message.content[len(".debug "):].strip()
                 py = "```py\n{}\n```"
                 thing = None
                 try:
