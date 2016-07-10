@@ -3917,6 +3917,7 @@ class RTB(discord.Client):
 
     async def cmd_github(self, message):
         await self.send_message(message.channel, "https://github.com/RobinGall2910/RobTheBoat - Open source repos are fun.")
+        await self.send_message(message.channel, "https://travis-ci.org/robingall2910/RobTheBoat - Travis CI Build Status")
 
     @owner_only
     async def cmd_msgfags(self, message, id, reason):
@@ -4029,7 +4030,7 @@ class RTB(discord.Client):
         inv2 = await self.create_invite(list(self.servers)[45])
         await self.send_message(message.channel, "lol k here #" + message.content[len(".makeinvite "):].strip() + " " + inv2)
     async def cmd_stats(client, message):
-        await client.send_message(message.channel, "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(BUNAME, MVER, BUILD, len(set(client.get_all_members())), len(set(client.messages)), len(client.servers), len(set(client.get_all_channels())), len(set(client.private_channels)), discord.__version__, time.strftime("%A, %B %d, %Y"), time.strftime("%I:%M:%S %p")))
+        await client.send_message(message.channel, "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Status: ok \n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(BUNAME, MVER, BUILD, len(set(client.get_all_members())), len(set(client.messages)), len(client.servers), len(set(client.get_all_channels())), len(set(client.private_channels)), discord.__version__, time.strftime("%A, %B %d, %Y"), time.strftime("%I:%M:%S %p")))
     async def cmd_debug(self, message):
         if(message.content.startswith('.debug')):
             if message.author.id == '117678528220233731':
@@ -4042,8 +4043,24 @@ class RTB(discord.Client):
                     debug = traceback.format_exc()
                     debug = str(debug)
                     await self.send_message(message.channel, "```python\n" + debug + "\n```")
-            elif self.exceptions.PermissionsError:
-                return Response("Nice try, but I wouldn't let you do this.", delete_after=0)
+            else:
+                pass
+    async def cmd_eval(self, message):
+        if(message.content.startswith('.eval ')):
+            if message.author.id == '117678528220233731':
+                debug = message.content[len(".eval "):].strip()
+                py = "```py\n{}\n```"
+                thing = None
+                try:
+                    thing = eval(debug)
+                except Exception as e:
+                    await self.send_message(message.channel, py.format(type(e).__name__ + ': ' + str(e)))
+                    return
+                if asyncio.iscoroutine(thing):
+                    thing = await thing
+                await self.send_message(message.channel, py.format(thing))
+            else:
+                pass
 
     async def cmd_disconnect(self, server, message):
         await self.safe_send_message(message.channel, "Disconnected from the voice server.")
