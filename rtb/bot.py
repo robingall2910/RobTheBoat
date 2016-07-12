@@ -3823,6 +3823,10 @@ class RTB(discord.Client):
 
     async def cmd_allow(self):
         return Response("bitch please allow what", delete_after=0)
+        
+    async def cmd_deformed(self, message):
+        await self.send_file(message.channel, "imgs/deFORMED.PNG")
+        await self.send_message(message.channel, "FUCKING DEFORMED.PNG")
 
     async def cmd_throw(self, message):
         if message.content[len(".throw "):].strip() == message.author.mention:
