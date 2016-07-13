@@ -21,6 +21,7 @@ import wikipedia
 import wikipedia.exceptions
 import wolframalpha
 import datetime
+import copy
 
 from oauth2client.service_account import ServiceAccountCredentials
 from gspread import exceptions
@@ -36,6 +37,8 @@ from textwrap import dedent
 from datetime import timedelta
 from random import choice, shuffle
 from collections import defaultdict
+from subprocess import call
+from subprocess import check_output
 
 from rtb.playlist import Playlist
 from rtb.player import MusicPlayer
@@ -58,6 +61,8 @@ from _operator import contains
 
 load_opus_lib()
 st = time.time()
+#xl color formatting
+xl = "```xl\n{0}\n```"
 
 dis_games = [
     discord.Game(name='with fire'),
@@ -3791,7 +3796,26 @@ class RTB(discord.Client):
             await self.safe_send_message(message.channel, message.author.name + " has paid their respects.")
             await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000)))
             await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
+            
+    @owner_only
+    async def cmd_terminal(self, message):
+        msg = check_output(message.content[len(".terminal "):].strip())
+        await self.send_message(message.channel, xl.format(msg))
 
+    @owner_only
+    async def cmd_spam(self, message, times : int, lol):
+        kek = copy.copy(lol)
+        for i in range(times):
+            await self.send_message(message.channel, kek)
+
+    async def cmd_st(self, message):
+        msg = check_output(["speedtest-cli", "--simple"]).decode()
+        #--share
+        await self.send_message(message.channel, xl.format(msg.replace("serverip", "Server IP").replace("\n", "\n").replace("\"", "").replace("b'", "").replace("'", "")))
+
+    async def cmd_ipping(self, message, ip:str):
+        thing = check_output(["ping", "-c", "4", "{0}".format(ip)]).decode()
+        await self.send_message(message.channel, xl.format(thing))
 
     async def cmd_rate(self, message):
         """
