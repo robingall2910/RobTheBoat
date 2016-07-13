@@ -4087,7 +4087,9 @@ class RTB(discord.Client):
         raise exceptions.TerminateSignal
 
     async def on_message(self, message):
-        if message.author.bot == True:
+        if message.content == "BrAiNpOwEr https://www.youtube.com/watch?v=P6Z_s5MfDiA":
+            await self.send_message(message.channel, "WHAT HAVE YOU DONE.")
+        elif message.author.bot == True:
             return
         await self.wait_until_ready()
 
