@@ -1,5 +1,6 @@
 import os
 import sys
+
 sys.path.append(os.path.join('gspread', 'gspread'))
 sys.path.append(os.path.join('pychallonge', 'challonge'))
 import time
@@ -61,7 +62,7 @@ from _operator import contains
 
 load_opus_lib()
 st = time.time()
-#xl color formatting
+# xl color formatting
 xl = "```xl\n{0}\n```"
 
 dis_games = [
@@ -134,7 +135,8 @@ dis_games = [
 
 # Regex for IP address
 ipv4_regex = re.compile(r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b')
-ipv6_regex = re.compile(r'(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))')
+ipv6_regex = re.compile(
+    r'(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))')
 
 ratelevel = [
     "1",
@@ -164,9 +166,9 @@ tweetsthatareokhand = [
     "https://cdn.discordapp.com/attachments/173887966031118336/177222717743824907/idea_of_music.PNG",
     "https://cdn.discordapp.com/attachments/173887966031118336/177222715147550721/goals.PNG",
     "https://cdn.discordapp.com/attachments/173887966031118336/177222711867604993/disturbing_fetish.PNG",
-#    "here's a message from the coder of this: I FUCKING RAN OUT NEEDS MORE CHEESE",
-# not anymore, its like what 21 links
-   "​https://cdn.discordapp.com/attachments/173886531080159234/176425292426903553/f20e683862a17ef49633eed742fc2b22eb17220eef5a1d607cda2e7a7758720b_1.jpg",
+    #    "here's a message from the coder of this: I FUCKING RAN OUT NEEDS MORE CHEESE",
+    # not anymore, its like what 21 links
+    "​https://cdn.discordapp.com/attachments/173886531080159234/176425292426903553/f20e683862a17ef49633eed742fc2b22eb17220eef5a1d607cda2e7a7758720b_1.jpg",
     "http://i.imgur.com/m71nJAg.png",
     "http://i.imgur.com/m5fx7U9.png",
     "https://cdn.discordapp.com/attachments/173887966031118336/177518766781890562/your-resistance-only-makes-my-penis-harder.jpg",
@@ -273,16 +275,18 @@ throwaf = [
     "some flaccid sword"
 ]
 
+
 class Lmgtfy:
     def __init__(self):
-        #nothing
+        # nothing
         self.name = 'Lmgtfy'
+
     def lmgtfy_url(self, query):
         print('query in lmgtfy: ' + str(query))
         newQuery = query.replace(' ', "+")
         print('newQuery in lmgtfy: ' + str(newQuery))
         return 'http://lmgtfy.com/?q=' + str(''.join([word.replace(" ", "+") for word in query.strip()]))
-        #return 'http://lmgtfy.com/?q=' + '+'.join([word.strip().replace(" ", "+") for word in query.strip()])
+        # return 'http://lmgtfy.com/?q=' + '+'.join([word.strip().replace(" ", "+") for word in query.strip()])
 
     def short_url(self, query):
         print('query in lmgtfy: ' + str(query))
@@ -290,6 +294,7 @@ class Lmgtfy:
         r = requests.get('http://is.gd/create.php', params=payload)
         print('response shortlink: ' + str(r.json()['shorturl']))
         return r.json()['shorturl']
+
 
 class Challonge:
     def __init__(self):
@@ -300,45 +305,61 @@ class Challonge:
         self.tourneyLoaded = False
         self.tourneyLink = None
         self.channelLock = None
+
     def setUsername(self, _username):
         self.username = _username
+
     def getUsername(self):
         return self.username
+
     def setApiKey(self, _apiKey):
         self.api_key = _apiKey
+
     def getApiKey(self):
         return self.api_key
+
     def setChallonge(self, _username, _apiKey):
         self.username = _username
         self.api_key = _apiKey
+
     def setLogin(self, _login):
         self.login = _login
+
     def getLogin(self):
         return self.login
+
     def setCurrentTourney(self, _tourney):
         self.currenttournament = _tourney
+
     def getCurrentTourney(self):
         return self.currenttournament
+
     def setTourneyLoaded(self, _tourney):
         self.tourneyLoaded = _tourney
+
     def getTourneyLoaded(self):
         return self.tourneyLoaded
+
     def getTourneyLink(self):
         if self.currenttournament is None:
             return self.currenttournament
         return self.currenttournament['full-challonge-url']
+
     def getLiveImgUrl(self):
         if self.currenttournament is None:
             return self.currenttournament
         return self.currenttournament['live-image-url']
+
     def getTimeStartedAt(self):
         if self.currenttournament is None:
             return self.currenttournament
         return self.currenttournament['started-at']
+
     def getTourneyProgress(self):
         if self.currenttournament is None:
             return self.currenttournament
         return self.currenttournament['progress-meter']
+
     def getTourneyState(self):
         """
         Gets the current state of the running tourney
@@ -348,14 +369,17 @@ class Challonge:
         if self.currenttournament is None:
             return self.currenttournament
         return self.currenttournament['state']
+
     def getTourneyId(self):
         if self.currenttournament is None:
             return self.currenttournament
         return self.currenttournament['id']
+
     def getTourneyName(self):
         if self.currenttournament is None:
             return self.currenttournament
         return self.currenttournament['name']
+
     def getChallongeParticipantId(_name):
         tourneyPartId = self.getTourneyId()
         if tourneyPartId is None:
@@ -367,16 +391,22 @@ class Challonge:
                 requestedParticipant = participant["id"]
                 break
         if str(requestedParticipant).isdigit():
-           return requestedParticipant
+            return requestedParticipant
         return "not found"
+
     def setChallongeLink(self, _tLink):
         self.tourneyLink = _tLink
+
     def getChallongeLink(self):
         return self.tourneyLink
+
     def setChannelLock(self, _tLock):
         self.channelLock = _tLock
+
     def getChannelLock(self):
         return self.channelLock
+
+
 class PlatformSpecs:
     def __init__(self):
         self.platformObj = platform
@@ -386,20 +416,28 @@ class PlatformSpecs:
         self.uname = platform.uname()
         self.system = platform.system()
         self.processor = platform.processor()
+
     def getPlatObj(self):
         return self.platformObj
+
     def getMachine(self):
         return self.machine
+
     def getVersion(self):
         return self.version
+
     def getPlatform(self):
         return self.platform
+
     def getPlatUName(self):
         return self.uname
+
     def getSys(self):
         return self.system
+
     def getProcessor(self):
         return self.processor
+
 
 class ExcelGSpread:
     def __init__(self):
@@ -413,54 +451,77 @@ class ExcelGSpread:
         self.keyType = None
         self.email = None
         self.gspreadCred = None
+
     def setExcelKey(self, _key):
         self.excelKey = _key
+
     def getExcelKey(self):
         return self.excelKey
+
     def setURL(self, _url):
         self.url = _url
+
     def getURL(self):
         return self.url
+
     def setWS(self, _ws):
         self.ws = _ws
+
     def getWS(self):
         return self.ws
+
     def setGC(self, _gc):
         self.gc = _gc
+
     def getGC(self):
         return self.gc
+
     def setGSS(self, _gss):
         self.gss_client = _gss
+
     def getGSS(self):
         return self.gss_client
+
     def setExcelFile(self, _excelFile):
         self.excelfile = _excelFile
+
     def getExcelFile(self):
         return self.excelfile
+
     def setScope(self, _scope):
         self.scope = _scope
+
     def getScope(self):
         return self.scope
+
     def setExcelKeyType(self, _type):
         self.keyType = _type
+
     def getExcelKeyType(self):
         return self.keyType
+
     def setEmail(self, _email):
         self.email = _email
+
     def getEmail(self):
         return self.email
+
     def setCred(self, _cred):
         self.gspreadCred = _cred
+
     def getCred(self):
         return self.gspreadCred
+
     def checkExpired(self):
         if self.getCred().access_token_expired:
             self.getGSS().login()
             return True
         return True
+
     def setCredentials(self):
         scope = ['https://spreadsheets.google.com/feeds']
-        credentials = ServiceAccountCredentials.from_json_keyfile_name('./config/excel/discord-auto-login-c480a18f18c9.json', scope)
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(
+            './config/excel/discord-auto-login-c480a18f18c9.json', scope)
         gc = gspread.authorize(credentials)
         self.setGSS(gc)
         """excelFile = self.excelfile
@@ -471,6 +532,7 @@ class ExcelGSpread:
             if gspreadCredentials.access_token_expired:
                 gss_client.login()
             self.setGSS(gss_client)"""
+
     def getSpecificCellVal(self, specificContent, wks):
         cellContent = ""
         try:
@@ -482,6 +544,7 @@ class ExcelGSpread:
         except gspread.exceptions.CellNotFound:
             return "No Information available"
         return cellContent
+
     def checkDuplicateNames(self, member, wks, _caseSense):
         pattern = re.compile('(\W|^)' + re.escape(str(member.name)) + '(\W|$)',
                              re.IGNORECASE)
@@ -492,22 +555,24 @@ class ExcelGSpread:
             else:
                 user_Cell_list = wks.findall(str(member.name))
             if len(user_Cell_list) > 1:
-                return True #should be True when duplicate is found
+                return True  # should be True when duplicate is found
         except gspread.exceptions.CellNotFound:
             return False
-        return False #should be False when no duplicate is found
+        return False  # should be False when no duplicate is found
+
     def checkUserCheckedInSpreadSheet(self, member, wks, _caseSense):
         pattern = re.compile('(\W|^)' + re.escape(str(member.id)) + '(\W|$)',
                              re.IGNORECASE)
         try:
-            #if _caseSense:
+            # if _caseSense:
             #    user_Cell = wks.find(pattern)
-            #else:
+            # else:
             #    user_Cell = wks.find(str(member.id))
             if wks.find(pattern):
                 return True
         except gspread.exceptions.CellNotFound:
             return False
+
     def checkUserExistInSpreadSheet(self, member, wks, _caseSense):
         pattern = re.compile('(\W|^)' + re.escape(member.name) + '(\W|$)',
                              re.IGNORECASE)
@@ -522,6 +587,7 @@ class ExcelGSpread:
         except gspread.exceptions.CellNotFound:
             return False
         return True
+
     def checkDuplicateTeamNames(self, _teamName, wks, _caseSense):
         pattern = re.compile('(\W|^)' + re.escape(str(_teamName)) + '(\W|$)',
                              re.IGNORECASE)
@@ -535,6 +601,7 @@ class ExcelGSpread:
         except gspread.exceptions.CellNotFound:
             return False
         return True
+
     def checkTeamExistInSpreadSheet(self, _teamName, wks, _caseSense, _tourneyType):
         pattern = re.compile('(\W|^)' + re.escape(str(_teamName)) + '(\W|$)',
                              re.IGNORECASE)
@@ -596,7 +663,9 @@ class Response:
 
 
 class RTB(discord.Client):
-    def __init__(self, config_file=ConfigDefaults.options_file, perms_file=PermissionsDefaults.perms_file, excel_file=ConfigDefaults.excel_file, challonge_file=ConfigDefaults.challonge_file, saying_file=ConfigDefaults.saying_file):
+    def __init__(self, config_file=ConfigDefaults.options_file, perms_file=PermissionsDefaults.perms_file,
+                 excel_file=ConfigDefaults.excel_file, challonge_file=ConfigDefaults.challonge_file,
+                 saying_file=ConfigDefaults.saying_file):
         super().__init__()
 
         self.players = {}
@@ -613,8 +682,8 @@ class RTB(discord.Client):
         self.autoplaylist = load_file(self.config.auto_playlist_file)
         self.downloader = downloader.Downloader(download_folder='audio_cache')
         self.uptime = datetime.datetime.utcnow()
-        #self.voice_clients = {}
-        #self.voice_client_connect_lock = asyncio.Lock()
+        # self.voice_clients = {}
+        # self.voice_client_connect_lock = asyncio.Lock()
         self.config = Config(config_file)
         self.challongeconfig = ChallongeConfig(challonge_file)
         self.excel_file = excel_file
@@ -627,7 +696,7 @@ class RTB(discord.Client):
         self.lock_checkin = False
         self.lmgtfy = Lmgtfy()
         self.platform = PlatformSpecs()
-        self.checkinActive = False #bool to handle checkin loop
+        self.checkinActive = False  # bool to handle checkin loop
 
         self.exit_signal = None
 
@@ -635,7 +704,7 @@ class RTB(discord.Client):
             print("Warning: Autoplaylist is empty, disabling.")
             self.config.auto_playlist = False
 
-        #self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION # Now it's reverse.
+        # self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION # Now it's reverse.
         self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION
         # ^ for somewhat reason
 
@@ -714,7 +783,8 @@ class RTB(discord.Client):
                     else:
                         server = subchannel.server
                         if channel in server.channels:
-                            await self.safe_send_message(subchannel, ":stopwatch: `{}` ".format(time.strftime(self.config.log_timeformat)) + string)
+                            await self.safe_send_message(subchannel, ":stopwatch: `{}` ".format(
+                                time.strftime(self.config.log_timeformat)) + string)
 
             if self.config.log_masterchannel:
                 id = self.config.log_masterchannel
@@ -723,7 +793,8 @@ class RTB(discord.Client):
                     self.config.log_masterchannel = None
                     print("[Warning] Bot can't find logging master channel: {}".format(id))
                 else:
-                    await self.safe_send_message(master, ":stopwatch: `{}` :mouse_three_button: `{}` ".format(time.strftime(self.config.log_timeformat), channel.server.name) + string)
+                    await self.safe_send_message(master, ":stopwatch: `{}` :mouse_three_button: `{}` ".format(
+                        time.strftime(self.config.log_timeformat), channel.server.name) + string)
 
         else:
             if self.config.log_masterchannel:
@@ -733,8 +804,8 @@ class RTB(discord.Client):
                     self.config.log_masterchannel = None
                     print("[Warning] Bot can't find logging master channel: {}".format(id))
                 else:
-                    await self.safe_send_message(master, ":stopwatch: `{}` ".format(time.strftime(self.config.log_timeformat)) + string)
-
+                    await self.safe_send_message(master, ":stopwatch: `{}` ".format(
+                        time.strftime(self.config.log_timeformat)) + string)
 
     # TODO: autosummon option to a specific channel
     async def _auto_summon(self, channel=None):
@@ -779,7 +850,9 @@ class RTB(discord.Client):
                     joined_servers.append(channel.server)
                 except Exception as e:
                     if self.config.log_exceptions:
-                        await self.log(":warning: Could not join %s\n```python\n%s\n```" % (channel.name, traceback.print_exc()), channel)
+                        await self.log(
+                            ":warning: Could not join %s\n```python\n%s\n```" % (channel.name, traceback.print_exc()),
+                            channel)
                     print("Failed to join", channel.name)
             elif channel:
                 if self.config.log_exceptions:
@@ -850,12 +923,12 @@ class RTB(discord.Client):
                     print("Connection established.")
                     break
                 except:
-                    print("Failed to connect, retrying (%s/%s)..." % (x+1, retries))
+                    print("Failed to connect, retrying (%s/%s)..." % (x + 1, retries))
                     await asyncio.sleep(1)
                     await self.ws.voice_state(server.id, None, self_mute=True)
                     await asyncio.sleep(1)
 
-                    if x == retries-1:
+                    if x == retries - 1:
                         await self.log(":warning: `%s`: Failed to connect" % server.name)
                         raise exceptions.HelpfulError(
                             "Cannot establish connection to voice chat.  "
@@ -954,7 +1027,8 @@ class RTB(discord.Client):
                     if lmsg != last_np_msg and last_np_msg:
                         await self.safe_delete_message(last_np_msg)
                     if self.config.log_interaction:
-                        await self.log(":microphone: `%s` (requested by `%s`) is now playing in **%s**" % (entry.title, entry.meta['author'], player.voice_client.channel.name), channel)
+                        await self.log(":microphone: `%s` (requested by `%s`) is now playing in **%s**" % (
+                        entry.title, entry.meta['author'], player.voice_client.channel.name), channel)
 
                         self.server_specific_data[channel.server]['last_np_msg'] = None
                     break  # This is probably redundant
@@ -967,7 +1041,9 @@ class RTB(discord.Client):
                     player.voice_client.channel.name, entry.title)
 
             if self.server_specific_data[channel.server]['last_np_msg']:
-                self.server_specific_data[channel.server]['last_np_msg'] = await self.safe_edit_message(last_np_msg, newmsg, send_if_fail=True)
+                self.server_specific_data[channel.server]['last_np_msg'] = await self.safe_edit_message(last_np_msg,
+                                                                                                        newmsg,
+                                                                                                        send_if_fail=True)
             else:
                 self.server_specific_data[channel.server]['last_np_msg'] = await self.safe_send_message(channel, newmsg)
 
@@ -984,7 +1060,8 @@ class RTB(discord.Client):
         if not player.playlist.entries and not player.current_entry and self.config.auto_playlist:
             while self.autoplaylist:
                 song_url = choice(self.autoplaylist)
-                info = await self.downloader.safe_extract_info(player.playlist.loop, song_url, download=False, process=False)
+                info = await self.downloader.safe_extract_info(player.playlist.loop, song_url, download=False,
+                                                               process=False)
 
                 if not info:
                     self.autoplaylist.remove(song_url)
@@ -1018,7 +1095,7 @@ class RTB(discord.Client):
         if self.user.bot:
             activeplayers = sum(1 for p in self.players.values() if p.is_playing)
             if activeplayers > 1:
-                #game = discord.Game(name=".donate and .updates - on %s voice channels" % activeplayers)
+                # game = discord.Game(name=".donate and .updates - on %s voice channels" % activeplayers)
                 game = random.choice(dis_games)
                 entry = None
 
@@ -1033,7 +1110,6 @@ class RTB(discord.Client):
             game = random.choice(dis_games)
 
         await self.change_status(game)
-
 
     async def safe_send_message(self, dest, content, *, tts=False, expire_in=0, also_delete=None, quiet=False):
         msg = None
@@ -1091,11 +1167,10 @@ class RTB(discord.Client):
             if self.config.debug_mode:
                 print("Could not send typing to %s, no permssion" % destination)
 
-
     def _cleanup(self):
         try:
             self.loop.run_until_complete(self.logout())
-        except: # Can be ignored
+        except:  # Can be ignored
             pass
 
         pending = asyncio.Task.all_tasks()
@@ -1105,7 +1180,7 @@ class RTB(discord.Client):
             gathered.cancel()
             self.loop.run_until_complete(gathered)
             gathered.exception()
-        except: # Can be ignored
+        except:  # Can be ignored
             pass
 
     # noinspection PyMethodOverriding
@@ -1188,7 +1263,6 @@ class RTB(discord.Client):
 
         print()
 
-
         if self.config.log_masterchannel:
             print("Logging to master channel:")
             channel = self.get_channel(self.config.log_masterchannel)
@@ -1236,7 +1310,8 @@ class RTB(discord.Client):
         # maybe option to leave the ownerid blank and generate a random command for the owner to use
         # wait_for_message is pretty neato
 
-        await self.log(":mega: `{}#{}` ready".format(self.user.name, self.user.discriminator, time.strftime("%H:%M:%S"), time.strftime("%d/%m/%y")))
+        await self.log(":mega: `{}#{}` ready".format(self.user.name, self.user.discriminator, time.strftime("%H:%M:%S"),
+                                                     time.strftime("%d/%m/%y")))
 
         if not self.config.save_videos and os.path.isdir(AUDIO_CACHE_PATH):
             if self._delete_old_audiocache():
@@ -1301,6 +1376,7 @@ class RTB(discord.Client):
                 write_file(self.config.whitelist_file, self.whitelist)
 
                 return Response('user has been removed from the whitelist', reply=True, delete_after=10)
+
     async def cmd_listchannels(self, server, author):
         """
         Usage: {command_prefix}listchannels
@@ -1408,15 +1484,16 @@ class RTB(discord.Client):
             return Response("%s's Discord ID is: `%s`" % (usr.name, usr.id), reply=True, delete_after=35)
 
     async def cmd_nudes(self, message):
-            self.config.funny.nudes = int(self.config.funny.nudes) + 1
-            return Response('The number of times that this was requested is now: ' + str(self.config.funny.nudes), reply=True)
+        self.config.funny.nudes = int(self.config.funny.nudes) + 1
+        return Response('The number of times that this was requested is now: ' + str(self.config.funny.nudes),
+                        reply=True)
 
     async def cmd_updatefunny(self, message):
-            if message.content.find('funny') != -1:
-                self.config.funny.writeFunnyConfigLst()
-                return Response('Funny count updated', reply=True)
-            else:
-                return Response('Sorry, that command does not exist', reply=True)
+        if message.content.find('funny') != -1:
+            self.config.funny.writeFunnyConfigLst()
+            return Response('Funny count updated', reply=True)
+        else:
+            return Response('Sorry, that command does not exist', reply=True)
 
     async def cmd_listchannelspecs(self, server, author, message, channel_Name=None):
         """
@@ -1464,15 +1541,15 @@ class RTB(discord.Client):
         _caseSense = False
         if tournamentType is not None:
             if tournamentType == '1v1':
-                #1v1 signup
+                # 1v1 signup
                 member = author
                 if self.excelSpread.getWS():
-                    #logged in
+                    # logged in
                     self.excelSpread.checkExpired()
                     validDup = self.excelSpread.checkDuplicateNames(member, self.excelSpread.getWS(), _caseSense)
-                    #find last empty cell in B
+                    # find last empty cell in B
                     if validDup and validDup != None:
-                        #no duplicate entry
+                        # no duplicate entry
                         if validDup == True:
                             cell_list = self.excelSpread.getWS().range('B2:B985')
                             cell_row = 0
@@ -1495,11 +1572,12 @@ class RTB(discord.Client):
                 else:
                     return Response('The tournament has not been opened yet to sign up for', reply=True)
             elif tournamentType == '2v2':
-                #2v2 signup
+                # 2v2 signup
                 member = author
             elif tournamentType == '3v3':
-                #3v3 signup`
+                # 3v3 signup`
                 member = author
+
     async def cmd_livebracketlink(self, message):
         """
         Usage: {command_prefix}livebracketlink
@@ -1515,6 +1593,7 @@ class RTB(discord.Client):
         '''
         return Response('Live link: ' + str(self.challonge.getTourneyLink()), reply=True)
         '''
+
     async def cmd_livebracketimg(self, message):
         """
         Usage: {command_prefix}livebracketimg
@@ -1531,6 +1610,7 @@ class RTB(discord.Client):
         '''
         return Response('Live bracket image link: ' + self.challonge.getLiveImgUrl(), reply=True)
         '''
+
     async def cmd_livebracketstarted(self, message):
         """
         Usage: {command_prefix}livebracketstarted
@@ -1572,7 +1652,7 @@ class RTB(discord.Client):
         """
         strLink = 'Live tournament bracket state: ' + str(self.challonge.getTourneyState())
 
-        return Response(str(self._check_challonge_perms(str(strLink)[1])),reply=True)
+        return Response(str(self._check_challonge_perms(str(strLink)[1])), reply=True)
 
         '''
         return Response('Current state of the bracket: ' + str(self.challonge.getTourneyState()), reply=True)
@@ -1607,11 +1687,12 @@ class RTB(discord.Client):
                                     suggested_num_id = int(attrVal['id'])
                                     break
 
-                            if(type(suggested_num) is int and suggested_num != '') and (type(suggested_num_id) is int and suggested_num_id != ''):
+                            if (type(suggested_num) is int and suggested_num != '') and (
+                                    type(suggested_num_id) is int and suggested_num_id != ''):
                                 requestedMatchShow = challonge.matches.show(tourneyID, suggested_num_id)
                                 scores = requestedMatchShow['scores-csv']
                                 if scores is not None and scores != '':
-                                    #everything is fine, continue
+                                    # everything is fine, continue
                                     requestedNumMatch_P1_Id = requestedMatchShow["player1-id"]
                                     requestedNumMatch_P2_Id = requestedMatchShow["player2-id"]
                                     participants = challonge.participants.index(tourneyID)
@@ -1620,7 +1701,9 @@ class RTB(discord.Client):
                                     foundName1 = False
                                     foundName2 = False
                                     for participant in participants:
-                                        if (participant["id"] == requestedNumMatch_P1_Id or participant["id"] == requestedNumMatch_P2_Id) and participant["tournament-id"] == tourneyID:
+                                        if (participant["id"] == requestedNumMatch_P1_Id or participant[
+                                            "id"] == requestedNumMatch_P2_Id) and participant[
+                                            "tournament-id"] == tourneyID:
                                             if participant["id"] == requestedNumMatch_P1_Id:
                                                 requestedNumMatch_P1_Name = participant["name"]
                                                 foundName1 = True
@@ -1633,18 +1716,18 @@ class RTB(discord.Client):
                                     if foundName1 and foundName2:
                                         statusMatch = challonge.matches.show(tourneyID, requestedMatchShow["id"])
                                         matchOverStatus = ("Match " + str(matchNum) +
-                                        " is " + str(statusMatch["state"]) + ". " +
-                                        str(requestedNumMatch_P1_Name) + " " +
-                                        str(scores)  + " " +
-                                        str(requestedNumMatch_P2_Name) + ".")
-                                        return Response(matchOverStatus,reply=True)
+                                                           " is " + str(statusMatch["state"]) + ". " +
+                                                           str(requestedNumMatch_P1_Name) + " " +
+                                                           str(scores) + " " +
+                                                           str(requestedNumMatch_P2_Name) + ".")
+                                        return Response(matchOverStatus, reply=True)
                                 else:
                                     statusMatch = challonge.matches.show(tourneyID, requestedMatchShow['id'])
                                     matchOverStatus = ("Match " + str(matchNum)
                                                        + " is " +
                                                        str(statusMatch["state"])
                                                        + ". There is no score "
-                                                       "currently.")
+                                                         "currently.")
                                     return Response(matchOverStatus, reply=True)
                             else:
                                 return Response('Match not found.', reply=True)
@@ -1670,29 +1753,29 @@ class RTB(discord.Client):
         {command_prefix}reportscores 10 2-0
         The above example says that the first player won 2-0 for match 10
         """
-        #TODO if channel is not report scores channel, do nothing else.
-        #checking this anywhere else is wasteful, the only time we care about
-        #the channel is with this command.  If we check this in on_message, then
-        #we are introducing two additional checks (is it this command and is it
-        #from the report scores channel) for EVERY message event.  By placing it
-        #here, it only adds one additional check (is it the report scores
-        #channel), and it only does this check if this one command was the one
-        #called.  It only makes sense to check the channel in on_message if we
-        #want ALL commands to be prohibited in a channel or ALL commands to be
-        #allowed ONLY if they're in a channel.
+        # TODO if channel is not report scores channel, do nothing else.
+        # checking this anywhere else is wasteful, the only time we care about
+        # the channel is with this command.  If we check this in on_message, then
+        # we are introducing two additional checks (is it this command and is it
+        # from the report scores channel) for EVERY message event.  By placing it
+        # here, it only adds one additional check (is it the report scores
+        # channel), and it only does this check if this one command was the one
+        # called.  It only makes sense to check the channel in on_message if we
+        # want ALL commands to be prohibited in a channel or ALL commands to be
+        # allowed ONLY if they're in a channel.
         if int(message.channel.id) != int(127903851994021888):
             return
         if matchNum is None or score is None:
             return Response('Format for reporting scores is invalid')
         if matchNum is not None and score is not None:
-            #valid response
+            # valid response
             print('matchNum: ' + str(matchNum))
             print('score: ' + str(score))
             if self.excelSpread.getWS() and self.challonge.getLogin():
-                #both are logged in
+                # both are logged in
                 self.excelSpread.checkExpired()
                 if self.excelSpread.getWS():
-                    #valid worksheet login
+                    # valid worksheet login
                     tourneyID = self.challonge.getTourneyId()
                     tourneyName = self.challonge.getTourneyName()
                     requestedMatches = challonge.matches.index(tourneyID)
@@ -1705,7 +1788,8 @@ class RTB(discord.Client):
                                     suggested_num = int(attrVal['suggested-play-order'])
                                     suggested_num_id = int(attrVal['id'])
                                     break
-                            if(type(suggested_num) is int and suggested_num != '') and (type(suggested_num_id) is int and suggested_num_id != ''):
+                            if (type(suggested_num) is int and suggested_num != '') and (
+                                    type(suggested_num_id) is int and suggested_num_id != ''):
                                 requestedMatchShow = challonge.matches.show(tourneyID, suggested_num_id)
                                 scoreSplit = score.split("\d+-\d+")
                                 scoreHolder = []
@@ -1741,7 +1825,7 @@ class RTB(discord.Client):
                                     else:
                                         errorNotFormatCorrectly = "The format for a score is with no spaces (i.e. 2-1) and it indicates that the top player (when looking in a match) is the first number and not the second number."
                                         return Response(str(errorNotFormatCorrectly), reply=True)
-                                #everything is fine, continue
+                                # everything is fine, continue
                                 requestedNumMatch_P1_Id = requestedMatchShow["player1-id"]
                                 requestedNumMatch_P2_Id = requestedMatchShow["player2-id"]
                                 participants = challonge.participants.index(tourneyID)
@@ -1750,7 +1834,8 @@ class RTB(discord.Client):
                                 foundName1 = False
                                 foundName2 = False
                                 for participant in participants:
-                                    if (participant["id"] == requestedNumMatch_P1_Id or participant["id"] == requestedNumMatch_P2_Id) and participant["tournament-id"] == tourneyID:
+                                    if (participant["id"] == requestedNumMatch_P1_Id or participant[
+                                        "id"] == requestedNumMatch_P2_Id) and participant["tournament-id"] == tourneyID:
                                         if participant["id"] == requestedNumMatch_P1_Id:
                                             requestedNumMatch_P1_Name = participant["name"]
                                             foundName1 = True
@@ -1772,14 +1857,16 @@ class RTB(discord.Client):
                                     print("finalWinnerId: " + str(finalWinnerId))
                                     print("dbWinner: " + str(dbWinner))
                                     concatWinnerScores = ','.join(scoreSplit)
-                                    challonge.matches.update(tourneyID, requestedMatchShow["id"], scores_csv=str(concatWinnerScores), winner_id=str(finalWinnerId))
+                                    challonge.matches.update(tourneyID, requestedMatchShow["id"],
+                                                             scores_csv=str(concatWinnerScores),
+                                                             winner_id=str(finalWinnerId))
                                     statusMatch = challonge.matches.show(tourneyID, requestedMatchShow["id"])
                                     matchOverStatus = ("Match " + str(matchNum) +
-                                    " is " + str(statusMatch["state"]) + ". " +
-                                    str(requestedNumMatch_P1_Name) + " " +
-                                    str(concatWinnerScores)  + " " +
-                                    str(requestedNumMatch_P2_Name) + ".")
-                                    return Response(matchOverStatus,reply=True)
+                                                       " is " + str(statusMatch["state"]) + ". " +
+                                                       str(requestedNumMatch_P1_Name) + " " +
+                                                       str(concatWinnerScores) + " " +
+                                                       str(requestedNumMatch_P2_Name) + ".")
+                                    return Response(matchOverStatus, reply=True)
                     else:
                         return Response('The match is not a number.', reply=True)
             else:
@@ -1789,7 +1876,6 @@ class RTB(discord.Client):
                 if not self.challonge.getLogin():
                     contentResp += '\nChallonge is not logged in correctly.'
                 return Response(contentResp, reply=True)
-
 
     async def cmd_compspecs(self, message):
         """
@@ -1813,11 +1899,11 @@ class RTB(discord.Client):
 
         async def cmd_watch(self, message, streamType, username=None):
             if (streamType.lower() == 'twitch' or
-                streamType.lower() == 'twitch.tv'):
+                        streamType.lower() == 'twitch.tv'):
                 linkMessage = ('the twitch stream is located at: ' +
                                str(self.config.organization.twitch))
             elif (streamType.lower() == 'streamme' or
-                  streamType.lower() == 'stream.me'):
+                          streamType.lower() == 'stream.me'):
                 linkMessage = ('the stream.me stream is located at: ' +
                                str(self.config.organization.streamme))
             else:
@@ -1829,19 +1915,19 @@ class RTB(discord.Client):
             await self.challonge.setChannelLock(None)
 
         if not await self.cmd_load(message, 'excel', excelKey):
-            #send message "bad excel sheet"
+            # send message "bad excel sheet"
             return False
         if not await self.cmd_login(message, 'excel'):
-            #send message "bad excel username"
+            # send message "bad excel username"
             return False
         if not await self.cmd_login(message, 'challonge'):
-            #send message "bad challonge login"
+            # send message "bad challonge login"
             return False
         if not await self.cmd_load(message, 'challonge', challongeKey):
-            #send message "bad challonge key"
+            # send message "bad challonge key"
             return False
         else:
-            #send message "The tournament is ready"
+            # send message "The tournament is ready"
             await self.safe_send_message(message.channel, 'The tournament is ready')
             return True
 
@@ -1849,19 +1935,19 @@ class RTB(discord.Client):
             await self.challonge.setChannelLock(None)
 
         if not await self.cmd_load(message, 'excel', excelKey):
-            #send message "bad excel sheet"
+            # send message "bad excel sheet"
             return False
         if not await self.cmd_login(message, 'excel'):
-            #send message "bad excel username"
+            # send message "bad excel username"
             return False
         if not await self.cmd_login(message, 'challonge'):
-            #send message "bad challonge login"
+            # send message "bad challonge login"
             return False
         if not await self.cmd_load(message, 'challonge', challongeKey):
-            #send message "bad challonge key"
+            # send message "bad challonge key"
             return False
         else:
-            #send message "The tournament is ready"
+            # send message "The tournament is ready"
             await self.safe_send_message(message.channel, 'The tournament is ready')
             return True
 
@@ -1902,14 +1988,14 @@ class RTB(discord.Client):
             elif option == 'challonge':
                 print('userID: ' + str(user_id))
                 challongeContainer = self.challongeconfig.for_user(user_id)
-                #default is mockit bot credentials
+                # default is mockit bot credentials
                 username = challongeContainer.username
                 user_api_key = challongeContainer.Api_Key
                 self.challonge.setChallonge(username, user_api_key)
                 challonge.set_credentials(self.challonge.getUsername(), self.challonge.getApiKey())
                 self.challonge.setLogin(True)
                 await self.send_message(message.channel, ('Credentials have '
-                                        'been loaded'))
+                                                          'been loaded'))
                 return True
             await self.send_message(message.channel, 'Successfully logged into ' + str(option))
             return True
@@ -1930,7 +2016,7 @@ class RTB(discord.Client):
                 else:
                     self.excelSpread.setExcelKey(keyType)
                     self.excelSpread.setExcelKeyType('key')
-                #now we need to reload the credentials with the spreadsheet
+                # now we need to reload the credentials with the spreadsheet
                 self.excelSpread.checkExpired()
                 gss_client = self.excelSpread.getGSS()
                 try:
@@ -1945,24 +2031,27 @@ class RTB(discord.Client):
                 self.excelSpread.setGC(gc)
                 self.excelSpread.setWS(wks)
                 await self.safe_send_message(message.channel, ('The spreadsheet '
-                                                          'was set by ' +
-                                                          str(self.excelSpread.getExcelKeyType())))
+                                                               'was set by ' +
+                                                               str(self.excelSpread.getExcelKeyType())))
                 return True
             elif option == 'challonge':
                 print('keyType: ' + str(keyType))
                 if self.challonge.getLogin():
                     if (keyType.startswith('http://') and keyType.find('challonge.com') != -1) or keyType.isdigit():
-                        #load in by url or by digit only
+                        # load in by url or by digit only
                         if not keyType.isdigit():
                             tournament_no_http = keyType[len('http://'):]
                             tourneySubInt = tournament_no_http.find('.')
                             tournamentSubDomain = tournament_no_http[:tourneySubInt]
                             tournamentEndUrl = tournament_no_http[len(tournamentSubDomain + '.challonge.com/'):]
-                            self.safe_print("tournament_no_http: " + str(tournament_no_http) + "\ntournamentSubDomain: " + str(tournamentSubDomain) + "\ntournamentEndUrl: " + tournamentEndUrl)
+                            self.safe_print(
+                                "tournament_no_http: " + str(tournament_no_http) + "\ntournamentSubDomain: " + str(
+                                    tournamentSubDomain) + "\ntournamentEndUrl: " + tournamentEndUrl)
                             tournament_url = tournamentSubDomain + '-' + tournamentEndUrl
                             self.safe_print("tournament_url: " + tournament_url)
                             if keyType.find('.challonge.com') == -1:
-                                await self.safe_send_message(message.channel, 'Link format incorrect, please use "subdomain.challonge.com/mytourney"')
+                                await self.safe_send_message(message.channel,
+                                                             'Link format incorrect, please use "subdomain.challonge.com/mytourney"')
                                 return False
                             else:
                                 tempTourney = challonge.tournaments.show(tournament_url)
@@ -1980,7 +2069,8 @@ class RTB(discord.Client):
                             return True
                         self.safe_print('logged in. Permission to load tournament')
                 else:
-                    await self.safe_send_message(message.channel, 'Credentials have not been loaded yet.  Please use the login command first.')
+                    await self.safe_send_message(message.channel,
+                                                 'Credentials have not been loaded yet.  Please use the login command first.')
                     return False
         else:
             await self.safe_send_message(message.channel, ('That is not a valid command'))
@@ -2004,7 +2094,7 @@ class RTB(discord.Client):
                 self.excelSpread.setWS(wks)
             responseWKS = self.excelSpread.getWS()
             if self.challonge.getLogin():
-                #not False, allowed to enter in Tourney Check-In for everyone
+                # not False, allowed to enter in Tourney Check-In for everyone
                 deny_cmd = discord.Permissions.none()
                 deny_cmd.speak = True
                 deny_cmd.use_voice_activation = True
@@ -2013,9 +2103,11 @@ class RTB(discord.Client):
                 allow_cmd.connect = True
                 Channel_Name = 'Tourney Check-In' if option != '' else 'Tourney Check-In'
                 Channel_Id = self.config.tourneychannel
-                channel = [channel for channel in message.channel.server.channels if channel.type == discord.ChannelType.voice and str(Channel_Id) == str(channel.id)]
+                channel = [channel for channel in message.channel.server.channels if
+                           channel.type == discord.ChannelType.voice and str(Channel_Id) == str(channel.id)]
                 if len(channel) == 0:
-                    await self.safe_send_message(mesage.channel, 'The channel, ' + Channel_Name + ', does not exist or was typed incorrectly.')
+                    await self.safe_send_message(mesage.channel,
+                                                 'The channel, ' + Channel_Name + ', does not exist or was typed incorrectly.')
                 else:
                     channel = channel[0]
                     target = message.channel.server.default_role
@@ -2029,16 +2121,16 @@ class RTB(discord.Client):
 
                     if len(tourney_setup_channel) == 0:
                         await self.safe_send_message(message.channel, ('The channel, ' +
-                                        str(122608820919861248) + ', does '
-                                        'not exist or was typed incorrectly. '
-                                        'Unable to send message to everyone.'))
+                                                                       str(122608820919861248) + ', does '
+                                                                                                 'not exist or was typed incorrectly. '
+                                                                                                 'Unable to send message to everyone.'))
                     else:
                         tourney_setup_channel = tourney_setup_channel[0]
                         await self.safe_send_message(tourney_setup_channel,
-                                    (str(target)) + (', __Check in has officially '
-                                     'begun.__ Please proceed to the ' +
-                                     str(Channel_Name) + ' to be processed by '
-                                     'the bot.'))
+                                                     (str(target)) + (', __Check in has officially '
+                                                                      'begun.__ Please proceed to the ' +
+                                                                      str(Channel_Name) + ' to be processed by '
+                                                                                          'the bot.'))
 
             else:
                 return Response('The tournament is not open yet.', reply=True)
@@ -2059,7 +2151,7 @@ class RTB(discord.Client):
                 p1 = False
                 if not self.challonge.getChannelLock() or self.challonge.getChallongeLock() is None:
                     contentResp += ('Check-in is not complete')
-                return (False,contentResp)
+                return (False, contentResp)
 
     async def cmd_bracket(self, message):
         """
@@ -2092,6 +2184,7 @@ class RTB(discord.Client):
                 await self.safe_send_message(message.channel, contentResp)
                 return False
         '''
+
     async def cmd_lockchannel(self, message, option):
         """
         Usage: {command_prefix}lockChannel <channel Name>
@@ -2118,9 +2211,11 @@ class RTB(discord.Client):
                 deny_cmd.connect = True
                 Channel_Name = 'Tourney Check-In' if option != '' else 'Tourney Check-In'
                 Channel_Id = self.config.tourneychannel
-                channel = [channel for channel in message.channel.server.channels if channel.type == discord.ChannelType.voice and str(Channel_Id) == str(channel.id)]
+                channel = [channel for channel in message.channel.server.channels if
+                           channel.type == discord.ChannelType.voice and str(Channel_Id) == str(channel.id)]
                 if len(channel) == 0:
-                    await self.safe_send_message(mesage.channel, 'The channel, ' + Channel_Name + ', does not exist or was typed incorrectly.')
+                    await self.safe_send_message(mesage.channel,
+                                                 'The channel, ' + Channel_Name + ', does not exist or was typed incorrectly.')
                 else:
                     channel = channel[0]
                     target = message.channel.server.default_role
@@ -2129,19 +2224,19 @@ class RTB(discord.Client):
                     self.challonge.setChannelLock(True)
                     tourney_setup_channel_id = 122608820919861248
                     tourney_setup_channel = [channel for channel in
-                               message.channel.server.channels if
-                               str(tourney_setup_channel_id) == str(channel.id)]
+                                             message.channel.server.channels if
+                                             str(tourney_setup_channel_id) == str(channel.id)]
                     if len(tourney_setup_channel) == 0:
                         await self.safe_send_message(mesage.channel, ('The channel, ' +
-                                        str(tourney_setup_channel_id) +
-                                        ', does not exist or was typed incorrectly.'))
+                                                                      str(tourney_setup_channel_id) +
+                                                                      ', does not exist or was typed incorrectly.'))
                     else:
                         tourney_setup_channel = tourney_setup_channel[0]
                         await self.safe_send_message(tourney_setup_channel,
-                                        (str(target)) + (', __Check in has officially '
-                                         'closed.__ Please stay in the ' +
-                                         str(Channel_Name) + ' to be verified by '
-                                         'one of the managers and/or moderators.'))
+                                                     (str(target)) + (', __Check in has officially '
+                                                                      'closed.__ Please stay in the ' +
+                                                                      str(Channel_Name) + ' to be verified by '
+                                                                                          'one of the managers and/or moderators.'))
             else:
                 return Response('The tournament is not open yet.', reply=True)
         else:
@@ -2214,7 +2309,8 @@ class RTB(discord.Client):
                     foundName1 = False
                     foundName2 = False
                     for participant in participants:
-                        if (participant["id"] == requestedNumMatch_P1_Id or participant["id"] == requestedNumMatch_P2_Id) and participant["tournament-id"] == tourneyID:
+                        if (participant["id"] == requestedNumMatch_P1_Id or participant[
+                            "id"] == requestedNumMatch_P2_Id) and participant["tournament-id"] == tourneyID:
                             if participant["id"] == requestedNumMatch_P1_Id:
                                 requestedNumMatch_P1_Name = participant["name"]
                                 foundName1 = True
@@ -2224,7 +2320,7 @@ class RTB(discord.Client):
                         if foundName1 == foundName2 and foundName1:
                             break
 
-                    printMsg =  "Match " + str(matchNum) + " identifier: " + str(requestedNumMatch_Identifier)
+                    printMsg = "Match " + str(matchNum) + " identifier: " + str(requestedNumMatch_Identifier)
                     printMsg += "\nMatch " + str(matchNum) + " tourney id: " + str(requestedNumMatch_tournamentId)
                     printMsg += "\nMatch " + str(matchNum) + " group id: " + str(requestedNumMatch_groupId)
                     printMsg += "\nMatch " + str(matchNum) + " id: " + str(requestedNumMatch_id)
@@ -2235,14 +2331,15 @@ class RTB(discord.Client):
                     printMsg += "\nMatch " + str(matchNum) + " Player 2 name: " + str(requestedNumMatch_P2_Name)
                     self.safe_print(printMsg)
                     self.safe_print("Matches: " + str(requestedMatches))
-                    finalChallongeMsg = '<@' + str(message.author.id) + '>, for Round ' + str(requestedNumMatch_round) + ', Seed ' + str( (number) ) + ', the team/individual names are '
+                    finalChallongeMsg = '<@' + str(message.author.id) + '>, for Round ' + str(
+                        requestedNumMatch_round) + ', Seed ' + str((number)) + ', the team/individual names are '
                     if foundName1:
                         finalChallongeMsg += '\" ' + requestedNumMatch_P1_Name + '\"'
                     if foundName2:
                         if foundName1:
                             finalChallongeMsg += ' and '
                         finalChallongeMsg += '\" ' + requestedNumMatch_P2_Name + '\"'
-                    finalChallongeMsg +=  '.'
+                    finalChallongeMsg += '.'
                     if foundName1 and foundName2:
                         game_username = "mock"
                         game_password = ('```' +
@@ -2258,10 +2355,10 @@ class RTB(discord.Client):
                                            'casters.**')
                         elif unhold:
                             genericMsg = ('Sorry, you were either told to '
-                                'hold in error, or the plan has changed. Please '
-                                'contact your opponent for match number ' +
-                                str(number) + ' and play as normal.  We\'re '
-                                'sorry for the trouble.')
+                                          'hold in error, or the plan has changed. Please '
+                                          'contact your opponent for match number ' +
+                                          str(number) + ' and play as normal.  We\'re '
+                                                        'sorry for the trouble.')
 
                         else:
                             genericMsg += '\n\nThe username for the lobby is: '
@@ -2285,20 +2382,26 @@ class RTB(discord.Client):
                                 self.excelSpread.setGC(gc)
                                 self.excelSpread.setWS(wks)
                             responseWKS = self.excelSpread.getWS()
-                            member_p1_id = self.excelSpread.checkTeamExistInSpreadSheet(requestedNumMatch_P1_Name, responseWKS, caseSensitivity, tourneyType)
-                            member_p2_id = self.excelSpread.checkTeamExistInSpreadSheet(requestedNumMatch_P2_Name, responseWKS, caseSensitivity, tourneyType)
+                            member_p1_id = self.excelSpread.checkTeamExistInSpreadSheet(requestedNumMatch_P1_Name,
+                                                                                        responseWKS, caseSensitivity,
+                                                                                        tourneyType)
+                            member_p2_id = self.excelSpread.checkTeamExistInSpreadSheet(requestedNumMatch_P2_Name,
+                                                                                        responseWKS, caseSensitivity,
+                                                                                        tourneyType)
                             self.safe_print('member 1 id: ' +
                                             str(member_p1_id))
                             self.safe_print('member 2 id: ' +
                                             str(member_p2_id))
-                            member_p1 = discord.utils.find(lambda mem: mem.id == str(member_p1_id[0]), message.channel.server.members)
-                            member_p2 = discord.utils.find(lambda mem: mem.id == str(member_p2_id[0]), message.channel.server.members)
-                            #if(type(member_p1) is not None):
-                            if(isinstance(member_p1, discord.Member)):
+                            member_p1 = discord.utils.find(lambda mem: mem.id == str(member_p1_id[0]),
+                                                           message.channel.server.members)
+                            member_p2 = discord.utils.find(lambda mem: mem.id == str(member_p2_id[0]),
+                                                           message.channel.server.members)
+                            # if(type(member_p1) is not None):
+                            if (isinstance(member_p1, discord.Member)):
                                 groupName1Loop = True
                                 await self.safe_send_message(member_p1, genericMsg)
-                            #if(type(member_p2) is not None):
-                            if(isinstance(member_p2, discord.Member)):
+                            # if(type(member_p2) is not None):
+                            if (isinstance(member_p2, discord.Member)):
                                 groupName2Loop = True
                                 await self.safe_send_message(member_p2, genericMsg)
                         elif tourneyType == '2v2':
@@ -2315,27 +2418,33 @@ class RTB(discord.Client):
                             responseWKS = self.excelSpread.getWS()
                             group1Name = requestedNumMatch_P1_Name
                             group2Name = requestedNumMatch_P2_Name
-                            teamLstNames1 = self.excelSpread.checkTeamExistInSpreadSheet(group1Name, responseWKS, caseSensitivity, tourneyType)
-                            teamLstNames2 = self.excelSpread.checkTeamExistInSpreadSheet(group2Name, responseWKS, caseSensitivity, tourneyType)
+                            teamLstNames1 = self.excelSpread.checkTeamExistInSpreadSheet(group1Name, responseWKS,
+                                                                                         caseSensitivity, tourneyType)
+                            teamLstNames2 = self.excelSpread.checkTeamExistInSpreadSheet(group2Name, responseWKS,
+                                                                                         caseSensitivity, tourneyType)
                             if teamLstNames1 == False:
-                                #something happened, cannot populate list
-                                owner1 = discord.utils.find(lambda mem3: mem3.id == str(self.config.owner_id), message.channel.server.members)
+                                # something happened, cannot populate list
+                                owner1 = discord.utils.find(lambda mem3: mem3.id == str(self.config.owner_id),
+                                                            message.channel.server.members)
                                 errorMsg = 'Something went wrong when retrieving the list.  Can you check it out?'
                                 await self.safe_send_message(owner1, errorMsg)
                             else:
                                 groupName1Loop = True
                                 for playerName in teamLstNames1:
-                                    memberName1 = discord.utils.find(lambda mem: mem.id == str(playerName), message.channel.server.members)
+                                    memberName1 = discord.utils.find(lambda mem: mem.id == str(playerName),
+                                                                     message.channel.server.members)
                                     await self.safe_send_message(memberName1, genericMsg)
                             if teamLstNames2 == False:
-                                #something happened, cannot populate list
-                                owner1 = discord.utils.find(lambda mem3: mem3.id == str(self.config.owner_id), message.channel.server.members)
+                                # something happened, cannot populate list
+                                owner1 = discord.utils.find(lambda mem3: mem3.id == str(self.config.owner_id),
+                                                            message.channel.server.members)
                                 errorMsg = 'Something went wrong when retrieving the list.  Can you check it out?'
                                 await self.safe_send_message(owner1, errorMsg)
                             else:
                                 groupName2Loop = True
                                 for playerName in teamLstNames2:
-                                    memberName2 = discord.utils.find(lambda mem: mem.id == str(playerName), message.channel.server.members)
+                                    memberName2 = discord.utils.find(lambda mem: mem.id == str(playerName),
+                                                                     message.channel.server.members)
                                     await self.safe_send_message(memberName2, genericMsg)
                         elif tourneyType == '3v3':
                             responseWKS = ''
@@ -2351,70 +2460,81 @@ class RTB(discord.Client):
                             responseWKS = self.excelSpread.getWS()
                             group1Name = requestedNumMatch_P1_Name
                             group2Name = requestedNumMatch_P2_Name
-                            teamLstNames1 = self.excelSpread.checkTeamExistInSpreadSheet(group1Name, responseWKS, caseSensitivity, tourneyType)
-                            teamLstNames2 = self.excelSpread.checkTeamExistInSpreadSheet(group2Name, responseWKS, caseSensitivity, tourneyType)
+                            teamLstNames1 = self.excelSpread.checkTeamExistInSpreadSheet(group1Name, responseWKS,
+                                                                                         caseSensitivity, tourneyType)
+                            teamLstNames2 = self.excelSpread.checkTeamExistInSpreadSheet(group2Name, responseWKS,
+                                                                                         caseSensitivity, tourneyType)
                             if teamLstNames1 == False:
-                                #something happened, cannot populate list
-                                owner1 = discord.utils.find(lambda mem3: mem3.id == str(self.config.owner_id), message.channel.server.members)
+                                # something happened, cannot populate list
+                                owner1 = discord.utils.find(lambda mem3: mem3.id == str(self.config.owner_id),
+                                                            message.channel.server.members)
                                 errorMsg = 'Something went wrong when retrieving the list.  Can you check it out?'
                                 await self.safe_send_message(owner1, errorMsg)
                             else:
                                 groupName1Loop = True
                                 for playerName in teamLstNames1:
-                                    memberName1 = discord.utils.find(lambda mem: mem.id == str(playerName), message.channel.server.members)
+                                    memberName1 = discord.utils.find(lambda mem: mem.id == str(playerName),
+                                                                     message.channel.server.members)
                                     await self.safe_send_message(memberName1, genericMsg)
                             if teamLstNames2 == False:
-                                #something happened, cannot populate list
-                                owner2 = discord.utils.find(lambda mem3: mem3.id == str(self.config.owner_id), message.channel.server.members)
+                                # something happened, cannot populate list
+                                owner2 = discord.utils.find(lambda mem3: mem3.id == str(self.config.owner_id),
+                                                            message.channel.server.members)
                                 errorMsg = 'Something went wrong when retrieving the list.  Can you check it out?'
                                 await self.safe_send_message(owner2, errorMsg)
                             else:
                                 groupName2Loop = True
                                 for playerName in teamLstNames2:
-                                    memberName2 = discord.utils.find(lambda mem: mem.id == str(playerName), message.channel.server.members)
+                                    memberName2 = discord.utils.find(lambda mem: mem.id == str(playerName),
+                                                                     message.channel.server.members)
                                     await self.safe_send_message(memberName2, genericMsg)
                         if groupName1Loop and groupName2Loop and groupName1Loop:
                             adminMsg = '\n\n' + str(requestedNumMatch_P1_Name) + ' will be the blue team.'
                             adminMsg += '\n' + str(requestedNumMatch_P2_Name) + ' will be the orange team.'
-                            #adminMsg += '\n\nThe username for the lobby is: '
-                            #adminMsg += game_username + '\nThe password is: ' + game_password
+                            # adminMsg += '\n\nThe username for the lobby is: '
+                            # adminMsg += game_username + '\nThe password is: ' + game_password
                             if hold:
                                 adminMsg += ('\n\n**The players have been told '
-                                            'to wait** for the match name and '
-                                            'password. Please use the !stream '
-                                            'command for this match when '
-                                            'ready')
+                                             'to wait** for the match name and '
+                                             'password. Please use the !stream '
+                                             'command for this match when '
+                                             'ready')
                             elif unhold:
                                 adminMsg = ('**Match number ' + str(number) +
-                                ' is no longer being '
-                                'held**\n\nThe players have been told to '
-                                'play their game as normal.')
+                                            ' is no longer being '
+                                            'held**\n\nThe players have been told to '
+                                            'play their game as normal.')
 
                             else:
                                 adminMsg += '\n\nThe username for the lobby is: '
                                 adminMsg += game_username + '\nThe password is: ' + game_password
 
-
                             for caster_id in self.config.casters:
                                 self.safe_print('caster id: ' +
                                                 str(caster_id))
-                                member_caster = discord.utils.find(lambda mem3: mem3.id == str(caster_id), message.channel.server.members)
+                                member_caster = discord.utils.find(lambda mem3: mem3.id == str(caster_id),
+                                                                   message.channel.server.members)
                                 if (isinstance(member_caster, discord.Member)):
                                     self.safe_print('caster name: ' + str(member_caster.name))
-                                    await self.safe_send_message(member_caster,(finalChallongeMsg + '\n' + adminMsg))
+                                    await self.safe_send_message(member_caster, (finalChallongeMsg + '\n' + adminMsg))
                             await self.safe_send_message(message.channel,
                                                          finalChallongeMsg +
                                                          '\n' + adminMsg)
                     else:
-                        errorNoOtherPlayer = '<@' + str(message.author.id) + '>, there is currently only one player in the match that you have selected.'
+                        errorNoOtherPlayer = '<@' + str(
+                            message.author.id) + '>, there is currently only one player in the match that you have selected.'
                         await self.safe_send_message(message.channel, errorNoOtherPlayer)
                 else:
-                    errorOutOfRangeMsg = '<@' + str(message.author.id) + '>, please have the number be in between 1 and ' + str(len(requestedMatches))
+                    errorOutOfRangeMsg = '<@' + str(
+                        message.author.id) + '>, please have the number be in between 1 and ' + str(
+                        len(requestedMatches))
                     await self.safe_send_message(message.channel, errorOutOfRangeMsg)
             else:
-                await self.safe_send_message(message.channel, 'Tournament Type was not set.  Cannot be casted due to configuration below')
+                await self.safe_send_message(message.channel,
+                                             'Tournament Type was not set.  Cannot be casted due to configuration below')
         else:
-            await self.safe_send_message(message.channel, '<@' + str(message.author.id) + '>, it must either be the name of the person or be a group number')
+            await self.safe_send_message(message.channel, '<@' + str(
+                message.author.id) + '>, it must either be the name of the person or be a group number')
 
     async def cmd_lmgtfy(self, message, searchTerm):
         """
@@ -2426,7 +2546,7 @@ class RTB(discord.Client):
         try:
             longterm = self.lmgtfy.lmgtfy_url(searchTerm)
             content = 'Lmgtfy url: (%s)' % (str(longterm))
-            return Response(content,reply=True)
+            return Response(content, reply=True)
         except requests.exceptions.ConnectionError:
             self.safe_print('No Internet Connection')
 
@@ -2438,8 +2558,8 @@ class RTB(discord.Client):
         self.checkinActive = not self.checkinActive
         if not self.checkinActive:
             await self.safe_send_message(message.channel,
-                    ('Check-In is closed.  checkinActive: ' +
-                     str(self.checkinActive)))
+                                         ('Check-In is closed.  checkinActive: ' +
+                                          str(self.checkinActive)))
 
     def _check_on_probation(self, member):
         if member.server.id == self.config.organization.server_id:
@@ -2465,12 +2585,13 @@ class RTB(discord.Client):
                 if self._check_on_probation(message.author):
                     return Response(('You are on probation and unable to sign up for this tournament.'), reply=True)
                 member = discord.utils.find(lambda mem: mem.id == str(username_id), message.channel.server.members)
-                loginConfirm = "Checking your name in the spreadsheet to see if you are registered, <@" + str(message.author.id) + ">."
+                loginConfirm = "Checking your name in the spreadsheet to see if you are registered, <@" + str(
+                    message.author.id) + ">."
                 await self.safe_send_message(message.channel, loginConfirm)
                 self.excelSpread.checkExpired()
                 if not self.excelSpread.getWS():
                     self.excelSpread.setCredentials()
-                    #print('result: ' + str(self.excelSpread.getWS()))
+                    # print('result: ' + str(self.excelSpread.getWS()))
                     if not self.excelSpread.getExcelKey():
                         return Response('The key has not been set by an admin.', reply=True)
                     gss_client = self.excelSpread.getGSS()
@@ -2479,9 +2600,10 @@ class RTB(discord.Client):
                     self.excelSpread.setGC(gc)
                     self.excelSpread.setWS(wks)
                 validDup = self.excelSpread.checkDuplicateNames(member, self.excelSpread.getWS(), _caseSense)
-                validCheckedIn = self.excelSpread.checkUserCheckedInSpreadSheet(member, self.excelSpread.getWS(), _caseSense)
+                validCheckedIn = self.excelSpread.checkUserCheckedInSpreadSheet(member, self.excelSpread.getWS(),
+                                                                                _caseSense)
                 if not validDup and (validDup is not None) and not validCheckedIn:
-                    #no duplicate entry and no id found
+                    # no duplicate entry and no id found
                     responseValid = self.excelSpread.checkUserExistInSpreadSheet(member, self.excelSpread.getWS(), True)
                     if responseValid:
                         content = '%s, %s' % (member.name, 'you are all checked in and can move to another channel.')
@@ -2506,9 +2628,11 @@ class RTB(discord.Client):
                     await self.safe_send_message(message.channel, 'Checking in '
                                                  + 'members of the ' + channel_Name
                                                  + " channel.")
-                    channel = [channel for channel in message.channel.server.channels if channel.type == discord.ChannelType.voice and channel.name == channel_Name]
+                    channel = [channel for channel in message.channel.server.channels if
+                               channel.type == discord.ChannelType.voice and channel.name == channel_Name]
                     if len(channel) == 0:
-                        await self.safe_send_message(message.channel, 'The channel, ' + str(channel_Name) + ', does not exist or was typed incorrectly.')
+                        await self.safe_send_message(message.channel, 'The channel, ' + str(
+                            channel_Name) + ', does not exist or was typed incorrectly.')
                         self.checkinActive = False
                         break
                     else:
@@ -2520,17 +2644,18 @@ class RTB(discord.Client):
                         self.excelSpread.checkExpired()
                         for tempMem in sorted_members:
                             if self._check_on_probation(tempMem):
-                                await self.safe_send_message(tempMem, ('You are on probation and unable to sign up for this tournament.'))
+                                await self.safe_send_message(tempMem, (
+                                'You are on probation and unable to sign up for this tournament.'))
                                 continue
                             userName2 = (tempMem.name)
                             self.safe_print('Username: ' + str(userName2))
                             member_p1 = tempMem
                             member_p1_name = ''
-                            error=False
+                            error = False
                             if member_p1 is not None:
                                 member_p1_name = member_p1.name
                             else:
-                                await self.safe_send_message(message.channel,  'Member was not found')
+                                await self.safe_send_message(message.channel, 'Member was not found')
                                 error = True
                             if error == False:
                                 if not self.excelSpread.getWS():
@@ -2542,74 +2667,111 @@ class RTB(discord.Client):
                                     wks = gc.sheet1
                                     self.excelSpread.setGC(gc)
                                     self.excelSpread.setWS(wks)
-                                validDup = self.excelSpread.checkDuplicateNames(member_p1, self.excelSpread.getWS(), _caseSense)
-                                validCheckedIn = self.excelSpread.checkUserCheckedInSpreadSheet(member_p1, self.excelSpread.getWS(), _caseSense)
+                                validDup = self.excelSpread.checkDuplicateNames(member_p1, self.excelSpread.getWS(),
+                                                                                _caseSense)
+                                validCheckedIn = self.excelSpread.checkUserCheckedInSpreadSheet(member_p1,
+                                                                                                self.excelSpread.getWS(),
+                                                                                                _caseSense)
                                 self.safe_print('validDup: ' + str(validDup))
                                 self.safe_print('validCheckIn: ' +
                                                 str(validCheckedIn))
                                 if (not validDup and validDup is not None) and not validCheckedIn:
-                                    responseValid = self.excelSpread.checkUserExistInSpreadSheet(member_p1, self.excelSpread.getWS(), True)
+                                    responseValid = self.excelSpread.checkUserExistInSpreadSheet(member_p1,
+                                                                                                 self.excelSpread.getWS(),
+                                                                                                 True)
                                     if responseValid:
-                                        await self.safe_send_message(member_p1, 'Hello ' + str(member_p1_name) + ', we just want to let you know that you are checked in and can move to another channel.')
-                                        ownerMember = discord.utils.find(lambda mem2: mem2.id == str(self.config.owner_id), message.channel.server.members)
+                                        await self.safe_send_message(member_p1, 'Hello ' + str(
+                                            member_p1_name) + ', we just want to let you know that you are checked in and can move to another channel.')
+                                        ownerMember = discord.utils.find(
+                                            lambda mem2: mem2.id == str(self.config.owner_id),
+                                            message.channel.server.members)
                                         Channel_Id = self.config.tourneylobby
                                         try:
-                                            channel2 = discord.utils.find(lambda wantChannel: wantChannel.id == str(Channel_Id), message.channel.server.channels)
+                                            channel2 = discord.utils.find(
+                                                lambda wantChannel: wantChannel.id == str(Channel_Id),
+                                                message.channel.server.channels)
                                             if channel2 is None:
                                                 if self.config.debug_mode:
-                                                    await self.safe_send_message(member_p1, 'Tried moving you to the ' + str(Channel_Id) + ' voice channel.')
-                                                    await self.safe_send_message(ownerMember, 'Tried moving you to the ' + str(Channel_Id) + ' voice channel.')
+                                                    await self.safe_send_message(member_p1,
+                                                                                 'Tried moving you to the ' + str(
+                                                                                     Channel_Id) + ' voice channel.')
+                                                    await self.safe_send_message(ownerMember,
+                                                                                 'Tried moving you to the ' + str(
+                                                                                     Channel_Id) + ' voice channel.')
                                             else:
                                                 finalChannel = channel2
                                                 await self.move_member(member_p1, finalChannel)
                                                 if self.config.debug_mode:
-                                                    await self.safe_send_message(member_p1, 'Moved to the ' + str(finalChannel.name) + ' voice channel.')
-                                                    await self.safe_send_message(ownerMember, 'Tried moving ' + str(member_p1.name) + ' to the ' + str(finalChannel.name) + ' voice channel.')
+                                                    await self.safe_send_message(member_p1, 'Moved to the ' + str(
+                                                        finalChannel.name) + ' voice channel.')
+                                                    await self.safe_send_message(ownerMember, 'Tried moving ' + str(
+                                                        member_p1.name) + ' to the ' + str(
+                                                        finalChannel.name) + ' voice channel.')
                                         except discord.errors.InvalidArgument:
                                             if self.config.debug_mode:
-                                                await self.safe_send_message(member_p1, 'The channel provided is not a voice channel.')
-                                                await self.safe_send_message(ownerMember, 'Tried moving ' + str(member_p1.name) + ' to the ' + str(finalChannel.name) + ' voice channel but failed because of InvalidArgument.')
-                                            #logs(client, message)
+                                                await self.safe_send_message(member_p1,
+                                                                             'The channel provided is not a voice channel.')
+                                                await self.safe_send_message(ownerMember, 'Tried moving ' + str(
+                                                    member_p1.name) + ' to the ' + str(
+                                                    finalChannel.name) + ' voice channel but failed because of InvalidArgument.')
+                                                # logs(client, message)
                                         except discord.errors.HTTPException:
                                             if self.config.debug_mode:
                                                 await self.safe_send_message(member_p1, 'Moving the member failed.')
-                                                await self.safe_send_message(ownerMember, 'Tried moving ' + str(member_p1.name) + ' to the ' + str(finalChannel.name) + ' voice channel but failed because of HTTPException.')
-                                            #logs(client, message)
+                                                await self.safe_send_message(ownerMember, 'Tried moving ' + str(
+                                                    member_p1.name) + ' to the ' + str(
+                                                    finalChannel.name) + ' voice channel but failed because of HTTPException.')
+                                                # logs(client, message)
                                         except discord.errors.Forbidden:
                                             if self.config.debug_mode:
-                                                await self.safe_send_message(member_p1, 'You do not have permissions to move the member.')
-                                                await self.safe_send_message(ownerMember, 'Tried moving ' + str(member_p1.name) + ' to the ' + str(finalChannel.name) + ' voice channel but failed because of Forbidden.')
-                                            #logs(client, message)
+                                                await self.safe_send_message(member_p1,
+                                                                             'You do not have permissions to move the member.')
+                                                await self.safe_send_message(ownerMember, 'Tried moving ' + str(
+                                                    member_p1.name) + ' to the ' + str(
+                                                    finalChannel.name) + ' voice channel but failed because of Forbidden.')
+                                                # logs(client, message)
                                     else:
-                                        await self.send_message(member_p1, 'You have never signed up for this tournament.')
+                                        await self.send_message(member_p1,
+                                                                'You have never signed up for this tournament.')
                                 elif not validDup and validDup is not None and validCheckedIn:
                                     Channel_ID = self.config.tourneylobby
                                     currentVoiceChannel = member_p1.voice_channel
-                                    channel2 = discord.utils.find(lambda wantChannel: wantChannel.id == str(Channel_ID), message.channel.server.channels)
+                                    channel2 = discord.utils.find(lambda wantChannel: wantChannel.id == str(Channel_ID),
+                                                                  message.channel.server.channels)
                                     try:
                                         await self.move_member(member_p1, channel2)
                                     except discord.errors.InvalidArgument:
                                         if self.config.debug_mode:
-                                            await self.send_message(member_p1, 'The channel provided is not a voice channel.')
-                                            await self.send_message(ownerMember, 'Tried moving ' + str(member_p1.name) + ' to the ' + str(finalChannel.name) + ' voice channel but failed because of InvalidArgument.')
+                                            await self.send_message(member_p1,
+                                                                    'The channel provided is not a voice channel.')
+                                            await self.send_message(ownerMember, 'Tried moving ' + str(
+                                                member_p1.name) + ' to the ' + str(
+                                                finalChannel.name) + ' voice channel but failed because of InvalidArgument.')
                                     except discord.errors.HTTPException:
                                         if self.config.debug_mode:
                                             await self.send_message(member_p1, 'Moving the member failed.')
-                                            await self.send_message(ownerMember, 'Tried moving ' + str(member_p1.name) + ' to the ' + str(finalChannel.name) + ' voice channel but failed because of HTTPException.')
+                                            await self.send_message(ownerMember, 'Tried moving ' + str(
+                                                member_p1.name) + ' to the ' + str(
+                                                finalChannel.name) + ' voice channel but failed because of HTTPException.')
                                     except discord.errors.Forbidden:
                                         if self.config.debug_mode:
-                                            await self.send_message(member_p1, 'You do not have permissions to move the member.')
-                                            await self.send_message(ownerMember, 'Tried moving ' + str(member_p1.name) + ' to the ' + str(finalChannel.name) + ' voice channel but failed because of Forbidden.')
+                                            await self.send_message(member_p1,
+                                                                    'You do not have permissions to move the member.')
+                                            await self.send_message(ownerMember, 'Tried moving ' + str(
+                                                member_p1.name) + ' to the ' + str(
+                                                finalChannel.name) + ' voice channel but failed because of Forbidden.')
                                 elif not validDup and not validCheckedIn:
-                                    content = '%s, %s' % (member_p1.name, 'You have never signed up for this tournament.')
+                                    content = '%s, %s' % (
+                                    member_p1.name, 'You have never signed up for this tournament.')
                                     await self.safe_send_message(member_p1, content)
                                 elif validDup:
                                     content = 'you have already signed up twice for this tournament.  Please contact a moderator or Tourney Assistant.'
                                     await self.safe_send_message(member_p1, content)
                                 else:
-                                    await self.send_message(member_p1, 'Hello ' + str(member_p1_name) + ', we just wanted to let you know that you are not checked in and/or have not registered for the tournament')
-                    #wait 60s before running again
-                    #time.sleep(60)
+                                    await self.send_message(member_p1, 'Hello ' + str(
+                                        member_p1_name) + ', we just wanted to let you know that you are not checked in and/or have not registered for the tournament')
+                    # wait 60s before running again
+                    # time.sleep(60)
                     await asyncio.sleep(60)
             self.lock_checkin = False
 
@@ -2635,9 +2797,10 @@ class RTB(discord.Client):
 
         if option in ['challonge']:
             if not user_id:
-                #assuming it is the original person
+                # assuming it is the original person
                 participantUsername = str(message.author.name)
-                responseMsg = 'the ID for ' + str(participantUsername) + ' is ' + str(getChallongeParticipantId(participantUsername))
+                responseMsg = 'the ID for ' + str(participantUsername) + ' is ' + str(
+                    getChallongeParticipantId(participantUsername))
                 if responseMsg.find(' is not found') == -1:
                     errorMsg = 'Did you possibly sign up for the wrong tournament?'
                     return Response(errorMsg, reply=True)
@@ -2661,7 +2824,8 @@ class RTB(discord.Client):
 
         OAuth Link:  http://inv.rtb.dragonfire.me
         """
-        return Response("http://inv.rtb.dragonfire.me - OAuth Link - If it doesn't work, report with .notifydev", delete_after=0)
+        return Response("http://inv.rtb.dragonfire.me - OAuth Link - If it doesn't work, report with .notifydev",
+                        delete_after=0)
 
     async def cmd_play(self, player, channel, author, permissions, leftover_args, song_url):
         """
@@ -2701,7 +2865,7 @@ class RTB(discord.Client):
                 player.playlist.loop,
                 song_url,
                 download=False,
-                process=True,    # ASYNC LAMBDAS WHEN
+                process=True,  # ASYNC LAMBDAS WHEN
                 on_error=lambda e: asyncio.ensure_future(
                     self.safe_send_message(channel, "```\n%s\n```" % e, expire_in=120), loop=self.loop),
                 retry_on_error=True
@@ -2749,7 +2913,8 @@ class RTB(discord.Client):
 
             if info['extractor'].lower() in ['youtube:playlist', 'soundcloud:set', 'bandcamp:album']:
                 try:
-                    return await self._cmd_play_playlist_async(player, channel, author, permissions, song_url, info['extractor'])
+                    return await self._cmd_play_playlist_async(player, channel, author, permissions, song_url,
+                                                               info['extractor'])
                 except exceptions.CommandError:
                     raise
                 except Exception as e:
@@ -2894,7 +3059,6 @@ class RTB(discord.Client):
             except Exception:
                 traceback.print_exc()
                 raise exceptions.CommandError('Error handling playlist %s queuing.' % playlist_url, expire_in=30)
-
 
         songs_processed = len(entries_added)
         drop_count = 0
@@ -3118,7 +3282,8 @@ class RTB(discord.Client):
         """
 
         if not author.voice_channel:
-            raise exceptions.CommandError("Get your lazy good for nothing ass in a voice channel before giving me demands bitch. (AUTHOR_NOT_IN_CHANNEL)")
+            raise exceptions.CommandError(
+                "Get your lazy good for nothing ass in a voice channel before giving me demands bitch. (AUTHOR_NOT_IN_CHANNEL)")
 
         voice_client = self.the_voice_clients.get(channel.server.id, None)
         if voice_client and voice_client.channel.server == author.voice_channel.server:
@@ -3191,7 +3356,7 @@ class RTB(discord.Client):
 
         player.playlist.shuffle()
 
-        cards = [':spades:',':clubs:',':hearts:',':diamonds:']
+        cards = [':spades:', ':clubs:', ':hearts:', ':diamonds:']
         hand = await self.send_message(channel, ' '.join(cards))
         await asyncio.sleep(0.6)
 
@@ -3212,7 +3377,9 @@ class RTB(discord.Client):
         """
 
         player.playlist.clear()
-        return Response('Cleared the playlist.... I bet there\'s some stupid songs in there that killed it. Oh well, what happen must happen.', delete_after=20)
+        return Response(
+            'Cleared the playlist.... I bet there\'s some stupid songs in there that killed it. Oh well, what happen must happen.',
+            delete_after=20)
 
     async def cmd_skip(self, player, channel, author, message, permissions, voice_channel):
         """
@@ -3301,7 +3468,9 @@ class RTB(discord.Client):
             new_volume = int(new_volume)
 
         except ValueError:
-            raise exceptions.CommandError('{} <-- Really? I know you can do better. It\'s obviously some shameful decimal number, or it\'s not a fucking number. Think harder next time.'.format(new_volume), expire_in=20)
+            raise exceptions.CommandError(
+                '{} <-- Really? I know you can do better. It\'s obviously some shameful decimal number, or it\'s not a fucking number. Think harder next time.'.format(
+                    new_volume), expire_in=20)
 
         if relative:
             vol_change = new_volume
@@ -3318,10 +3487,12 @@ class RTB(discord.Client):
             if relative:
                 raise exceptions.CommandError(
                     'Unreasonable volume change provided: {}{:+} -> {}%.  Provide a change between {} and {:+}.'.format(
-                        old_volume, vol_change, old_volume + vol_change, 1 - old_volume, 100 - old_volume), expire_in=20)
+                        old_volume, vol_change, old_volume + vol_change, 1 - old_volume, 100 - old_volume),
+                    expire_in=20)
             else:
                 raise exceptions.CommandError(
-                    'Unreasonable volume provided: {}%. Choose a number that\'s 1-100.'.format(new_volume), expire_in=20)
+                    'Unreasonable volume provided: {}%. Choose a number that\'s 1-100.'.format(new_volume),
+                    expire_in=20)
 
     async def cmd_queue(self, channel, player):
         """
@@ -3415,7 +3586,9 @@ class RTB(discord.Client):
                     except discord.HTTPException:
                         return Response("Being rate limited, yeah.", delete_after=0)
         if self.config.log_interaction:
-            await self.log(':bomb: Purged `{}` message{} in #`{}`'.format(len(deleted), 's' * bool(deleted), channel.name), channel)
+            await self.log(
+                ':bomb: Purged `{}` message{} in #`{}`'.format(len(deleted), 's' * bool(deleted), channel.name),
+                channel)
         return Response('Cleaned up {} message{}.'.format(msgs, '' if msgs == 1 else 's'), delete_after=15)
 
     async def cmd_pldump(self, channel, song_url):
@@ -3444,22 +3617,24 @@ class RTB(discord.Client):
                 return await self.cmd_pldump(channel, info.get(''))
 
         linegens = defaultdict(lambda: None, **{
-            "youtube":    lambda d: 'https://www.youtube.com/watch?v=%s' % d['id'],
+            "youtube": lambda d: 'https://www.youtube.com/watch?v=%s' % d['id'],
             "soundcloud": lambda d: d['url'],
-            "bandcamp":   lambda d: d['url']
+            "bandcamp": lambda d: d['url']
         })
 
         exfunc = linegens[info['extractor'].split(':')[0]]
 
         if not exfunc:
-            raise exceptions.CommandError("Could not extract info from input url, unsupported playlist type.", expire_in=25)
+            raise exceptions.CommandError("Could not extract info from input url, unsupported playlist type.",
+                                          expire_in=25)
 
         with BytesIO() as fcontent:
             for item in info['entries']:
                 fcontent.write(exfunc(item).encode('utf8') + b'\n')
 
             fcontent.seek(0)
-            await self.send_file(channel, fcontent, filename='playlist.txt', content="Here's the url dump for <%s>" % song_url)
+            await self.send_file(channel, fcontent, filename='playlist.txt',
+                                 content="Here's the url dump for <%s>" % song_url)
 
         return Response(":mailbox_with_mail:", delete_after=20)
 
@@ -3520,7 +3695,6 @@ class RTB(discord.Client):
 
         return Response("Check your PMs." + author, delete_after=20)
 
-
     async def cmd_perms(self, author, channel, server, permissions):
         """
         Usage:
@@ -3541,15 +3715,20 @@ class RTB(discord.Client):
         return Response("Check them PMs fam", delete_after=20)
 
     async def cmd_kys(self, message):
-        #return Response("kill yourself and never _EVER_ come back to me again, you stupid peasant. how dare you ask me to die. like fucking hell, why not do it yourself to satisfy yourself?", delete_after=0)
-        return Response("Seriously? You're such a fucking faggot. Kill yourself, unironically, hell, I'd kill you myself you fucking little shit, stupid fucking shitrag.", delete_after=0)
-        #return Response("kill yourself and don't come back again to ask me to kill myself, stupid peasant.", delete_after=0)
+        # return Response("kill yourself and never _EVER_ come back to me again, you stupid peasant. how dare you ask me to die. like fucking hell, why not do it yourself to satisfy yourself?", delete_after=0)
+        return Response(
+            "Seriously? You're such a fucking faggot. Kill yourself, unironically, hell, I'd kill you myself you fucking little shit, stupid fucking shitrag.",
+            delete_after=0)
+        # return Response("kill yourself and don't come back again to ask me to kill myself, stupid peasant.", delete_after=0)
+
     async def cmd_dab(self, message):
         return Response("​http://i.giphy.com/lae7QSMFxEkkE.gif", delete_after=0)
 
     @owner_only
     async def cmd_spamthefuckoutofeveryone(self, message):
-        return Response("( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°)", delete_after=0)
+        return Response(
+            "( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°)( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°) ( ͡° ͜ʖ ͡°)",
+            delete_after=0)
 
     async def cmd_memeg(author, self, message):
         """
@@ -3558,9 +3737,10 @@ class RTB(discord.Client):
         """
         genmeme = message.content[len(".memeg "):].strip()
         if message.content[len(".memeg"):].strip() != 0:
-            return Response("http://memegen.link/" +  re.sub(r"\s+", '-', genmeme) + ".jpg", delete_after=0)
+            return Response("http://memegen.link/" + re.sub(r"\s+", '-', genmeme) + ".jpg", delete_after=0)
         else:
             return Response("You didn't enter a message. Templates: http://memegen.link/templates/", delete_after=0)
+
     async def cmd_help2(self):
         """
         Usage:
@@ -3659,10 +3839,10 @@ class RTB(discord.Client):
                 await self.delete_message(msg)
         elif not count:
             if not mentions:
-                  raise CommandError('Invalid user specified')
+                raise CommandError('Invalid user specified')
             async for msg in self.logs_from(channel):
-             if msg.author in mentions:
-                  await self.delete_message(msg)
+                if msg.author in mentions:
+                    await self.delete_message(msg)
         elif count and mentions:
             try:
                 count = int(count)
@@ -3670,18 +3850,22 @@ class RTB(discord.Client):
                 raise CommandError('Invalid message count found : {}'.format(count))
             msg_count = 0
             async for msg in self.logs_from(channel):
-                await self.log(':bomb: Purged `{}` message{} in #`{}`'.format(len(deleted), 's' * bool(deleted), channel.name), channel)
+                await self.log(
+                    ':bomb: Purged `{}` message{} in #`{}`'.format(len(deleted), 's' * bool(deleted), channel.name),
+                    channel)
                 if msg.author in mentions and msg_count < count:
                     await self.delete_message(msg)
                     msg_count += 1
 
-    async def cmd_ban(self, message, *members:discord.User):
+    async def cmd_ban(self, message, *members: discord.User):
         for user in members:
             try:
-                    await self.ban(discord.User, delete_message_days=7)
-                    await self.send_message(message.channel, user.name + " was rekterino from the server.")
+                await self.ban(discord.User, delete_message_days=7)
+                await self.send_message(message.channel, user.name + " was rekterino from the server.")
             except discord.HTTPException:
-                await self.send_message(message.channel, "Ban failed. Maybe you were trying to ban yourself or someone higher on the role chart?")
+                await self.send_message(message.channel,
+                                        "Ban failed. Maybe you were trying to ban yourself or someone higher on the role chart?")
+
     @owner_only
     async def cmd_rtb(self, message, client):
         """
@@ -3705,46 +3889,64 @@ class RTB(discord.Client):
             await self.change_status(game=None)
             return Response("done", delete_after=15)
         elif message.content[len(".rtb "):].strip() == "listrtb":
-            return Response("Current switches: listrtb, setav, cleargame, cb selfspam, setgame, bye, betamode, servers, rename, dat boi, sysinfo", delete_after=15)
+            return Response(
+                "Current switches: listrtb, setav, cleargame, cb selfspam, setgame, bye, betamode, servers, rename, dat boi, sysinfo",
+                delete_after=15)
         elif message.content[len(".rtb "):].strip() == "dat boi":
             return Response("Ayy, it's dat boi!", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "sysinfo":
             await self.safe_send_message(message.channel, platform.uname())
-        elif message.content[len(".rtb "):].strip() == "cb selfspam": #thanks lukkan99 fam
+        elif message.content[len(".rtb "):].strip() == "cb selfspam":  # thanks lukkan99 fam
             cb = cleverbot.Cleverbot()
             iask = (cb.ask("*blushes.*"))
             while 1 == 1:
                 await self.send_message(message.channel, iask)
                 iask = (cb.ask(iask))
-                asyncio.sleep(5)#I need some kind of slowdown.
+                asyncio.sleep(5)  # I need some kind of slowdown.
         elif message.content[len(".rtb "):].strip() == "gsh":
-             discord.Game(name='.help for help!')
+            discord.Game(name='.help for help!')
 
-             await self.change_status(discord.Game(name='.help for help!'))
+            await self.change_status(discord.Game(name='.help for help!'))
 
     async def cmd_e621(self, message):
-        await self.send_message(message.channel, "Look, I know you might be horny, but... Though I'm like some furry dragon and the developer is a furry, I'm not going to let you do this, literally, get your shit from the actual website, and get your lazy ass of Discord, and search.")
+        await self.send_message(message.channel,
+                                "Look, I know you might be horny, but... Though I'm like some furry dragon and the developer is a furry, I'm not going to let you do this, literally, get your shit from the actual website, and get your lazy ass of Discord, and search.")
         asyncio.sleep(2)
-        await self.send_message(message.channel, "yeah, just uh... do that... and if you aren't horny... then, STOP TRYING.")
-        await self.log(":warning: lol attempted furry porn detected. Username: `{}` Server: `{}`".format(message.author.name, message.server.name))
-        #Drew's a furry, watch him be the first one to try this command.
+        await self.send_message(message.channel,
+                                "yeah, just uh... do that... and if you aren't horny... then, STOP TRYING.")
+        await self.log(
+            ":warning: lol attempted furry porn detected. Username: `{}` Server: `{}`".format(message.author.name,
+                                                                                              message.server.name))
+        # Drew's a furry, watch him be the first one to try this command.
+
     async def cmd_rule34(self, message):
-        await self.send_message(message.channel, "If you really want porn, there's the fucking internet. Like, there's Google Chrome and Mozilla Firefox. You can fap on those browsers. Even on mobile. Get your porn from somewhere else, pls.")
-        await self.log(":warning: lol attempted rule34 porn detected. Username: `{}` Server: `{}`".format(message.author.name, message.server.name))
-        #Watch Fardin be in this one first.
+        await self.send_message(message.channel,
+                                "If you really want porn, there's the fucking internet. Like, there's Google Chrome and Mozilla Firefox. You can fap on those browsers. Even on mobile. Get your porn from somewhere else, pls.")
+        await self.log(
+            ":warning: lol attempted rule34 porn detected. Username: `{}` Server: `{}`".format(message.author.name,
+                                                                                               message.server.name))
+        # Watch Fardin be in this one first.
+
     async def cmd_yourinfo(self, message):
         try:
             if not message.content == message.content[len(".yourinfo "):].strip():
                 target = message.author
                 server = message.server
-                inserver = str(len(set([member.server.name for member in self.get_all_members() if member.name == target.name])))
-                x = '```xl\n Your Player Data:\n Username: {0.name}\n ID: {0.id}\n Discriminator: {0.discriminator}\n Avatar URL: {0.avatar_url}\n Current Status: {2}\n Current Game: {3}\n Current VC: {4}\n Mutual servers: {1} \n They joined on: {5}\n Roles: {6}\n```'.format(target,inserver,str(target.status),str(target.game),str(target.voice_channel),str(target.joined_at),', '.join(map(str, target.roles)).replace("@", "@\u200b"))
+                inserver = str(
+                    len(set([member.server.name for member in self.get_all_members() if member.name == target.name])))
+                x = '```xl\n Your Player Data:\n Username: {0.name}\n ID: {0.id}\n Discriminator: {0.discriminator}\n Avatar URL: {0.avatar_url}\n Current Status: {2}\n Current Game: {3}\n Current VC: {4}\n Mutual servers: {1} \n They joined on: {5}\n Roles: {6}\n```'.format(
+                    target, inserver, str(target.status), str(target.game), str(target.voice_channel),
+                    str(target.joined_at), ', '.join(map(str, target.roles)).replace("@", "@\u200b"))
                 await self.send_message(message.channel, x)
             elif message.content >= message.content[len(".yourinfo "):].strip():
                 for user in discord.User:
                     server = message.server
-                    inserver = str(len(set([member.server.name for member in self.get_all_members() if member.name == user.name])))
-                    x = '```xl\n Player Data:\n Username: {}\n ID: {}\n Discriminator: {}\n Avatar URL: {}\n Current Status: {}\n Current Game: {}\n Current VC: {}\n Mutual Servers: {}\n They joined on: {}\n Roles: {}\n```'.format(user.name,user.id,user.discriminator,user.avatar_url,str(user.status),str(user.game),str(user.voice_channel),inserver,str(user.joined_at),', '.join(map(str, user.roles)).replace("@", "@\u200b"))
+                    inserver = str(
+                        len(set([member.server.name for member in self.get_all_members() if member.name == user.name])))
+                    x = '```xl\n Player Data:\n Username: {}\n ID: {}\n Discriminator: {}\n Avatar URL: {}\n Current Status: {}\n Current Game: {}\n Current VC: {}\n Mutual Servers: {}\n They joined on: {}\n Roles: {}\n```'.format(
+                        user.name, user.id, user.discriminator, user.avatar_url, str(user.status), str(user.game),
+                        str(user.voice_channel), inserver, str(user.joined_at),
+                        ', '.join(map(str, user.roles)).replace("@", "@\u200b"))
                     await self.send_message(message.channel, x)
         except Exception as e:
             self.safe_send_message(message.channel, wrap.format(type(e).__name__ + ': ' + str(e)))
@@ -3755,7 +3957,10 @@ class RTB(discord.Client):
             url = "No icon set."
         else:
             url = server.icon_url
-        await self.send_message(message.channel, "```xl\n Server Data:\n Name: {0.name}\n ID: {0.id}\n Owner: {0.owner}\n Region: {0.region}\n Default Channel: {0.default_channel}\n Channels: {1}\n Members: {2}\n Roles: {3}\n Icon: {4}\n```".format(server,len(server.channels),len(server.members),', '.join(map(str, server.roles)).replace("@", "@\u200b"),url))
+        await self.send_message(message.channel,
+                                "```xl\n Server Data:\n Name: {0.name}\n ID: {0.id}\n Owner: {0.owner}\n Region: {0.region}\n Default Channel: {0.default_channel}\n Channels: {1}\n Members: {2}\n Roles: {3}\n Icon: {4}\n```".format(
+                                    server, len(server.channels), len(server.members),
+                                    ', '.join(map(str, server.roles)).replace("@", "@\u200b"), url))
 
     @owner_only
     async def cmd_renamebot(self, message):
@@ -3769,7 +3974,7 @@ class RTB(discord.Client):
         if discord.errors.ClientException:
             return Response("Either you aren't a bot account, or you didn't put a name in. Either one.", delete_after=0)
 
-    async def cmd_wiki(self, query:str, channel, message):
+    async def cmd_wiki(self, query: str, channel, message):
         """
         Wikipedia.
         Search the infinite pages!
@@ -3779,7 +3984,11 @@ class RTB(discord.Client):
         cont = re.sub(r"\s+", '_', query)
         q = wikipedia.page(cont)
         await self.send_typing(channel)
-        await self.send_message(message.channel, "{}:\n```\n{}\n```\nFor more information, visit <{}>".format(q.title,wikipedia.summary(query, sentences=5),q.url))
+        await self.send_message(message.channel, "{}:\n```\n{}\n```\nFor more information, visit <{}>".format(q.title,
+                                                                                                              wikipedia.summary(
+                                                                                                                  query,
+                                                                                                                  sentences=5),
+                                                                                                              q.url))
         await self.safe_send_message(message.channel, cont)
         if wikipedia.exceptions.PageError == True:
             await self.safe_send_message(message.channel, "Error 404. Try another.")
@@ -3796,24 +4005,26 @@ class RTB(discord.Client):
             await self.safe_send_message(message.channel, message.author.name + " has paid their respects.")
             await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000)))
             await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
-            
+
     @owner_only
     async def cmd_terminal(self, message):
         msg = check_output(message.content[len(".terminal "):].strip())
         await self.send_message(message.channel, xl.format(msg))
 
     @owner_only
-    async def cmd_spam(self, message, times : int, lol):
+    async def cmd_spam(self, message, times: int, lol):
         kek = copy.copy(lol)
         for i in range(times):
             await self.send_message(message.channel, kek)
 
     async def cmd_st(self, message):
         msg = check_output(["speedtest-cli", "--simple"]).decode()
-        #--share
-        await self.send_message(message.channel, xl.format(msg.replace("serverip", "Server IP").replace("\n", "\n").replace("\"", "").replace("b'", "").replace("'", "")))
+        # --share
+        await self.send_message(message.channel, xl.format(
+            msg.replace("serverip", "Server IP").replace("\n", "\n").replace("\"", "").replace("b'", "").replace("'",
+                                                                                                                 "")))
 
-    async def cmd_ipping(self, message, ip:str):
+    async def cmd_ipping(self, message, ip: str):
         thing = check_output(["ping", "-c", "4", "{0}".format(ip)]).decode()
         await self.send_message(message.channel, xl.format(thing))
 
@@ -3822,11 +4033,16 @@ class RTB(discord.Client):
         Rate you or your idiot friends! They might not be idiots but still. It's with love <3
         {}rate (player/@mention/name/whatever)
         """
-        drewisafurry = random.choice(ratelevel) #I can't say how MUCH of a furry Drew is. Or known as Printendo
+        drewisafurry = random.choice(ratelevel)  # I can't say how MUCH of a furry Drew is. Or known as Printendo
         if message.content[len(".rate "):].strip() == "<@163698730866966528>":
-            await self.safe_send_message(message.channel, "I give myself a ***-1/10***, just because.") #But guess what, Emil's a fucking furry IN DENIAL, so that's even worse. Don't worry, at least Drew's sane.
+            await self.safe_send_message(message.channel,
+                                         "I give myself a ***-1/10***, just because.")  # But guess what, Emil's a fucking furry IN DENIAL, so that's even worse. Don't worry, at least Drew's sane.
         elif message.content[len(".rate "):].strip() != "<@163698730866966528>":
-            await self.safe_send_message(message.channel, "I give `" + message.content[len(".rate "):].strip().replace("@everyone", ">insert attempt to tag everyone here").replace("@here", ">attempt to tag online users here") + "` a ***" + drewisafurry + "/10***")
+            await self.safe_send_message(message.channel,
+                                         "I give `" + message.content[len(".rate "):].strip().replace("@everyone",
+                                                                                                      ">insert attempt to tag everyone here").replace(
+                                             "@here",
+                                             ">attempt to tag online users here") + "` a ***" + drewisafurry + "/10***")
 
     async def cmd_asshole(self, message):
         await self.send_file(message.channel, "imgs/asshole.jpg")
@@ -3847,7 +4063,7 @@ class RTB(discord.Client):
 
     async def cmd_allow(self):
         return Response("bitch please allow what", delete_after=0)
-        
+
     async def cmd_deformed(self, message):
         await self.send_file(message.channel, "imgs/deFORMED.PNG")
         await self.send_message(message.channel, "FUCKING DEFORMED.PNG")
@@ -3860,10 +4076,11 @@ class RTB(discord.Client):
         elif message.content[len(".throw "):].strip() == "<@!163698730866966528>":
             return Response("you are throwin ***NOTHIN*** to me, ok? ok.", delete_after=15)
         elif message.content[len(".throw "):].strip() != message.author.mention:
-            return Response("throws " + random.choice(throwaf) + " to " + message.content[len(".throw "):].strip(), delete_after=0)
+            return Response("throws " + random.choice(throwaf) + " to " + message.content[len(".throw "):].strip(),
+                            delete_after=0)
 
     async def cmd_setgame(self, message):
-        trashcan = name=message.content[len("setgame "):].strip()
+        trashcan = name = message.content[len("setgame "):].strip()
         await self.send_typing(message.channel)
         discord.Game(name=message.content[len(".setgame "):].strip())
         await self.change_status(discord.Game(name=message.content[len("setgame "):].strip()))
@@ -3874,10 +4091,12 @@ class RTB(discord.Client):
         pingms = await self.send_message(message.channel, "pinging server...")
         ping = time.time() - pingtime
         await self.edit_message(pingms, "It took %.01f secs" % (ping) + " to ping.")
-        #await self.edit_message(pingms, "hi. ` %ms`" % (ping[:-5]))
+        # await self.edit_message(pingms, "hi. ` %ms`" % (ping[:-5]))
+
     @owner_only
     async def cmd_tdaily(self, message):
         await self.safe_send_message(message.channel, "t!daily <@117678528220233731>")
+
     @owner_only
     async def cmd_spamandkys(self, message):
         await self.safe_send_message(message.channel, "Kys fag")
@@ -3894,14 +4113,23 @@ class RTB(discord.Client):
         await self.safe_send_message(message.channel, "Kys fag")
         await self.safe_send_message(message.channel, "Kys fag")
         if discord.HTTPException:
-            await self.safe_send_message(message.channel, "I guess your spic fag self can't die. Fucking hell, I'm probably being rate limited, or something worse.")
+            await self.safe_send_message(message.channel,
+                                         "I guess your spic fag self can't die. Fucking hell, I'm probably being rate limited, or something worse.")
 
     async def cmd_notifydev(self, message):
         await self.send_typing(message.channel)
         await self.send_message(message.channel, "Alerted, might as well check your PMs.")
-        await self.send_message(discord.User(id='117678528220233731'), "New message from `" + message.author.name + "` Discrim: `" + message.author.discriminator + "` ID: `" + message.author.id + "` Server Name: `" + message.author.server.name + "` Message: `" + message.content[len(".notifydev "):].strip() + "`")
-        await self.send_message(message.author, "You have sent a message to Wyndrik, the developer. Your message that was sent was `" + message.content[len(".notifydev "):].strip() + "`. You are not able to respond via the bot, Wyndrik should send a message back to you shortly via PM.")
-        await self.log(":information_source: Message sent to Wyndrik via the notifydev command: `" + message.content[len(".notifydev "):].strip() + "`")
+        await self.send_message(discord.User(id='117678528220233731'),
+                                "New message from `" + message.author.name + "` Discrim: `" + message.author.discriminator + "` ID: `" + message.author.id + "` Server Name: `" + message.author.server.name + "` Message: `" + message.content[
+                                                                                                                                                                                                                                len(
+                                                                                                                                                                                                                                    ".notifydev "):].strip() + "`")
+        await self.send_message(message.author,
+                                "You have sent a message to Wyndrik, the developer. Your message that was sent was `" + message.content[
+                                                                                                                        len(
+                                                                                                                            ".notifydev "):].strip() + "`. You are not able to respond via the bot, Wyndrik should send a message back to you shortly via PM.")
+        await self.log(":information_source: Message sent to Wyndrik via the notifydev command: `" + message.content[
+                                                                                                     len(
+                                                                                                         ".notifydev "):].strip() + "`")
 
     async def cmd_fursecute(self, message, mentions, fursona):
         """
@@ -3913,7 +4141,8 @@ class RTB(discord.Client):
         asyncio.sleep(15)
         await self.send_message(message.channel, "Uh-oh! Retard alert! Retard alert, class!")
         asyncio.sleep(15)
-        await self.send_message(message.channel, mentions + ", do you really believe you're a " + fursona + ", bubblehead?!")
+        await self.send_message(message.channel,
+                                mentions + ", do you really believe you're a " + fursona + ", bubblehead?!")
         asyncio.sleep(15)
         await self.send_message(message.channel, "Come on, you, you're going to have to sit in the dunce chair.")
 
@@ -3926,7 +4155,8 @@ class RTB(discord.Client):
             await self.send_message(message.channel, "Idiot.")
             await self.change_nickname(message.author, message.author.name)
         except discord.errors.Forbidden:
-            await self.send_message(message.channel, "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
+            await self.send_message(message.channel,
+                                    "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
 
     async def cmd_nick(self, message, username, thingy):
         try:
@@ -3934,18 +4164,22 @@ class RTB(discord.Client):
             await self.change_nickname(username, thingy)
             await self.send_message(message.channel, "Changed nickname of " + username + "to " + thingy)
         except discord.errors.Forbidden:
-            await self.send_message(message.channel, "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
+            await self.send_message(message.channel,
+                                    "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
 
     async def cmd_nickreset(self, message, username):
         try:
             await self.change_nickname(username, username)
             await self.send_message(message.channel, "Reset the nick name of " + username)
         except discord.errors.Forbidden:
-            await self.send_message(message.channel, "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
+            await self.send_message(message.channel,
+                                    "```xl\n Whoops, there's an error.\n discord.errors.Forbidden: FORBIDDEN (status code: 403): Privilege is too low... \n Discord bot is forbidden to change the users nickname.\n```")
 
     async def cmd_github(self, message):
-        await self.send_message(message.channel, "https://github.com/RobinGall2910/RobTheBoat - Open source repos are fun.")
-        await self.send_message(message.channel, "https://travis-ci.org/robingall2910/RobTheBoat - Travis CI Build Status")
+        await self.send_message(message.channel,
+                                "https://github.com/RobinGall2910/RobTheBoat - Open source repos are fun.")
+        await self.send_message(message.channel,
+                                "https://travis-ci.org/robingall2910/RobTheBoat - Travis CI Build Status")
 
     @owner_only
     async def cmd_msgfags(self, message, id, reason):
@@ -3959,7 +4193,7 @@ class RTB(discord.Client):
         """
         kym = message.content[len(".kym "):].strip()
         if message.content[len(".kym"):].strip() != 0:
-            return Response("http://knowyourmeme.com/memes/" +  re.sub(r"\s+", '-', kym) + "/", delete_after=0)
+            return Response("http://knowyourmeme.com/memes/" + re.sub(r"\s+", '-', kym) + "/", delete_after=0)
         elif message.content[len(".kym"):].strip() == 0:
             return Response("You didn't enter a message, or you didn't put in a meme.", delete_after=0)
 
@@ -3967,6 +4201,7 @@ class RTB(discord.Client):
         await self.send_file(message.channel, message.content[len(".uploadfile "):].strip())
         if FileNotFoundError == True:
             await self.send_message(message.channel, "There was no such thing found in the system.")
+
     async def cmd_python(self, message):
         await self.send_file(message.channel, "imgs/python.png")
 
@@ -3975,10 +4210,13 @@ class RTB(discord.Client):
 
     async def cmd_serverinv(self, message):
         await self.safe_send_message(message.channel, "Sent via a PM.")
-        await self.safe_send_message(message.author, "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
+        await self.safe_send_message(message.author,
+                                     "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
 
     async def cmd_date(self):
-        return Response("```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime("%I:%M:%S %p") + "\n" + "```", delete_after=0)
+        return Response(
+            "```xl\n Current Date: " + time.strftime("%A, %B %d, %Y") + '\n Current Time (Eastern): ' + time.strftime(
+                "%I:%M:%S %p") + "\n" + "```", delete_after=0)
 
     async def cmd_talk(client, message):
         cb1 = cleverbot.Cleverbot()
@@ -3996,11 +4234,14 @@ class RTB(discord.Client):
             Pretty self explanitory.
         """
         if message.content[len(".kill"):].strip() != message.author.mention:
-            await self.safe_send_message(message.channel, "You've killed " + message.content[len(".kill "):].strip() + random.choice(suicidalmemes))
+            await self.safe_send_message(message.channel,
+                                         "You've killed " + message.content[len(".kill "):].strip() + random.choice(
+                                             suicidalmemes))
         elif message.content[len(".kill"):].strip() == "<@163698730866966528>":
             await self.safe_send_message(message.channel, "can u not im not gonna die")
         elif message.content[len(".kill"):].strip() == message.author.mention:
-            await self.safe_send_message(message.channel, "<@" + message.author.id + ">" + " Nice one on your suicide. Just, it's so great.")
+            await self.safe_send_message(message.channel,
+                                         "<@" + message.author.id + ">" + " Nice one on your suicide. Just, it's so great.")
 
     async def cmd_say(self, client, message):
         """
@@ -4010,7 +4251,8 @@ class RTB(discord.Client):
         return Response(troyhasnodongs.replace("@everyone", "everyone"), delete_after=0)
 
     async def cmd_donate(self, message):
-        return Response("`http://donate.dragonfire.me` - Here I guess. I can't keep up with the server, so I'm going to need all the help I can get. Thanks.")
+        return Response(
+            "`http://donate.dragonfire.me` - Here I guess. I can't keep up with the server, so I'm going to need all the help I can get. Thanks.")
 
     async def cmd_ship(self, client, message, content):
         """
@@ -4022,18 +4264,19 @@ class RTB(discord.Client):
             return Response("hah, loner", delete_after=0)
         elif message.content[len(".ship "):].strip() != '<@163698730866966528> x <@163698730866966528>':
             return Response("I hereby ship " + message.content[len(".ship"):].strip() + "!", delete_after=0)
-        #todo: remove messages that wont make sense, like "no"
+            # todo: remove messages that wont make sense, like "no"
 
     async def cmd_nope(self):
         return Response("http://giphy.com/gifs/morning-good-reaction-ihWcaj6R061wc", delete_after=0)
 
     @owner_only
     async def cmd_rga(self):
-        #Picks a random game thing from the list.
+        # Picks a random game thing from the list.
         whatever = random.choice(dis_games)
         discord.Game(Name=whatever)
 
         await self.change_status(whatever)
+
     @owner_only
     async def cmd_listservers(self, message):
         await self.send_message(message.channel, ", ".join([x.name for x in self.servers]))
@@ -4041,24 +4284,36 @@ class RTB(discord.Client):
     async def cmd_serverlookup(self, message):
         await self.send_message(message.channel, message.content[len(".serverlookup "):].strip() in self.servers)
 
-
     async def cmd_uptime(self):
         second = time.time() - st
         minute, second = divmod(second, 60)
         hour, minute = divmod(minute, 60)
         day, hour = divmod(hour, 24)
         week, day = divmod(day, 7)
-        return Response("I have been up for %d weeks," % (week) + " %d days," % (day) + " %d hours," % (hour) + " %d minutes," % (minute) + " and %d seconds." % (second), delete_after=0)
+        return Response(
+            "I have been up for %d weeks," % (week) + " %d days," % (day) + " %d hours," % (hour) + " %d minutes," % (
+            minute) + " and %d seconds." % (second), delete_after=0)
+
     async def cmd_createinv(self, message):
         invite = await self.create_invite(message.server)
         await self.send_message(message.channel, invite)
+
     @owner_only
     async def cmd_makeinvite(self, message):
         strippedk = message.content[len(".makeinvite "):].strip()
         inv2 = await self.create_invite(list(self.servers)[45])
-        await self.send_message(message.channel, "lol k here #" + message.content[len(".makeinvite "):].strip() + " " + inv2)
+        await self.send_message(message.channel,
+                                "lol k here #" + message.content[len(".makeinvite "):].strip() + " " + inv2)
+
     async def cmd_stats(client, message):
-        await client.send_message(message.channel, "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Status: ok \n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(BUNAME, MVER, BUILD, len(set(client.get_all_members())), len(set(client.messages)), len(client.servers), len(set(client.get_all_channels())), len(set(client.private_channels)), discord.__version__, time.strftime("%A, %B %d, %Y"), time.strftime("%I:%M:%S %p")))
+        await client.send_message(message.channel,
+                                  "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Status: ok \n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(
+                                      BUNAME, MVER, BUILD, len(set(client.get_all_members())),
+                                      len(set(client.messages)), len(client.servers),
+                                      len(set(client.get_all_channels())), len(set(client.private_channels)),
+                                      discord.__version__, time.strftime("%A, %B %d, %Y"),
+                                      time.strftime("%I:%M:%S %p")))
+
     """async def cmd_debug(self, message):
         if(message.content.startswith('.debug')):
             if message.author.id == '117678528220233731':
@@ -4073,8 +4328,9 @@ class RTB(discord.Client):
                     await self.send_message(message.channel, "```python\n" + debug + "\n```")
             else:
                 pass"""
+
     async def cmd_debug(self, message):
-        if(message.content.startswith('.debug ')):
+        if (message.content.startswith('.debug ')):
             if message.author.id == '117678528220233731':
                 debug = message.content[len(".debug "):].strip()
                 py = "```py\n{}\n```"
@@ -4097,7 +4353,7 @@ class RTB(discord.Client):
         await self._manual_delete_check(message)
 
     async def cmd_reboot(self, message):
-        #await self.safe_send_message(message.channel, "Bot is restarting, please wait...")
+        # await self.safe_send_message(message.channel, "Bot is restarting, please wait...")
         await self.safe_send_message(message.channel, "brb")
         await self.log(":warning: Bot is restarting")
         await self.disconnect_all_voice_clients()
@@ -4143,14 +4399,18 @@ class RTB(discord.Client):
         if message.author.id in self.blacklist and message.author.id != self.config.owner_id:
             self.safe_print("[User blacklisted] {0.id}/{0.name} ({1})".format(message.author, message_content))
             if self.config.log_interaction:
-                await self.log(":no_pedestrians: `{0.name}#{0.discriminator}`: `{1}`".format(message.author, message_content), message.channel)
+                await self.log(
+                    ":no_pedestrians: `{0.name}#{0.discriminator}`: `{1}`".format(message.author, message_content),
+                    message.channel)
             return
 
         elif self.config.white_list_check and int(
                 message.author.id) not in self.whitelist and message.author.id != self.config.owner_id:
             self.safe_print("[User not whitelisted] {0.id}/{0.name} ({1})".format(message.author, message_content))
             if self.config.log_interaction:
-                await self.log("Whitelisted: `{0.name}#{0.discriminator}`: `{1}`".format(message.author, message_content), message.channel)
+                await self.log(
+                    "Whitelisted: `{0.name}#{0.discriminator}`: `{1}`".format(message.author, message_content),
+                    message.channel)
             return
 
         else:
@@ -4261,23 +4521,26 @@ class RTB(discord.Client):
         except Exception:
             traceback.print_exc()
             if self.config.log_exceptions:
-                await self.log(":warning: `%s#%s` encountered an Exception:\n```python\n%s\n```" % (self.user.name, self.user.discriminator, traceback.format_exc()), message.channel)
+                await self.log(":warning: `%s#%s` encountered an Exception:\n```python\n%s\n```" % (
+                self.user.name, self.user.discriminator, traceback.format_exc()), message.channel)
 
     async def on_server_join(self, server):
         if self.config.log_interaction:
-            await self.log(":performing_arts: `%s#%s` joined: `%s`" % (self.user.name, self.user.discriminator, server.name))
+            await self.log(
+                ":performing_arts: `%s#%s` joined: `%s`" % (self.user.name, self.user.discriminator, server.name))
 
     async def on_server_remove(self, server):
         if self.config.log_interaction:
-            await self.log(":performing_arts: `%s#%s` left: `%s`" % (self.user.name, self.user.discriminator, server.name))
+            await self.log(
+                ":performing_arts: `%s#%s` left: `%s`" % (self.user.name, self.user.discriminator, server.name))
 
-    async def on_server_update(self, before:discord.Server, after:discord.Server):
-          if before.region != after.region:
-              self.safe_print("[Servers] \"%s\" changed regions: %s -> %s" % (after.name, before.region, after.region))
-          if self.config.log_interaction:
-                await self.log(":house: `{}` changed regions: `{}` to `{}`".format(after.name, before.region, after.region))
+    async def on_server_update(self, before: discord.Server, after: discord.Server):
+        if before.region != after.region:
+            self.safe_print("[Servers] \"%s\" changed regions: %s -> %s" % (after.name, before.region, after.region))
+        if self.config.log_interaction:
+            await self.log(":house: `{}` changed regions: `{}` to `{}`".format(after.name, before.region, after.region))
 
-          await self.reconnect_voice_client(after)
+        await self.reconnect_voice_client(after)
 
     async def on_voice_state_update(self, before, after):
         if not all([before, after]):
