@@ -1109,7 +1109,7 @@ class RTB(discord.Client):
             name = u'{}{}'.format(prefix, entry.title)[:128]
             game = random.choice(dis_games)
 
-        await self.change_status(game)
+        await self.change_status(game, idle=True)
 
     async def safe_send_message(self, dest, content, *, tts=False, expire_in=0, also_delete=None, quiet=False):
         msg = None
@@ -3103,6 +3103,11 @@ class RTB(discord.Client):
             await self.send_message(message.channel, "WHAT HAVE YOU DONE.")
         elif message.author.bot == True:
             return
+        elif message.content == "O-oooooooooo AAAAE-A-A-I-A-U- JO-oooooooooooo AAE-O-A-A-U-U-A- E-eee-ee-eee AAAAE-A-E-I-E-A- JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA":
+            await self.send_message(message.channel,
+                                    "Ｏ－ｏｏｏｏｏｏｏｏｏｏ ＡＡＡＡＥ－Ａ－Ａ－Ｉ－Ａ－Ｕ－ ＪＯ－ｏｏｏｏｏｏｏｏｏｏｏｏ ＡＡＥ－Ｏ－Ａ－Ａ－Ｕ－Ｕ－Ａ－ Ｅ－ｅｅｅ－ｅｅ－ｅｅｅ ＡＡＡＡＥ－Ａ－Ｅ－Ｉ－Ｅ－Ａ－ ＪＯ－ｏｏｏ－ｏｏ－ｏｏ－ｏｏ ＥＥＥＥＯ－Ａ－ＡＡＡ－ＡＡＡＡ")
+        elif message.content == "<@117678528220233731>, You arent my owner 🚫" and message.author.bot == True:
+            await self.send_message(message.channel, "Yes he is. Let him in, you bastard.")
         await self.wait_until_ready()
 
         message_content = message.content.strip()
