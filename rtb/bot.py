@@ -2794,7 +2794,7 @@ class RTB(discord.Client):
                     await self.send_message(message.channel, py.format(type(e).__name__ + ': ' + str(e)))
                     return
                 if asyncio.iscoroutine(thing):
-                    #thing = await thing
+                    thing = await thing
                     await self.send_message(message.channel, py.format(thing))
             else:
                 pass
