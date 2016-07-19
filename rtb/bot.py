@@ -166,6 +166,13 @@ dis_games = [
     discord.Game(name='Ow, my head hurts.')
 ]
 
+anotheractualmethod = [
+    "idle=True",
+    "idle=False",
+    "idle=True",
+    "idle=False"
+]
+
 # Regex for IP address
 ipv4_regex = re.compile(r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b')
 ipv6_regex = re.compile(
@@ -826,14 +833,8 @@ class RTB(discord.Client):
 
             name = u'{}{}'.format(prefix, entry.title)[:128]
             game = random.choice(dis_games)
-            randomize = [
-                self.change_status(game, idle=False),
-                self.change_status(game, idle=True),
-                self.change_status(game, idle=False),
-                self.change_status(game, idle=True)
-            ]
 
-        await random.choice(randomize)
+        await self.change_status(game, random.choice(anotheractualmethod))
 
     async def safe_send_message(self, dest, content, *, tts=False, expire_in=0, also_delete=None, quiet=False):
         msg = None
