@@ -1,11 +1,11 @@
 import os.path
 
-VERSION = '3.0.5'
-MAIN_VERSION = '2'
+VERSION = '3.0.6'
+MAIN_VERSION = '3'
 SUB_VERSION = '-rev 1 '
-CODENAME = '"O-oooooooooo AAAAE-A-A-I-A-U- JO-oooooooooooo AAE-O-A-A-U-U-A- E-eee-ee-eee AAAAE-A-E-I-E-A- JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA"'
+CODENAME = '"hmu wednesday maybe?"'
 VER = VERSION + SUB_VERSION
-BDATE = 'July 15, 2016 @ 12:29 a.m. EDT' #Yay for my birthmonth
+BDATE = 'July 20, 2016 @ 8:15 p.m. EDT' #Yay for my birthmonth
 MAINVER = VERSION + SUB_VERSION + CODENAME
 BUILD_USERNAME = "Wyndrik"
 AUDIO_CACHE_PATH = os.path.join(os.getcwd(), 'audio_cache')
