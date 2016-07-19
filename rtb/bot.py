@@ -82,8 +82,6 @@ dis_games = [
     discord.Game(name='Dragon'),
     discord.Game(name='with some floof'),
     discord.Game(name='with Napstabot'),
-    discord.Game(name='Doom (1993)'),
-    discord.Game(name='Doom (2016)'),
     discord.Game(name='DramaNation'),
     discord.Game(name='browsing 4chan'),
     discord.Game(name="Guns N' Roses"),
@@ -1147,8 +1145,14 @@ class RTB(discord.Client):
 
             name = u'{}{}'.format(prefix, entry.title)[:128]
             game = random.choice(dis_games)
+            randomize = [
+                self.change_status(game, idle=False),
+                self.change_status(game, idle=True),
+                self.change_status(game, idle=False),
+                self.change_status(game, idle=True)
+            ]
 
-        await self.change_status(game, idle=True)
+        await random.choice(randomizeraf)
 
     async def safe_send_message(self, dest, content, *, tts=False, expire_in=0, also_delete=None, quiet=False):
         msg = None
@@ -3049,6 +3053,15 @@ class RTB(discord.Client):
         await self.change_status(whatever)
 
     @owner_only
+    async def cmd_bday(self, message):
+        bday = discord.Game(name=message.content[len(".bday "):].strip())
+        while 1 == 1:
+            asyncio.sleep(25)
+            await self.change_status(bday)
+            asyncio.sleep(25)
+
+
+    @owner_only
     async def cmd_listservers(self, message):
         await self.send_message(message.channel, ", ".join([x.name for x in self.servers]))
 
@@ -3140,13 +3153,13 @@ class RTB(discord.Client):
     async def on_message(self, message):
         if message.content == "BrAiNpOwEr https://www.youtube.com/watch?v=P6Z_s5MfDiA":
             await self.send_message(message.channel, "WHAT HAVE YOU DONE.")
+        elif message.content == "<@!117678528220233731>, You aren't my owner 🚫" and message.author.bot == True:
+            await self.send_message(message.channel, "Yes he is. Let him in, you bastard.")
         elif message.author.bot == True:
             return
         elif message.content == "O-oooooooooo AAAAE-A-A-I-A-U- JO-oooooooooooo AAE-O-A-A-U-U-A- E-eee-ee-eee AAAAE-A-E-I-E-A- JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA":
             await self.send_message(message.channel,
                                     "Ｏ－ｏｏｏｏｏｏｏｏｏｏ ＡＡＡＡＥ－Ａ－Ａ－Ｉ－Ａ－Ｕ－ ＪＯ－ｏｏｏｏｏｏｏｏｏｏｏｏ ＡＡＥ－Ｏ－Ａ－Ａ－Ｕ－Ｕ－Ａ－ Ｅ－ｅｅｅ－ｅｅ－ｅｅｅ ＡＡＡＡＥ－Ａ－Ｅ－Ｉ－Ｅ－Ａ－ ＪＯ－ｏｏｏ－ｏｏ－ｏｏ－ｏｏ ＥＥＥＥＯ－Ａ－ＡＡＡ－ＡＡＡＡ")
-        elif message.content == "<@117678528220233731>, You arent my owner 🚫" and message.author.bot == True:
-            await self.send_message(message.channel, "Yes he is. Let him in, you bastard.")
         await self.wait_until_ready()
 
         message_content = message.content.strip()
