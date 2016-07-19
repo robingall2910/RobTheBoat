@@ -411,11 +411,6 @@ class RTB(discord.Client):
         self.challongeconfig = ChallongeConfig(challonge_file)
         self.excel_file = excel_file
         self.permissions = Permissions(perms_file)
-        self.challonge = Challonge()
-        self.excelSpread = ExcelGSpread()
-        self.excelSpread.setExcelFile(self.excel_file)
-        self.excelSpread.setCredentials()
-        self.excelSpread.setEmail(self.config.excel_email)
         self.lock_checkin = False
         self.lmgtfy = Lmgtfy()
         self.platform = PlatformSpecs()
@@ -427,8 +422,8 @@ class RTB(discord.Client):
             print("Warning: Autoplaylist is empty, disabling.")
             self.config.auto_playlist = False
 
-        # self.headers['user-agent'] += ' RobTheBoat/%s' % BOTVERSION # Now it's reverse.
-        self.http.user_agent += ' RobTheBoat/%s' % BOTVERSION
+        # self.headers['user-agent'] += ' RobTheBoat Discord/%s' % BOTVERSION # Now it's reverse.
+        self.http.user_agent += ' RobTheBoat Discord/%s' % BOTVERSION
         # ^ for somewhat reason
 
         # TODO: Fix these
@@ -838,7 +833,7 @@ class RTB(discord.Client):
                 self.change_status(game, idle=True)
             ]
 
-        await random.choice(randomizeraf)
+        await random.choice(randomize)
 
     async def safe_send_message(self, dest, content, *, tts=False, expire_in=0, also_delete=None, quiet=False):
         msg = None
@@ -2536,19 +2531,16 @@ class RTB(discord.Client):
                                          "I guess your spic fag self can't die. Fucking hell, I'm probably being rate limited, or something worse.")
 
     async def cmd_notifydev(self, message):
-        await self.send_typing(message.channel)
-        await self.send_message(message.channel, "Alerted.")
-        await self.send_message(discord.User(id='117678528220233731'),
-                                "New message from `" + message.author.name + "` Discrim: `" + message.author.discriminator + "` ID: `" + message.author.id + "` Server Name: `" + message.author.server.name + "` Message: `" + message.content[
-                                                                                                                                                                                                                                len(
-                                                                                                                                                                                                                                    ".notifydev "):].strip() + "`")
-        await self.send_message(message.author,
-                                "You have sent a message to Wyndrik, the developer. Your message that was sent was `" + message.content[
-                                                                                                                        len(
-                                                                                                                            ".notifydev "):].strip() + "`. You are not able to respond via the bot, Wyndrik should send a message back to you shortly via PM.")
-        await self.log(":information_source: Message sent to Wyndrik via the notifydev command: `" + message.content[
-                                                                                                     len(
-                                                                                                         ".notifydev "):].strip() + "`")
+        if message.content > 10:
+            await self.send_typing(message.channel)
+            await self.send_message(message.channel, "Alerted.")
+            await self.send_message(discord.User(id='117678528220233731'),
+                                    "New message from `" + message.author.name + "` Discrim: `" + message.author.discriminator + "` ID: `" + message.author.id + "` Server Name: `" + message.author.server.name + "` Message: `" + message.content[
+                                                                                                                                                                                                                                    len(
+                                                                                                                                                                                                                                        ".notifydev "):].strip() + "`")
+            await self.log(":information_source: Message sent to Wyndrik via the notifydev command: `" + message.content[len(".notifydev "):].strip() + "`")
+        else:
+            await self.send_message(message.channel, "You'd need to put a message in this....")
 
     async def cmd_ban(self, message, username):
         """
@@ -2803,7 +2795,7 @@ class RTB(discord.Client):
                     return
                 if asyncio.iscoroutine(thing):
                     #thing = await thing
-                await self.send_message(message.channel, py.format(thing))
+                    await self.send_message(message.channel, py.format(thing))
             else:
                 pass
 
