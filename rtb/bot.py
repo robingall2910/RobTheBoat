@@ -1,8 +1,5 @@
 import os
 import sys
-
-sys.path.append(os.path.join('gspread', 'gspread'))
-sys.path.append(os.path.join('pychallonge', 'challonge'))
 import time
 import shlex
 import shutil
@@ -20,7 +17,6 @@ import aiohttp
 import platform
 import wikipedia
 import wikipedia.exceptions
-import wolframalpha
 import datetime
 import copy
 
@@ -332,118 +328,6 @@ class Lmgtfy:
         print('response shortlink: ' + str(r.json()['shorturl']))
         return r.json()['shorturl']
 
-
-class Challonge:
-    def __init__(self):
-        self.username = None
-        self.api_key = None
-        self.login = False
-        self.currenttournament = None
-        self.tourneyLoaded = False
-        self.tourneyLink = None
-        self.channelLock = None
-
-    def setUsername(self, _username):
-        self.username = _username
-
-    def getUsername(self):
-        return self.username
-
-    def setApiKey(self, _apiKey):
-        self.api_key = _apiKey
-
-    def getApiKey(self):
-        return self.api_key
-
-    def setChallonge(self, _username, _apiKey):
-        self.username = _username
-        self.api_key = _apiKey
-
-    def setLogin(self, _login):
-        self.login = _login
-
-    def getLogin(self):
-        return self.login
-
-    def setCurrentTourney(self, _tourney):
-        self.currenttournament = _tourney
-
-    def getCurrentTourney(self):
-        return self.currenttournament
-
-    def setTourneyLoaded(self, _tourney):
-        self.tourneyLoaded = _tourney
-
-    def getTourneyLoaded(self):
-        return self.tourneyLoaded
-
-    def getTourneyLink(self):
-        if self.currenttournament is None:
-            return self.currenttournament
-        return self.currenttournament['full-challonge-url']
-
-    def getLiveImgUrl(self):
-        if self.currenttournament is None:
-            return self.currenttournament
-        return self.currenttournament['live-image-url']
-
-    def getTimeStartedAt(self):
-        if self.currenttournament is None:
-            return self.currenttournament
-        return self.currenttournament['started-at']
-
-    def getTourneyProgress(self):
-        if self.currenttournament is None:
-            return self.currenttournament
-        return self.currenttournament['progress-meter']
-
-    def getTourneyState(self):
-        """
-        Gets the current state of the running tourney
-        States: underway, pending, in_progress, ended
-        Returns: string
-        """
-        if self.currenttournament is None:
-            return self.currenttournament
-        return self.currenttournament['state']
-
-    def getTourneyId(self):
-        if self.currenttournament is None:
-            return self.currenttournament
-        return self.currenttournament['id']
-
-    def getTourneyName(self):
-        if self.currenttournament is None:
-            return self.currenttournament
-        return self.currenttournament['name']
-
-    def getChallongeParticipantId(_name):
-        tourneyPartId = self.getTourneyId()
-        if tourneyPartId is None:
-            return tourneyPartId
-        participants = challonge.participants.index(tourneyPartId)
-        requestedParticipant = ""
-        for participant in participants:
-            if (participant["name"] == str(_name)) and participant["tournament-id"] == tourneyPartId:
-                requestedParticipant = participant["id"]
-                break
-        if str(requestedParticipant).isdigit():
-            return requestedParticipant
-        return "not found"
-
-    def setChallongeLink(self, _tLink):
-        self.tourneyLink = _tLink
-
-    def getChallongeLink(self):
-        return self.tourneyLink
-
-    def setChannelLock(self, _tLock):
-        self.channelLock = _tLock
-
-    def getChannelLock(self):
-        return self.channelLock
-
-
 class PlatformSpecs:
     def __init__(self):
         self.platformObj = platform
@@ -474,204 +358,6 @@ class PlatformSpecs:
 
     def getProcessor(self):
         return self.processor
-
-
-class ExcelGSpread:
-    def __init__(self):
-        self.excelKey = None
-        self.url = None
-        self.ws = None
-        self.gc = None
-        self.gss_client = None
-        self.excelfile = None
-        self.scope = ['https://spreadsheets.google.com/feeds']
-        self.keyType = None
-        self.email = None
-        self.gspreadCred = None
-
-    def setExcelKey(self, _key):
-        self.excelKey = _key
-
-    def getExcelKey(self):
-        return self.excelKey
-
-    def setURL(self, _url):
-        self.url = _url
-
-    def getURL(self):
-        return self.url
-
-    def setWS(self, _ws):
-        self.ws = _ws
-
-    def getWS(self):
-        return self.ws
-
-    def setGC(self, _gc):
-        self.gc = _gc
-
-    def getGC(self):
-        return self.gc
-
-    def setGSS(self, _gss):
-        self.gss_client = _gss
-
-    def getGSS(self):
-        return self.gss_client
-
-    def setExcelFile(self, _excelFile):
-        self.excelfile = _excelFile
-
-    def getExcelFile(self):
-        return self.excelfile
-
-    def setScope(self, _scope):
-        self.scope = _scope
-
-    def getScope(self):
-        return self.scope
-
-    def setExcelKeyType(self, _type):
-        self.keyType = _type
-
-    def getExcelKeyType(self):
-        return self.keyType
-
-    def setEmail(self, _email):
-        self.email = _email
-
-    def getEmail(self):
-        return self.email
-
-    def setCred(self, _cred):
-        self.gspreadCred = _cred
-
-    def getCred(self):
-        return self.gspreadCred
-
-    def checkExpired(self):
-        if self.getCred().access_token_expired:
-            self.getGSS().login()
-            return True
-        return True
-
-    def setCredentials(self):
-        scope = ['https://spreadsheets.google.com/feeds']
-        credentials = ServiceAccountCredentials.from_json_keyfile_name(
-            './config/excel/discord-auto-login-c480a18f18c9.json', scope)
-        gc = gspread.authorize(credentials)
-        self.setGSS(gc)
-        """excelFile = self.excelfile
-        if excelFile.find('.json') != -1:
-            gspreadCredentials = ServiceAccountCredentials.from_json_keyfile_name(excelFile, self.getScope())
-            self.setCred(gspreadCredentials)
-            gss_client = gspread.authorize(gspreadCredentials)
-            if gspreadCredentials.access_token_expired:
-                gss_client.login()
-            self.setGSS(gss_client)"""
-
-    def getSpecificCellVal(self, specificContent, wks):
-        cellContent = ""
-        try:
-            specific_Cell = wks.find(specificContent)
-            specific_Row = specific_Cell.row
-            specific_Col = specific_Cell.col
-            nextColOver = wks.cell(specific_Row, specific_Col + 1)
-            cellContent = nextColOver.value
-        except gspread.exceptions.CellNotFound:
-            return "No Information available"
-        return cellContent
-
-    def checkDuplicateNames(self, member, wks, _caseSense):
-        pattern = re.compile('(\W|^)' + re.escape(str(member.name)) + '(\W|$)',
-                             re.IGNORECASE)
-        try:
-            user_Cell_list = ''
-            if _caseSense:
-                user_Cell_list = wks.findall(pattern)
-            else:
-                user_Cell_list = wks.findall(str(member.name))
-            if len(user_Cell_list) > 1:
-                return True  # should be True when duplicate is found
-        except gspread.exceptions.CellNotFound:
-            return False
-        return False  # should be False when no duplicate is found
-
-    def checkUserCheckedInSpreadSheet(self, member, wks, _caseSense):
-        pattern = re.compile('(\W|^)' + re.escape(str(member.id)) + '(\W|$)',
-                             re.IGNORECASE)
-        try:
-            # if _caseSense:
-            #    user_Cell = wks.find(pattern)
-            # else:
-            #    user_Cell = wks.find(str(member.id))
-            if wks.find(pattern):
-                return True
-        except gspread.exceptions.CellNotFound:
-            return False
-
-    def checkUserExistInSpreadSheet(self, member, wks, _caseSense):
-        pattern = re.compile('(\W|^)' + re.escape(member.name) + '(\W|$)',
-                             re.IGNORECASE)
-        try:
-            if _caseSense:
-                user_Cell = wks.find(pattern)
-            else:
-                user_Cell = wks.find(str(member.name))
-            user_Row = user_Cell.row
-            user_Col = user_Cell.col
-            wks.update_cell(user_Row, user_Col + 1, member.id)
-        except gspread.exceptions.CellNotFound:
-            return False
-        return True
-
-    def checkDuplicateTeamNames(self, _teamName, wks, _caseSense):
-        pattern = re.compile('(\W|^)' + re.escape(str(_teamName)) + '(\W|$)',
-                             re.IGNORECASE)
-        try:
-            if _caseSense:
-                user_Cell_list = wks.findall(pattern)
-            else:
-                user_Cell_list = wks.findall(str(_teamName))
-            if len(user_Cell_list) > 1:
-                return 'Error: Duplicate name entry'
-        except gspread.exceptions.CellNotFound:
-            return False
-        return True
-
-    def checkTeamExistInSpreadSheet(self, _teamName, wks, _caseSense, _tourneyType):
-        pattern = re.compile('(\W|^)' + re.escape(str(_teamName)) + '(\W|$)',
-                             re.IGNORECASE)
-        try:
-            user_Cell = ''
-            if _caseSense:
-                user_Cell = wks.find(pattern)
-            else:
-                user_Cell = wks.find(_teamName)
-            if user_Cell != -1:
-                user_Row = user_Cell.row
-                user_Col = user_Cell.col
-                user_Cell_Array = []
-                if _tourneyType == '1v1':
-                    cCol = wks.cell(user_Row, user_Col + 1)
-                    user_Cell_Array.append(cCol.value)
-                elif _tourneyType == '2v2':
-                    cCol = wks.cell(user_Row, user_Col - 3)
-                    user_Cell_Array.append(cCol.value)
-                    eCol = wks.cell(user_Row, user_Col - 1)
-                    user_Cell_Array.append(eCol.value)
-                elif _tourneyType == '3v3':
-                    cCol = wks.cell(user_Row, user_Col - 5)
-                    user_Cell_Array.append(cCol.value)
-                    eCol = wks.cell(user_Row, user_Col - 3)
-                    user_Cell_Array.append(eCol.value)
-                    gCol = wks.cell(user_Row, user_Col - 1)
-                    user_Cell_Array.append(gCol.value)
-                return user_Cell_Array
-        except gspread.exceptions.CellNotFound:
-            return False
-        return False
-
 
 class SkipState:
     def __init__(self):
@@ -3053,15 +2739,6 @@ class RTB(discord.Client):
         await self.change_status(whatever)
 
     @owner_only
-    async def cmd_bday(self, message):
-        bday = discord.Game(name=message.content[len(".bday "):].strip())
-        while 1 == 1:
-            asyncio.sleep(25)
-            await self.change_status(bday)
-            asyncio.sleep(25)
-
-
-    @owner_only
     async def cmd_listservers(self, message):
         await self.send_message(message.channel, ", ".join([x.name for x in self.servers]))
 
@@ -3125,7 +2802,7 @@ class RTB(discord.Client):
                     await self.send_message(message.channel, py.format(type(e).__name__ + ': ' + str(e)))
                     return
                 if asyncio.iscoroutine(thing):
-                    thing = await thing
+                    #thing = await thing
                 await self.send_message(message.channel, py.format(thing))
             else:
                 pass
