@@ -163,6 +163,13 @@ dis_games = [
     discord.Game(name='jenna is cute'),
     discord.Game(name='crippling social anxiety'),
     discord.Game(name='HMU ON YOUTUBE: http://youtube.com/c/FUCKBOIS2016'),
+    discord.Game(name='Richard Dawkins.'),
+    discord.Game(name='Carl Sagan.'),
+    discord.Game(name='Alan Watts.'),
+    discord.Game(name='Neil DeGrasse Tyson.'),
+    discord.Game(name='2(n)^2'),
+    discord.Game(name='E=MC^2'),
+    discord.Game(name='F=MA'),
     discord.Game(name='Ow, my head hurts.')
 ]
 
