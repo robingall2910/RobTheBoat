@@ -163,13 +163,6 @@ dis_games = [
     discord.Game(name='jenna is cute'),
     discord.Game(name='crippling social anxiety'),
     discord.Game(name='HMU ON YOUTUBE: http://youtube.com/c/FUCKBOIS2016'),
-    discord.Game(name='Richard Dawkins.'),
-    discord.Game(name='Carl Sagan.'),
-    discord.Game(name='Alan Watts.'),
-    discord.Game(name='Neil DeGrasse Tyson.'),
-    discord.Game(name='2(n)^2'),
-    discord.Game(name='E=MC^2'),
-    discord.Game(name='F=MA'),
     discord.Game(name='Ow, my head hurts.')
 ]
 
@@ -2292,7 +2285,7 @@ class RTB(discord.Client):
     async def cmd_rtb(self, message, client):
         """
         RTB System.
-        Only Wyndrik#0052 is allowed, or the Bot Owner if this isn't the main bot, RobTheBoat#9091
+        Only Robin#0052 is allowed, or the Bot Owner if this isn't the main bot, RobTheBoat#9091
         """
         if message.content[len(".rtb "):].strip() == "servers":
             return Response("``` \n" + self.servers + "\n ```", delete_after=0)
@@ -2546,7 +2539,7 @@ class RTB(discord.Client):
                                     "New message from `" + message.author.name + "` Discrim: `" + message.author.discriminator + "` ID: `" + message.author.id + "` Server Name: `" + message.author.server.name + "` Message: `" + message.content[
                                                                                                                                                                                                                                     len(
                                                                                                                                                                                                                                         ".notifydev "):].strip() + "`")
-            await self.log(":information_source: Message sent to Wyndrik via the notifydev command: `" + message.content[len(".notifydev "):].strip() + "`")
+            await self.log(":information_source: Message sent to Robin via the notifydev command: `" + message.content[len(".notifydev "):].strip() + "`")
         else:
             await self.send_message(message.channel, "You'd need to put a message in this....")
 
@@ -2646,7 +2639,7 @@ class RTB(discord.Client):
     async def cmd_msgfags(self, message, id, reason):
         reason = message.content[len(".msgfags " + id):].strip()
         await self.send_message(discord.User(id=id), reason)
-        await self.log(":information_source: Wyndrik sent a warning to ID #: `" + id + "`")
+        await self.log(":information_source: Robin sent a warning to ID #: `" + id + "`")
 
     async def cmd_kym(self, message):
         """
@@ -2880,7 +2873,7 @@ class RTB(discord.Client):
             return
 
         else:
-            self.safe_print("[Command] {0.id}/{0.name} ({1})".format(message.author, message_content))
+            self.safe_print("Command - ID: {0.id} / Username:{0.name} - {1}".format(message.author, message_content))
 
         user_permissions = self.permissions.for_user(message.author)
 
