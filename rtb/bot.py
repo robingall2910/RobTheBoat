@@ -834,7 +834,8 @@ class RTB(discord.Client):
             name = u'{}{}'.format(prefix, entry.title)[:128]
             game = random.choice(dis_games)
 
-        await self.change_status(game, random.choice(anotheractualmethod))
+        #await self.change_status(game, random.choice(anotheractualmethod))
+        await self.change_status(game)
 
     async def safe_send_message(self, dest, content, *, tts=False, expire_in=0, also_delete=None, quiet=False):
         msg = None
@@ -2001,9 +2002,11 @@ class RTB(discord.Client):
                     except discord.HTTPException:
                         return Response("Being rate limited, yeah.", delete_after=0)
         if self.config.log_interaction:
-            await self.log(
-                ':bomb: Purged `{}` message{} in #`{}`'.format(len(deleted), 's' * bool(deleted), channel.name),
-                channel)
+            #await self.log(
+            #    ':bomb: Purged `{}` message{} in #`{}`'.format(len(deleted), 's' * bool(deleted), channel.name),
+            #    channel)
+            print("Deleted some stuff in %s of %s" % channel.name, server.name)
+            self.log("Deleted some stuff in %s of %s" % channel.name, server.name)
         return Response('Cleaned up {} message{}.'.format(msgs, '' if msgs == 1 else 's'), delete_after=15)
 
     async def cmd_pldump(self, channel, song_url):
