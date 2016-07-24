@@ -168,9 +168,9 @@ dis_games = [
 
 anotheractualmethod = [
     "idle=True",
-    "idle=False",
-    "idle=True",
-    "idle=False"
+    #"idle=False",
+    "idle=True"
+    #"idle=False"
 ]
 
 # Regex for IP address
@@ -2203,7 +2203,7 @@ class RTB(discord.Client):
 
         try:
             await self.change_nickname(server.me, nick)
-            await self.log(":warning: Bot name changed to `" + nick + "`" + " in %s" % server.name)
+            await self.log(":warning: Bot name changed to `" + nick + "`" + " in `%s`" % server.name)
         except Exception as e:
             raise exceptions.CommandError(e, expire_in=20)
 
@@ -2800,6 +2800,14 @@ class RTB(discord.Client):
             else:
                 pass
 
+    async def cmd_wt(self, message, chanid, msg):
+    #wireless message sending amirite
+        if message.author.id == '117678528220233731' or '154785871311273986':
+            msg = message.content[len(".wt " + chanid):].strip()
+            await self.send_typing(discord.Object(id=chanid))
+            asyncio.sleep(150)
+            await self.send_message(discord.Object(id=chanid), msg)
+
     async def cmd_disconnect(self, server, message):
         await self.safe_send_message(message.channel, "Disconnected from the voice server.")
         await self.log(":mega: Disconnected from: `%s`" % server.name)
@@ -2815,7 +2823,7 @@ class RTB(discord.Client):
 
     async def cmd_timetodie(self, message):
         kek = await self.safe_send_message(message.channel, "Bot is shutting down...")
-        asyncio.sleep(10)
+        asyncio.sleep(100)
         await self.edit_message(kek, "btw BOT LIVES ***DO NOT*** MATTER.")
         await self.log(":warning: Bot is shutting down")
         await self.disconnect_all_voice_clients()
@@ -2824,7 +2832,7 @@ class RTB(discord.Client):
     async def on_message(self, message):
         if message.content == "BrAiNpOwEr https://www.youtube.com/watch?v=P6Z_s5MfDiA":
             await self.send_message(message.channel, "WHAT HAVE YOU DONE.")
-        elif message.content == "<@!117678528220233731>, You aren't my owner 🚫" and message.author.bot == True:
+        elif message.content == "<@!117678528220233731>, You aren't my owner :no_entry:" and message.author.bot == True:
             await self.send_message(message.channel, "Yes he is. Let him in, you bastard.")
         elif message.author.bot == True:
             return
