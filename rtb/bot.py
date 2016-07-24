@@ -2005,8 +2005,8 @@ class RTB(discord.Client):
             #await self.log(
             #    ':bomb: Purged `{}` message{} in #`{}`'.format(len(deleted), 's' * bool(deleted), channel.name),
             #    channel)
-            print("Deleted some stuff in %s of %s" % channel.name, server.name)
-            self.log("Deleted some stuff in %s of %s" % channel.name, server.name)
+            print("Deleted some stuff in %s of %s" % (channel.name, server.name))
+            self.log("Deleted some stuff in %s of %s" % (channel.name, server.name))
         return Response('Cleaned up {} message{}.'.format(msgs, '' if msgs == 1 else 's'), delete_after=15)
 
     async def cmd_pldump(self, channel, song_url):
