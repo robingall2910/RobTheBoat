@@ -642,7 +642,7 @@ class RTB(discord.Client):
             for x in range(retries):
                 try:
                     await self.log(":mega: Attempting connection: `%s`" % server.name)
-                    print("Attempting connection...")
+                    print("Attempting to connect to %s" % server.name)
                     await asyncio.wait_for(voice_client.connect(), timeout=10, loop=self.loop)
                     await self.log(":mega: Connected to: `%s`" % server.name)
                     print("Connection established.")
@@ -2785,7 +2785,7 @@ class RTB(discord.Client):
 
     async def cmd_debug(self, message):
         if (message.content.startswith('.debug ')):
-            if message.author.id == '117678528220233731':
+            if message.author.id == '117678528220233731' or '154785871311273986':
                 debug = message.content[len(".debug "):].strip()
                 py = "```py\n{}\n```"
                 thing = None
@@ -2814,8 +2814,9 @@ class RTB(discord.Client):
         raise exceptions.RestartSignal
 
     async def cmd_timetodie(self, message):
-        await self.safe_send_message(message.channel, "Bot is shutting down...")
-        await self.safe_send_message(message.channel, "btw BOT LIVES ***DO NOT*** MATTER.")
+        kek = await self.safe_send_message(message.channel, "Bot is shutting down...")
+        asyncio.sleep(10)
+        await self.edit_message(kek, "btw BOT LIVES ***DO NOT*** MATTER.")
         await self.log(":warning: Bot is shutting down")
         await self.disconnect_all_voice_clients()
         raise exceptions.TerminateSignal
@@ -3024,12 +3025,12 @@ class RTB(discord.Client):
 
         if (len(my_voice_channel.voice_members) - 1) != num_deaf:
             if auto_paused and player.is_paused:
-                print("[config:autopause] Unpausing")
+                print("Autopause Configuration: Resuming song.")
                 self.server_specific_data[after.server]['auto_paused'] = False
                 player.resume()
         else:
             if not auto_paused and player.is_playing:
-                print("[config:autopause] Pausing")
+                print("Autopause Configuration: Stopping song.")
                 self.server_specific_data[after.server]['auto_paused'] = True
                 player.pause()
 
