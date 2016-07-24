@@ -642,7 +642,7 @@ class RTB(discord.Client):
             for x in range(retries):
                 try:
                     await self.log(":mega: Attempting connection: `%s`" % server.name)
-                    print("Attempting to connect to %s" % server.name)
+                    print("Attempting connection...")
                     await asyncio.wait_for(voice_client.connect(), timeout=10, loop=self.loop)
                     await self.log(":mega: Connected to: `%s`" % server.name)
                     print("Connection established.")
@@ -2768,10 +2768,10 @@ class RTB(discord.Client):
                                       discord.__version__, time.strftime("%A, %B %d, %Y"),
                                       time.strftime("%I:%M:%S %p")))
 
-    """async def cmd_debug(self, message):
-        if(message.content.startswith('.debug')):
+    async def cmd_deval(self, message):
+        if(message.content.startswith('.deval')):
             if message.author.id == '117678528220233731':
-                debug = message.content[len(".debug "):].strip()
+                debug = message.content[len(".deval "):].strip()
                 try:
                     debug = eval(debug)
                     debug = str(debug)
@@ -2781,7 +2781,7 @@ class RTB(discord.Client):
                     debug = str(debug)
                     await self.send_message(message.channel, "```python\n" + debug + "\n```")
             else:
-                pass"""
+                pass
 
     async def cmd_debug(self, message):
         if (message.content.startswith('.debug ')):
@@ -2806,6 +2806,7 @@ class RTB(discord.Client):
             msg = message.content[len(".wt " + chanid):].strip()
             await self.send_typing(discord.Object(id=chanid))
             asyncio.sleep(150)
+            await self.log(":information_source: Message via Bot to channel ID `" + chanid + "` with message `" + msg + "`")
             await self.send_message(discord.Object(id=chanid), msg)
 
     async def cmd_disconnect(self, server, message):
