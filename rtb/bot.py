@@ -2345,21 +2345,48 @@ class RTB(discord.Client):
             ":warning: lol attempted rule34 porn detected. Username: `{}` Server: `{}`".format(message.author.name,
                                                                                                message.server.name))
         # Watch Fardin be in this one first.
-
-    async def cmd_userdata(self, message,*users:discord.User):
-    try:
-        if not users:
-            user = message.author
-            server = message.server
-            eyes = str(len(set([member.server.name for member in self.get_all_members() if member.name == user.name])))
-            formatting = 'Username: "{0.name}"\n ID #: "{1.id}"\n Discriminator #: "{2.discriminator}"\n Status: "{3}"\n Game: "{4}"\n Voice Channel: "{5}"\n Seen on "{6}" servers \n Joined Server On: "{7}" \n Avatar URL: "{8.avatar_url}" \n Roles: "{9}'.format(user, user, user, str(user.status), str(user.game), str(user.voice_channel), eyes, str(user.joined_at), user, ', '.join(map(str, user.roles)).replace("@", "@\u200b")
-            await self.send_message(message.channel, xl.format(formatting))
-        else:
-            for user in users:
+    """
+    async def cmd_userdata(self, *users:discord.User):
+        try:
+            if len(message.content) == 9:
+                user = message.author
                 server = message.server
-                eyes = str(len(set([member.server.name for member in self.bot.get_all_members() if member.name == user.name])))
-                formatting = 'Username: "{0}"\n ID #: "{1}"\n Discriminator #: "{2}"\n Status: "{3}"\n Game: "{4}"\n Voice Channel: "{5}" \n Seen on "{6} servers" \n Joined Server On: "{7}" \n Avatar: "{8}" \n Roles: "{9}"'.format(user.name, user.id, user.discriminator, str(user.status), str(user.game), str(user.voice_channel), eyes, str(user.joined_at), user.avatar_url, ', '.join(map(str, user.roles)).replace("@", "@\u200b"))
-                await self.send_message(message.channel, xl.format(formatting))
+                eyes = str(len(set([member.server.name for member in self.get_all_members() if member.name == user.name])))
+                fmt = 'Username: "{0.name}"\n ID #: "{1.id}"\n Discriminator #: "{2.discriminator}"\n Status: "{3}"\n Game: "{4}"\n Voice Channel: "{5}"\n Seen on "{6}" servers \n Joined Server On: "{7}" \n Avatar URL: "{8.avatar_url}" \n Roles: "{9}'.format(user, user, user, str(user.status), str(user.game), str(user.voice_channel), eyes, str(user.joined_at), user, ', '.join(map(str, user.roles)).replace("@", "@\u200b"))
+                await self.send_message(message.channel, xl.format(fmt))
+            else:
+                for user in users:
+                    server = message.server
+                    eyes = str(len(set([member.server.name for member in self.bot.get_all_members() if member.name == user.name])))
+                    fmt = 'Username: "{0}"\n ID #: "{1}"\n Discriminator #: "{2}"\n Status: "{3}"\n Game: "{4}"\n Voice Channel: "{5}" \n Seen on "{6} servers" \n Joined Server On: "{7}" \n Avatar: "{8}" \n Roles: "{9}"'.format(user.name, user.id, user.discriminator, str(user.status), str(user.game), str(user.voice_channel), eyes, str(user.joined_at), user.avatar_url, ', '.join(map(str, user.roles)).replace("@", "@\u200b"))
+                    return Response(xl.format(fmt))
+        except Exception as e:
+            return Response(py.format(type(e).__name__ + ': ' + str(e)))
+    """
+
+    async def cmd_yourinfo(self, message):
+        try:
+            if not message.content == message.content[len(".yourinfo "):].strip():
+                target = message.author
+                server = message.server
+                inserver = str(
+                    len(set([member.server.name for member in self.get_all_members() if member.name == target.name])))
+                x = '```xl\n Your Player Data:\n Username: {0.name}\n ID: {0.id}\n Discriminator: {0.discriminator}\n Avatar URL: {0.avatar_url}\n Current Status: {2}\n Current Game: {3}\n Current VC: {4}\n Mutual servers: {1} \n They joined on: {5}\n Roles: {6}\n```'.format(
+                    target, inserver, str(target.status), str(target.game), str(target.voice_channel),
+                    str(target.joined_at), ', '.join(map(str, target.roles)).replace("@", "@\u200b"))
+                await self.send_message(message.channel, x)
+            elif message.content >= message.content[len(".yourinfo "):].strip():
+                for user in discord.User:
+                    server = message.server
+                    inserver = str(
+                        len(set([member.server.name for member in self.get_all_members() if member.name == user.name])))
+                    x = '```xl\n Player Data:\n Username: {}\n ID: {}\n Discriminator: {}\n Avatar URL: {}\n Current Status: {}\n Current Game: {}\n Current VC: {}\n Mutual Servers: {}\n They joined on: {}\n Roles: {}\n```'.format(
+                        user.name, user.id, user.discriminator, user.avatar_url, str(user.status), str(user.game),
+                        str(user.voice_channel), inserver, str(user.joined_at),
+                        ', '.join(map(str, user.roles)).replace("@", "@\u200b"))
+                    await self.send_message(message.channel, x)
+        except Exception as e:
+            self.safe_send_message(message.channel, wrap.format(type(e).__name__ + ': ' + str(e)))
 
     async def cmd_serverdata(self, message):
         server = message.server
@@ -2371,10 +2398,9 @@ class RTB(discord.Client):
                                 "```xl\n Server Data:\n Name: {0.name}\n ID: {0.id}\n Owner: {0.owner}\n Region: {0.region}\n Default Channel: {0.default_channel}\n Channels: {1}\n Members: {2}\n Roles: {3}\n Icon: {4}\n```".format(
                                     server, len(server.channels), len(server.members),
                                     ', '.join(map(str, server.roles)).replace("@", "@\u200b"), url))
-                                    
-    async def cmd_avurl(self, message):
-        for user in users:
-            await self.send_message(user.name + "'s avatar URL is: " + user.avatar_url)
+
+    async def cmd_avurl(self):
+        return Response(message.author.name + ", your avatar URL is: " + message.author.avatar_url)
 
     @owner_only
     async def cmd_renamebot(self, message):
