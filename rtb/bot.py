@@ -60,6 +60,7 @@ load_opus_lib()
 st = time.time()
 # xl color formatting
 xl = "```xl\n{0}\n```"
+py = "```py\n{0}\n```"
 
 dis_games = [
     discord.Game(name='with fire'),
@@ -2005,8 +2006,8 @@ class RTB(discord.Client):
             #await self.log(
             #    ':bomb: Purged `{}` message{} in #`{}`'.format(len(deleted), 's' * bool(deleted), channel.name),
             #    channel)
-            print("Deleted some stuff in %s of %s" % (channel.name, server.name))
-            self.log("Deleted some stuff in %s of %s" % (channel.name, server.name))
+            print("Deleted some stuff in %s of %s" % (channel.name, message.server.name).encode('utf-8', 'replace'))
+            self.log("Deleted some stuff in %s of %s" % (channel.name, message.server.name))
         return Response('Cleaned up {} message{}.'.format(msgs, '' if msgs == 1 else 's'), delete_after=15)
 
     async def cmd_pldump(self, channel, song_url):
@@ -2345,29 +2346,20 @@ class RTB(discord.Client):
                                                                                                message.server.name))
         # Watch Fardin be in this one first.
 
-    async def cmd_yourinfo(self, message):
-        try:
-            if not message.content == message.content[len(".yourinfo "):].strip():
-                target = message.author
+    async def cmd_userdata(self, message,*users:discord.User):
+    try:
+        if not users:
+            user = message.author
+            server = message.server
+            eyes = str(len(set([member.server.name for member in self.get_all_members() if member.name == user.name])))
+            formatting = 'Username: "{0.name}"\n ID #: "{1.id}"\n Discriminator #: "{2.discriminator}"\n Status: "{3}"\n Game: "{4}"\n Voice Channel: "{5}"\n Seen on "{6}" servers \n Joined Server On: "{7}" \n Avatar URL: "{8.avatar_url}" \n Roles: "{9}'.format(user, user, user, str(user.status), str(user.game), str(user.voice_channel), eyes, str(user.joined_at), user, ', '.join(map(str, user.roles)).replace("@", "@\u200b")
+            await self.send_message(message.channel, xl.format(formatting))
+        else:
+            for user in users:
                 server = message.server
-                inserver = str(
-                    len(set([member.server.name for member in self.get_all_members() if member.name == target.name])))
-                x = '```xl\n Your Player Data:\n Username: {0.name}\n ID: {0.id}\n Discriminator: {0.discriminator}\n Avatar URL: {0.avatar_url}\n Current Status: {2}\n Current Game: {3}\n Current VC: {4}\n Mutual servers: {1} \n They joined on: {5}\n Roles: {6}\n```'.format(
-                    target, inserver, str(target.status), str(target.game), str(target.voice_channel),
-                    str(target.joined_at), ', '.join(map(str, target.roles)).replace("@", "@\u200b"))
-                await self.send_message(message.channel, x)
-            elif message.content >= message.content[len(".yourinfo "):].strip():
-                for user in discord.User:
-                    server = message.server
-                    inserver = str(
-                        len(set([member.server.name for member in self.get_all_members() if member.name == user.name])))
-                    x = '```xl\n Player Data:\n Username: {}\n ID: {}\n Discriminator: {}\n Avatar URL: {}\n Current Status: {}\n Current Game: {}\n Current VC: {}\n Mutual Servers: {}\n They joined on: {}\n Roles: {}\n```'.format(
-                        user.name, user.id, user.discriminator, user.avatar_url, str(user.status), str(user.game),
-                        str(user.voice_channel), inserver, str(user.joined_at),
-                        ', '.join(map(str, user.roles)).replace("@", "@\u200b"))
-                    await self.send_message(message.channel, x)
-        except Exception as e:
-            self.safe_send_message(message.channel, wrap.format(type(e).__name__ + ': ' + str(e)))
+                eyes = str(len(set([member.server.name for member in self.bot.get_all_members() if member.name == user.name])))
+                formatting = 'Username: "{0}"\n ID #: "{1}"\n Discriminator #: "{2}"\n Status: "{3}"\n Game: "{4}"\n Voice Channel: "{5}" \n Seen on "{6} servers" \n Joined Server On: "{7}" \n Avatar: "{8}" \n Roles: "{9}"'.format(user.name, user.id, user.discriminator, str(user.status), str(user.game), str(user.voice_channel), eyes, str(user.joined_at), user.avatar_url, ', '.join(map(str, user.roles)).replace("@", "@\u200b"))
+                await self.send_message(message.channel, xl.format(formatting))
 
     async def cmd_serverdata(self, message):
         server = message.server
@@ -2379,6 +2371,10 @@ class RTB(discord.Client):
                                 "```xl\n Server Data:\n Name: {0.name}\n ID: {0.id}\n Owner: {0.owner}\n Region: {0.region}\n Default Channel: {0.default_channel}\n Channels: {1}\n Members: {2}\n Roles: {3}\n Icon: {4}\n```".format(
                                     server, len(server.channels), len(server.members),
                                     ', '.join(map(str, server.roles)).replace("@", "@\u200b"), url))
+                                    
+    async def cmd_avurl(self, message):
+        for user in users:
+            await self.send_message(user.name + "'s avatar URL is: " + user.avatar_url)
 
     @owner_only
     async def cmd_renamebot(self, message):
@@ -2436,8 +2432,7 @@ class RTB(discord.Client):
             await self.send_message(message.channel, kek)
 
     async def cmd_st(self, message):
-        msg = check_output(["speedtest-cli", "--simple"]).decode()
-        # --share
+        msg = check_output(["speedtest-cli", "--simple --share"]).decode()
         await self.send_message(message.channel, xl.format(
             msg.replace("serverip", "Server IP").replace("\n", "\n").replace("\"", "").replace("b'", "").replace("'",
                                                                                                                  "")))
@@ -2445,6 +2440,10 @@ class RTB(discord.Client):
     async def cmd_ipping(self, message, ip: str):
         thing = check_output(["ping", "-c", "4", "{0}".format(ip)]).decode()
         await self.send_message(message.channel, xl.format(thing))
+
+    async def cmd_traceroute(self, message, ip: str):
+        traced = check_output(["traceroute", "{0}".format(ip)]).decode()
+        await self.send_message(message.channel, xl.format(traced))
 
     async def cmd_rate(self, message):
         """
@@ -2535,7 +2534,7 @@ class RTB(discord.Client):
                                          "I guess your spic fag self can't die. Fucking hell, I'm probably being rate limited, or something worse.")
 
     async def cmd_notifydev(self, message):
-        if message.content > 10:
+        if len(message.content) > 10:
             await self.send_typing(message.channel)
             await self.send_message(message.channel, "Alerted.")
             await self.send_message(discord.User(id='117678528220233731'),
@@ -2568,7 +2567,7 @@ class RTB(discord.Client):
         user_id = extract_user_id(username)
         member = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
         try:
-            await self.unban(member, delete_message_days=7)
+            await self.unban(member)
         except discord.Forbidden:
             return Response("You do not have the proper permissions to unban.", reply=True)
         except discord.HTTPException:
@@ -2692,7 +2691,7 @@ class RTB(discord.Client):
         """
         if message.content[len(".kill"):].strip() != message.author.mention:
             await self.safe_send_message(message.channel,
-                                         "You've killed " + message.content[len(".kill "):].strip() + random.choice(
+                                         "You've killed " + message.content[len(".kill "):].strip() + " " + random.choice(
                                              suicidalmemes))
         elif message.content[len(".kill"):].strip() == "<@163698730866966528>":
             await self.safe_send_message(message.channel, "can u not im not gonna die")
@@ -2840,9 +2839,11 @@ class RTB(discord.Client):
             await self.send_message(message.channel, "Yes he is. Let him in, you bastard.")
         elif message.author.bot == True:
             return
-        elif message.content == "O-oooooooooo AAAAE-A-A-I-A-U- JO-oooooooooooo AAE-O-A-A-U-U-A- E-eee-ee-eee AAAAE-A-E-I-E-A- JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA":
+        elif message.content == "O-oooooooooo AAAAE-A-A-I-A-U- JO-oooooooooooo AAE-O-A-A-U-U-A- E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA":
             await self.send_message(message.channel,
                                     "Ｏ－ｏｏｏｏｏｏｏｏｏｏ ＡＡＡＡＥ－Ａ－Ａ－Ｉ－Ａ－Ｕ－ ＪＯ－ｏｏｏｏｏｏｏｏｏｏｏｏ ＡＡＥ－Ｏ－Ａ－Ａ－Ｕ－Ｕ－Ａ－ Ｅ－ｅｅｅ－ｅｅ－ｅｅｅ ＡＡＡＡＥ－Ａ－Ｅ－Ｉ－Ｅ－Ａ－ ＪＯ－ｏｏｏ－ｏｏ－ｏｏ－ｏｏ ＥＥＥＥＯ－Ａ－ＡＡＡ－ＡＡＡＡ")
+        elif message.content == "(╯°□°）╯︵ ┻━┻":
+            await self.send_message(message.channel, "─=≡Σ((((╯°□°）╯︵ ┻━┻")
         await self.wait_until_ready()
 
         message_content = message.content.strip()
