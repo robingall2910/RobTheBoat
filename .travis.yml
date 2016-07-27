@@ -4,9 +4,7 @@ python:
 # command to install dependencies
 install:
   - pip install iso8601
-  - pip install -e git+http://github.com/russ-/pychallonge#egg=pychallonge
-  - pip install pynacl cryptography wolframalpha apiai pychallonge lxml oauth2client cleverbot gspread
+  - pip install pynacl cryptography wolframalpha wikipedia oauth2client cleverbot gspread
   - pip install -r requirements.txt
-  - pip install autologin
 # command to run tests
 script: python3.5 run.py
