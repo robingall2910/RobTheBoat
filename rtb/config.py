@@ -10,6 +10,7 @@ class ConfigDefaults:
     email = None
     password = None
     token = None
+    abaltoken = None
 
     owner_id = None
     command_prefix = '.'
@@ -267,6 +268,7 @@ class Config:
         self._email = config.get('Credentials', 'Email', fallback=ConfigDefaults.email)
         self._password = config.get('Credentials', 'Password', fallback=ConfigDefaults.password)
         self._login_token = config.get('Credentials', 'Token', fallback=ConfigDefaults.token)
+        self._abaltoken = config.get('Credentials', 'Authorization', fallback=ConfigDefaults.abaltoken)
 
         self.auth = None
 

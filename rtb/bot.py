@@ -18,7 +18,9 @@ import platform
 import wikipedia
 import wikipedia.exceptions
 import datetime
+import logging
 import copy
+import requests
 
 from oauth2client.service_account import ServiceAccountCredentials
 from gspread import exceptions
@@ -61,6 +63,12 @@ st = time.time()
 # xl color formatting
 xl = "```xl\n{0}\n```"
 py = "```py\n{0}\n```"
+discord_logger = logging.getLogger('discord')
+discord_logger.setLevel(logging.CRITICAL)
+log = logging.getLogger()
+log.setLevel(logging.INFO)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='a')
+log.addHandler(handler)
 
 dis_games = [
     discord.Game(name='with fire'),
@@ -961,6 +969,15 @@ class RTB(discord.Client):
     async def on_ready(self):
         print('---------------------------------------')
         print('\rConnected!  RTB System v%s\n' % BOTVERSION)
+        print('Updating DBots Statistics...')
+        abalscount = len(self.servers)
+        r = requests.post('https://bots.discord.pw/api/bots/163698730866966528/stats', json={"server_count": abalscount},
+                          headers={
+                              'Authorization': self.config._abaltoken})
+        if r.status_code == "200":
+            print('Discord Bots Server count updated.')
+        elif r.status_code == "401":
+            print('An error occurred!')
 
         if self.config.owner_id == self.user.id:
             raise exceptions.HelpfulError(
@@ -2276,15 +2293,6 @@ class RTB(discord.Client):
                     await self.delete_message(msg)
                     msg_count += 1
 
-    async def cmd_ban(self, message, *members: discord.User):
-        for user in members:
-            try:
-                await self.ban(discord.User, delete_message_days=7)
-                await self.send_message(message.channel, user.name + " was rekterino from the server.")
-            except discord.HTTPException:
-                await self.send_message(message.channel,
-                                        "Ban failed. Maybe you were trying to ban yourself or someone higher on the role chart?")
-
     @owner_only
     async def cmd_rtb(self, message, client):
         """
@@ -2324,8 +2332,16 @@ class RTB(discord.Client):
                 asyncio.sleep(5)  # I need some kind of slowdown.
         elif message.content[len(".rtb "):].strip() == "gsh":
             discord.Game(name='.help for help!')
-
             await self.change_status(discord.Game(name='.help for help!'))
+        elif message.content[len(".rtb "):].strip() == "dbupdate":
+            abalscount = len(self.servers)
+            r = requests.post('https://bots.discord.pw/api/bots/163698730866966528/stats', json={"server_count": abalscount}, headers={'Authorization': self.config._abaltoken})
+            if r.status_code == int(200):
+                print('DBots Stats updated manually via rtb')
+                await self.send_message(message.channel, "Updated Discord Bots server count!")
+            else:
+                print('Error occured while trying to update stats')
+                await self.send_message(message.channel, "Error occurred when trying to update, here's the error code: {}".format(r.status_code))
 
     async def cmd_e621(self, message):
         await self.send_message(message.channel,
@@ -2612,6 +2628,23 @@ class RTB(discord.Client):
             return Response("You do not have the proper permissions to kick.", reply=True)
         except discord.HTTPException:
             return Response("Kicking failed due to HTTPException error.", reply=True)
+
+    async def cmd_logs(self, message, logs:int=100):
+        proc = await self.send_message(message.channel, "processing logs..")
+        server = message.server
+        counter = 0
+        i = random.randint(0,9999)
+        path = "templog{}.txt".format(i)
+        f = reversed(io.open("discord.log","r",encoding="ISO-8859-1").readlines())
+        for line in f:
+            if line.startswith('{0.server.name} - #{0.channel.name} >>'.format(message)):
+                with io.open(path,"a",encoding='utf-8') as f:
+                    if counter != logs:
+                        f.write(line)
+                        counter += 1
+        await self.edit_message(proc, "attempting to send logs...".format(counter))
+        await self.send_file(message.channel, path, filename="logs.txt", content="Here's the last {} logs.".format(counter))
+        os.remove(path)
 
     async def cmd_fursecute(self, message, mentions, fursona):
         """
