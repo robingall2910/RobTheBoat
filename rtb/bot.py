@@ -971,7 +971,7 @@ class RTB(discord.Client):
         print('\rConnected!  RTB System v%s\n' % BOTVERSION)
         print('Updating DBots Statistics...')
         abalscount = len(self.servers)
-        r = requests.post('https://bots.discord.pw/api/bots/163698730866966528/stats', json={"server_count": abalscount},
+        r = requests.post('https://bots.discord.pw/api/bots/' + self.user.id + '/stats', json={"server_count": abalscount},
                           headers={
                               'Authorization': self.config._abaltoken})
         if r.status_code == "200":
@@ -2261,7 +2261,7 @@ class RTB(discord.Client):
         if count and not reason and count.startswith('\"'):
             reason = count
             count = None
-        await self.log(message, author, server, reason)
+        await self.log("nothing :eyes:")
         if not mentions and not count:
             raise CommandError('Usage: {}purge <# of msgs to remove> @mention "<reason>'
                                'Removes all messages if a user isnt specified\n'
@@ -2335,7 +2335,7 @@ class RTB(discord.Client):
             await self.change_status(discord.Game(name='.help for help!'))
         elif message.content[len(".rtb "):].strip() == "dbupdate":
             abalscount = len(self.servers)
-            r = requests.post('https://bots.discord.pw/api/bots/163698730866966528/stats', json={"server_count": abalscount}, headers={'Authorization': self.config._abaltoken})
+            r = requests.post('https://bots.discord.pw/api/bots/' + self.user.id + '/stats', json={"server_count": abalscount}, headers={'Authorization': self.config._abaltoken})
             if r.status_code == int(200):
                 print('DBots Stats updated manually via rtb')
                 await self.send_message(message.channel, "Updated Discord Bots server count!")
@@ -2463,8 +2463,8 @@ class RTB(discord.Client):
             await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
 
     @owner_only
-    async def cmd_terminal(self, message):
-        msg = check_output(message.content[len(".terminal "):].strip())
+    async def cmd_terminal(self, message, filler1, filler2, filler3, filler4):
+        msg = check_output([filler1], [filler2], [filler3], [filler4])
         await self.send_message(message.channel, xl.format(msg))
 
     @owner_only
@@ -2539,10 +2539,10 @@ class RTB(discord.Client):
                             delete_after=0)
 
     async def cmd_setgame(self, message):
-        trashcan = name = message.content[len("setgame "):].strip()
+        trashcan = name = message.content[len(" setgame "):].strip()
         await self.send_typing(message.channel)
-        discord.Game(name=message.content[len(".setgame "):].strip())
-        await self.change_status(discord.Game(name=message.content[len("setgame "):].strip()))
+        discord.Game(name=message.content[len(" setgame "):].strip())
+        await self.change_status(discord.Game(name=message.content[len(" setgame "):].strip()))
         return Response("Successful, set as `" + trashcan + "`", delete_after=0)
 
     async def cmd_ping(self, message):
@@ -2829,10 +2829,10 @@ class RTB(discord.Client):
                                       discord.__version__, time.strftime("%A, %B %d, %Y"),
                                       time.strftime("%I:%M:%S %p")))
 
-    async def cmd_deval(self, message):
-        if(message.content.startswith('.deval')):
+    async def cmd_deval(self, message, content):
+        if 'deval' in message.content:
             if message.author.id == '117678528220233731':
-                debug = message.content[len(".deval "):].strip()
+                debug = content
                 try:
                     debug = eval(debug)
                     debug = str(debug)
@@ -2844,10 +2844,10 @@ class RTB(discord.Client):
             else:
                 pass
 
-    async def cmd_debug(self, message):
-        if (message.content.startswith('.debug ')):
+    async def cmd_debug(self, message, content):
+        if 'debug' in message.content:
             if message.author.id == '117678528220233731' or '154785871311273986':
-                debug = message.content[len(".debug "):].strip()
+                debug = content
                 py = "```py\n{}\n```"
                 thing = None
                 try:
