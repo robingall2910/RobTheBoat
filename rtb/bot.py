@@ -2829,10 +2829,10 @@ class RTB(discord.Client):
                                       discord.__version__, time.strftime("%A, %B %d, %Y"),
                                       time.strftime("%I:%M:%S %p")))
 
-    async def cmd_deval(self, message, content):
+    async def cmd_deval(self, message):
         if 'deval' in message.content:
             if message.author.id == '117678528220233731':
-                debug = content
+                debug = message.content[len(".deval "):].strip()
                 try:
                     debug = eval(debug)
                     debug = str(debug)
@@ -2847,7 +2847,7 @@ class RTB(discord.Client):
     async def cmd_debug(self, message, content):
         if 'debug' in message.content:
             if message.author.id == '117678528220233731' or '154785871311273986':
-                debug = content
+                debug = message.content[len(".debug "):].strip()
                 py = "```py\n{}\n```"
                 thing = None
                 try:
