@@ -2463,9 +2463,15 @@ class RTB(discord.Client):
             await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
 
     @owner_only
-    async def cmd_terminal(self, message, filler1, filler2, filler3, filler4):
-        msg = check_output([filler1], [filler2], [filler3], [filler4])
-        await self.send_message(message.channel, xl.format(msg))
+    async def cmd_terminal(self, channel, message):
+        try:
+            await self.send_typing(channel)
+            msg = message.content[len(" terminal "):].strip()
+            input = os.popen(msg)
+            output = input.read()
+            await self.send_message(channel, xl.format(output))
+        except:
+            return Response("Error, couldn't send command", delete_after=30)
 
     @owner_only
     async def cmd_spam(self, message, times: int, lol):
