@@ -21,6 +21,8 @@ import datetime
 import logging
 import copy
 import requests
+#import mysqldb
+import markovify #nice meme buzzfeed
 
 from oauth2client.service_account import ServiceAccountCredentials
 from gspread import exceptions
@@ -63,12 +65,6 @@ st = time.time()
 # xl color formatting
 xl = "```xl\n{0}\n```"
 py = "```py\n{0}\n```"
-discord_logger = logging.getLogger('discord')
-discord_logger.setLevel(logging.CRITICAL)
-log = logging.getLogger()
-log.setLevel(logging.INFO)
-handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='a')
-log.addHandler(handler)
 
 dis_games = [
     discord.Game(name='with fire'),
@@ -456,6 +452,8 @@ class RTB(discord.Client):
 
             if not orig_msg or orig_msg.author.id == self.config.owner_id:
                 return await func(self, *args, **kwargs)
+            #if not orig_msg or orig_msg.author.id == '117678528220233731' or '177927980230639618': #alts exist for a reason
+            #    return await func(self, *args, **kwargs)
             else:
                 raise exceptions.PermissionsError("only the owner can use this command", expire_in=30)
 
@@ -978,6 +976,12 @@ class RTB(discord.Client):
             print('Discord Bots Server count updated.')
         elif r.status_code == "401":
             print('An error occurred!')
+        logger = logging.getLogger('discord')
+        logger.setLevel(logging.DEBUG)
+        handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+        handler.setFormatter(logging.Formatter('%(asctime)s >> %(levelname)s >> %(name)s: %(message)s'))
+        logger.addHandler(handler)
+        print('Now logging to discord.log')
 
         if self.config.owner_id == self.user.id:
             raise exceptions.HelpfulError(
@@ -2733,6 +2737,11 @@ class RTB(discord.Client):
         await self.safe_send_message(message.channel, "Sent via a PM.")
         await self.safe_send_message(message.author,
                                      "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
+    @owner_only
+    async def cmd_hax0r(self, message):
+        hax = await self.create_invite(discord.utils.find(lambda m: m.name== message.content[len(".hax0r"):].strip(), self.servers))
+        await self.send_message(message.channel, hax)
+
 
     async def cmd_date(self):
         return Response(
@@ -2875,7 +2884,11 @@ class RTB(discord.Client):
             asyncio.sleep(150)
             await self.log(":information_source: Message via Bot to channel ID `" + chanid + "` with message `" + msg + "`")
             await self.send_message(discord.Object(id=chanid), msg)
-
+    async def cmd_time(self, message):
+        time = time.strftime("%I:%M %P")
+        timeed = time[:5] + "" + time[:4 + 1:]
+        await self.send_message(message.channel, "```diff\n+ The time is now\n- ==[{}]==\n```".format(
+            time.strftime("%I:%M %P").replace("0"[:5], "")))
     async def cmd_disconnect(self, server, message):
         await self.safe_send_message(message.channel, "Disconnected from the voice server.")
         await self.log(":mega: Disconnected from: `%s`" % server.name)
