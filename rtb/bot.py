@@ -2212,7 +2212,7 @@ class RTB(discord.Client):
 
     # always remember to update this everytime you do an edit
     async def cmd_changes(self):
-        return Response("What's new in " + VER + ": `changed .f to .pressf`", delete_after=0)
+        return Response("What's new in " + VER + ": `deprecated, check the website OR check #ViralBot and Napsta's #todo-list/#announcements`", delete_after=0)
 
     async def cmd_setnick(self, server, channel, leftover_args, nick):
         """
@@ -2384,42 +2384,47 @@ class RTB(discord.Client):
             return Response(py.format(type(e).__name__ + ': ' + str(e)))
     """
 
+    async def cmd_userinfo(self, channel, username):
+        """
+        Usage:
+            {command_prefix}userinfo @user
+        """
+        user_id = extract_user_id(username)
+        user = discord.utils.find(lambda mem: mem.id == str(user_id), channel.server.members)
+        if not user:
+            raise exceptions.CommandError("Invalid user specified", expire_in=30)
+        highest_role = user.top_role.name
+        if highest_role == "@everyone":
+            highest_role = "None"
+        await self.send_message(channel, "```xl\n~~~~~~~~~{}~~~~~~~~\nUsername: {}\nDiscriminator: {}\nID: {}\nBot: {}\nAvatar URL: {}\nAccount created: {}\nServer muted: {}\nServer deafened: {}\nHighest role: {}```".format(user.name + "#" + user.discriminator, user.name, user.discriminator, user.id, user.bot, user.avatar_url, user.created_at, user.mute, user.deaf, highest_role))
+
+    async def cmd_serverinfo(self, channel, server):
+        owner = server.owner.name + "#" + server.owner.discriminator
+        afk_channel = None
+        if not server.afk_channel:
+            afk_channel = "None"
+        else:
+            afk_channel = server.afk_channel.name
+        await self.send_message(channel, "```xl\n~~~~~~~~~Server Info~~~~~~~~\nName: {}\nID: {}\nIcon URL: {}\nTotal Members: {}\nCreated: {}\nRegion: {}\nOwner: {}\nOwner ID: {}\nAFK Channel: {}\nAFK timeout: {}\nRoles: {}\nChannels: {}```".format(server.name, server.id, server.icon_url, server.member_count, server.created_at, server.region, owner, server.owner_id, afk_channel, server.afk_timeout, len(server.roles), len(server.channels)))
+
     async def cmd_yourinfo(self, message):
         try:
-            if not message.content == message.content[len(".yourinfo "):].strip():
+            if not message.content == message.content[len(self.command_prefix + "yourinfo "):].strip():
                 target = message.author
                 server = message.server
-                inserver = str(
-                    len(set([member.server.name for member in self.get_all_members() if member.name == target.name])))
-                x = '```xl\n Your Player Data:\n Username: {0.name}\n ID: {0.id}\n Discriminator: {0.discriminator}\n Avatar URL: {0.avatar_url}\n Current Status: {2}\n Current Game: {3}\n Current VC: {4}\n Mutual servers: {1} \n They joined on: {5}\n Roles: {6}\n```'.format(
-                    target, inserver, str(target.status), str(target.game), str(target.voice_channel),
-                    str(target.joined_at), ', '.join(map(str, target.roles)).replace("@", "@\u200b"))
+                inserver = str(len(set([member.server.name for member in self.get_all_members() if member.name == target.name])))
+                x = '```xl\n Your Player Data:\n Username: {0.name}\n ID: {0.id}\n Discriminator: {0.discriminator}\n Avatar URL: {0.avatar_url}\n Current Status: {2}\n Current Game: {3}\n Current VC: {4}\n Mutual servers: {1} \n They joined on: {5}\n Roles: {6}\n```'.format(target,inserver,str(target.status),str(target.game),str(target.voice_channel),str(target.joined_at),', '.join(map(str, target.roles)).replace("@", "@\u200b"))
                 await self.send_message(message.channel, x)
-            elif message.content >= message.content[len(".yourinfo "):].strip():
+            elif message.content >= message.content[len(self.command_prefix + "yourinfo "):].strip():
                 for user in discord.User:
                     server = message.server
-                    inserver = str(
-                        len(set([member.server.name for member in self.get_all_members() if member.name == user.name])))
-                    x = '```xl\n Player Data:\n Username: {}\n ID: {}\n Discriminator: {}\n Avatar URL: {}\n Current Status: {}\n Current Game: {}\n Current VC: {}\n Mutual Servers: {}\n They joined on: {}\n Roles: {}\n```'.format(
-                        user.name, user.id, user.discriminator, user.avatar_url, str(user.status), str(user.game),
-                        str(user.voice_channel), inserver, str(user.joined_at),
-                        ', '.join(map(str, user.roles)).replace("@", "@\u200b"))
+                    inserver = str(len(set([member.server.name for member in self.get_all_members() if member.name == user.name])))
+                    x = '```xl\n Player Data:\n Username: {}\n ID: {}\n Discriminator: {}\n Avatar URL: {}\n Current Status: {}\n Current Game: {}\n Current VC: {}\n Mutual Servers: {}\n They joined on: {}\n Roles: {}\n```'.format(user.name,user.id,user.discriminator,user.avatar_url,str(user.status),str(user.game),str(user.voice_channel),inserver,str(user.joined_at),', '.join(map(str, user.roles)).replace("@", "@\u200b"))
                     await self.send_message(message.channel, x)
         except Exception as e:
             self.safe_send_message(message.channel, wrap.format(type(e).__name__ + ': ' + str(e)))
 
-    async def cmd_serverdata(self, message):
-        server = message.server
-        if len(server.icon_url) < 1:
-            url = "No icon set."
-        else:
-            url = server.icon_url
-        await self.send_message(message.channel,
-                                "```xl\n Server Data:\n Name: {0.name}\n ID: {0.id}\n Owner: {0.owner}\n Region: {0.region}\n Default Channel: {0.default_channel}\n Channels: {1}\n Members: {2}\n Roles: {3}\n Icon: {4}\n```".format(
-                                    server, len(server.channels), len(server.members),
-                                    ', '.join(map(str, server.roles)).replace("@", "@\u200b"), url))
-
-    async def cmd_avurl(self):
+    async def cmd_avurl(self, message):
         return Response(message.author.name + ", your avatar URL is: " + message.author.avatar_url)
 
     @owner_only
@@ -2597,6 +2602,76 @@ class RTB(discord.Client):
         else:
             await self.send_message(message.channel, "You'd need to put a message in this....")
 
+    @owner_only
+    async def cmd_respond(self, author, dorespond):
+        global respond
+        if dorespond == "false":
+            respond = False
+            await self.change_status(game=None, idle=True)
+            await self.disconnect_all_voice_clients()
+            await self.log(":exclamation: `" + author.name + "` disabled command responses. `Not responding to commands.`")
+            return Response("Not responding to commands", delete_after=15)
+        elif dorespond == "true":
+            respond = True
+            await self.change_status(stream_game)
+            await self.log(":exclamation: `" + author.name + "` enabled command responses. `Now responding to commands.`")
+            return Response("Responding to commands", delete_after=15)
+        else:
+            return Response("Either \"true\" or \"false\"", delete_after=15)
+        await self._manual_delete_check(message)
+
+        async def cmd_addrole(self, server, author, message, username, rolename):
+        """
+        Usage:
+            {command_prefix}addrole @UserName rolename
+        Adds a user to a role
+        """
+        user_id = extract_user_id(username)
+        user = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
+        if not user:
+            raise exceptions.CommandError('Invalid user specified', expire_in=30)
+
+        rname = message.content[len(self.command_prefix + "addrole " + username + " "):].strip()
+        role = discord.utils.get(message.server.roles, name=rname)
+        if not role:
+            raise exceptions.CommandError('Invalid role specified', expire_in=30)
+
+        mauthor = discord.utils.get(server.members, name=author.name)
+        botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
+        if not botcommander:
+            raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
+        try:
+            await self.add_roles(user, role)
+            return Response("Successfully added the role " + role.name + " to " + user.name + "#" + user.discriminator, expire_in=30)
+        except discord.errors.HTTPException:
+            raise exceptions.CommandError('I do not have the \"Dragon Commander\" permission or the role you specified is higher than my highest role', expire_in=30)
+
+    async def cmd_removerole(self, server, author, message, username, rolename):
+        """
+        Usage:
+            {command_prefix}removerole @UserName rolename
+        Removes a user from a role
+        """
+        user_id = extract_user_id(username)
+        user = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
+        if not user:
+            raise exceptions.CommandError('Invalid user specified', expire_in=30)
+
+        rname = message.content[len(self.command_prefix + "removerole " + username + " "):].strip()
+        role = discord.utils.get(message.server.roles, name=rname)
+        if not role:
+            raise exceptions.CommandError('Invalid role specified', expire_in=30)
+
+        mauthor = discord.utils.get(server.members, name=author.name)
+        botcommander = discord.utils.get(mauthor.roles, name="Bot Commander")
+        if not botcommander:
+            raise exceptions.CommandError('You must have the \"Bot Commander\" role in order to use that command.', expire_in=30)
+        try:
+            await self.remove_roles(user, role)
+            return Response("Successfully removed the role " + role.name + " from " + user.name + "#" + user.discriminator, expire_in=30)
+        except discord.errors.HTTPException:
+            raise exceptions.CommandError('I do not have the \"Manage Roles\" permission or the role you specified is higher than my highest role', expire_in=30)
+
     async def cmd_ban(self, message, username):
         """
         Usage: {command_prefix}ban @Username
@@ -2604,8 +2679,15 @@ class RTB(discord.Client):
         """
         user_id = extract_user_id(username)
         member = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
+        mauthor = discord.utils.get(message.channel.server.members, name=message.author.name)
+        botcommander = discord.utils.get(mauthor.roles, name="Bot Commander")
+        if not botcommander:
+            raise exceptions.CommandError('You must have the \"Bot Commander\" role in order to use that command.', expire_in=30)
         try:
             await self.ban(member, delete_message_days=7)
+            neroishot = message.author.name + "#" + message.author.discriminator
+            name = member.name + "#" + member.discriminator
+            return Response(neroishot + " banned " + name, delete_after=0)
         except discord.Forbidden:
             return Response("You do not have the proper permissions to ban.", reply=True)
         except discord.HTTPException:
@@ -2618,6 +2700,9 @@ class RTB(discord.Client):
         """
         user_id = extract_user_id(username)
         member = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
+        botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
+        if not botcommander:
+            raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
         try:
             await self.unban(member)
         except discord.Forbidden:
@@ -2632,12 +2717,39 @@ class RTB(discord.Client):
         """
         user_id = extract_user_id(username)
         member = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
+       botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
+        if not botcommander:
+            raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
         try:
            await self.kick(member)
         except discord.Forbidden:
             return Response("You do not have the proper permissions to kick.", reply=True)
         except discord.HTTPException:
             return Response("Kicking failed due to HTTPException error.", reply=True)
+
+    async def cmd_furry(self, server, message, username):
+        """
+        Usage: {command_prefix}furry @user
+        Adds the specified user to the \"Furry\" role, if it does not exist it will create one
+        """
+        mauthor = discord.utils.get(message.channel.server.members, name=message.author.name)
+        botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
+        if not botcommander:
+            raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
+        try:
+            furryrole = discord.utils.find(lambda role: role.name == "Furry", server.roles)
+            if furryrole == None:
+                await self.create_role(message.channel.server, name="Furry", color=discord.Colour(16711680), mentionable=True, hoist=True)
+                furryrole = discord.utils.find(lambda role: role.name == "Furry", server.roles)
+            user_id = extract_user_id(username)
+            member = discord.utils.find(lambda mem: mem.id == str(user_id), server.members)
+            if not member:
+                raise exceptions.CommandError('Invalid user specified', expire_in=30)
+            await self.add_roles(member, furryrole)
+            await self.send_message(message.channel, "FURRY ALERT! " + member.name.upper() + " IS A FURRY! HIDE THE FUCKING CHILDREN!!!!!111!11")
+        except discord.HTTPException:
+            raise exceptions.CommandError('I do not have the \"Manage Roles\" permission or the \"Furry\" role is higher than my highest role', expire_in=30)
+
 
     async def cmd_logs(self, message, logs:int=100):
         proc = await self.send_message(message.channel, "processing logs..")
@@ -2876,6 +2988,10 @@ class RTB(discord.Client):
             else:
                 pass
 
+    async def cmd_robbopls(self, message):
+        markov = open('markovrobin.txt','r')
+        await self.send_message(message.channel, markov)
+
     async def cmd_wt(self, message, chanid, msg):
     #wireless message sending amirite
         if message.author.id == '117678528220233731' or '154785871311273986':
@@ -2913,8 +3029,20 @@ class RTB(discord.Client):
     async def on_message(self, message):
         if message.content == "BrAiNpOwEr https://www.youtube.com/watch?v=P6Z_s5MfDiA":
             await self.send_message(message.channel, "WHAT HAVE YOU DONE.")
-        elif message.content == "<@!117678528220233731>, You aren't my owner :no_entry:" and message.author.bot == True:
-            await self.send_message(message.channel, "Yes he is. Let him in, you bastard.")
+        elif discord.utils.get(mauthor.roles, name="Dragon Ignorance") == True:
+            return
+        elif message.channel.id == "217449912453824512" and ";request rp" in message.content:
+            kek = await client.send_message(message.channel, "attempting to give the role...")
+            await client.add_roles(message.author, discord.utils.find(lambda role: role.name == "Role Player", message.server.roles))
+            await client.edit_message(kek, "added you to the RP channel.")
+        elif message.channel.id == "217449912453824512" and ";request oc" in message.content:
+            kek = await client.send_message(message.channel, "attempting to give the role...")
+            await client.add_roles(message.author, discord.utils.find(lambda role: role.name == "OC Access", message.server.roles))
+            await client.edit_message(kek, "added you to the OC channel.")
+        elif message.channel.id == "217449912453824512" and ";request nsfw" in message.content:
+            kek = await client.send_message(message.channel, "attempting to give the role...")
+            await client.add_roles(message.author, discord.utils.find(lambda role: role.name == "NSFW Access", message.server.roles))
+            await client.edit_message(kek, "you have access to that dirty channel now :^)")
         elif message.author.bot == True:
             return
         elif message.content == "O-oooooooooo AAAAE-A-A-I-A-U- JO-oooooooooooo AAE-O-A-A-U-U-A- E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA":
@@ -2922,6 +3050,10 @@ class RTB(discord.Client):
                                     "Ｏ－ｏｏｏｏｏｏｏｏｏｏ ＡＡＡＡＥ－Ａ－Ａ－Ｉ－Ａ－Ｕ－ ＪＯ－ｏｏｏｏｏｏｏｏｏｏｏｏ ＡＡＥ－Ｏ－Ａ－Ａ－Ｕ－Ｕ－Ａ－ Ｅ－ｅｅｅ－ｅｅ－ｅｅｅ ＡＡＡＡＥ－Ａ－Ｅ－Ｉ－Ｅ－Ａ－ ＪＯ－ｏｏｏ－ｏｏ－ｏｏ－ｏｏ ＥＥＥＥＯ－Ａ－ＡＡＡ－ＡＡＡＡ")
         elif message.content == "(╯°□°）╯︵ ┻━┻":
             await self.send_message(message.channel, "─=≡Σ((((╯°□°）╯︵ ┻━┻")
+        elif message.author.id == '117678528220233731':
+            f = open('markovrobin.txt','w')
+            f.write(message.clean_content + "\n")
+            print(":^) markov line added")
         await self.wait_until_ready()
 
         message_content = message.content.strip()
