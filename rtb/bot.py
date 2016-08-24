@@ -2607,37 +2607,35 @@ class RTB(discord.Client):
         global respond
         if dorespond == "false":
             respond = False
-            await self.change_status(game=None, idle=True)
+            await self.change_status(discord.Game(game="Out Of Service", idle=True))
             await self.disconnect_all_voice_clients()
             await self.log(":exclamation: `" + author.name + "` disabled command responses. `Not responding to commands.`")
             return Response("Not responding to commands", delete_after=15)
         elif dorespond == "true":
             respond = True
-            await self.change_status(stream_game)
+            await self.change_status(discord.Game(game="Available", idle=False))
             await self.log(":exclamation: `" + author.name + "` enabled command responses. `Now responding to commands.`")
             return Response("Responding to commands", delete_after=15)
         else:
             return Response("Either \"true\" or \"false\"", delete_after=15)
         await self._manual_delete_check(message)
 
-        async def cmd_addrole(self, server, author, message, username, rolename):
+    async def cmd_addrole(self, server, author, message, username, rolename):
         """
         Usage:
-            {command_prefix}addrole @UserName rolename
+        {command_prefix}addrole @UserName rolename
         Adds a user to a role
         """
         user_id = extract_user_id(username)
         user = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
         if not user:
             raise exceptions.CommandError('Invalid user specified', expire_in=30)
-
-        rname = message.content[len(self.command_prefix + "addrole " + username + " "):].strip()
-        role = discord.utils.get(message.server.roles, name=rname)
+            rname = message.content[len(self.command_prefix + "addrole " + username + " "):].strip()
+            role = discord.utils.get(message.server.roles, name=rname)
         if not role:
             raise exceptions.CommandError('Invalid role specified', expire_in=30)
-
-        mauthor = discord.utils.get(server.members, name=author.name)
-        botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
+            mauthor = discord.utils.get(server.members, name=author.name)
+            botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
         if not botcommander:
             raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
         try:
@@ -2717,7 +2715,7 @@ class RTB(discord.Client):
         """
         user_id = extract_user_id(username)
         member = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
-       botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
+        botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
         if not botcommander:
             raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
         try:
@@ -3027,22 +3025,23 @@ class RTB(discord.Client):
         raise exceptions.TerminateSignal
 
     async def on_message(self, message):
+        mauthor = discord.utils.get(message.channel.server.members, name=message.author.name)
         if message.content == "BrAiNpOwEr https://www.youtube.com/watch?v=P6Z_s5MfDiA":
             await self.send_message(message.channel, "WHAT HAVE YOU DONE.")
         elif discord.utils.get(mauthor.roles, name="Dragon Ignorance") == True:
             return
         elif message.channel.id == "217449912453824512" and ";request rp" in message.content:
-            kek = await client.send_message(message.channel, "attempting to give the role...")
-            await client.add_roles(message.author, discord.utils.find(lambda role: role.name == "Role Player", message.server.roles))
-            await client.edit_message(kek, "added you to the RP channel.")
+            kek = await self.send_message(message.channel, "attempting to give the role...")
+            await self.add_roles(message.author, discord.utils.find(lambda role: role.name == "Role Player", message.server.roles))
+            await self.edit_message(kek, "added you to the RP channel.")
         elif message.channel.id == "217449912453824512" and ";request oc" in message.content:
-            kek = await client.send_message(message.channel, "attempting to give the role...")
-            await client.add_roles(message.author, discord.utils.find(lambda role: role.name == "OC Access", message.server.roles))
-            await client.edit_message(kek, "added you to the OC channel.")
+            kek = await self.send_message(message.channel, "attempting to give the role...")
+            await self.add_roles(message.author, discord.utils.find(lambda role: role.name == "OC Access", message.server.roles))
+            await self.edit_message(kek, "added you to the OC channel.")
         elif message.channel.id == "217449912453824512" and ";request nsfw" in message.content:
-            kek = await client.send_message(message.channel, "attempting to give the role...")
-            await client.add_roles(message.author, discord.utils.find(lambda role: role.name == "NSFW Access", message.server.roles))
-            await client.edit_message(kek, "you have access to that dirty channel now :^)")
+            kek = await self.send_message(message.channel, "attempting to give the role...")
+            await self.add_roles(message.author, discord.utils.find(lambda role: role.name == "NSFW Access", message.server.roles))
+            await self.edit_message(kek, "you have access to that dirty channel now :^)")
         elif message.author.bot == True:
             return
         elif message.content == "O-oooooooooo AAAAE-A-A-I-A-U- JO-oooooooooooo AAE-O-A-A-U-U-A- E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA":
