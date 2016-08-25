@@ -65,6 +65,8 @@ st = time.time()
 # xl color formatting
 xl = "```xl\n{0}\n```"
 py = "```py\n{0}\n```"
+respond = True
+owner_id = "117678528220233731"
 
 dis_games = [
     discord.Game(name='with fire'),
@@ -427,6 +429,8 @@ class RTB(discord.Client):
         self.lmgtfy = Lmgtfy()
         self.platform = PlatformSpecs()
         self.checkinActive = False  # bool to handle checkin loop
+        self.command_prefix = self.config.command_prefix
+        
 
         self.exit_signal = None
 
@@ -2607,13 +2611,13 @@ class RTB(discord.Client):
         global respond
         if dorespond == "false":
             respond = False
-            await self.change_status(discord.Game(game="Out Of Service", idle=True))
+            await self.change_status(game=discord.Game(name="Out Of Service"), idle=True)
             await self.disconnect_all_voice_clients()
             await self.log(":exclamation: `" + author.name + "` disabled command responses. `Not responding to commands.`")
             return Response("Not responding to commands", delete_after=15)
         elif dorespond == "true":
             respond = True
-            await self.change_status(discord.Game(game="Available", idle=False))
+            await self.change_status(game=discord.Game(name="Available to use"))
             await self.log(":exclamation: `" + author.name + "` enabled command responses. `Now responding to commands.`")
             return Response("Responding to commands", delete_after=15)
         else:
@@ -2623,26 +2627,29 @@ class RTB(discord.Client):
     async def cmd_addrole(self, server, author, message, username, rolename):
         """
         Usage:
-        {command_prefix}addrole @UserName rolename
-        Adds a user to a role
+            {command_prefix}addrole @UserName rolename
+
+        Adds a user to a role 
         """
         user_id = extract_user_id(username)
         user = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
         if not user:
-            raise exceptions.CommandError('Invalid user specified', expire_in=30)
-            rname = message.content[len(self.command_prefix + "addrole " + username + " "):].strip()
-            role = discord.utils.get(message.server.roles, name=rname)
+            raise exceptions.CommandError('Invalid user specified')
+
+        rname = message.content[len(self.command_prefix + "addrole " + username + " "):].strip()
+        role = discord.utils.get(message.server.roles, name=rname)
         if not role:
-            raise exceptions.CommandError('Invalid role specified', expire_in=30)
-            mauthor = discord.utils.get(server.members, name=author.name)
-            botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
+            raise exceptions.CommandError('Invalid role specified')
+
+        mauthor = discord.utils.get(server.members, name=author.name)
+        botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
         if not botcommander:
-            raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
+            raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.')
         try:
             await self.add_roles(user, role)
-            return Response("Successfully added the role " + role.name + " to " + user.name + "#" + user.discriminator, expire_in=30)
-        except discord.errors.HTTPException:
-            raise exceptions.CommandError('I do not have the \"Dragon Commander\" permission or the role you specified is higher than my highest role', expire_in=30)
+            return Response("Successfully added the role " + role.name + " to " + user.name + "#" + user.discriminator)
+        except discord.errors.HTTPException: 
+            raise exceptions.CommandError('I do not have the \"Manage Roles\" permission or the role you specified is higher than my highest role')
 
     async def cmd_removerole(self, server, author, message, username, rolename):
         """
@@ -2661,9 +2668,9 @@ class RTB(discord.Client):
             raise exceptions.CommandError('Invalid role specified', expire_in=30)
 
         mauthor = discord.utils.get(server.members, name=author.name)
-        botcommander = discord.utils.get(mauthor.roles, name="Bot Commander")
-        if not botcommander:
-            raise exceptions.CommandError('You must have the \"Bot Commander\" role in order to use that command.', expire_in=30)
+        botcommander = discord.utils.get(message.author.roles, name="Dragon Commander")
+        if botcommander == None:
+            raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
         try:
             await self.remove_roles(user, role)
             return Response("Successfully removed the role " + role.name + " from " + user.name + "#" + user.discriminator, expire_in=30)
@@ -2678,9 +2685,9 @@ class RTB(discord.Client):
         user_id = extract_user_id(username)
         member = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
         mauthor = discord.utils.get(message.channel.server.members, name=message.author.name)
-        botcommander = discord.utils.get(mauthor.roles, name="Bot Commander")
-        if not botcommander:
-            raise exceptions.CommandError('You must have the \"Bot Commander\" role in order to use that command.', expire_in=30)
+        botcommander = discord.utils.get(message.author.roles, name="Dragon Commander")
+        if botcommander == None:
+            raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
         try:
             await self.ban(member, delete_message_days=7)
             neroishot = message.author.name + "#" + message.author.discriminator
@@ -2698,8 +2705,8 @@ class RTB(discord.Client):
         """
         user_id = extract_user_id(username)
         member = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
-        botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
-        if not botcommander:
+        botcommander = discord.utils.get(message.author.roles, name="Dragon Commander")
+        if botcommander == None:
             raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
         try:
             await self.unban(member)
@@ -2715,8 +2722,8 @@ class RTB(discord.Client):
         """
         user_id = extract_user_id(username)
         member = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
-        botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
-        if not botcommander:
+        botcommander = discord.utils.get(message.author.roles, name="Dragon Commander")
+        if botcommander == None:
             raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
         try:
            await self.kick(member)
@@ -2731,8 +2738,8 @@ class RTB(discord.Client):
         Adds the specified user to the \"Furry\" role, if it does not exist it will create one
         """
         mauthor = discord.utils.get(message.channel.server.members, name=message.author.name)
-        botcommander = discord.utils.get(mauthor.roles, name="Dragon Commander")
-        if not botcommander:
+        botcommander = discord.utils.get(message.author.roles, name="Dragon Commander")
+        if botcommander == None:
             raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
         try:
             furryrole = discord.utils.find(lambda role: role.name == "Furry", server.roles)
@@ -3026,10 +3033,13 @@ class RTB(discord.Client):
 
     async def on_message(self, message):
         mauthor = discord.utils.get(message.channel.server.members, name=message.author.name)
-        if message.content == "BrAiNpOwEr https://www.youtube.com/watch?v=P6Z_s5MfDiA":
-            await self.send_message(message.channel, "WHAT HAVE YOU DONE.")
-        elif discord.utils.get(mauthor.roles, name="Dragon Ignorance") == True:
+        if not discord.utils.get(mauthor.roles, name="Dragon Ignorance") == None:
             return
+        if respond is False:
+            if not message.author.id == owner_id:
+                return
+        elif message.content == "BrAiNpOwEr https://www.youtube.com/watch?v=P6Z_s5MfDiA":
+            await self.send_message(message.channel, "WHAT HAVE YOU DONE.")
         elif message.channel.id == "217449912453824512" and ";request rp" in message.content:
             kek = await self.send_message(message.channel, "attempting to give the role...")
             await self.add_roles(message.author, discord.utils.find(lambda role: role.name == "Role Player", message.server.roles))
