@@ -64,6 +64,7 @@ load_opus_lib()
 st = time.time()
 # xl color formatting
 xl = "```xl\n{0}\n```"
+rb = "```ruby\n{0}\n```"
 py = "```py\n{0}\n```"
 #respondings/booleans :eyes:
 respond = True
@@ -2497,18 +2498,27 @@ class RTB(discord.Client):
             await self.send_message(message.channel, kek)
 
     async def cmd_st(self, message):
-        msg = check_output(["speedtest-cli", "--simple --share"]).decode()
-        await self.send_message(message.channel, xl.format(
-            msg.replace("serverip", "Server IP").replace("\n", "\n").replace("\"", "").replace("b'", "").replace("'",
-                                                                                                                 "")))
+        await self.send_typing(message.channel)
+        msg = "speedtest-cli --simple --share"
+        input = os.popen(msg)
+        output = input.read()
+        await self.send_message(message.channel, xl.format(output))
+            #msg.replace("serverip", "Server IP").replace("\n", "\n").replace("\"", "").replace("b'", "").replace("'",
+            #                                                                                                     "")))
 
     async def cmd_ipping(self, message, ip: str):
-        thing = check_output(["ping", "-c", "4", "{0}".format(ip)]).decode()
-        await self.send_message(message.channel, xl.format(thing))
+        await self.send_typing(message.channel)
+        msg = "ping -c 4 {0}".format(ip)
+        input = os.popen(msg)
+        output = input.read()
+        await self.send_message(message.channel, rb.format(output))
 
     async def cmd_traceroute(self, message, ip: str):
-        traced = check_output(["traceroute", "{0}".format(ip)]).decode()
-        await self.send_message(message.channel, xl.format(traced))
+        await self.send_typing(message.channel)
+        msg = "traceroute {0}".format(ip)
+        input = os.popen(msg)
+        output = input.read()
+        await self.send_message(message.channel, xl.format(output))
 
     async def cmd_rate(self, message):
         """
@@ -2621,11 +2631,12 @@ class RTB(discord.Client):
             return Response("Either \"true\" or \"false\"", delete_after=15)
         await self._manual_delete_check(message)
 
+    @owner_only
     async def cmd_permsetgame(self, message, type, status):
         global change_game
         if type == "reset":
             change_game = True
-            return Response("Reset status, you can now use .setgame")
+            return Response("Reset status, you can now use " + self.command_prefix + "setgame")
         elif type == "stream":
             status = message.content[len(self.command_prefix + "permsetgame " + type + " "):].strip()
             change_game = False
@@ -2675,6 +2686,63 @@ class RTB(discord.Client):
             return Response("Either the channel doesn't exist, or I don't have perms.")
         #except Exception as e:
         #    await self.send_message(message.channel, py.format(type(e).__name__ + ': ' + str(e)))
+
+    async def cmd_mute(self, message, user):
+        """
+        Usage: {command_prefix}mute @user
+        Adds the user to the \"Muted\" role
+        """
+        botcommander = discord.utils.get(message.author.roles, name="Dragon Commander")
+        if not botcommander:
+            raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
+        user_id = extract_user_id(user)
+        member = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
+        if not member:
+            await self.send_message(message.channel, "User not found, make sure you are using a @mention")
+            return
+        mute_role = discord.utils.find(lambda role: role.name == "Muted", message.server.roles)
+        if mute_role == None:
+            await self.send_message(message.channel, "The `Muted` role was not found, creating one, re-run the command one more time")
+            await self.create_role(message.channel.server, name="Muted", color=discord.Color(5130312), mentionable=False, hoist=True)
+        elif mute_role != None and discord.errors.Forbidden:
+            await self.send_message(message.channel, "I'm not allowed to make a role... Damn it.")
+        else:
+            await self.send_message(message.channel, "Created. You can change the color and permissions of it if you want.")
+            return
+        try:
+            await self.add_roles(member, mute_role)
+            await self.send_message(message.channel, "Sucessfully muted `" + member.name + "#" + member.discriminator + "`")
+        except discord.errors.Forbidden:
+            await self.send_message(message.channel, "I do not have permission to manage roles or the `Muted` role is higher than my highest role")
+
+    async def cmd_unmute(self, message, user):
+        """
+        Usage: {command_prefix}unmute @user
+        Removes the user from the \"Muted\" role
+        """
+        botcommander = discord.utils.get(message.author.roles, name="Dragon Commander")
+        if not botcommander:
+            raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
+        user_id = extract_user_id(user)
+        member = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
+        if not member:
+            await self.send_message(message.channel, "User not found, make sure you are using a @mention")
+            return
+        mute_role = discord.utils.find(lambda role: role.name == "Muted", message.server.roles)
+        if mute_role == None:
+            await self.send_message(message.channel, "The `Muted` role was not found, creating one.")
+            await self.create_role(message.channel.server, name="Muted", color=discord.Color(5130312), mentionable=False, hoist=True)
+            return
+        elif mute_role != None and discord.errors.Forbidden:
+            await self.send_message(message.channel, "I'm not allowed to make a role... Damn it.")
+        else:
+            await self.send_message(message.channel, "Created. You can change the color and permissions of it if you want.")
+        try:
+            await self.remove_roles(member, mute_role)
+            await self.send_message(message.channel, "Sucessfully unmuted `" + member.name + "#" + member.discriminator + "`")
+        except discord.errors.Forbidden:
+            await self.send_message(message.channel, "I do not have permission to manage roles or the `Muted` role is higher than my highest role")
+        
 
     async def cmd_addrole(self, server, author, message, username, rolename):
         """
