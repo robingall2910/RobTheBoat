@@ -65,8 +65,10 @@ st = time.time()
 # xl color formatting
 xl = "```xl\n{0}\n```"
 py = "```py\n{0}\n```"
+#respondings/booleans :eyes:
 respond = True
 owner_id = "117678528220233731"
+change_game = True
 
 dis_games = [
     discord.Game(name='with fire'),
@@ -826,6 +828,8 @@ class RTB(discord.Client):
         pass
 
     async def update_now_playing(self, entry=None, is_paused=False):
+        if change_game is False:
+            return
         game = None
 
         if self.user.bot:
@@ -2557,13 +2561,6 @@ class RTB(discord.Client):
             return Response("throws " + random.choice(throwaf) + " to " + message.content[len(".throw "):].strip(),
                             delete_after=0)
 
-    async def cmd_setgame(self, message):
-        trashcan = name = message.content[len(" setgame "):].strip()
-        await self.send_typing(message.channel)
-        discord.Game(name=message.content[len(" setgame "):].strip())
-        await self.change_status(discord.Game(name=message.content[len(" setgame "):].strip()))
-        return Response("Successful, set as `" + trashcan + "`", delete_after=0)
-
     async def cmd_ping(self, message):
         pingtime = time.time()
         pingms = await self.send_message(message.channel, "pinging server...")
@@ -2611,18 +2608,73 @@ class RTB(discord.Client):
         global respond
         if dorespond == "false":
             respond = False
-            await self.change_status(game=discord.Game(name="Out Of Service"), idle=True)
+            await self.change_status(game=discord.Game(name="unresponsive"), idle=True)
             await self.disconnect_all_voice_clients()
             await self.log(":exclamation: `" + author.name + "` disabled command responses. `Not responding to commands.`")
             return Response("Not responding to commands", delete_after=15)
         elif dorespond == "true":
             respond = True
-            await self.change_status(game=discord.Game(name="Available to use"))
+            await self.change_status(game=discord.Game(name="responsive"))
             await self.log(":exclamation: `" + author.name + "` enabled command responses. `Now responding to commands.`")
             return Response("Responding to commands", delete_after=15)
         else:
             return Response("Either \"true\" or \"false\"", delete_after=15)
         await self._manual_delete_check(message)
+
+    async def cmd_permsetgame(self, message, type, status):
+        global change_game
+        if type == "reset":
+            change_game = True
+            return Response("Reset status, you can now use .setgame")
+        elif type == "stream":
+            status = message.content[len(self.command_prefix + "permsetgame " + type + " "):].strip()
+            change_game = False
+            url = "https://twitch.tv/robingall2910"
+            await self.change_status(discord.Game(name=status, url=url, type=1))
+            return Response("changed to stream mode with the status as `" + status + "` and as the URL as `" + url + "`.")
+        elif type == "normal":
+            status = message.content[len(self.command_prefix + "permsetgame " + type + " "):].strip()
+            change_game = False
+            await self.change_status(discord.Game(name=status))
+            return Response("changed to normal status change mode with the status as `" + status + "`.")
+
+    async def cmd_setgame(self, message):
+        if change_game is False:
+            return Response("You can not change the game right now")
+        elif change_game is True:
+            trashcan = name = message.content[len(" setgame "):].strip()
+            await self.send_typing(message.channel)
+            discord.Game(name=message.content[len(" setgame "):].strip())
+            await self.change_status(discord.Game(name=message.content[len(" setgame "):].strip()))
+            return Response("Successful, set as `" + trashcan + "`", delete_after=0)
+
+    async def cmd_createchannel(self, server, author, message, name):
+        botcommander = discord.utils.get(author.roles, name="Dragon Commander")
+        if not botcommander:
+            raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
+        tehname = message.content[len(self.command_prefix + "createchannel "):].strip().lower().replace(" ", "")
+        try:
+            noticemenero = await self.create_channel(server, tehname, type="text")
+            noperm = discord.PermissionOverwrite(read_messages = False)
+            neroisacat = discord.PermissionOverwrite(read_messages = True, manage_channels = True, manage_roles = True, manage_messages = True)
+            await self.edit_channel_permissions(noticemenero, server.default_role, noperm)
+            await self.edit_channel_permissions(noticemenero, message.author, neroisacat)
+            await self.send_message(message.channel, "```diff\n+ Sucessfully created the text channel #" + noticemenero.name + ". \n- You can only see this channel.\n- Edit the permissions for the channel manually by clicking the gears icon beside the name and click \"Permissions\".\n- In addition to that, it's at the bottom.\n```")
+        except discord.HTTPException:
+            await self.send_message(message.channel, "Could not create channel, check the name, names can not contain spaces and must be alphanumeric but dashes and underscores are allowed. **If you are sure the name is properly formatted, then I do not have permission to manage channels.**")
+
+    async def cmd_deletechannel(self, server, author, message):
+        botcommander = discord.utils.get(author.roles, name="Dragon Commander")
+        if not botcommander:
+            raise exceptions.CommandError('You must have the \"Dragon Commander\" role in order to use that command.', expire_in=30)
+        tehname = message.content[len(self.command_prefix + "createchannel "):].strip().lower().replace(" ", "")
+        try:
+            await self.delete_channel(discord.utils.get(message.server.channels, name=tehname))
+            return Response("Deleted the channel `" + tehname + "`.")
+        except discord.HTTPException:
+            return Response("Either the channel doesn't exist, or I don't have perms.")
+        #except Exception as e:
+        #    await self.send_message(message.channel, py.format(type(e).__name__ + ': ' + str(e)))
 
     async def cmd_addrole(self, server, author, message, username, rolename):
         """
@@ -2917,14 +2969,6 @@ class RTB(discord.Client):
         return Response("http://giphy.com/gifs/morning-good-reaction-ihWcaj6R061wc", delete_after=0)
 
     @owner_only
-    async def cmd_rga(self):
-        # Picks a random game thing from the list.
-        whatever = random.choice(dis_games)
-        discord.Game(Name=whatever)
-
-        await self.change_status(whatever)
-
-    @owner_only
     async def cmd_listservers(self, message):
         await self.send_message(message.channel, ", ".join([x.name for x in self.servers]))
 
@@ -3018,15 +3062,15 @@ class RTB(discord.Client):
 
     async def cmd_reboot(self, message):
         # await self.safe_send_message(message.channel, "Bot is restarting, please wait...")
-        await self.safe_send_message(message.channel, "brb")
+        await self.safe_send_message(message.channel, "restarting...")
         await self.log(":warning: Bot is restarting")
         await self.disconnect_all_voice_clients()
         raise exceptions.RestartSignal
 
     async def cmd_timetodie(self, message):
         kek = await self.safe_send_message(message.channel, "Bot is shutting down...")
-        asyncio.sleep(100)
-        await self.edit_message(kek, "btw BOT LIVES ***DO NOT*** MATTER.")
+        asyncio.sleep(10)
+        await self.edit_message(kek, "I'm never coming back...")
         await self.log(":warning: Bot is shutting down")
         await self.disconnect_all_voice_clients()
         raise exceptions.TerminateSignal

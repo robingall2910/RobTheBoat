@@ -1,9 +1,9 @@
 import os.path
 
-VERSION = '3.2.0'
+VERSION = '3.2.1'
 MAIN_VERSION = '3'
 SUB_VERSION = '-rev 1 '
-CODENAME = '"Pokemon GO is amazing, what the fuck."'
+CODENAME = '"...so be concerned - Twenty One Pilots"'
 VER = VERSION + SUB_VERSION
 BDATE = 'August 23, 2016 @ 10:21 p.m. EDT'
 MAINVER = VERSION + SUB_VERSION + CODENAME
