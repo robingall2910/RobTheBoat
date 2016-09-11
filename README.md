@@ -1,4 +1,4 @@
-#RobTheBoat [![Build Status](https://travis-ci.org/robingall2910/RobTheBoat.svg?branch=master)](https://travis-ci.org/robingall2910/RobTheBoat)
+#RobTheBoat
 
 Original repository: https://github.com/SexualRhinoceros/MusicBot (This is using the "review" branch.)
 
