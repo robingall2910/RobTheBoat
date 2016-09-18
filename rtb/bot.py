@@ -2266,45 +2266,13 @@ class RTB(discord.Client):
 
         return Response("Ooh, I look better in this picture, don't I?", delete_after=20)
 
-    async def cmd_purge(self, message, author, server, channel, mentions, count=None, reason=None):
-        """
-        Usage: {command_prefix}purge <# of msgs to remove> @mention "<reason>"
-        @mention is optional, same as for the reason.
-        """
-        if count and not reason and count.startswith('\"'):
-            reason = count
-            count = None
-        await self.log("nothing :eyes:")
-        if not mentions and not count:
-            raise CommandError('Usage: {}purge <# of msgs to remove> @mention "<reason>'
-                               'Removes all messages if a user isnt specified\n'
-                               'If so, it removes the messages from the user.'.format(self.config.command_prefix))
-        elif not mentions:
-            try:
-                count = int(count)
-            except ValueError:
-                raise CommandError('Invalid message count found : {}'.format(count))
-            async for msg in self.logs_from(channel, count):
-                await self.delete_message(msg)
-        elif not count:
-            if not mentions:
-                raise CommandError('Invalid user specified')
-            async for msg in self.logs_from(channel):
-                if msg.author in mentions:
-                    await self.delete_message(msg)
-        elif count and mentions:
-            try:
-                count = int(count)
-            except ValueError:
-                raise CommandError('Invalid message count found : {}'.format(count))
-            msg_count = 0
-            async for msg in self.logs_from(channel):
-                await self.log(
-                    ':bomb: Purged `{}` message{} in #`{}`'.format(len(deleted), 's' * bool(deleted), channel.name),
-                    channel)
-                if msg.author in mentions and msg_count < count:
-                    await self.delete_message(msg)
-                    msg_count += 1
+    async def cmd_prune(self, channel, amount):
+        try:
+            harambe = int(amount)
+        except:
+            raise exceptions.CommandError("That's not a valid number man.")
+        deleted = await self.purge_from(channel, limit=harambe)
+        await self.send_message(channel, "I deleted {} messages.".format(len(deleted)))
 
     @owner_only
     async def cmd_rtb(self, message, client):
@@ -2544,18 +2512,6 @@ class RTB(discord.Client):
         asyncio.sleep(5)
         await self.send_file(message.channel, "imgs/lameme.jpg")
 
-    async def cmd_honk(self):
-        return Response(random.choice(honkhonkfgt), delete_after=0)
-
-    async def cmd_force(self):
-        return Response("*forces*", delete_after=0)
-
-    async def cmd_deny(self):
-        return Response("fuckin denied amirite", delete_after=0)
-
-    async def cmd_allow(self):
-        return Response("bitch please allow what", delete_after=0)
-
     async def cmd_deformed(self, message):
         await self.send_file(message.channel, "imgs/deFORMED.PNG")
         await self.send_message(message.channel, "FUCKING DEFORMED.PNG")
@@ -2573,44 +2529,28 @@ class RTB(discord.Client):
 
     async def cmd_ping(self, message):
         pingtime = time.time()
-        pingms = await self.send_message(message.channel, "pinging server...")
+        memes = random.choice(["pinging server...", "fucking furries...", "AAAAAAAAAAAAAAAAAA", "why the fuck am I even doing this for you?", "but....", "meh.", "...", "Did you really expect something better?", "kek", "I'm killing your dog next time.", "Give me a reason to live."])
+        topkek = memes
+        pingms = await self.send_message(message.channel, topkek)
         ping = time.time() - pingtime
-        await self.edit_message(pingms, "It took %.01f secs" % (ping) + " to ping.")
+        if topkek == "‮You'll never know this was me.":
+            await edit_message(pingms, topkek + "You'll never know it was me.
+        await self.edit_message(pingms, topkek + " // ***%.01f secs***" % (ping))
         # await self.edit_message(pingms, "hi. ` %ms`" % (ping[:-5]))
 
-    @owner_only
-    async def cmd_tdaily(self, message):
-        await self.safe_send_message(message.channel, "t!daily <@117678528220233731>")
-
-    @owner_only
-    async def cmd_spamandkys(self, message):
-        await self.safe_send_message(message.channel, "Kys fag")
-        await self.safe_send_message(message.channel, "Kys fag")
-        await self.safe_send_message(message.channel, "Kys fag")
-        await self.safe_send_message(message.channel, "Kys fag")
-        await self.safe_send_message(message.channel, "Kys fag")
-        await self.safe_send_message(message.channel, "Kys fag")
-        await self.safe_send_message(message.channel, "Kys fag")
-        await self.safe_send_message(message.channel, "Kys fag")
-        await self.safe_send_message(message.channel, "Kys fag")
-        await self.safe_send_message(message.channel, "Kys fag")
-        await self.safe_send_message(message.channel, "Kys fag")
-        await self.safe_send_message(message.channel, "Kys fag")
-        await self.safe_send_message(message.channel, "Kys fag")
-        if discord.HTTPException:
-            await self.safe_send_message(message.channel,
-                                         "I guess your spic fag self can't die. Fucking hell, I'm probably being rate limited, or something worse.")
-
-    async def cmd_notifydev(self, message):
-        if len(message.content) > 10:
+    async def cmd_notifydev(self, message, alert):
+        alert = message.content[len(".notifydev"):].strip()
+        if len(alert) > 0:
             await self.send_typing(message.channel)
-            await self.send_message(message.channel, "Alerted.")
-            await self.send_message(discord.User(id='117678528220233731'),
-                                    "New message from `" + message.author.name + "` Discrim: `" + message.author.discriminator + "` ID: `" + message.author.id + "` Server Name: `" + message.author.server.name + "` Message: `" + message.content[
-                                                                                                                                                                                                                                    len(
-                                                                                                                                                                                                                                        ".notifydev "):].strip() + "`")
-            await self.log(":information_source: Message sent to Robin via the notifydev command: `" + message.content[len(".notifydev "):].strip() + "`")
-        else:
+            await self.send_message(message.channel, "Sent a message to the developers.")
+            await self.send_message(discord.User(id='117678528220233731'), "```diff\n+ NEW MESSAGE\n- {}#{} \n- Server: {}\n- Message: {}\n```".format(
+                message.author.name, message.author.discriminator, message.server.name, alert))
+
+            await self.send_message(discord.User(id="117053687045685248"), "```diff\n+ NEW MESSAGE\n- {}#{} \n- Server: {}\n- Message: {}\n```".format(
+                message.author.name, message.author.discriminator, message.server.name, alert))
+
+            await self.log(":information_source: Message sent to Robin via the notifydev command: `" + alert)
+        elif len(alert) == 0:
             await self.send_message(message.channel, "You'd need to put a message in this....")
 
     @owner_only
