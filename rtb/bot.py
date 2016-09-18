@@ -32,6 +32,7 @@ from collections import defaultdict
 from concurrent.futures._base import TimeoutError as ConcurrentTimeoutError
 from subprocess import call
 from subprocess import check_output
+from xml.dom import minidom
 
 #discord imports
 from discord.enums import ChannelType
@@ -73,7 +74,8 @@ rb = "```ruby\n{0}\n```"
 py = "```py\n{0}\n```"
 #command booleans
 respond = True
-owner_id = "117678528220233731" or "117053687045685248"
+change_game = True
+owner_id = "117678528220233731" or "117053687045685248" or "169597963507728384"
 
 #Discord Game Statuses! :D
 dis_games = [
@@ -1372,7 +1374,8 @@ class RobTheBoat(discord.Client):
         if self.user.bot:
             url = await self.generate_invite_link()
             return Response(
-                "Click here to add me to a server: \n{} - Use .notifydev if there's any problem.".format(url),
+                #"Click here to add me to a server: \n{} - Use .notifydev if there's any problem.".format(url),
+                "Click the following URL to add me to your server! - https://inv.rtb.dragonfire.me/ - Use .notifydev if there's any problem.",
                 reply=True, delete_after=30
             )
 
@@ -1874,7 +1877,7 @@ class RobTheBoat(discord.Client):
                 delete_after=30
             )
 
-    async def cmd_connect(self, channel, server, author, voice_channel):
+    async def cmd_connect(self, channel, server, message, author, voice_channel):
         """
         Usage:
             {command_prefix}connect
@@ -1908,6 +1911,7 @@ class RobTheBoat(discord.Client):
             )
 
         log.info("Joining {0.server.name}/{0.name}".format(author.voice_channel))
+        await self.send_message(message.channel, "Joined ***{}***".format(message.author.voice_channel.name))
 
         player = await self.get_player(author.voice_channel, create=True)
 
@@ -2777,7 +2781,7 @@ class RobTheBoat(discord.Client):
         memes = random.choice(["pinging server...", "fucking furries...", "AAAAAAAAAAAAAAAAAA",
                                "why the fuck am I even doing this for you?", "but....", "meh.", "...",
                                "Did you really expect something better?", "kek", "I'm killing your dog next time.",
-                               "Give me a reason to live."])
+                               "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy."])
         topkek = memes
         pingms = await self.send_message(message.channel, topkek)
         ping = time.time() - pingtime
@@ -2791,11 +2795,13 @@ class RobTheBoat(discord.Client):
         if len(alert) > 0:
             await self.send_typing(message.channel)
             await self.send_message(message.channel, "Sent a message to the developers.")
-            await self.send_message(discord.User(id='117678528220233731'),
+            await self.send_message(discord.User(id='117678528220233731'), #Robin#0052
                                     "```diff\n+ NEW MESSAGE\n- {}#{} \n- Server: {}\n- Message: {}\n```".format(
                                         message.author.name, message.author.discriminator, message.server.name, alert))
-
-            await self.send_message(discord.User(id="117053687045685248"),
+            await self.send_message(discord.User(id="117053687045685248"), #Ryulise#0203
+                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- Server: {}\n- Message: {}\n```".format(
+                                        message.author.name, message.author.discriminator, message.server.name, alert))
+            await self.send_message(discord.User(id="169597963507728384"), #CreeperSeth#9790
                                     "```diff\n+ NEW MESSAGE\n- {}#{} \n- Server: {}\n- Message: {}\n```".format(
                                         message.author.name, message.author.discriminator, message.server.name, alert))
 
@@ -2810,14 +2816,14 @@ class RobTheBoat(discord.Client):
             respond = False
             await self.change_status(game=discord.Game(name="unresponsive"), idle=True)
             await self.disconnect_all_voice_clients()
-            await self.warning(
-                "`" + author.name + "` disabled command responses. `Not responding to commands.`")
+            log.warning(
+                "" + author.name + " disabled command responses. Not responding to commands.")
             return Response("Not responding to commands", delete_after=15)
         elif dorespond == "true":
             respond = True
             await self.change_status(game=discord.Game(name="responsive"))
-            await self.warning(
-                "`" + author.name + "` enabled command responses. `Now responding to commands.`")
+            log.warning(
+                "" + author.name + " enabled command responses. Now responding to commands.")
             return Response("Responding to commands", delete_after=15)
         else:
             return Response("Either \"true\" or \"false\"", delete_after=15)
@@ -3338,7 +3344,7 @@ class RobTheBoat(discord.Client):
         if not discord.utils.get(mauthor.roles, name=ignore_role_name) == None:
             return
         if respond is False:
-            if not message.author.id == owner_id:
+            if not message.author.id == owner_id and message.author.id != "169597963507728384" and message.author.id != "117053687045685248":
                 return
         elif message.content == "BrAiNpOwEr https://www.youtube.com/watch?v=P6Z_s5MfDiA":
             await self.send_message(message.channel, "WHAT HAVE YOU DONE.")
