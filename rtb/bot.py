@@ -21,6 +21,7 @@ import requests
 import markovify
 import re
 import random
+import cleverbot
 
 #python imports
 from io import BytesIO
@@ -2581,8 +2582,8 @@ class RobTheBoat(discord.Client):
                                             r.status_code))
 
     async def cmd_e621(self, channel, message, tags):
-        bot = discord.utils.get(message.server.members, name=self.user.name)
-        nsfw = discord.utils.get(bot.roles, name="NSFW")
+        #bot = discord.utils.get(message.server.members, name=self.user.name)
+        #nsfw = discord.utils.get(bot.roles, name="NSFW")
         nsfw_channel_name = read_data_entry(message.server.id, "nsfw-channel")
         if not channel.name == nsfw_channel_name:
             if not nsfw:
@@ -2602,7 +2603,7 @@ class RobTheBoat(discord.Client):
 
     async def cmd_rule34(self, message):
         await self.send_message(message.channel,
-                                "If you really want porn, there's the fucking internet. Like, there's Google Chrome and Mozilla Firefox. You can fap on those browsers. Even on mobile. Get your porn from somewhere else, pls.")
+                                "<http://matias.ma/nsfw/>")
         log.info(
             "lol attempted rule34 porn detected. Username: `{}` Server: `{}`".format(message.author.name,
                                                                                                message.server.name))
@@ -2691,11 +2692,11 @@ class RobTheBoat(discord.Client):
             if message.server.id != "110373943822540800":
                 await self.safe_send_message(message.channel, message.author.name + " has paid their respects.")
                 await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000)))
-                await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
+                #await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
         else:
             await self.safe_send_message(message.channel, message.author.name + " has paid their respects.")
             await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000)))
-            await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
+            #await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
 
     @owner_only
     async def cmd_terminal(self, channel, message):
@@ -2743,7 +2744,9 @@ class RobTheBoat(discord.Client):
         {}rate (player/@mention/name/whatever)
         """
         drewisafurry = random.choice(ratelevel)  # I can't say how MUCH of a furry Drew is. Or known as Printendo
-        if message.content[len(".rate "):].strip() == "<@163698730866966528>":
+        if message.content[len(".rate "):].strip() == int(0):
+            return Response("Enter a thing, don't just do the command.")
+        elif message.content[len(".rate "):].strip() == "<@163698730866966528>":
             await self.safe_send_message(message.channel,
                                          "I give myself a ***-1/10***, just because.")  # But guess what, Emil's a fucking furry IN DENIAL, so that's even worse. Don't worry, at least Drew's sane.
         elif message.content[len(".rate "):].strip() != "<@163698730866966528>":
@@ -3324,13 +3327,13 @@ class RobTheBoat(discord.Client):
         """
         Usage: {command_prefix}config type value
         Configure the bot config for this server
-        If you need help with this, visit the docs at dragonfire.me/robtheboat
+        Types are: nsfw-channel, mod-role, and ignore-role
         """
-        if message.author.id is not owner_id and message.author is not message.server.owner:
+        if message.author.id != owner_id and message.author is not message.server.owner:
             return Response("Only the server owner can use this command")
         await self.send_typing(message.channel)
         val = message.content[len(self.command_prefix + "config " + type + " "):].strip()
-        if type == "mod-role" or type == "nsfw-channel":
+        if type == "mod-role" or type == "nsfw-channel" or type == "ignore-role":
             if type == "nsfw-channel":
                 val = val.lower().replace(" ", "")
             update_data_entry(message.server.id, type, val)
