@@ -92,8 +92,8 @@ class URLPlaylistEntry(BasePlaylistEntry):
         self.download_folder = self.playlist.downloader.download_folder
 
     @classmethod
-    def deserialize(cls, playlist, jsonstr):
-        data = json.loads(jsonstr)
+    def _deserialize(cls, data, playlist=None):
+        assert playlist is not None, cls._bad('playlist')
 
         try:
             # TODO: version check
@@ -102,6 +102,7 @@ class URLPlaylistEntry(BasePlaylistEntry):
             duration = data['duration']
             downloaded = data['downloaded']
             filename = data['filename'] if downloaded else None
+            expected_filename = data['expected_filename']
             meta = {}
 
             # TODO: Better [name] fallbacks
@@ -111,19 +112,22 @@ class URLPlaylistEntry(BasePlaylistEntry):
             if 'author' in data['meta']:
                 meta['author'] = meta['channel'].server.get_member(data['meta']['author']['id'])
 
-            return cls(playlist, url, title, duration, filename, **meta)
+            entry = cls(playlist, url, title, duration, expected_filename, **meta)
+            entry.filename = filename
+
+            return entry
         except Exception as e:
             log.error("Could not load {}".format(cls.__name__), exc_info=e)
 
 
-    def serialize(self):
-        data = {
+    def __json__(self):
+        return self._enclose_json({
             'version': 1,
-            'type': self.__class__.__name__,
             'url': self.url,
             'title': self.title,
             'duration': self.duration,
             'downloaded': self.is_downloaded,
+            'expected_filename': self.expected_filename,
             'filename': self.filename,
             # Todo: add server
             'meta': {
@@ -131,11 +135,10 @@ class URLPlaylistEntry(BasePlaylistEntry):
                     'type': obj.__class__.__name__,
                     'id': obj.id,
                     'name': obj.name
-                } for (name, obj) in self.meta.items()
+                } for (name, obj) in self.meta.items() if obj
             }
-            # Actually I think I can just getattr instead, getattr(discord, type)
-        }
-        return json.dumps(data)
+            # Actually I think I can just getattr(discord, type)
+        })
 
     # noinspection PyTypeChecker
     async def _download(self):
@@ -264,14 +267,16 @@ class StreamPlaylistEntry(BasePlaylistEntry):
         return self.source_url or self._url
 
     @classmethod
-    def deserialize(cls, playlist, jsonstr):
-        data = json.loads(jsonstr)
+    def _deserialize(cls, data, playlist=None):
+        assert playlist is not None, cls._bad('playlist')
 
         try:
             # TODO: version check
             url = data['url']
             title = data['title']
             direct = data['direct']
+            source_url = data['source_url']
+            filename = data['filename']
             meta = {}
 
             # TODO: Better [name] fallbacks
@@ -282,15 +287,20 @@ class StreamPlaylistEntry(BasePlaylistEntry):
             if 'author' in data['meta']:
                 meta['author'] = meta['channel'].server.get_member(data['meta']['author']['id'])
 
-            return cls(playlist, url, title, direct=direct, **meta)
+            entry = cls(playlist, url, title, direct=direct, source_url=source_url, **meta)
+            if not direct and filename:
+                entry.filename = url
+
+            return entry
         except Exception as e:
             log.error("Could not load {}".format(cls.__name__), exc_info=e)
 
-    def serialize(self):
-        data = {
+    def __json__(self):
+        return self._enclose_json({
             'version': 1,
-            'type': self.__class__.__name__,
             'url': self._url,
+            'source_url': self.source_url,
+            'filename': self.filename,
             'title': self.title,
             'direct': self.direct,
             'meta': {
@@ -298,11 +308,10 @@ class StreamPlaylistEntry(BasePlaylistEntry):
                     'type': obj.__class__.__name__,
                     'id': obj.id,
                     'name': obj.name
-                } for name, obj in self.meta.items()
+                } for name, obj in self.meta.items() if obj
             }
-            # Actually I think I can just getattr instead, getattr(discord, type)
-        }
-        return json.dumps(data)
+            # Actually I think I can just getattr(discord, type)
+        })
 
     async def _download(self):
         self._is_downloading = True
@@ -318,4 +327,3 @@ class StreamPlaylistEntry(BasePlaylistEntry):
             # although maybe that should be at a slightly lower level
         finally:
             self._is_downloading = False
-

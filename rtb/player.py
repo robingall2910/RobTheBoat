@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import logging
 import asyncio
 import audioop
@@ -16,6 +17,7 @@ from discord.http import _func_
 
 from .utils import avg
 from .lib.event_emitter import EventEmitter
+from .constructs import Serializable, Serializer
 from .exceptions import FFmpegError, FFmpegWarning
 
 log = logging.getLogger(__name__)
@@ -93,15 +95,15 @@ class MusicPlayerState(Enum):
         return self.name
 
 
-class MusicPlayer(EventEmitter):
+class MusicPlayer(EventEmitter, Serializable):
     def __init__(self, bot, voice_client, playlist):
         super().__init__()
         self.bot = bot
         self.loop = bot.loop
         self.voice_client = voice_client
         self.playlist = playlist
-        self.playlist.on('entry-added', self.on_entry_added)
         self.state = MusicPlayerState.STOPPED
+        self.skip_state = None
 
         self._volume = bot.config.default_volume
         self._play_lock = asyncio.Lock()
@@ -109,6 +111,7 @@ class MusicPlayer(EventEmitter):
         self._current_entry = None
         self._stderr_future = None
 
+        self.playlist.on('entry-added', self.on_entry_added)
         self.loop.create_task(self.websocket_check())
 
     @property
@@ -124,6 +127,8 @@ class MusicPlayer(EventEmitter):
     def on_entry_added(self, playlist, entry):
         if self.is_stopped:
             self.loop.call_later(2, self.play)
+
+        self.emit('entry-added', player=self, playlist=playlist, entry=entry)
 
     def skip(self):
         self._kill_current_player()
@@ -181,7 +186,7 @@ class MusicPlayer(EventEmitter):
         if self._stderr_future.done() and self._stderr_future.exception():
             # I'm not sure that this would ever not be done if it gets to this point
             # unless ffmpeg is doing something highly questionable
-            self.emit('error', entry=entry, ex=self._stderr_future.exception())
+            self.emit('error', player=self, entry=entry, ex=self._stderr_future.exception())
 
         if not self.is_stopped and not self.is_dead:
             self.play(_continue=True)
@@ -326,6 +331,46 @@ class MusicPlayer(EventEmitter):
             finally:
                 await asyncio.sleep(1)
 
+    def __json__(self):
+        return self._enclose_json({
+            'current_entry': {
+                'entry': self.current_entry,
+                'progress': self.progress,
+                'progress_frames': self._current_player.buff.frame_count if self.progress is not None else None
+            },
+            'entries': self.playlist
+        })
+
+    @classmethod
+    def _deserialize(cls, data, bot=None, voice_client=None, playlist=None):
+        assert bot is not None, cls._bad('bot')
+        assert voice_client is not None, cls._bad('voice_client')
+        assert playlist is not None, cls._bad('playlist')
+
+        player = cls(bot, voice_client, playlist)
+
+        data_pl = data.get('entries')
+        if data_pl and data_pl.entries:
+            player.playlist.entries = data_pl.entries
+
+        current_entry_data = data['current_entry']
+        if current_entry_data['entry']:
+            player.playlist.entries.appendleft(current_entry_data['entry'])
+            # TODO: progress stuff
+            # how do I even do this
+            # this would have to be in the entry class right?
+            # some sort of progress indicator to skip ahead with ffmpeg (however that works, reading and ignoring frames?)
+
+        return player
+
+    @classmethod
+    def from_json(cls, raw_json, bot, voice_client, playlist):
+        try:
+            return json.loads(raw_json, object_hook=Serializer.deserialize)
+        except:
+            log.exception("Failed to deserialize player")
+
+
     @property
     def current_entry(self):
         return self._current_entry
@@ -348,11 +393,12 @@ class MusicPlayer(EventEmitter):
 
     @property
     def progress(self):
-        return round(self._current_player.buff.frame_count * 0.02)
-        # TODO: Properly implement this
-        #       Correct calculation should be bytes_read/192k
-        #       192k AKA sampleRate * (bitDepth / 8) * channelCount
-        #       Change frame_count to bytes_read in the PatchedBuff
+        if self._current_player:
+            return round(self._current_player.buff.frame_count * 0.02)
+            # TODO: Properly implement this
+            #       Correct calculation should be bytes_read/192k
+            #       192k AKA sampleRate * (bitDepth / 8) * channelCount
+            #       Change frame_count to bytes_read in the PatchedBuff
 
 # TODO: I need to add a check for if the eventloop is closed
 
@@ -389,7 +435,7 @@ def check_stderr(data:bytes):
         log.ffmpeg("Unknown error decoding message from ffmpeg", exc_info=True)
         return True # fuck it
 
-    log.ffmpeg("Decoded data from ffmpeg: {}".format(data))
+    # log.ffmpeg("Decoded data from ffmpeg: {}".format(data))
 
     # TODO: Regex
     warnings = [

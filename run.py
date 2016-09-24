@@ -119,7 +119,7 @@ class PIP(object):
 # Setup initial loggers
 
 tmpfile = tempfile.TemporaryFile('w+', encoding='utf8')
-log = logging.getLogger('setup')
+log = logging.getLogger('launcher')
 log.setLevel(logging.DEBUG)
 
 sh = logging.StreamHandler(stream=sys.stdout)
@@ -200,6 +200,8 @@ def sanity_checks(optional=True):
     # check disk usage
     opt_check_disk_space()
 
+    log.info("Checks passed.")
+
 
 def req_ensure_py3():
     log.info("Checking for python 3.5+")
@@ -253,12 +255,10 @@ def req_ensure_encoding():
     if sys.platform.startswith('win') or sys.stdout.encoding.replace('-', '').lower() != 'utf8':
         log.info("Setting console encoding to UTF-8")
 
-        if sys.platform.startswith('win'):
-            os.system("chcp 65001 > NUL")
-
         import io
         sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='utf8', line_buffering=True)
-        sh.stream = sys.stdout # I wish I didn't have to do this
+        # only slightly evil
+        sys.__stdout__ = sh.stream = sys.stdout
 
         if os.environ.get('PYCHARM_HOSTED', None) not in (None, '0'):
             log.info("Enabling colors in pycharm pseudoconsole")
@@ -274,21 +274,23 @@ def req_ensure_env():
         assert os.path.isfile('rtb/__init__.py'), 'rtb folder is not a python module'
 
         assert importlib.util.find_spec('rtb'), "rtb module is not importable"
-
     except AssertionError as e:
         log.critical("Failed environment check, %s", e)
         bugger_off()
 
     try:
         os.mkdir('rtb-test-folder')
-
     except Exception:
         log.critical("Current working directory does not seem to be writable")
         log.critical("Please move the bot to a write")
         bugger_off()
-
     finally:
         rmtree('rtb-test-folder', True)
+
+    if sys.platform.startswith('win'):
+        log.info("Adding local bins/ folder to path")
+        os.environ['PATH'] += ';' + os.path.abspath('bin/')
+        sys.path.append(os.path.abspath('bin/')) # might as well
 
 
 def req_ensure_folders():
@@ -331,7 +333,7 @@ def main():
         # Maybe I need to try to import stuff first, then actually import stuff
         # It'd save me a lot of pain with all that awful exception type checking
 
-        m = None
+        r = None
         try:
             from rtb import RobTheBoat
             r = RobTheBoat()
@@ -381,7 +383,7 @@ def main():
                 log.exception("Error starting bot")
 
         finally:
-            if not m or not m.init_ok:
+            if not r or not r.init_ok:
                 if any(sys.exc_info()):
                     # How to log this without redundant messages...
                     traceback.print_exc()

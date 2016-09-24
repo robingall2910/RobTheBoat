@@ -10,6 +10,7 @@ from urllib.error import URLError
 from youtube_dl.utils import ExtractorError, DownloadError, UnsupportedError
 
 from .utils import get_header
+from .constructs import Serializable
 from .lib.event_emitter import EventEmitter
 from .entry import URLPlaylistEntry, StreamPlaylistEntry
 from .exceptions import ExtractionError, WrongEntryTypeError
@@ -17,7 +18,7 @@ from .exceptions import ExtractionError, WrongEntryTypeError
 log = logging.getLogger(__name__)
 
 
-class Playlist(EventEmitter):
+class Playlist(EventEmitter, Serializable):
     """
         A playlist is manages the list of songs that will be played.
     """
@@ -31,6 +32,9 @@ class Playlist(EventEmitter):
 
     def __iter__(self):
         return iter(self.entries)
+
+    def __len__(self):
+        return len(self.entries)
 
     def shuffle(self):
         shuffle(self.entries)
@@ -78,7 +82,8 @@ class Playlist(EventEmitter):
 
             if content_type:
                 if content_type.startswith(('application/', 'image/')):
-                    if '/ogg' not in content_type:  # How does a server say `application/ogg` what the actual fuck
+                    if not any(x in content_type for x in ('/ogg', '/octet-stream')):
+                        # How does a server say `application/ogg` what the actual fuck
                         raise ExtractionError("Invalid content type \"%s\" for url %s" % (content_type, song_url))
 
                 elif not content_type.startswith(('audio/', 'video/')):
@@ -278,8 +283,12 @@ class Playlist(EventEmitter):
 
         return gooditems
 
-    def _add_entry(self, entry):
-        self.entries.append(entry)
+    def _add_entry(self, entry, *, head=False):
+        if head:
+            self.entries.appendleft(entry)
+        else:
+            self.entries.append(entry)
+
         self.emit('entry-added', playlist=self, entry=entry)
 
         if self.peek() is entry:
@@ -327,9 +336,19 @@ class Playlist(EventEmitter):
         return sum(1 for e in self.entries if e.meta.get('author', None) == user)
 
 
-    def serialize(self):
-        return '[' + ','.join(entry.serialize() for entry in self) + ']'
+    def __json__(self):
+        return self._enclose_json({
+            'entries': list(self.entries)
+        })
 
-    def deserialize(self):
-        raise NotImplementedError
+    @classmethod
+    def _deserialize(cls, raw_json, bot=None):
+        assert bot is not None, cls._bad('bot')
+        # log.debug("Deserializing playlist")
+        pl = cls(bot)
 
+        for entry in raw_json['entries']:
+            pl.entries.append(entry)
+
+        # TODO: create a function to init downloading (since we don't do it here)?
+        return pl

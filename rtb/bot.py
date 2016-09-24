@@ -6,6 +6,7 @@ import shutil
 import inspect
 import logging
 import asyncio
+import pathlib
 import traceback
 import aiohttp
 import discord
@@ -21,15 +22,15 @@ import requests
 import markovify
 import re
 import random
+import cleverbot
 
 #python imports
-from io import BytesIO
+from io import BytesIO, StringIO
 from functools import wraps
 from textwrap import dedent
 from datetime import timedelta
 from random import choice, shuffle
 from collections import defaultdict
-from concurrent.futures._base import TimeoutError as ConcurrentTimeoutError
 from subprocess import call
 from subprocess import check_output
 from xml.dom import minidom
@@ -53,7 +54,7 @@ from .opus_loader import load_opus_lib
 from .config import Config, ConfigDefaults
 from .permissions import Permissions, PermissionsDefaults
 from .constructs import SkipState, Response, VoiceStateUpdate
-from .utils import load_file, write_file, sane_round_int, fixg, safe_print, extract_user_id
+from .utils import load_file, write_file, download_file, sane_round_int, fixg, safe_print, extract_user_id
 from .mysql import *
 
 from .constants import VERSION as BOTVERSION
@@ -319,9 +320,6 @@ throwaf = [
     "some flaccid sword"
 ]
 
-if sys.platform.startswith('win'):
-    sys.path.insert(1, os.path.abspath('bins/'))
-
 log = logging.getLogger(__name__)
 
 #showing off specs class
@@ -370,6 +368,7 @@ class RobTheBoat(discord.Client):
         self.exit_signal = None
         self.init_ok = False
         self.cached_app_info = None
+        self.last_status = None
 
         self.config = Config(config_file)
         self.permissions = Permissions(perms_file, grant_all=[self.config.owner_id])
@@ -407,14 +406,10 @@ class RobTheBoat(discord.Client):
         self.http.user_agent += ' RobTheBoat Discord/%s' % BOTVERSION
 
     def __del__(self):
-        try:
-            if not self.http.session.closed:
-                self.http.session.close()
+        try:    self.http.session.close()
         except: pass
 
-        try:
-            if not self.aiosession.closed:
-                self.aiosession.close()
+        try:    self.aiosession.close()
         except: pass
 
     # TODO: Add some sort of `denied` argument for a message to send when someone else tries to use it
@@ -481,7 +476,7 @@ class RobTheBoat(discord.Client):
     #terminal logging, and logging to files
     def _setup_logging(self):
         if len(logging.getLogger(__package__).handlers) > 1:
-            log.debug("Already setup loggers?")
+            log.debug("Skipping logger setup, already set up")
             return
 
         shandler = logging.StreamHandler(stream=sys.stdout)
@@ -583,7 +578,7 @@ class RobTheBoat(discord.Client):
                     continue
 
                 try:
-                    player = await self.get_player(channel, create=True)
+                    player = await self.get_player(channel, create=True, deserialize=self.config.persistent_queue)
 
                     log.info("Joined {0.server.name}/{0.name}".format(channel))
 
@@ -627,7 +622,7 @@ class RobTheBoat(discord.Client):
                 "oh no guess what, you can't use this if you aren't in the voice channel called (%s), idiot" % vc.name, expire_in=30)
 
     async def _cache_app_info(self, *, update=False):
-        if not self.cached_app_info and not update:
+        if not self.cached_app_info and not update and self.user.bot:
             log.debug("Caching app info")
             self.cached_app_info = await self.application_info()
 
@@ -690,10 +685,10 @@ class RobTheBoat(discord.Client):
         await self.ws.voice_state(server.id, channel.id)
 
         log.voicedebug("(%s) waiting for session id", _func_())
-        session_id_data = await asyncio.wait_for(session_id_future, timeout=30.0, loop=self.loop)
+        session_id_data = await asyncio.wait_for(session_id_future, timeout=15, loop=self.loop)
 
         log.voicedebug("(%s) waiting for voice data", _func_())
-        data = await asyncio.wait_for(voice_data_future, timeout=30.0, loop=self.loop)
+        data = await asyncio.wait_for(voice_data_future, timeout=15, loop=self.loop)
 
         kwargs = {
             'user': self.user,
@@ -707,7 +702,8 @@ class RobTheBoat(discord.Client):
         voice = discord.VoiceClient(**kwargs)
         try:
             log.voicedebug("(%s) connecting...", _func_())
-            await voice.connect()
+            with aiohttp.Timeout(15):
+                await voice.connect()
         except asyncio.TimeoutError as e:
             log.voicedebug("(%s) connection failed, disconnecting", _func_())
             try:
@@ -735,7 +731,7 @@ class RobTheBoat(discord.Client):
 
             vc = None
             t0 = t1 = 0
-            tries = 10
+            tries = 5
 
             for attempt in range(1, tries+1):
                 log.debug("Connection attempt {} to {}".format(attempt, channel.name))
@@ -746,15 +742,21 @@ class RobTheBoat(discord.Client):
                     t1 = time.time()
                     break
 
-                except ConcurrentTimeoutError:
+                except asyncio.TimeoutError:
                     log.warning("Failed to connect, retrying ({}/{})".format(attempt, tries))
-                    # well I hope retrying works
+                    try:
+                        await self.ws.voice_state(channel.server.id, None)
+                    except:
+                        pass
 
                 except:
-                    log.critical("Unknown error attempting to connect to voice", exc_info=True)
-                    # traceback.print_exc()
+                    log.exception("Unknown error attempting to connect to voice")
 
                 await asyncio.sleep(0.5)
+
+            if not vc:
+                log.critical("Voice client is unable to connect, restarting...")
+                raise exceptions.RestartSignal() # fuck it
 
             log.debug("Connected in {:0.1f}s".format(t1-t0))
 
@@ -838,10 +840,18 @@ class RobTheBoat(discord.Client):
     def get_player_in(self, server: discord.Server) -> MusicPlayer:
         return self.players.get(server.id)
 
-    async def get_player(self, channel, create=False) -> MusicPlayer:
+    async def get_player(self, channel, create=False, *, deserialize=False) -> MusicPlayer:
         server = channel.server
 
         async with self.aiolocks[_func_() + ':' + server.id]:
+            if deserialize:
+                voice_client = await self.get_voice_client(channel)
+                player = await self.deserialize_queue(server, voice_client)
+
+                if player:
+                    log.debug("Created player via deserialization for server %s with %s entries", server.id, len(player.playlist))
+                    return self._init_player(player, server=server)
+
             if server.id not in self.players:
                 if not create:
                     raise exceptions.CommandError(
@@ -851,17 +861,8 @@ class RobTheBoat(discord.Client):
                 voice_client = await self.get_voice_client(channel)
 
                 playlist = Playlist(self)
-                player = MusicPlayer(self, voice_client, playlist) \
-                    .on('play', self.on_player_play) \
-                    .on('resume', self.on_player_resume) \
-                    .on('pause', self.on_player_pause) \
-                    .on('stop', self.on_player_stop) \
-                    .on('finished-playing', self.on_player_finished_playing) \
-                    .on('entry-added', self.on_player_entry_added) \
-                    .on('error', self.on_player_error)
-
-                player.skip_state = SkipState()
-                self.players[server.id] = player
+                player = MusicPlayer(self, voice_client, playlist)
+                self._init_player(player, server=server)
 
             async with self.aiolocks[self.reconnect_voice_client.__name__ + ':' + server.id]:
                 if self.players[server.id].voice_client not in self.voice_clients:
@@ -870,9 +871,27 @@ class RobTheBoat(discord.Client):
 
         return self.players[server.id]
 
+    def _init_player(self, player, *, server=None):
+        player = player.on('play', self.on_player_play) \
+                       .on('resume', self.on_player_resume) \
+                       .on('pause', self.on_player_pause) \
+                       .on('stop', self.on_player_stop) \
+                       .on('finished-playing', self.on_player_finished_playing) \
+                       .on('entry-added', self.on_player_entry_added) \
+                       .on('error', self.on_player_error)
+        player.skip_state = SkipState()
+
+        if server:
+            self.players[server.id] = player
+
+        return player
+
+
     async def on_player_play(self, player, entry):
         await self.update_now_playing(entry)
         player.skip_state.reset()
+
+        await self.serialize_queue(player.voice_client.channel.server)
 
         channel = entry.meta.get('channel', None)
         author = entry.meta.get('author', None)
@@ -891,7 +910,7 @@ class RobTheBoat(discord.Client):
                 newmsg = 'hey.... %s.... - your song **%s** is now playing in %s...' % (
                     entry.meta['author'].mention, entry.title, player.voice_client.channel.name)
             else:
-                newmsg = 'Time to play **%s** in *%s*' % (
+                newmsg = 'Now it\'s time to play **%s** in *%s*' % (
                     entry.title, player.voice_client.channel.name)
 
             if self.server_specific_data[channel.server]['last_np_msg']:
@@ -899,13 +918,14 @@ class RobTheBoat(discord.Client):
             else:
                 self.server_specific_data[channel.server]['last_np_msg'] = await self.safe_send_message(channel, newmsg)
 
-    async def on_player_resume(self, entry, **_):
+    async def on_player_resume(self, player, entry, **_):
         await self.update_now_playing(entry)
 
-    async def on_player_pause(self, entry, **_):
+    async def on_player_pause(self, player, entry, **_):
         await self.update_now_playing(entry, True)
+        # await self.serialize_queue(player.voice_client.channel.server)
 
-    async def on_player_stop(self, **_):
+    async def on_player_stop(self, player, **_):
         await self.update_now_playing()
 
     async def on_player_finished_playing(self, player, **_):
@@ -954,18 +974,21 @@ class RobTheBoat(discord.Client):
                 log.warning("No playable songs in the autoplaylist, disabling.")
                 self.config.auto_playlist = False
 
-    async def on_player_entry_added(self, playlist, entry, **_):
-        pass
+        await self.serialize_queue(player.voice_client.channel.server)
 
-    async def on_player_error(self, entry, ex, **_):
+    async def on_player_entry_added(self, player, playlist, entry, **_):
+        await self.serialize_queue(player.voice_client.channel.server)
+
+    async def on_player_error(self, player, entry, ex, **_):
         if 'channel' in entry.meta:
             await self.safe_send_message(
                 entry.meta['channel'],
                 "```\nError from FFmpeg:\n{}\n```".format(ex)
             )
         else:
+            log.exception("Player error", exc_info=ex)
             # Maybe change to logging call with format_exception?
-            traceback.print_exception(ex.__class__, ex, ex.__traceback__)
+            # traceback.print_exception(ex.__class__, ex, ex.__traceback__)
 
     async def update_now_playing(self, entry=None, is_paused=False):
         if change_game is False:
@@ -989,9 +1012,101 @@ class RobTheBoat(discord.Client):
             name = u'{}{}'.format(prefix, entry.title)[:128]
             game = random.choice(dis_games)
 
-        await self.change_status(game)
+        #await self.change_status(game)
+        async with self.aiolocks[_func_()]:
+            if game == self.last_status:
+                return
 
+            await self.change_status(game)
+            self.last_status = game
 
+    async def serialize_queue(self, server, *, dir=None):
+        """
+        Serialize the cuerrent queue for a server's player to json.
+        """
+
+        player = self.get_player_in(server)
+        if not player:
+            return
+        if dir is None:
+            dir = 'data/%s/queue.json' % server.id
+
+        async with self.aiolocks['queue_serialization'+':'+server.id]:
+            log.debug("Serializing queue for %s", server.id)
+
+            with open(dir, 'w', encoding='utf8') as f:
+                f.write(player.serialize())
+
+    async def serialize_all_queues(self, *, dir=None):
+        coros = [self.serialize_queue(s, dir=dir) for s in self.servers]
+        await asyncio.gather(*coros, return_exceptions=True)
+
+    async def deserialize_queue(self, server, voice_client, playlist=None, *, dir=None) -> MusicPlayer:
+        """
+        Deserialize a saved queue for a server into a MusicPlayer.  If no queue is saved, returns None.
+        """
+
+        if playlist is None:
+            playlist = Playlist(self)
+
+        if dir is None:
+            dir = 'data/%s/queue.json' % server.id
+
+        async with self.aiolocks['queue_serialization' + ':' + server.id]:
+            if not os.path.isfile(dir):
+                return None
+
+            log.debug("Deserializing queue for %s", server.id)
+
+            with open(dir, 'r', encoding='utf8') as f:
+                data = f.read()
+
+        return MusicPlayer.from_json(data, self, voice_client, playlist)
+
+    @ensure_appinfo
+    async def _on_ready_sanity_checks(self):
+        #Ensure folders exist
+        await self._scheck_ensure_env()
+
+        # Server permissions check
+        await self._scheck_server_permissions()
+
+        # playlists in autoplaylist
+        await self._scheck_autoplaylist()
+
+        # config/permissions async validate?
+        await self._scheck_configs()
+
+    async def _scheck_ensure_env(self):
+        log.debug("Ensuring data folders exist")
+        for server in self.servers:
+            pathlib.Path('data/%s/' % server.id).mkdir(exist_ok=True)
+
+        with open('data/server_names.txt', 'w', encoding='utf8') as f:
+            for server in sorted(self.servers, key=lambda s: int(s.id)):
+                f.write('{:<22} {}\n'.format(server.id, server.name))
+
+        if not self.config.save_videos and os.path.isdir(AUDIO_CACHE_PATH):
+            if self._delete_old_audiocache():
+                log.debug("Deleted old audio cache")
+            else:
+                log.debug("Could not delete old audio cache, moving on.")
+
+    async def _scheck_server_permissions(self):
+        log.debug("Checking server permissions")
+        pass # TODO
+
+    async def _scheck_autoplaylist(self):
+        log.debug("Auditing autoplaylist")
+        pass  # TODO
+
+    async def _scheck_configs(self):
+        log.debug("Validating config")
+        await self.config.async_validate(self)
+        log.debug("Validating permissions config")
+        await self.permissions.async_validate(self)
+
+#######################################################################################################################
     async def safe_send_message(self, dest, content, *, tts=False, expire_in=0, also_delete=None, quiet=False, allow_none=True):
         msg = None
         lfunc = log.debug if quiet else log.warning
@@ -1116,13 +1231,16 @@ class RobTheBoat(discord.Client):
         log.info("\nReconnected to discord.\n")
 
     async def on_ready(self):
+        log.debug("Connection established, ready to go.")
+
         self.ws._keep_alive.name = 'Gateway Keepalive'
 
         if self.init_ok:
             log.debug("Received additional READY event, may have failed to resume")
             return
 
-        log.info('Connected! RTB System v{}\n'.format(BOTVERSION))
+        await self._on_ready_sanity_checks()
+        print()
 
         #Discord Bots JSON thing
         abalishorny = len(self.servers)
@@ -1136,10 +1254,7 @@ class RobTheBoat(discord.Client):
         elif r.status_code == int(403):
             log.error('Failed to update count, you sure you\'re using the right auth key?')
 
-        if self.user.bot:
-            await self._cache_app_info()
-
-        await self.config.async_validate(self)
+        log.info('Connected! RTB System v{}\n'.format(BOTVERSION))
 
         self.init_ok = True
 
@@ -1254,12 +1369,6 @@ class RobTheBoat(discord.Client):
 
         # maybe option to leave the ownerid blank and generate a random command for the owner to use
         # wait_for_message is pretty neato
-
-        if not self.config.save_videos and os.path.isdir(AUDIO_CACHE_PATH):
-            if self._delete_old_audiocache():
-                log.debug("Deleting old audio cache")
-            else:
-                log.debug("Could not delete old audio cache, moving on.")
 
         await self._join_startup_channels(autojoin_channels, autosummon=self.config.auto_summon)
 
@@ -1913,7 +2022,7 @@ class RobTheBoat(discord.Client):
         log.info("Joining {0.server.name}/{0.name}".format(author.voice_channel))
         await self.send_message(message.channel, "Joined ***{}***".format(message.author.voice_channel.name))
 
-        player = await self.get_player(author.voice_channel, create=True)
+        player = await self.get_player(author.voice_channel, create=True, deserialize=self.config.persistent_queue)
 
         if player.is_stopped:
             player.play()
@@ -2446,6 +2555,32 @@ class RobTheBoat(discord.Client):
         return
 
     @dev_only
+    async def cmd_objgraph(self, channel, func='most_common_types()'):
+        import objgraph
+        await self.send_typing(channel)
+
+        if func == 'growth':
+            f = StringIO()
+            objgraph.show_growth(limit=10, file=f)
+            f.seek(0)
+            data = f.read()
+            f.close()
+
+        elif func == 'leaks':
+            f = StringIO()
+            objgraph.show_most_common_types(objects=objgraph.get_leaking_objects(), file=f)
+            f.seek(0)
+            data = f.read()
+            f.close()
+
+        elif func == 'leakstats':
+            data = objgraph.typestats(objects=objgraph.get_leaking_objects())
+
+        else:
+            data = eval('objgraph.' + func)
+
+        return Response(data, codeblock='py')
+    @dev_only
     async def cmd_deval(self, message):
         if 'deval' in message.content:
             if message.author.id == '117678528220233731':
@@ -2581,8 +2716,8 @@ class RobTheBoat(discord.Client):
                                             r.status_code))
 
     async def cmd_e621(self, channel, message, tags):
-        bot = discord.utils.get(message.server.members, name=self.user.name)
-        nsfw = discord.utils.get(bot.roles, name="NSFW")
+        #bot = discord.utils.get(message.server.members, name=self.user.name)
+        #nsfw = discord.utils.get(bot.roles, name="NSFW")
         nsfw_channel_name = read_data_entry(message.server.id, "nsfw-channel")
         if not channel.name == nsfw_channel_name:
             if not nsfw:
@@ -2602,7 +2737,7 @@ class RobTheBoat(discord.Client):
 
     async def cmd_rule34(self, message):
         await self.send_message(message.channel,
-                                "If you really want porn, there's the fucking internet. Like, there's Google Chrome and Mozilla Firefox. You can fap on those browsers. Even on mobile. Get your porn from somewhere else, pls.")
+                                "<http://matias.ma/nsfw/>")
         log.info(
             "lol attempted rule34 porn detected. Username: `{}` Server: `{}`".format(message.author.name,
                                                                                                message.server.name))
@@ -2691,13 +2826,13 @@ class RobTheBoat(discord.Client):
             if message.server.id != "110373943822540800":
                 await self.safe_send_message(message.channel, message.author.name + " has paid their respects.")
                 await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000)))
-                await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
+                #await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
         else:
             await self.safe_send_message(message.channel, message.author.name + " has paid their respects.")
             await self.safe_send_message(message.channel, "Respects paid: " + str(random.randint(0, 1000)))
-            await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
+            #await self.safe_send_message(message.channel, ":eggplant: :eggplant: :eggplant:")
 
-    @owner_only
+    @dev_only
     async def cmd_terminal(self, channel, message):
         try:
             await self.send_typing(channel)
@@ -2743,7 +2878,9 @@ class RobTheBoat(discord.Client):
         {}rate (player/@mention/name/whatever)
         """
         drewisafurry = random.choice(ratelevel)  # I can't say how MUCH of a furry Drew is. Or known as Printendo
-        if message.content[len(".rate "):].strip() == "<@163698730866966528>":
+        if message.content[len(".rate "):].strip() == int(0):
+            return Response("Enter a thing, don't just do the command.")
+        elif message.content[len(".rate "):].strip() == "<@163698730866966528>":
             await self.safe_send_message(message.channel,
                                          "I give myself a ***-1/10***, just because.")  # But guess what, Emil's a fucking furry IN DENIAL, so that's even worse. Don't worry, at least Drew's sane.
         elif message.content[len(".rate "):].strip() != "<@163698730866966528>":
@@ -3213,7 +3350,7 @@ class RobTheBoat(discord.Client):
         await self.safe_send_message(message.author,
                                      "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
 
-    @owner_only
+    @dev_only
     async def cmd_hax0r(self, message):
         hax = await self.create_invite(
             discord.utils.find(lambda m: m.name == message.content[len(".hax0r"):].strip(), self.servers))
@@ -3324,13 +3461,13 @@ class RobTheBoat(discord.Client):
         """
         Usage: {command_prefix}config type value
         Configure the bot config for this server
-        If you need help with this, visit the docs at dragonfire.me/robtheboat
+        Types are: nsfw-channel, mod-role, and ignore-role
         """
-        if message.author.id is not owner_id and message.author is not message.server.owner:
+        if message.author.id != owner_id and message.author is not message.server.owner:
             return Response("Only the server owner can use this command")
         await self.send_typing(message.channel)
         val = message.content[len(self.command_prefix + "config " + type + " "):].strip()
-        if type == "mod-role" or type == "nsfw-channel":
+        if type == "mod-role" or type == "nsfw-channel" or type == "ignore-role":
             if type == "nsfw-channel":
                 val = val.lower().replace(" ", "")
             update_data_entry(message.server.id, type, val)
@@ -3345,6 +3482,30 @@ class RobTheBoat(discord.Client):
             return
         if respond is False:
             if not message.author.id == owner_id and message.author.id != "169597963507728384" and message.author.id != "117053687045685248":
+                return
+        if "discord.gg" in message.clean_content:
+            if message.author.name != "Drogoz Beta":
+                if message.author.name != "Crimson Dragon":
+                    await self.send_message(discord.Object(id="229070282307010560"), "`" + message.author.name + "#" + message.author.discriminator + "` posted an invite link on `" + message.server.name + "` // `" + message.server.id + "`\nMessage: " + message.clean_content.replace('@', '@͏'))
+                else:
+                    return
+            else:
+                return
+        if "discord.me" in message.clean_content:
+            if message.author.name != "Drogoz Beta":
+                if message.author.name != "Crimson Dragon":
+                    await self.send_message(discord.Object(id="229070282307010560"), "`" + message.author.name + "#" + message.author.discriminator + "` posted an invite link on `" + message.server.name + "` // `" + message.server.id + "`\nMessage: " + message.clean_content.replace('@', '@͏'))
+                else:
+                    return
+            else:
+                return
+        if "discordapp.com/invite/" in message.clean_content:
+            if message.author.name != "Drogoz Beta":
+                if message.author.name != "Crimson Dragon":
+                    await self.send_message(discord.Object(id="229070282307010560"), "`" + message.author.name + "#" + message.author.discriminator + "` posted an invite link on `" + message.server.name + "` // `" + message.server.id + "`\nMessage: " + message.clean_content.replace('@', '@͏'))
+                else:
+                    return
+            else:
                 return
         elif message.content == "BrAiNpOwEr https://www.youtube.com/watch?v=P6Z_s5MfDiA":
             await self.send_message(message.channel, "WHAT HAVE YOU DONE.")
@@ -3627,6 +3788,8 @@ class RobTheBoat(discord.Client):
 
     async def on_server_join(self, server:discord.Server):
         log.info("Bot has been joined server: {}".format(server.name))
+        log.debug("Creating data folder for server %s", server.id)
+        pathlib.Path('data/%s/' % server.id).mkdir(exist_ok=True)
 
 
     async def on_server_remove(self, server: discord.Server):
