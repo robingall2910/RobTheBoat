@@ -140,7 +140,7 @@ log.addHandler(tfh)
 
 def finalize_logging():
     if os.path.isfile("logs/rtb.log"):
-        log.info("Moving old rtb log")
+        log.info("Renaming old rtb log")
         try:
             if os.path.isfile("logs/rtb.log.last"):
                 os.unlink("logs/rtb.log.last")

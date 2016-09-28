@@ -31,6 +31,7 @@ from textwrap import dedent
 from datetime import timedelta
 from random import choice, shuffle
 from collections import defaultdict
+from concurrent.futures._base import TimeoutError as ConcurrentTimeoutError
 from subprocess import call
 from subprocess import check_output
 from xml.dom import minidom
@@ -54,7 +55,7 @@ from .opus_loader import load_opus_lib
 from .config import Config, ConfigDefaults
 from .permissions import Permissions, PermissionsDefaults
 from .constructs import SkipState, Response, VoiceStateUpdate
-from .utils import load_file, write_file, download_file, sane_round_int, fixg, ftimedelta, extract_user_id
+from .utils import load_file, write_file, download_file, sane_round_int, fixg, safe_print, extract_user_id
 from .mysql import *
 
 from .constants import VERSION as BOTVERSION
@@ -108,7 +109,6 @@ dis_games = [
     discord.Game(name='Twenty One Pilots'),
     discord.Game(name='Twenty Juan Pilots'),
     discord.Game(name="I've gone batty!"),
-    discord.Game(name="what are you doing."),
     discord.Game(name='Lunatic under the moon'),
     discord.Game(name='with the idea of democratic socialism'),
     discord.Game(name='with the idea of a totalitarian dictatorship'),
@@ -407,10 +407,14 @@ class RobTheBoat(discord.Client):
         self.http.user_agent += ' RobTheBoat Discord/%s' % BOTVERSION
 
     def __del__(self):
-        try:    self.http.session.close()
+        try:
+            if not self.http.session.closed:
+                self.http.session.close()
         except: pass
 
-        try:    self.aiosession.close()
+        try:
+            if not self.aiosession.closed:
+                self.aiosession.close()
         except: pass
 
     # TODO: Add some sort of `denied` argument for a message to send when someone else tries to use it
@@ -477,7 +481,7 @@ class RobTheBoat(discord.Client):
     #terminal logging, and logging to files
     def _setup_logging(self):
         if len(logging.getLogger(__package__).handlers) > 1:
-            log.debug("Skipping logger setup, already set up")
+            log.debug("Already setup loggers?")
             return
 
         shandler = logging.StreamHandler(stream=sys.stdout)
@@ -579,7 +583,7 @@ class RobTheBoat(discord.Client):
                     continue
 
                 try:
-                    player = await self.get_player(channel, create=True, deserialize=self.config.persistent_queue)
+                    player = await self.get_player(channel, create=True, deserialize=True)
 
                     log.info("Joined {0.server.name}/{0.name}".format(channel))
 
@@ -743,7 +747,7 @@ class RobTheBoat(discord.Client):
                     t1 = time.time()
                     break
 
-                except asyncio.TimeoutError:
+                except ConcurrentTimeoutError:
                     log.warning("Failed to connect, retrying ({}/{})".format(attempt, tries))
                     try:
                         await self.ws.voice_state(channel.server.id, None)
@@ -756,7 +760,7 @@ class RobTheBoat(discord.Client):
                 await asyncio.sleep(0.5)
 
             if not vc:
-                log.critical("Voice client is unable to connect, restarting...")
+                log.critical("Voice client is unable to connect")
                 raise exceptions.RestartSignal() # fuck it
 
             log.debug("Connected in {:0.1f}s".format(t1-t0))
@@ -850,7 +854,7 @@ class RobTheBoat(discord.Client):
                 player = await self.deserialize_queue(server, voice_client)
 
                 if player:
-                    log.debug("Created player via deserialization for server %s with %s entries", server.id, len(player.playlist))
+                    log.debug("Created player via deserialization for server %s", server.id)
                     return self._init_player(player, server=server)
 
             if server.id not in self.players:
@@ -892,7 +896,7 @@ class RobTheBoat(discord.Client):
         await self.update_now_playing(entry)
         player.skip_state.reset()
 
-        await self.serialize_queue(player.voice_client.channel.server)
+        log.debug("Serialize queue in %s", _func_())
 
         channel = entry.meta.get('channel', None)
         author = entry.meta.get('author', None)
@@ -924,7 +928,6 @@ class RobTheBoat(discord.Client):
 
     async def on_player_pause(self, player, entry, **_):
         await self.update_now_playing(entry, True)
-        # await self.serialize_queue(player.voice_client.channel.server)
 
     async def on_player_stop(self, player, **_):
         await self.update_now_playing()
@@ -975,10 +978,10 @@ class RobTheBoat(discord.Client):
                 log.warning("No playable songs in the autoplaylist, disabling.")
                 self.config.auto_playlist = False
 
-        await self.serialize_queue(player.voice_client.channel.server)
+        log.debug("Serialize queue in %s", _func_())
 
     async def on_player_entry_added(self, player, playlist, entry, **_):
-        await self.serialize_queue(player.voice_client.channel.server)
+        log.debug("Serialize queue in %s", _func_())
 
     async def on_player_error(self, player, entry, ex, **_):
         if 'channel' in entry.meta:
@@ -1013,12 +1016,12 @@ class RobTheBoat(discord.Client):
             name = u'{}{}'.format(prefix, entry.title)[:128]
             game = random.choice(dis_games)
 
-        #await self.change_presence(game)
+        #await self.change_status(game)
         async with self.aiolocks[_func_()]:
             if game == self.last_status:
                 return
 
-            await self.change_presence(game)
+            await self.change_status(game)
             self.last_status = game
 
     async def serialize_queue(self, server, *, dir=None):
@@ -1108,13 +1111,7 @@ class RobTheBoat(discord.Client):
         await self.permissions.async_validate(self)
 
 #######################################################################################################################
-    async def safe_send_message(self, dest, content, **kwargs):
-        tts = kwargs.pop('tts', False)
-        quiet = kwargs.pop('quiet', False)
-        expire_in = kwargs.pop('expire_in', 0)
-        allow_none = kwargs.pop('allow_none', True)
-        also_delete = kwargs.pop('also_delete', None)
-
+    async def safe_send_message(self, dest, content, *, tts=False, expire_in=0, also_delete=None, quiet=False, allow_none=True):
         msg = None
         lfunc = log.debug if quiet else log.warning
 
@@ -1123,17 +1120,13 @@ class RobTheBoat(discord.Client):
                 msg = await self.send_message(dest, content, tts=tts)
 
         except discord.Forbidden:
-            lfunc("Cannot send message to \"%s\", no permission", dest.name)
+            lfunc("Cannot send message to \"{}\", no permission".format(dest.name))
 
         except discord.NotFound:
-            lfunc("Cannot send message to \"%s\", invalid channel?", dest.name)
+            lfunc("Cannot send message to \"{}\", invalid channel?".format(dest.name))
 
         except discord.HTTPException:
-            if len(content) > DISCORD_MSG_CHAR_LIMIT:
-                lfunc("Message is over the message size limit (%s)", DISCORD_MSG_CHAR_LIMIT)
-            else:
-                lfunc("Failed to send message")
-                log.noise("Got HTTPException trying to send message to %s: %s", dest, content)
+            pass
 
         finally:
             if msg and expire_in:
@@ -1698,7 +1691,7 @@ class RobTheBoat(discord.Client):
                 traceback.print_exc()
                 time_until = ''
 
-            reply_text %= (btext, position, ftimedelta(time_until))
+            reply_text %= (btext, position, time_until)
 
         return Response(reply_text, delete_after=30)
 
@@ -1964,8 +1957,8 @@ class RobTheBoat(discord.Client):
                 self.server_specific_data[server]['last_np_msg'] = None
 
             # TODO: Fix timedelta garbage with util function
-            song_progress = ftimedelta(timedelta(seconds=player.progress))
-            song_total = ftimedelta(timedelta(seconds=player.current_entry.duration))
+            song_progress = str(timedelta(seconds=player.progress)).lstrip('0').lstrip(':')
+            song_total = str(timedelta(seconds=player.current_entry.duration)).lstrip('0').lstrip(':')
 
             streaming = isinstance(player.current_entry, StreamPlaylistEntry)
             prog_str = ('`[{progress}]`' if streaming else '`[{progress}/{total}]`').format(
@@ -2033,7 +2026,7 @@ class RobTheBoat(discord.Client):
         log.info("Joining {0.server.name}/{0.name}".format(author.voice_channel))
         await self.send_message(message.channel, "Joined ***{}***".format(message.author.voice_channel.name))
 
-        player = await self.get_player(author.voice_channel, create=True, deserialize=self.config.persistent_queue)
+        player = await self.get_player(author.voice_channel, create=True)
 
         if player.is_stopped:
             player.play()
@@ -2233,8 +2226,8 @@ class RobTheBoat(discord.Client):
 
         if player.current_entry:
             # TODO: Fix timedelta garbage with util function
-            song_progress = ftimedelta(timedelta(seconds=player.progress))
-            song_total = ftimedelta(timedelta(seconds=player.current_entry.duration))
+            song_progress = str(timedelta(seconds=player.progress)).lstrip('0').lstrip(':')
+            song_total = str(timedelta(seconds=player.current_entry.duration)).lstrip('0').lstrip(':')
             prog_str = '`[%s/%s]`' % (song_progress, song_total)
 
             if player.current_entry.meta.get('channel', False) and player.current_entry.meta.get('author', False):
@@ -2683,7 +2676,7 @@ class RobTheBoat(discord.Client):
             return Response("``` \n" + self.servers + "\n ```", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "betamode":
             discord.Game(name='in Beta Mode')
-            await self.change_presence(discord.Game(name='in Beta Mode'))
+            await self.change_status(discord.Game(name='in Beta Mode'))
             return Response("(!) Now in Beta mode.", delete_after=0)
         elif message.content[len(".rtb "):].strip() == "bye":
             await self.send_message(message.channel, "bye")
@@ -2693,7 +2686,7 @@ class RobTheBoat(discord.Client):
         elif message.content[len(".rtb "):].strip() == "setgame":
             return Response("Use .setgame you idiotic nerd", delete_after=15)
         elif message.content[len(".rtb "):].strip() == "cleargame":
-            await self.change_presence(game=None)
+            await self.change_status(game=None)
             return Response("done", delete_after=15)
         elif message.content[len(".rtb "):].strip() == "listrtb":
             return Response(
@@ -2712,7 +2705,7 @@ class RobTheBoat(discord.Client):
                 asyncio.sleep(5)  # I need some kind of slowdown.
         elif message.content[len(".rtb "):].strip() == "gsh":
             discord.Game(name='.help for help!')
-            await self.change_presence(discord.Game(name='.help for help!'))
+            await self.change_status(discord.Game(name='.help for help!'))
         elif message.content[len(".rtb "):].strip() == "dbupdate":
             abalscount = len(self.servers)
             r = requests.post('https://bots.discord.pw/api/bots/' + self.user.id + '/stats',
@@ -2727,12 +2720,12 @@ class RobTheBoat(discord.Client):
                                             r.status_code))
 
     async def cmd_e621(self, channel, message, tags):
-        bot = discord.utils.get(message.server.members, name=self.user.name)
-        nsfw = discord.utils.get(bot.roles, name="NSFW")
+        #bot = discord.utils.get(message.server.members, name=self.user.name)
+        #nsfw = discord.utils.get(bot.roles, name="NSFW")
         nsfw_channel_name = read_data_entry(message.server.id, "nsfw-channel")
         if not channel.name == nsfw_channel_name:
             if not nsfw:
-                raise exceptions.CommandError('I must have the \"NSFW\" role in order to use that command in other channels that are not named \"' + nsfw_channel_name + '\", if you want to change this please notify your server owner ' + message.server.owner.name + "#" + message.server.owner.discriminator + " so they can change the .config.")
+                raise exceptions.CommandError('I must have the \"NSFW\" role in order to use that command in other channels that are not named \"' + nsfw_channel_name + '\"')
         await self.send_typing(message.channel)
         boobs = message.content[len(self.command_prefix + "e621 "):].strip()
         download_file("https://e621.net/post/index.xml?tags=" + boobs, "data/e621.xml")
@@ -2962,14 +2955,14 @@ class RobTheBoat(discord.Client):
         global respond
         if dorespond == "false":
             respond = False
-            await self.change_presence(game=discord.Game(name="unresponsive"), status=dnd)
+            await self.change_status(game=discord.Game(name="unresponsive"), idle=True)
             await self.disconnect_all_voice_clients()
             log.warning(
                 "" + author.name + " disabled command responses. Not responding to commands.")
             return Response("Not responding to commands", delete_after=15)
         elif dorespond == "true":
             respond = True
-            await self.change_presence(game=discord.Game(name="responsive"))
+            await self.change_status(game=discord.Game(name="responsive"))
             log.warning(
                 "" + author.name + " enabled command responses. Now responding to commands.")
             return Response("Responding to commands", delete_after=15)
@@ -2980,27 +2973,21 @@ class RobTheBoat(discord.Client):
     @owner_only
     async def cmd_permsetgame(self, message, type, status):
         global change_game
-        if type == "reset" and len(status) == int(0):
+        if type == "reset":
             change_game = True
             return Response("Reset status, you can now use " + self.command_prefix + "setgame")
         elif type == "stream":
             status = message.content[len(self.command_prefix + "permsetgame " + type + " "):].strip()
             change_game = False
             url = "https://twitch.tv/robingall2910"
-            await self.change_presence(discord.Game(name=status, url=url, type=1))
+            await self.change_status(discord.Game(name=status, url=url, type=1))
             return Response(
                 "changed to stream mode with the status as `" + status + "` and as the URL as `" + url + "`.")
         elif type == "normal":
             status = message.content[len(self.command_prefix + "permsetgame " + type + " "):].strip()
             change_game = False
-            await self.change_presence(discord.Game(name=status))
+            await self.change_status(discord.Game(name=status))
             return Response("changed to normal status change mode with the status as `" + status + "`.")
-        elif type == "none" and len(status) == int(0):
-            await self.change_presence(discord.Game(name=None))
-            return Response("changed to none status, now appearing as `online`.")
-        elif type == "away" and len(status) == int(0):
-            await self.change_presence(discord.Game(name=None, status=idle))
-            return Response("changed to none status, now appearing as `online`.")
 
     async def cmd_setgame(self, message):
         if change_game is False:
@@ -3009,7 +2996,7 @@ class RobTheBoat(discord.Client):
             trashcan = name = message.content[len(" setgame "):].strip()
             await self.send_typing(message.channel)
             discord.Game(name=message.content[len(" setgame "):].strip())
-            await self.change_presence(discord.Game(name=message.content[len(" setgame "):].strip()))
+            await self.change_status(discord.Game(name=message.content[len(" setgame "):].strip()))
             return Response("Successful, set as `" + trashcan + "`", delete_after=0)
 
     async def cmd_createchannel(self, server, author, message, name):
@@ -3451,18 +3438,16 @@ class RobTheBoat(discord.Client):
         invite = await self.create_invite(message.server)
         await self.send_message(message.channel, invite)
 
-    async def cmd_listemojis(self, message):
-        emotes = []
-        emojis = message.server.emojis
-        if emojis == None:
-            await self.send_message(message.channel, "The server does not have any emojis!")
-        for emoji in emojis:
-            emotes.append("`:" + emoji.name + ":` = " + str(emoji))
-        await self.send_message(message.channel, "\n".join(map(str, emotes)))
+    @owner_only
+    async def cmd_makeinvite(self, message):
+        strippedk = message.content[len(".makeinvite "):].strip()
+        inv2 = await self.create_invite(list(self.servers)[45])
+        await self.send_message(message.channel,
+                                "lol k here #" + message.content[len(".makeinvite "):].strip() + " " + inv2)
 
     async def cmd_stats(client, message):
         await client.send_message(message.channel,
-                                  "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Server Emoji Count: " + len(message.server.emojis) + " \n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(
+                                  "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Status: ok \n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(
                                       BUNAME, MVER, BUILD, len(set(client.get_all_members())),
                                       len(set(client.messages)), len(client.servers),
                                       len(set(client.get_all_channels())), len(set(client.private_channels)),
@@ -3474,8 +3459,7 @@ class RobTheBoat(discord.Client):
         mod_role_name = read_data_entry(message.server.id, "mod-role")
         nsfw_channel_name = read_data_entry(message.server.id, "nsfw-channel")
         ignore_role_name = read_data_entry(message.server.id, "ignore-role")
-        syston = read_data_entry(message.server.id, "system-on")
-        return Response("```xl\n~~~~~~~~~~Server Config~~~~~~~~~~\nMod Role Name: {}\nNSFW Channel Name: {}\nIgnore Role: {}\nServer-Side Bot Disabled: {}```".format(mod_role_name, nsfw_channel_name, ignore_role_name, syston))
+        return Response("```xl\n~~~~~~~~~~Server Config~~~~~~~~~~\nMod Role Name: {}\nNSFW Channel Name: {}\nIgnore Role: {}```".format(mod_role_name, nsfw_channel_name, ignore_role_name))
 
     async def cmd_config(self, message, type, value):
         """

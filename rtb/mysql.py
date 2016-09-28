@@ -25,6 +25,9 @@ def read_data_entry(id, type):
         elif type == "ignore-role":
             insert_data_entry(id, type, "Dragon Ignorance")
             val = "Dragon Ignorance"
+        elif type == "system-on":
+            insert_data_entry(id, type, "yes")
+            val = "yes"
     return val
 
 def update_data_entry(id, type, value):
