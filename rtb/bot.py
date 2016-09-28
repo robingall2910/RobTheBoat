@@ -73,10 +73,15 @@ inittime = time.time()
 xl = "```xl\n{0}\n```"
 rb = "```ruby\n{0}\n```"
 py = "```py\n{0}\n```"
+#ansi regex
+ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]')
 #command booleans
 respond = True
 change_game = True
+cycle = True
+lock_status = False
 owner_id = "117678528220233731" or "117053687045685248" or "169597963507728384"
+shard_id = None #begin sharding!
 
 #Discord Game Statuses! :D
 dis_games = [
@@ -1174,6 +1179,12 @@ class RobTheBoat(discord.Client):
         except discord.Forbidden:
             log.warning("Could not send typing to {}, no permssion".format(destination))
 
+    async def cycle_status(self):
+        if cycle is True:
+            await self.change_status(random.choice(dis_games))
+            await asyncio.sleep(20)
+            await self.cycle_status()
+
     async def edit_profile(self, **fields):
         if self.user.bot:
             return await super().edit_profile(**fields)
@@ -1380,6 +1391,11 @@ class RobTheBoat(discord.Client):
 
         # maybe option to leave the ownerid blank and generate a random command for the owner to use
         # wait_for_message is pretty neato
+
+        if cycle is True:
+            await self.cycle_status()
+        else:
+            await self.change_status(default_status)
 
         await self._join_startup_channels(autojoin_channels, autosummon=self.config.auto_summon)
 
@@ -2675,6 +2691,9 @@ class RobTheBoat(discord.Client):
 
     @owner_only
     async def cmd_rtb(self, message, client):
+        global cycle
+        global lock_status
+        global random_game
         """
         RTB System.
         Only Robin#0052 is allowed, or the Bot Owner if this isn't the main bot, RobTheBoat#9091
@@ -2725,6 +2744,21 @@ class RobTheBoat(discord.Client):
                 await self.send_message(message.channel,
                                         "Error occurred when trying to update, here's the error code: {}".format(
                                             r.status_code))
+        elif message.content[len(self.command_prefix + "rtb "):].strip() == "cycle status":
+            if cycle is False:
+                cycle = True
+                await self.cycle_status()
+            if cycle is True:
+                cycle = False
+                await self.change_status(default_status)
+            return Response("Cycling status is now " + str(cycle))
+        elif message.content[len(self.command_prefix + "rtb "):].strip() == "lock status":
+            if lock_status is False:
+                lock_status = True
+                return Response("Status is now locked")
+            if lock_status is True:
+                lock_status = False
+                return Response("Status is no longer locked")
 
     async def cmd_e621(self, channel, message, tags):
         bot = discord.utils.get(message.server.members, name=self.user.name)
@@ -2980,7 +3014,7 @@ class RobTheBoat(discord.Client):
     @owner_only
     async def cmd_permsetgame(self, message, type, status):
         global change_game
-        if type == "reset" and len(status) == int(0):
+        if type == "reset" and status is "none":
             change_game = True
             return Response("Reset status, you can now use " + self.command_prefix + "setgame")
         elif type == "stream":
@@ -2995,22 +3029,34 @@ class RobTheBoat(discord.Client):
             change_game = False
             await self.change_presence(discord.Game(name=status))
             return Response("changed to normal status change mode with the status as `" + status + "`.")
-        elif type == "none" and len(status) == int(0):
+        elif type == "none" and status is "none":
             await self.change_presence(discord.Game(name=None))
             return Response("changed to none status, now appearing as `online`.")
-        elif type == "away" and len(status) == int(0):
+        elif type == "away" and status is "none":
             await self.change_presence(discord.Game(name=None, status=idle))
-            return Response("changed to none status, now appearing as `online`.")
+            return Response("changed to idle status, now appearing as `away`.")
+        elif type == "dnd" and status is "none":
+            await self.change_presence(discord.Game(name=None, status=dnd))
+            return Response("changed to dnd status, now appearing as `do not disturb`.")
+        elif type == "invis" and status is "none":
+            await self.change_presence(discord.Game(name=None, status=invisible))
+            return Response("changed to invis status, now appearing `offline`.")
 
-    async def cmd_setgame(self, message):
-        if change_game is False:
-            return Response("You can not change the game right now")
-        elif change_game is True:
-            trashcan = name = message.content[len(" setgame "):].strip()
-            await self.send_typing(message.channel)
-            discord.Game(name=message.content[len(" setgame "):].strip())
-            await self.change_presence(discord.Game(name=message.content[len(" setgame "):].strip()))
-            return Response("Successful, set as `" + trashcan + "`", delete_after=0)
+    async def cmd_setgame(self, message, name):
+        """
+        Usage:
+            {command_prefix}setstatus name
+        Sets the game playing in the bot's status
+        """
+        global cycle
+        n = message.content[len(self.command_prefix + "setgame "):].strip()
+        if lock_status is True:
+            return Response("The status is currently locked")
+        if cycle is True:
+            cycle = False
+        await self.change_status(discord.Game(name=n))
+        await self.log(":information_source: `" + message.author.name + "` set the game name to `" + n + "`")
+        return Response("Game sucessfully changed to `" + n + "`", delete_after=5)
 
     async def cmd_createchannel(self, server, author, message, name):
         mod_role_name = read_data_entry(message.server.id, "mod-role")
@@ -3415,16 +3461,16 @@ class RobTheBoat(discord.Client):
         return Response(
             "`http://donate.dragonfire.me` - Here I guess. I can't keep up with the server, so I'm going to need all the help I can get. Thanks.")
 
-    async def cmd_ship(self, client, message, content):
+    async def cmd_ship(self, client, message, person1, person2):
         """
         Usage: .ship (person) x (person)
         """
-        if message.content[len(".ship "):].strip() == '<@163698730866966528> x <@163698730866966528>':
+        if message.content[len(".ship "):].strip() == '<@163698730866966528> <@163698730866966528>':
             return Response("I hereby ship, myself.... forever.... alone........ ;-;", delete_after=0)
-        elif message.content[len(".ship "):].strip() == message.author.id == message.author.id:
+        elif message.content[len(".ship "):].strip() == message.author.id and message.author.id:
             return Response("hah, loner", delete_after=0)
-        elif message.content[len(".ship "):].strip() != '<@163698730866966528> x <@163698730866966528>':
-            return Response("I hereby ship " + message.content[len(".ship"):].strip() + "!", delete_after=0)
+        elif message.content[len(".ship "):].strip() != '<@163698730866966528> <@163698730866966528>':
+            return Response("I hereby ship " + person1 + " and " + person2 + ", congratulations.", delete_after=0)
             # todo: remove messages that wont make sense, like "no"
 
     async def cmd_nope(self):
