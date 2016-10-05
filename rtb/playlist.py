@@ -70,10 +70,8 @@ class Playlist(EventEmitter, Serializable):
         # TODO: Extract this to its own function
         if info['extractor'] in ['generic', 'Dropbox']:
             try:
-                # unfortunately this is literally broken
-                # https://github.com/KeepSafe/aiohttp/issues/758
-                # https://github.com/KeepSafe/aiohttp/issues/852
-                content_type = await get_header(self.bot.aiosession, info['url'], 'CONTENT-TYPE')
+                headers = await get_header(self.bot.aiosession, info['url'])
+                content_type = headers.get('CONTENT-TYPE')
                 log.debug("Got content type {}".format(content_type))
 
             except Exception as e:
@@ -86,8 +84,12 @@ class Playlist(EventEmitter, Serializable):
                         # How does a server say `application/ogg` what the actual fuck
                         raise ExtractionError("Invalid content type \"%s\" for url %s" % (content_type, song_url))
 
+                elif content_type.startswith('text/html'):
+                    log.warning("Got text/html for content-type, this might be a stream")
+                    pass # TODO: Check for shoutcast/icecast
+
                 elif not content_type.startswith(('audio/', 'video/')):
-                    log.warning("Questionable content type \"{}\" for url {}".format(content_type, song_url))
+                    log.warning("Questionable content-type \"{}\" for url {}".format(content_type, song_url))
 
         entry = URLPlaylistEntry(
             self,
@@ -102,8 +104,9 @@ class Playlist(EventEmitter, Serializable):
 
     async def add_stream_entry(self, song_url, info=None, **meta):
         if info is None:
+            info = {'title': song_url, 'extractor': None}
+
             try:
-                info = {'title': song_url, 'extractor': None}
                 info = await self.downloader.extract_info(self.loop, song_url, download=False)
 
             except DownloadError as e:
@@ -124,10 +127,9 @@ class Playlist(EventEmitter, Serializable):
             except Exception as e:
                 log.error('Could not extract information from {} ({}), falling back to direct'.format(song_url, e), exc_info=True)
 
-        if info:
-            url = info.get('url', song_url)
-        else:
-            url = song_url
+        dest_url = song_url
+        if info.get('extractor'):
+            dest_url = info.get('url')
 
         if info.get('extractor', None) == 'twitch:stream': # may need to add other twitch types
             title = info.get('description')
@@ -138,10 +140,9 @@ class Playlist(EventEmitter, Serializable):
 
         entry = StreamPlaylistEntry(
             self,
-            url,
+            song_url,
             title,
-            direct = not info.get('is_live', False),
-            source_url = song_url,
+            destination = dest_url,
             **meta
         )
         self._add_entry(entry)

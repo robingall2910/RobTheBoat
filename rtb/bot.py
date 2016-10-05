@@ -585,15 +585,14 @@ class RobTheBoat(discord.Client):
 
                 try:
                     player = await self.get_player(channel, create=True, deserialize=self.config.persistent_queue)
+                    joined_servers.add(server)
 
                     log.info("Joined {0.server.name}/{0.name}".format(channel))
 
                     if player.is_stopped:
                         player.play()
 
-                    joined_servers.add(server)
-
-                    if self.config.auto_playlist:
+                    if self.config.auto_playlist and not player.playlist.entries:
                         await self.on_player_finished_playing(player)
                         if self.config.auto_pause:
                             player.once('play', lambda player, **_: _autopause(player))
@@ -762,7 +761,7 @@ class RobTheBoat(discord.Client):
 
             if not vc:
                 log.critical("Voice client is unable to connect, restarting...")
-                raise exceptions.RestartSignal() # fuck it
+                await self.restart()
 
             log.debug("Connected in {:0.1f}s".format(t1-t0))
 
@@ -1023,7 +1022,7 @@ class RobTheBoat(discord.Client):
             if game == self.last_status:
                 return
 
-            await self.change_presence(game)
+            self.change_presence(game=random.choice(dis_games), status=discord.Status.online)
             self.last_status = game
 
     async def serialize_queue(self, server, *, dir=None):
@@ -1181,7 +1180,7 @@ class RobTheBoat(discord.Client):
 
     async def cycle_status(self):
         if cycle is True:
-            await self.change_status(random.choice(dis_games))
+            await self.change_presence(game=(random.choice(dis_games)))
             await asyncio.sleep(20)
             await self.cycle_status()
 
@@ -1191,11 +1190,17 @@ class RobTheBoat(discord.Client):
         else:
             return await super().edit_profile(self.config._password,**fields)
 
+    async def restart(self):
+        self.exit_signal = exceptions.RestartSignal()
+        await self.logout()
+
+    def restart_threadsafe(self):
+        asyncio.run_coroutine_threadsafe(self.restart(), self.loop)
+
     def _cleanup(self):
         try:
             self.loop.run_until_complete(self.logout())
-        except: # Can be ignored
-            pass
+        except: pass
 
         pending = asyncio.Task.all_tasks()
         gathered = asyncio.gather(*pending)
@@ -1204,8 +1209,7 @@ class RobTheBoat(discord.Client):
             gathered.cancel()
             self.loop.run_until_complete(gathered)
             gathered.exception()
-        except: # Can be ignored
-            pass
+        except: pass
 
     # noinspection PyMethodOverriding
     def run(self):
@@ -1227,7 +1231,7 @@ class RobTheBoat(discord.Client):
 
             self.loop.close()
             if self.exit_signal:
-                raise self.exit_signal()
+                raise self.exit_signal
 
     async def logout(self):
         await self.disconnect_all_voice_clients()
@@ -2996,7 +3000,7 @@ class RobTheBoat(discord.Client):
         global respond
         if dorespond == "false":
             respond = False
-            await self.change_presence(game=discord.Game(name="unresponsive"), status=dnd)
+            await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
             await self.disconnect_all_voice_clients()
             log.warning(
                 "" + author.name + " disabled command responses. Not responding to commands.")
@@ -3033,13 +3037,13 @@ class RobTheBoat(discord.Client):
             await self.change_presence(discord.Game(name=None))
             return Response("changed to none status, now appearing as `online`.")
         elif type == "away" and status is "none":
-            await self.change_presence(discord.Game(name=None, status=idle))
+            await self.change_presence(discord.Game(name=None, status=discord.Status.idle))
             return Response("changed to idle status, now appearing as `away`.")
         elif type == "dnd" and status is "none":
-            await self.change_presence(discord.Game(name=None, status=dnd))
+            await self.change_presence(discord.Game(name=None, status=discord.Status.dnd))
             return Response("changed to dnd status, now appearing as `do not disturb`.")
         elif type == "invis" and status is "none":
-            await self.change_presence(discord.Game(name=None, status=invisible))
+            await self.change_presence(discord.Game(name=None, status=discord.Status.invisible))
             return Response("changed to invis status, now appearing `offline`.")
 
     async def cmd_setgame(self, message, name):
@@ -3504,15 +3508,16 @@ class RobTheBoat(discord.Client):
             await self.send_message(message.channel, "The server does not have any emojis!")
         for emoji in emojis:
             emotes.append("`:" + emoji.name + ":` = " + str(emoji))
+        await self.send_message(message.channel, "These are the current emojis for this Discord guild.")
         await self.send_message(message.channel, "\n".join(map(str, emotes)))
 
     async def cmd_stats(client, message):
         await client.send_message(message.channel,
-                                  "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Server Emoji Count: " + len(message.server.emojis) + " \n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(
+                                  "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Server Emoji Count: {}\n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(
                                       BUNAME, MVER, BUILD, len(set(client.get_all_members())),
                                       len(set(client.messages)), len(client.servers),
                                       len(set(client.get_all_channels())), len(set(client.private_channels)),
-                                      discord.__version__, time.strftime("%A, %B %d, %Y"),
+                                      discord.__version__, len(message.server.emojis), time.strftime("%A, %B %d, %Y"),
                                       time.strftime("%I:%M:%S %p")))
 
     async def cmd_showconfig(self, message):
@@ -3521,7 +3526,7 @@ class RobTheBoat(discord.Client):
         nsfw_channel_name = read_data_entry(message.server.id, "nsfw-channel")
         ignore_role_name = read_data_entry(message.server.id, "ignore-role")
         syston = read_data_entry(message.server.id, "system-on")
-        return Response("```xl\n~~~~~~~~~~Server Config~~~~~~~~~~\nMod Role Name: {}\nNSFW Channel Name: {}\nIgnore Role: {}\nServer-Side Bot Disabled: {}```".format(mod_role_name, nsfw_channel_name, ignore_role_name, syston))
+        return Response("```xl\n~~~~~~~~~~Server Config~~~~~~~~~~\nMod Role Name: {}\nNSFW Channel Name: {}\nIgnore Role: {}\nServer-Side Bot Enabled: {}```".format(mod_role_name, nsfw_channel_name, ignore_role_name, syston))
 
     async def cmd_config(self, message, type, value):
         """

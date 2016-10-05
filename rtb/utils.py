@@ -44,7 +44,7 @@ def download_file(url, destination):
     file.close()
 
 def extract_user_id(argument):
-    match = _USER_ID_MATCH.match(argument)
+    match = _USER_ID_MATCH.match(argument.replace("!", ""))
     if match:
         return int(match.group(1))
 
