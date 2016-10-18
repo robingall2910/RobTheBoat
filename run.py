@@ -140,7 +140,7 @@ log.addHandler(tfh)
 
 def finalize_logging():
     if os.path.isfile("logs/rtb.log"):
-        log.info("Renaming old rtb log")
+        log.info("Moving old rtb log")
         try:
             if os.path.isfile("logs/rtb.log.last"):
                 os.unlink("logs/rtb.log.last")
@@ -169,6 +169,12 @@ def finalize_logging():
     log.addHandler(fh)
 
     sh.setLevel(logging.INFO)
+
+    dlog = logging.getLogger('discord')
+    dlh = logging.StreamHandler(stream=sys.stdout)
+    dlh.terminator = ''
+    dlh.setFormatter(logging.Formatter('.'))
+    dlog.addHandler(dlh)
 
 
 def bugger_off(msg="Press enter to continue . . .", code=1):
@@ -333,12 +339,16 @@ def main():
         # Maybe I need to try to import stuff first, then actually import stuff
         # It'd save me a lot of pain with all that awful exception type checking
 
-        r = None
+        m = None
         try:
             from rtb import RobTheBoat
-            r = RobTheBoat()
-            log.info("Connecting...")
-            r.run()
+            m = RobTheBoat()
+
+            sh.terminator = ''
+            log.info("Connecting")
+            sh.terminator = '\n'
+
+            m.run()
 
         except SyntaxError:
             log.exception("Syntax error (this is a bug, not your fault)")
@@ -383,7 +393,7 @@ def main():
                 log.exception("Error starting bot")
 
         finally:
-            if not r or not r.init_ok:
+            if not m or not m.init_ok:
                 if any(sys.exc_info()):
                     # How to log this without redundant messages...
                     traceback.print_exc()

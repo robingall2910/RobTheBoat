@@ -1,0 +1,159 @@
+[287.495136261] 2016-09-18 17:40:03,241 - INFO - setup: Starting sanity checks
+[301.995038986] 2016-09-18 17:40:03,256 - INFO - setup: Checking for python 3.5+
+[306.998491287] 2016-09-18 17:40:03,261 - INFO - setup: Checking console encoding
+[315.508127213] 2016-09-18 17:40:03,269 - INFO - setup: Setting console encoding to UTF-8
+[508.496284485] 2016-09-18 17:40:03,462 - INFO - setup: Ensuring we're in the right folder
+[540.494680405] 2016-09-18 17:40:03,494 - INFO - setup: Moving old rtb log
+
+######################### PRE-RUN SANITY CHECKS PASSED #########################
+
+[14.9187309741973877] 2016-09-18 17:40:17,873 - DEBUG - rtb.bot | In bot.py::MainThread(7764), line 517 in _setup_logging: Set logging level to DEBUG
+[14.9412417411804199] 2016-09-18 17:40:17,895 - INFO - rtb.bot | In bot.py::MainThread(7764), line 390 in __init__: Loaded autoplaylist with 2531 entries
+[14.947232962] setup-INFO: Connecting...
+[24.3970615863800049] 2016-09-18 17:40:27,351 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1123 in on_ready: Connected! RTB System v3.2.1
+
+[24.8110582828521729] 2016-09-18 17:40:27,765 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1131 in on_ready: Discord Bots count updated!
+[24.8440587520599365] 2016-09-18 17:40:27,798 - DEBUG - rtb.bot | In bot.py::MainThread(7764), line 629 in _cache_app_info: Caching app info
+[24.9220633506774902] 2016-09-18 17:40:27,876 - DEBUG - rtb.config | In config.py::MainThread(7764), line 174 in async_validate: Validating options...
+[24.9785606861114502] 2016-09-18 17:40:27,932 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1150 in on_ready: Bot:   210157254651936778/Some Dragon Beta#7527 [BOT]
+[25.4077417850494385] 2016-09-18 17:40:28,362 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1158 in on_ready: Owner: 117678528220233731/Robin#0052
+
+[25.7137393951416016] 2016-09-18 17:40:28,668 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1161 in on_ready: Server List:
+[25.8777430057525635] 2016-09-18 17:40:28,832 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - UK
+[26.0522468090057373] 2016-09-18 17:40:29,006 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Beste Friends
+[26.2477562427520752] 2016-09-18 17:40:29,202 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Retards
+[26.2537448406219482] 2016-09-18 17:40:29,208 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Talent Place
+[26.2607414722442627] 2016-09-18 17:40:29,215 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Testing
+[26.2647397518157959] 2016-09-18 17:40:29,219 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - lolis, oppais y juegos
+[26.2687451839447021] 2016-09-18 17:40:29,223 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Dubcord
+[26.2762408256530762] 2016-09-18 17:40:29,230 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Ruby's Fallout Shelter
+[26.2802381515502930] 2016-09-18 17:40:29,234 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Hype inside the left escort right?
+[26.2847433090209961] 2016-09-18 17:40:29,239 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Bots Server
+[26.2877404689788818] 2016-09-18 17:40:29,242 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Los eevees
+[26.2902405261993408] 2016-09-18 17:40:29,244 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - 𝓚𝓝𝓘𝓖𝓗𝓣'𝓢 ᗩяᗰＹ
+[26.2932412624359131] 2016-09-18 17:40:29,247 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - SAS 4 Gamers And Friends
+[26.3042395114898682] 2016-09-18 17:40:29,258 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Musicz
+[26.3077425956726074] 2016-09-18 17:40:29,262 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Discord Bots
+[26.3112406730651855] 2016-09-18 17:40:29,265 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - The Armory
+[26.3147408962249756] 2016-09-18 17:40:29,269 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - ZeRo Clan
+[26.3182415962219238] 2016-09-18 17:40:29,272 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Viral and Napsta
+[26.3212413787841797] 2016-09-18 17:40:29,275 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - MineStoneGames
+[26.3257534503936768] 2016-09-18 17:40:29,280 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - test
+[26.3382389545440674] 2016-09-18 17:40:29,292 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - ሮሪኣᎅ ሠአዲፀ
+[26.3422415256500244] 2016-09-18 17:40:29,296 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Discord Testing
+[26.3452413082122803] 2016-09-18 17:40:29,299 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - ⓢⓐⓜⓐⓝⓣⓗⓐ ⓘⓢ ⓖⓐⓨ ⎝⚆_⚆⎠
+[26.3472418785095215] 2016-09-18 17:40:29,301 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - 가족Clan
+[26.3512411117553711] 2016-09-18 17:40:29,305 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Blaze's Bot Arcade
+[26.3542413711547852] 2016-09-18 17:40:29,308 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Dratatuy
+[26.3577413558959961] 2016-09-18 17:40:29,312 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - GFX Lounge
+[26.3687453269958496] 2016-09-18 17:40:29,323 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - +Friends
+[26.3742394447326660] 2016-09-18 17:40:29,328 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Cancer Zone
+[26.3772413730621338] 2016-09-18 17:40:29,331 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Storm is gay
+[26.3797407150268555] 2016-09-18 17:40:29,334 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - CSGO DE ATIBAIA
+[26.3842451572418213] 2016-09-18 17:40:29,338 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Just Chat
+[26.3887417316436768] 2016-09-18 17:40:29,343 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - True Respect/Team Royal Clan Chat
+[26.3997423648834229] 2016-09-18 17:40:29,354 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - some wolf pack
+[26.4047396183013916] 2016-09-18 17:40:29,359 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Simplicity Discord
+[26.4077436923980713] 2016-09-18 17:40:29,362 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - TotalFreedom
+[26.4107437133789062] 2016-09-18 17:40:29,365 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - F.A.P Unity
+[26.4157497882843018] 2016-09-18 17:40:29,370 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Dsol
+[26.4292399883270264] 2016-09-18 17:40:29,383 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - another random furry server
+[26.4362423419952393] 2016-09-18 17:40:29,390 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - azzam
+[26.4392426013946533] 2016-09-18 17:40:29,393 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - BOT TESTER
+[26.4452395439147949] 2016-09-18 17:40:29,399 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Townsville
+[26.5207571983337402] 2016-09-18 17:40:29,475 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Bots
+[26.5242395401000977] 2016-09-18 17:40:29,478 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - ShadowBox
+[26.5277473926544189] 2016-09-18 17:40:29,482 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Ninja_Server
+[26.5377459526062012] 2016-09-18 17:40:29,492 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - WolfPack Clan
+[26.5407404899597168] 2016-09-18 17:40:29,495 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - GDZIONIC-boiiiiii
+[26.5442399978637695] 2016-09-18 17:40:29,498 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Blank's Hangout
+[26.5547430515289307] 2016-09-18 17:40:29,509 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - RIP FUCK RN CLAN
+[26.5597400665283203] 2016-09-18 17:40:29,514 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - The Hourglass
+[26.5687513351440430] 2016-09-18 17:40:29,523 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Shenanigans & songs
+[26.5732412338256836] 2016-09-18 17:40:29,527 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Totally Not Freedom
+[26.5772395133972168] 2016-09-18 17:40:29,531 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Hunter X Hunter:The Adventure Begins
+[26.5802392959594727] 2016-09-18 17:40:29,534 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - JollyTrolley
+[26.5937433242797852] 2016-09-18 17:40:29,548 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Gamers
+[26.5972402095794678] 2016-09-18 17:40:29,551 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - ᖫℒፚᖭ 𝔠𝔩𝔞𝔫
+[26.6032462120056152] 2016-09-18 17:40:29,557 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Rubik's Hub
+[26.6052420139312744] 2016-09-18 17:40:29,559 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Oddity Studios Dev Chat
+[26.6082389354705811] 2016-09-18 17:40:29,562 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Mark's Dungeon
+[26.6107409000396729] 2016-09-18 17:40:29,565 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Vap0r1ze
+[26.6187498569488525] 2016-09-18 17:40:29,573 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Oddity Studios
+[26.6247410774230957] 2016-09-18 17:40:29,579 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Chill Shit Here
+[26.6287415027618408] 2016-09-18 17:40:29,583 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - QwQ CLan
+[26.6312396526336670] 2016-09-18 17:40:29,585 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Niggers
+[26.6357469558715820] 2016-09-18 17:40:29,590 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - ._.
+[26.6387395858764648] 2016-09-18 17:40:29,593 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Gabby land ;D
+[26.6537399291992188] 2016-09-18 17:40:29,608 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - A Bunch Of Bots
+[26.6602454185485840] 2016-09-18 17:40:29,614 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - Unknown Depression Resort
+[26.6637394428253174] 2016-09-18 17:40:29,618 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1162 in <listcomp>:  - People
+[26.6692416667938232] 2016-09-18 17:40:29,623 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1206 in on_ready: Not bound to any text channels
+[26.6722414493560791] 2016-09-18 17:40:29,626 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1232 in on_ready: Not autojoining any voice channels
+[26.6782464981079102] 2016-09-18 17:40:29,632 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1236 in on_ready: Options:
+[26.6887423992156982] 2016-09-18 17:40:29,643 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1238 in on_ready:   Command prefix: [
+[26.6917386054992676] 2016-09-18 17:40:29,646 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1239 in on_ready:   Default volume: 25%
+[26.6952416896820068] 2016-09-18 17:40:29,649 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1241 in on_ready:   Skip threshold: 4 votes or 50%
+[26.6977412700653076] 2016-09-18 17:40:29,652 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1242 in on_ready:   Now Playing @mentions: Disabled
+[26.7022416591644287] 2016-09-18 17:40:29,656 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1243 in on_ready:   Auto-Summon: Disabled
+[26.7062451839447021] 2016-09-18 17:40:29,660 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1244 in on_ready:   Auto-Playlist: Disabled
+[26.7187533378601074] 2016-09-18 17:40:29,673 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1245 in on_ready:   Auto-Pause: Enabled
+[26.7217421531677246] 2016-09-18 17:40:29,676 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1246 in on_ready:   Delete Messages: Enabled
+[26.7247416973114014] 2016-09-18 17:40:29,679 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1248 in on_ready:     Delete Invoking: Enabled
+[26.7272429466247559] 2016-09-18 17:40:29,681 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1249 in on_ready:   Debug Mode: Enabled
+[26.7297410964965820] 2016-09-18 17:40:29,684 - INFO - rtb.bot | In bot.py::MainThread(7764), line 1250 in on_ready:   Downloaded songs will be deleted
+[42.9994568824768066] 2016-09-18 17:40:45,953 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3547 in on_voice_state_update: Empty voice state update, likely a session id change
+[43.2923545837402344] 2016-09-18 17:40:46,246 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 224639937104838656/AlabambaKiller#5945 on Storm is gay/lol -> [DISCONNECT]
+[45.1379947662353516] 2016-09-18 17:40:48,092 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 224639937104838656/AlabambaKiller#5945 on Storm is gay/lol -> [CONNECT]
+[84.0318357944488525] 2016-09-18 17:41:26,986 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 163698730866966528/Some Dragon#9190 on ⓢⓐⓜⓐⓝⓣⓗⓐ ⓘⓢ ⓖⓐⓨ ⎝⚆_⚆⎠/Musiiccc -> [CONNECT]
+[90.6543405055999756] 2016-09-18 17:41:33,608 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 121410311801536512/Dubby#0499 on Dubcord/Skin-Room -> [MUTE, DEAFEN]
+[93.9223384857177734] 2016-09-18 17:41:36,876 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 170412313915031552/⌁ⱿƝ⌁❥ƝᎥя𝕧ค𝔫ค༻ൠ鿄|ᴺᶦᵍᵍᵉʳᵛᵃᶰᵃ|#6642 on ⓢⓐⓜⓐⓝⓣⓗⓐ ⓘⓢ ⓖⓐⓨ ⎝⚆_⚆⎠/Musiiccc -> [DISCONNECT]
+[125.5569455623626709] 2016-09-18 17:42:08,511 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177181887893209089/ASTEROID/戦士#7599 on Dubcord/Beatbox B -> [CONNECT]
+[127.8170065879821777] 2016-09-18 17:42:10,771 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177181887893209089/ASTEROID/戦士#7599 on Dubcord/Gaming A -> [MOVE]
+[140.2091624736785889] 2016-09-18 17:42:23,163 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 137368456550023168/神❥Roαя❥|PlayingOnWeekends#7987 on ⓢⓐⓜⓐⓝⓣⓗⓐ ⓘⓢ ⓖⓐⓨ ⎝⚆_⚆⎠/Musiiccc -> [CONNECT, MUTE]
+[149.0138926506042480] 2016-09-18 17:42:31,968 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 137368456550023168/神❥Roαя❥|PlayingOnWeekends#7987 on ⓢⓐⓜⓐⓝⓣⓗⓐ ⓘⓢ ⓖⓐⓨ ⎝⚆_⚆⎠/Musiiccc -> [DEAFEN]
+[149.9258902072906494] 2016-09-18 17:42:32,880 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 137368456550023168/神❥Roαя❥|PlayingOnWeekends#7987 on ⓢⓐⓜⓐⓝⓣⓗⓐ ⓘⓢ ⓖⓐⓨ ⎝⚆_⚆⎠/Musiiccc -> [UNDEAFEN]
+[152.6277077198028564] 2016-09-18 17:42:35,582 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 217056042406641664/Desiderata#1575 on Musicz/General -> [CONNECT]
+[155.0722675323486328] 2016-09-18 17:42:38,026 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 137368456550023168/神❥Roαя❥|PlayingOnWeekends#7987 on ⓢⓐⓜⓐⓝⓣⓗⓐ ⓘⓢ ⓖⓐⓨ ⎝⚆_⚆⎠/Musiiccc -> [DISCONNECT]
+[162.2386159896850586] 2016-09-18 17:42:45,193 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 217987832206196736/cyclops9#5641 on Musicz/General -> [CONNECT]
+[162.3156208992004395] 2016-09-18 17:42:45,270 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3547 in on_voice_state_update: Empty voice state update, likely a session id change
+[165.4885706901550293] 2016-09-18 17:42:48,442 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 121410311801536512/Dubby#0499 on Dubcord/Skin-Room -> [UNMUTE, UNDEAFEN]
+[188.2295494079589844] 2016-09-18 17:43:11,183 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177182269482467329/Lazy#6757 on Dubcord/Skin-Room -> [CONNECT]
+[193.9600839614868164] 2016-09-18 17:43:16,914 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 121410311801536512/Dubby#0499 on Dubcord/Gaming B -> [MOVE]
+[195.0334517955780029] 2016-09-18 17:43:17,987 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 163698730866966528/Some Dragon#9190 on Musicz/General -> [CONNECT]
+[195.3254661560058594] 2016-09-18 17:43:18,279 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177182269482467329/Lazy#6757 on Dubcord/Gaming B -> [MOVE]
+[196.0996353626251221] 2016-09-18 17:43:19,054 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 196471101176414209/Its Codii#1360 on Dubcord/Gaming B -> [CONNECT, MUTE, DEAFEN]
+[202.5280733108520508] 2016-09-18 17:43:25,482 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 196471101176414209/Its Codii#1360 on Dubcord/Gaming B -> [UNMUTE, UNDEAFEN]
+[268.3996818065643311] 2016-09-18 17:44:31,354 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 170624956873441281/MrBacksy#6778 on Dubcord/Gaming B -> [MOVE, UNMUTE]
+[269.4496736526489258] 2016-09-18 17:44:32,404 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 170624956873441281/MrBacksy#6778 on Dubcord/Gaming B -> [UNMUTE, UNDEAFEN]
+[290.7224237918853760] 2016-09-18 17:44:53,676 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 163039866639220737/KyleEvans#8662 on Dubcord/Skin-Room -> [CONNECT]
+[292.0944333076477051] 2016-09-18 17:44:55,048 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 163039866639220737/KyleEvans#8662 on Dubcord/Skin-Room -> [MUTE]
+[326.3924124240875244] 2016-09-18 17:45:29,346 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 129497101460570112/blackfox1212#9411 on Dubcord/----AFK---- -> [CONNECT, MUTE]
+[326.6184101104736328] 2016-09-18 17:45:29,572 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 129497101460570112/blackfox1212#9411 on Dubcord/----AFK---- -> [MUTE]
+[333.4744858741760254] 2016-09-18 17:45:36,428 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 163039866639220737/KyleEvans#8662 on Dubcord/Gaming B -> [MOVE]
+[339.0793204307556152] 2016-09-18 17:45:42,033 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 125421166474035200/BrokenCups#1342 on Dubcord/Gaming B -> [CONNECT]
+[344.3073956966400146] 2016-09-18 17:45:47,261 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 143818186754752513/ㄊSтαвƖє❥ ѦƤ ❥-XXX#6071 on ⓢⓐⓜⓐⓝⓣⓗⓐ ⓘⓢ ⓖⓐⓨ ⎝⚆_⚆⎠/squeaker squad !!!! -> [CONNECT]
+[345.9468917846679688] 2016-09-18 17:45:48,901 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 163039866639220737/KyleEvans#8662 on Dubcord/Gaming B -> [UNMUTE]
+[351.9736418724060059] 2016-09-18 17:45:54,928 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 129497101460570112/blackfox1212#9411 on Dubcord/Beatbox C -> [MOVE, UNMUTE]
+[352.3501451015472412] 2016-09-18 17:45:55,304 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 129497101460570112/blackfox1212#9411 on Dubcord/Beatbox C -> [UNMUTE]
+[431.9761006832122803] 2016-09-18 17:47:14,930 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177182269482467329/Lazy#6757 on Dubcord/Gaming B -> [MUTE]
+[433.8197498321533203] 2016-09-18 17:47:16,774 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 121410311801536512/Dubby#0499 on Dubcord/*****Chill Chat***** -> [MOVE]
+[435.2557272911071777] 2016-09-18 17:47:18,210 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 121410311801536512/Dubby#0499 on Dubcord/Gaming B -> [MOVE]
+[435.8557205200195312] 2016-09-18 17:47:18,810 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177182269482467329/Lazy#6757 on Dubcord/Gaming B -> [UNMUTE]
+[436.0110261440277100] 2016-09-18 17:47:18,965 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177182269482467329/Lazy#6757 on Dubcord/Gaming B -> [MUTE]
+[437.6428360939025879] 2016-09-18 17:47:20,597 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177182269482467329/Lazy#6757 on Dubcord/Gaming B -> [UNMUTE]
+[437.7614305019378662] 2016-09-18 17:47:20,715 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177182269482467329/Lazy#6757 on Dubcord/Gaming B -> [MUTE]
+[438.8427534103393555] 2016-09-18 17:47:21,797 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177182269482467329/Lazy#6757 on Dubcord/Gaming B -> [UNMUTE]
+[440.4353613853454590] 2016-09-18 17:47:23,389 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177182269482467329/Lazy#6757 on Dubcord/Gaming B -> [MUTE]
+[443.3268625736236572] 2016-09-18 17:47:26,281 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 121410311801536512/Dubby#0499 on Dubcord/Gaming B -> [MUTE]
+[445.9873995780944824] 2016-09-18 17:47:28,941 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177182269482467329/Lazy#6757 on Dubcord/Gaming B -> [UNMUTE]
+[447.6954410076141357] 2016-09-18 17:47:30,649 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 125421166474035200/BrokenCups#1342 on Dubcord/Gaming B -> [MUTE]
+[451.5179381370544434] 2016-09-18 17:47:34,472 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 125421166474035200/BrokenCups#1342 on Dubcord/Gaming B -> [UNMUTE]
+[454.4764473438262939] 2016-09-18 17:47:37,430 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 121410311801536512/Dubby#0499 on Dubcord/Gaming B -> [UNMUTE]
+[462.7505285739898682] 2016-09-18 17:47:45,704 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 129436436654063616/Clarity#2172 on Storm is gay/lol -> [DISCONNECT]
+[468.6345393657684326] 2016-09-18 17:47:51,588 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 170624956873441281/MrBacksy#6778 on Dubcord/Beatbox A -> [MOVE]
+[468.7260377407073975] 2016-09-18 17:47:51,680 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 177182269482467329/Lazy#6757 on Dubcord/Beatbox A -> [MOVE]
+[471.3040394783020020] 2016-09-18 17:47:54,258 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 217093437525065728/Hσηεsт#1354 on Dubcord/Gaming B -> [CONNECT]
+[473.0020394325256348] 2016-09-18 17:47:55,956 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 163039866639220737/KyleEvans#8662 on Dubcord/Beatbox A -> [MOVE]
+[478.7380459308624268] 2016-09-18 17:48:01,692 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 217093437525065728/Hσηεsт#1354 on Dubcord/Gaming B -> [DISCONNECT]
+[481.5305442810058594] 2016-09-18 17:48:04,484 - VOICEDEBUG - rtb.bot | In bot.py::MainThread(7764), line 3556 in on_voice_state_update: Voice state update for 129497101460570112/blackfox1212#9411 on Dubcord/Beatbox A -> [MOVE]

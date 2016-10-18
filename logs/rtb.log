@@ -1,0 +1,9 @@
+[6913.670301437] 2016-09-18 17:51:03,208 - INFO - setup: Starting sanity checks
+[7258.472442627] 2016-09-18 17:51:03,552 - INFO - setup: Checking for python 3.5+
+[7930.510997772] 2016-09-18 17:51:04,224 - INFO - setup: Checking console encoding
+[8110.512971878] 2016-09-18 17:51:04,404 - INFO - setup: Setting console encoding to UTF-8
+[15554.102659225] 2016-09-18 17:51:11,848 - INFO - setup: Ensuring we're in the right folder
+[15620.603799820] 2016-09-18 17:51:11,914 - INFO - setup: Moving old rtb log
+
+######################### PRE-RUN SANITY CHECKS PASSED #########################
+

@@ -63,6 +63,7 @@ from .constants import VER
 from .constants import BDATE as BUILD
 from .constants import MAINVER as MVER
 from .constants import BUILD_USERNAME as BUNAME
+from .shard import SHARD_ID as SID
 from _operator import contains
 
 
@@ -81,7 +82,7 @@ change_game = True
 cycle = True
 lock_status = False
 owner_id = "117678528220233731" or "117053687045685248" or "169597963507728384"
-shard_id = None #begin sharding!
+shard_id = SID #begin sharding!
 
 #Discord Game Statuses! :D
 dis_games = [
@@ -557,6 +558,7 @@ class RobTheBoat(discord.Client):
 
             if server.me.voice_channel:
                 log.info("Found resumable voice channel {0.server.name}/{0.name}".format(server.me.voice_channel))
+                asyncio.sleep(10)
                 channel_map[server] = server.me.voice_channel
 
             if autosummon:
@@ -572,6 +574,7 @@ class RobTheBoat(discord.Client):
 
             if channel and channel.type == discord.ChannelType.voice:
                 log.info("Attempting to join {0.server.name}/{0.name}".format(channel))
+                asyncio.sleep(105)
 
                 chperms = channel.permissions_for(server.me)
 
@@ -584,8 +587,13 @@ class RobTheBoat(discord.Client):
                     continue
 
                 try:
+                    asyncio.sleep(105)
                     player = await self.get_player(channel, create=True, deserialize=self.config.persistent_queue)
+                    asyncio.sleep(105)
+                    log.info("trying to slow down connection")
                     joined_servers.add(server)
+                    asyncio.sleep(105)
+                    
 
                     log.info("Joined {0.server.name}/{0.name}".format(channel))
 
@@ -759,9 +767,9 @@ class RobTheBoat(discord.Client):
 
                 await asyncio.sleep(0.5)
 
-            if not vc:
-                log.critical("Voice client is unable to connect, restarting...")
-                await self.restart()
+            #if not vc:
+            #    log.critical("Voice client is unable to connect, restarting...")
+            #    await self.restart()
 
             log.debug("Connected in {:0.1f}s".format(t1-t0))
 
@@ -859,7 +867,7 @@ class RobTheBoat(discord.Client):
 
             if server.id not in self.players:
                 if not create:
-                    raise exceptions.CommandError(
+                    self.send_message(channel,
                         'Bot isn\'t in a voice channel.  '
                         'Use %sconnect to connect to it to your voice channel' % self.config.command_prefix)
 
@@ -1257,6 +1265,12 @@ class RobTheBoat(discord.Client):
         log.info("\nReconnected to discord.\n")
 
     async def on_ready(self):
+        dlogger = logging.getLogger('discord')
+        for h in dlogger.handlers:
+            if getattr(h, 'terminator', None) == '':
+                dlogger.removeHandler(h)
+                print()
+
         log.debug("Connection established, ready to go.")
 
         self.ws._keep_alive.name = 'Gateway Keepalive'
@@ -2079,7 +2093,6 @@ class RobTheBoat(discord.Client):
         """
         Usage:
             {command_prefix}resume
-
         Resumes playback of a paused song.
         """
 
@@ -2123,6 +2136,40 @@ class RobTheBoat(discord.Client):
 
         player.playlist.clear()
         return Response('Cleared the playlist!')
+
+    async def cmd_remove(self, message, player, index):
+        """
+        Usage:
+            {command_prefix}remove [number]
+
+        Removes a song from the queue at the given position, where the position is a number from {command_prefix}queue.
+        """
+
+        if not player.playlist.entries:
+            raise exceptions.CommandError("There are no songs queued.", expire_in=20)
+
+        try:
+            index = int(index)
+
+        except ValueError:
+            raise exceptions.CommandError('{} is not a valid number.'.format(index), expire_in=20)
+
+        if 0 < index <= len(player.playlist.entries):
+            try:
+                song_title = player.playlist.entries[index - 1].title
+                player.playlist.remove_entry((index) - 1)
+
+            except IndexError:
+                raise exceptions.CommandError(
+                    "Something went wrong while the song was being removed. Try again with a new position from `" + self.config.command_prefix + "queue`",
+                    expire_in=20)
+
+            return Response("\N{CHECK MARK} removed **" + song_title + "**", delete_after=20)
+
+        else:
+            raise exceptions.CommandError(
+                "You can't remove the current song (skip it instead), or a song in a position that doesn't exist.",
+                expire_in=20)
 
     async def cmd_skip(self, player, channel, author, message, permissions, voice_channel):
         """
@@ -2565,20 +2612,102 @@ class RobTheBoat(discord.Client):
         await self.disconnect_voice_client(server)
         await self._manual_delete_check(message)
 
-    async def cmd_reboot(self, message):
+    async def cmd_reboot(self, message, shardid):
         # await self.safe_send_message(message.channel, "Bot is restarting, please wait...")
-        await self.safe_send_message(message.channel, "restarting...")
-        log.info("Bot is restarting")
-        await self.disconnect_all_voice_clients()
-        raise exceptions.RestartSignal()
+        if str(shardid) == int(0):
+        	if shard_id == 0:
+        		await self.send_message(message.channel, "Attempting to restart shard 0...")
+        		raise exceptions.RestartSignal()
+        if str(shardid) == int(1):
+        	if shard_id == 1:
+        		await self.send_message(message.channel, "Attempting to restart shard 1...")
+        		raise exceptions.RestartSignal()
+        if str(shardid) == int(2):
+        	if shard_id == 2:
+        		await self.send_message(message.channel, "Attempting to restart shard 2...")
+        		raise exceptions.RestartSignal()
+        if str(shardid) == int(3):
+        	if shard_id == 3:
+        		await self.send_message(message.channel, "Attempting to restart shard 3...")
+        		raise exceptions.RestartSignal()
+        if str(shardid) == int(4):
+        	if shard_id == 4:
+        		await self.send_message(message.channel, "Attempting to restart shard 4...")
+        		raise exceptions.RestartSignal()
+       	if str(shardid) == "global":
+       		if shard_id == 0:
+        		await self.safe_send_message(message.channel, "restarting globally... (Shard 0 shutting down)")
+        		log.info("Bot is restarting globally!")
+        		await self.disconnect_all_voice_clients()
+        		raise exceptions.RestartSignal()
+       		if shard_id == 1:
+        		await self.safe_send_message(message.channel, "restarting globally... (Shard 1 shutting down)")
+        		log.info("Bot is restarting globally!")
+        		await self.disconnect_all_voice_clients()
+        		raise exceptions.RestartSignal()
+       		if shard_id == 2:
+        		await self.safe_send_message(message.channel, "restarting globally... (Shard 2 shutting down)")
+        		log.info("Bot is restarting globally!")
+        		await self.disconnect_all_voice_clients()
+        		raise exceptions.RestartSignal()
+       		if shard_id == 3:
+        		await self.safe_send_message(message.channel, "restarting globally... (Shard 3 shutting down)")
+        		log.info("Bot is restarting globally!")
+        		await self.disconnect_all_voice_clients()
+        		raise exceptions.RestartSignal()
+       		if shard_id == 4:
+        		await self.safe_send_message(message.channel, "restarting globally... (Shard 4 shutting down)")
+        		log.info("Bot is restarting globally!")
+        		await self.disconnect_all_voice_clients()
+        		raise exceptions.RestartSignal()
 
-    async def cmd_timetodie(self, message):
-        kek = await self.safe_send_message(message.channel, "Bot is shutting down...")
-        asyncio.sleep(10)
-        await self.edit_message(kek, "I'm never coming back...")
-        log.info("Bot is shutting down")
-        await self.disconnect_all_voice_clients()
-        raise exceptions.TerminateSignal()
+    async def cmd_timetodie(self, message, shardid):
+        if str(shardid) == int(0):
+        	if shard_id == 0:
+        		await self.send_message(message.channel, "Attempting to shutdown shard 0...")
+        		raise exceptions.TerminateSignal()
+        if str(shardid) == int(1):
+        	if shard_id == 1:
+        		await self.send_message(message.channel, "Attempting to shutdown shard 1...")
+        		raise exceptions.TerminateSignal()
+        if str(shardid) == int(2):
+        	if shard_id == 2:
+        		await self.send_message(message.channel, "Attempting to shutdown shard 2...")
+        		raise exceptions.TerminateSignal()
+        if str(shardid) == int(3):
+        	if shard_id == 3:
+        		await self.send_message(message.channel, "Attempting to shutdown shard 3...")
+        		raise exceptions.TerminateSignal()
+        if str(shardid) == int(4):
+        	if shard_id == 4:
+        		await self.send_message(message.channel, "Attempting to shutdown shard 4...")
+        		raise exceptions.TerminateSignal()
+       	if str(shardid) == "global":
+       		if shard_id == 0:
+        		await self.safe_send_message(message.channel, "dying globally... (Shard 0 shutting down)")
+        		log.info("Bot is restarting globally!")
+        		await self.disconnect_all_voice_clients()
+        		raise exceptions.TerminateSignal()
+       		if shard_id == 1:
+        		await self.safe_send_message(message.channel, "killing globally... (Shard 1 shutting down)")
+        		log.info("Bot is restarting globally!")
+        		await self.disconnect_all_voice_clients()
+        		raise exceptions.TerminateSignal()
+       		if shard_id == 2:
+        		await self.safe_send_message(message.channel, "murdering globally... (Shard 2 shutting down)")
+        		log.info("Bot is restarting globally!")
+        		await self.disconnect_all_voice_clients()
+        		raise exceptions.TerminateSignal()
+       		if shard_id == 3:
+        		await self.safe_send_message(message.channel, "Seth why did I type this in globally... (Shard 3 shutting down)")
+        		log.info("Bot is restarting globally!")
+        		await self.disconnect_all_voice_clients()
+        		raise exceptions.TerminateSignal()
+       		if shard_id == 4:
+        		await self.safe_send_message(message.channel, "Killing others globally... (Shard 4 shutting down)")
+        		log.info("Bot is restarting globally!")
+        		await self.disconnect_all_voice_clients()
+        		raise exceptions.TerminateSignal()
 
     @dev_only
     async def cmd_breakpoint(self, message):
@@ -2614,7 +2743,7 @@ class RobTheBoat(discord.Client):
     @dev_only
     async def cmd_deval(self, message):
         if 'deval' in message.content:
-            if message.author.id == '117678528220233731':
+            if message.author.id == '117678528220233731' or '169597963507728384':
                 debug = message.content[len(".deval "):].strip()
                 try:
                     debug = eval(debug)
@@ -2630,7 +2759,7 @@ class RobTheBoat(discord.Client):
     @dev_only
     async def cmd_debug(self, message, content):
         if 'debug' in message.content:
-            if message.author.id == '117678528220233731' or '154785871311273986':
+            if message.author.id == '117678528220233731' or '169597963507728384':
                 debug = message.content[len(".debug "):].strip()
                 py = "```py\n{}\n```"
                 thing = None
@@ -2967,7 +3096,7 @@ class RobTheBoat(discord.Client):
         memes = random.choice(["pinging server...", "fucking furries...", "AAAAAAAAAAAAAAAAAA",
                                "why the fuck am I even doing this for you?", "but....", "meh.", "...",
                                "Did you really expect something better?", "kek", "I'm killing your dog next time.",
-                               "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy."])
+                               "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.", "Damn it seth, why does your internet have to be slow?"])
         topkek = memes
         pingms = await self.send_message(message.channel, topkek)
         ping = time.time() - pingtime
@@ -2982,14 +3111,14 @@ class RobTheBoat(discord.Client):
             await self.send_typing(message.channel)
             await self.send_message(message.channel, "Sent a message to the developers.")
             await self.send_message(discord.User(id='117678528220233731'), #Robin#0052
-                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- Server: {}\n- Message: {}\n```".format(
-                                        message.author.name, message.author.discriminator, message.server.name, alert))
+                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n! Message: {}\n```".format(
+                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, alert))
             await self.send_message(discord.User(id="117053687045685248"), #Ryulise#0203
-                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- Server: {}\n- Message: {}\n```".format(
-                                        message.author.name, message.author.discriminator, message.server.name, alert))
+                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n! Message: {}\n```".format(
+                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, alert))
             await self.send_message(discord.User(id="169597963507728384"), #CreeperSeth#9790
-                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- Server: {}\n- Message: {}\n```".format(
-                                        message.author.name, message.author.discriminator, message.server.name, alert))
+                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n! Message: {}\n```".format(
+                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, alert))
 
             log.info("Message sent to the developers via the notifydev command: `" + alert)
         elif len(alert) == 0:
@@ -2997,23 +3126,90 @@ class RobTheBoat(discord.Client):
 
     @owner_only
     async def cmd_respond(self, author, dorespond):
-        global respond
-        if dorespond == "false":
-            respond = False
-            await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
-            await self.disconnect_all_voice_clients()
-            log.warning(
-                "" + author.name + " disabled command responses. Not responding to commands.")
-            return Response("Not responding to commands", delete_after=15)
-        elif dorespond == "true":
-            respond = True
-            await self.change_presence(game=discord.Game(name="responsive"))
-            log.warning(
-                "" + author.name + " enabled command responses. Now responding to commands.")
-            return Response("Responding to commands", delete_after=15)
-        else:
-            return Response("Either \"true\" or \"false\"", delete_after=15)
-        await self._manual_delete_check(message)
+        if shard_id == 0:
+            global respond
+            if dorespond == "false":
+                respond = False
+                await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
+                await self.disconnect_all_voice_clients()
+                log.warning("" + author.name + " disabled command responses. Not responding to commands.")
+                return Response("Not responding to commands", delete_after=15)
+            elif dorespond == "true":
+            	respond = True
+            	await self.change_presence(game=discord.Game(name="responsive"))
+            	log.warning(
+                	"" + author.name + " enabled command responses. Now responding to commands.")
+            	#return Response("Responding to commands", delete_after=15)
+            else:
+            	#return Response("Either \"true\" or \"false\"", delete_after=15)
+            	return
+        if shard_id == 1:
+            global respond
+            if dorespond == "false":
+                respond = False
+                await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
+                await self.disconnect_all_voice_clients()
+                log.warning("" + author.name + " disabled command responses. Not responding to commands.")
+                return Response("Not responding to commands", delete_after=15)
+            elif dorespond == "true":
+                respond = True
+                await self.change_presence(game=discord.Game(name="responsive"))
+                log.warning("" + author.name + " enabled command responses. Now responding to commands.")
+                return Response("Responding to commands", delete_after=15)
+            else:
+                return Response("Either \"true\" or \"false\"", delete_after=15)
+        if shard_id == 2:
+            global respond
+            if dorespond == "false":
+                respond = False
+                await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
+                await self.disconnect_all_voice_clients()
+                log.warning("" + author.name + " disabled command responses. Not responding to commands.")
+                return Response("Not responding to commands", delete_after=15)
+            elif dorespond == "true":
+                respond = True
+                await self.change_presence(game=discord.Game(name="responsive"))
+                log.warning("" + author.name + " enabled command responses. Now responding to commands.")
+                #return Response("Responding to commands", delete_after=15)
+            else:
+            	#return Response("Either \"true\" or \"false\"", delete_after=15)
+            	return
+        if shard_id == 3:
+            global respond
+            if dorespond == "false":
+                respond = False
+                await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
+                await self.disconnect_all_voice_clients()
+                log.warning("" + author.name + " disabled command responses. Not responding to commands.")
+                return Response("Not responding to commands", delete_after=15)
+            elif dorespond == "true":
+            	respond = True
+            	await self.change_presence(game=discord.Game(name="responsive"))
+            	log.warning(
+                	"" + author.name + " enabled command responses. Now responding to commands.")
+            	#return Response("Responding to commands", delete_after=15)
+            else:
+            	#return Response("Either \"true\" or \"false\"", delete_after=15)
+                return
+        if shard_id == 4:
+            global respond
+            if dorespond == "false":
+                respond = False
+                await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
+                await self.disconnect_all_voice_clients()
+                log.warning("" + author.name + " disabled command responses. Not responding to commands.")
+                return Response("Not responding to commands", delete_after=15)
+            elif dorespond == "true":
+            	respond = True
+            	await self.change_presence(game=discord.Game(name="responsive"))
+            	log.warning(
+                	"" + author.name + " enabled command responses. Now responding to commands.")
+            	#return Response("Responding to commands", delete_after=15)
+            else:
+            	#return Response("Either \"true\" or \"false\"", delete_after=15)
+            	return
+
+        #await self._manual_delete_check(msg)
 
     @owner_only
     async def cmd_permsetgame(self, message, type, status):
@@ -3025,13 +3221,13 @@ class RobTheBoat(discord.Client):
             status = message.content[len(self.command_prefix + "permsetgame " + type + " "):].strip()
             change_game = False
             url = "https://twitch.tv/robingall2910"
-            await self.change_presence(discord.Game(name=status, url=url, type=1))
+            await self.change_presence(discord.Game(name=status, status=discord.Status.online, url=url, type=1))
             return Response(
                 "changed to stream mode with the status as `" + status + "` and as the URL as `" + url + "`.")
         elif type == "normal":
             status = message.content[len(self.command_prefix + "permsetgame " + type + " "):].strip()
             change_game = False
-            await self.change_presence(discord.Game(name=status))
+            await self.change_presence(discord.Game(name=status, status=discord.Status.online))
             return Response("changed to normal status change mode with the status as `" + status + "`.")
         elif type == "none" and status is "none":
             await self.change_presence(discord.Game(name=None))
@@ -3058,8 +3254,7 @@ class RobTheBoat(discord.Client):
             return Response("The status is currently locked")
         if cycle is True:
             cycle = False
-        await self.change_status(discord.Game(name=n))
-        await self.log(":information_source: `" + message.author.name + "` set the game name to `" + n + "`")
+        await self.change_presence(discord.Game(name=n, status=discord.Status.online))
         return Response("Game sucessfully changed to `" + n + "`", delete_after=5)
 
     async def cmd_createchannel(self, server, author, message, name):
@@ -3385,10 +3580,10 @@ class RobTheBoat(discord.Client):
         await self.send_message(message.channel,
                                 "https://travis-ci.org/robingall2910/RobTheBoat - Travis CI Build Status")
 
-    @owner_only
+    @dev_only
     async def cmd_msgfags(self, message, id, reason):
         reason = message.content[len(".msgfags " + id):].strip()
-        await self.send_message(discord.User(id=id), reason)
+        await self.send_message(discord.User(id=id), reason + "- " + message.author.name + "#" + message.author.discriminator)
         log.info("Robin sent a a message to ID #: `" + id + "`")
 
     async def cmd_kym(self, message):
@@ -3513,12 +3708,26 @@ class RobTheBoat(discord.Client):
 
     async def cmd_stats(client, message):
         await client.send_message(message.channel,
-                                  "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Server Emoji Count: {}\n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(
-                                      BUNAME, MVER, BUILD, len(set(client.get_all_members())),
+                                  "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Shard ID: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Server Emoji Count: {}\n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(
+                                      BUNAME, MVER, BUILD, SID, len(set(client.get_all_members())),
                                       len(set(client.messages)), len(client.servers),
                                       len(set(client.get_all_channels())), len(set(client.private_channels)),
                                       discord.__version__, len(message.server.emojis), time.strftime("%A, %B %d, %Y"),
                                       time.strftime("%I:%M:%S %p")))
+
+    @dev_only
+    async def cmd_shardstatus(self, message):
+    	if shard_id == 0:
+            await self.send_message(message.channel, "Shard 0 is online")
+    	if shard_id == 1:
+            await self.send_message(message.channel, "Shard 1 is online")
+    	if shard_id == 2:
+            await self.send_message(message.channel, "Shard 2 is online")
+    	if shard_id == 3:
+            await self.send_message(message.channel, "Shard 3 is online")
+    	if shard_id == 4:
+            await self.send_message(message.channel, "Shard 4 is online")
+    	await self.send_message(message.channel, "If a number is missing, then that designated shard is currently offline.")
 
     async def cmd_showconfig(self, message):
         await self.send_typing(message.channel)
@@ -3547,36 +3756,42 @@ class RobTheBoat(discord.Client):
             return Response(type + " is not a valid type! If you need help go to the help website, or ask in the viralbot and napsta server by doing .serverinv")
 
     async def on_message(self, message):
+        x = message.server.id
+        if shard_id == 0:
+            if x >= "70373943822540800" and x <= "110373943822540800":
+                pass
+            else:
+                return
+        if shard_id == 1:
+            if x >= "110373943822540801" and x <= "174228936954216448":
+                pass
+            else:
+                return
+        if shard_id == 2:
+            if x >= "174228936954216449" and x <= "197799486813241354":
+                pass
+            else:
+                return
+        if shard_id == 3:
+            if x >= "197799486813241355" and x <= "214000000000000000":
+                pass
+            else:
+                return
+        if shard_id == 4:
+            if x >= "214000000000000001" and x <= "294000000000000000":
+                pass
+            else:
+                return
+        if message.server.id != None:
+            pass
+        else:
+            return
         ignore_role_name = read_data_entry(message.server.id, "ignore-role")
         mauthor = discord.utils.get(message.channel.server.members, name=message.author.name)
         if not discord.utils.get(mauthor.roles, name=ignore_role_name) == None:
             return
         if respond is False:
             if not message.author.id == owner_id and message.author.id != "169597963507728384" and message.author.id != "117053687045685248":
-                return
-        if "discord.gg" in message.clean_content:
-            if message.author.name != "Drogoz Beta":
-                if message.author.name != "Crimson Dragon":
-                    await self.send_message(discord.Object(id="229070282307010560"), "`" + message.author.name + "#" + message.author.discriminator + "` posted an invite link on `" + message.server.name + "` // `" + message.server.id + "`\nMessage: " + message.clean_content.replace('@', '@͏'))
-                else:
-                    return
-            else:
-                return
-        if "discord.me" in message.clean_content:
-            if message.author.name != "Drogoz Beta":
-                if message.author.name != "Crimson Dragon":
-                    await self.send_message(discord.Object(id="229070282307010560"), "`" + message.author.name + "#" + message.author.discriminator + "` posted an invite link on `" + message.server.name + "` // `" + message.server.id + "`\nMessage: " + message.clean_content.replace('@', '@͏'))
-                else:
-                    return
-            else:
-                return
-        if "discordapp.com/invite/" in message.clean_content:
-            if message.author.name != "Drogoz Beta":
-                if message.author.name != "Crimson Dragon":
-                    await self.send_message(discord.Object(id="229070282307010560"), "`" + message.author.name + "#" + message.author.discriminator + "` posted an invite link on `" + message.server.name + "` // `" + message.server.id + "`\nMessage: " + message.clean_content.replace('@', '@͏'))
-                else:
-                    return
-            else:
                 return
         elif message.content == "BrAiNpOwEr https://www.youtube.com/watch?v=P6Z_s5MfDiA":
             await self.send_message(message.channel, "WHAT HAVE YOU DONE.")

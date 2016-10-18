@@ -325,8 +325,10 @@ class MusicPlayer(EventEmitter, Serializable):
                 await self.bot.reconnect_voice_client(self.voice_client.channel.server, channel=self.voice_client.channel)
                 await asyncio.sleep(3)
 
-            except Exception:
-                log.error("Error in websocket check loop", exc_info=True)
+			# Disablec this because it spammed the logs to the point you couldn't see anything else
+			# TODO: Figure out why this raises an exception
+            #except Exception:
+                #log.error("Error in websocket check loop", exc_info=True)
 
             finally:
                 await asyncio.sleep(1)
