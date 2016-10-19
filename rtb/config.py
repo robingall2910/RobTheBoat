@@ -62,7 +62,6 @@ class Config:
         self.debug_level_str = self.debug_level
         self.debug_mode = False
 
-        self.blacklist_file = config.get('Files', 'BlacklistFile', fallback=ConfigDefaults.blacklist_file)
         self.auto_playlist_file = config.get('Files', 'AutoPlaylistFile', fallback=ConfigDefaults.auto_playlist_file)
         self.auto_playlist_removed_file = None
 
@@ -283,17 +282,8 @@ class ConfigDefaults:
     debug_level = 'INFO'
 
     options_file = 'config/options.ini'
-    blacklist_file = 'config/blacklist.txt'
     auto_playlist_file = 'config/autoplaylist.txt' # this will change when I add playlists
 
 setattr(ConfigDefaults, codecs.decode(b'ZW1haWw=', '\x62\x61\x73\x65\x36\x34').decode('ascii'), None)
 setattr(ConfigDefaults, codecs.decode(b'cGFzc3dvcmQ=', '\x62\x61\x73\x65\x36\x34').decode('ascii'), None)
 setattr(ConfigDefaults, codecs.decode(b'dG9rZW4=', '\x62\x61\x73\x65\x36\x34').decode('ascii'), None)
-
-# These two are going to be wrappers for the id lists, with add/remove/load/save functions
-# and id/object conversion so types aren't an issue
-class Blacklist:
-    pass
-
-class Whitelist:
-    pass

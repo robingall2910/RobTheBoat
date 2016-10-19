@@ -23,6 +23,7 @@ import markovify
 import re
 import random
 import cleverbot
+import objgraph
 
 #python imports
 from io import BytesIO, StringIO
@@ -56,6 +57,7 @@ from .permissions import Permissions, PermissionsDefaults
 from .constructs import SkipState, Response, VoiceStateUpdate
 from .utils import load_file, write_file, download_file, sane_round_int, fixg, ftimedelta, extract_user_id
 from .mysql import *
+from .blacklist import *
 
 from .constants import VERSION as BOTVERSION
 from .constants import DISCORD_MSG_CHAR_LIMIT, AUDIO_CACHE_PATH
@@ -83,6 +85,9 @@ cycle = True
 lock_status = False
 owner_id = "117678528220233731" or "117053687045685248" or "169597963507728384"
 shard_id = SID #begin sharding!
+
+shard_zero_online = False
+shard_one_online = False
 
 #Discord Game Statuses! :D
 dis_games = [
@@ -380,7 +385,6 @@ class RobTheBoat(discord.Client):
         self.config = Config(config_file)
         self.permissions = Permissions(perms_file, grant_all=[self.config.owner_id])
 
-        self.blacklist = set(load_file(self.config.blacklist_file))
         self.autoplaylist = load_file(self.config.auto_playlist_file)
 
         self.aiolocks = defaultdict(asyncio.Lock)
@@ -396,9 +400,6 @@ class RobTheBoat(discord.Client):
             self.config.auto_playlist = False
         else:
             log.info("Loaded autoplaylist with {} entries".format(len(self.autoplaylist)))
-
-        if self.blacklist:
-            log.debug("Loaded blacklist with {} entries".format(len(self.blacklist)))
 
         # TODO: Do these properly
         ssd_defaults = {
@@ -723,7 +724,6 @@ class RobTheBoat(discord.Client):
                 await voice.disconnect()
             except:
                 pass
-            raise e
 
         log.voicedebug("(%s) connection successful", _func_())
 
@@ -763,7 +763,8 @@ class RobTheBoat(discord.Client):
                         pass
 
                 except:
-                    log.exception("Unknown error attempting to connect to voice")
+                    #log.exception("Unknown error attempting to connect to voice")
+                    pass
 
                 await asyncio.sleep(0.5)
 
@@ -773,7 +774,10 @@ class RobTheBoat(discord.Client):
 
             log.debug("Connected in {:0.1f}s".format(t1-t0))
 
-            vc.ws._keep_alive.name = 'VoiceClient Keepalive'
+            try:
+              vc.ws._keep_alive.name = 'VoiceClient Keepalive'
+            except:
+              pass
 
             return vc
 
@@ -1456,52 +1460,45 @@ class RobTheBoat(discord.Client):
 
             return Response(helpmsg, reply=True, delete_after=60)
 
-    async def cmd_blacklist(self, message, user_mentions, option, something):
-        """
-        Usage:
-            {command_prefix}blacklist [ + | - | add | remove ] @UserName [@UserName2 ...]
-
-        Add or remove users to the blacklist.
-        Blacklisted users are forbidden from using bot commands.
-        """
-
-        if not user_mentions:
-            raise exceptions.CommandError("No users listed.", expire_in=20)
-
-        if option not in ['+', '-', 'add', 'remove']:
-            raise exceptions.CommandError(
-                'Invalid option "%s" specified, use +, -, add, or remove' % option, expire_in=20
-            )
-
-        for user in user_mentions.copy():
-            if user.id == self.config.owner_id:
-                print("[Commands:Blacklist] The owner cannot be blacklisted.")
-                user_mentions.remove(user)
-
-        old_len = len(self.blacklist)
-
-        if option in ['+', 'add']:
-            self.blacklist.update(user.id for user in user_mentions)
-
-            write_file(self.config.blacklist_file, self.blacklist)
-
-            return Response(
-                '%s users have been added to the blacklist.' % (len(self.blacklist) - old_len),
-                reply=True, delete_after=10
-            )
-
+    @dev_only
+    async def cmd_blacklist(self, message, action, id):
+        await self.send_typing(message.channel)
+        if action == "add":
+            user = discord.utils.get(list(self.get_all_members()), id=id)
+            if user == None:
+                await self.send_message(message.channel, "Could not find a user with an id of `" + id + "`")
+                return
+            if getblacklistentry(id) != None:
+                await self.send_message(message.channel, "`" + user.name + "#" + user.discriminator + "` is already blacklisted")
+                return
+            reason = message.content[len(self.command_prefix + "blacklist " + action + " " + id + " "):].strip()
+            if reason == "":
+                await self.send_message(message.channel, "You must provide the reason why you are blacklisting the user")
+                return
+            blacklistuser(id, user.name, user.discriminator, reason)
+            await self.send_message(message.channel, "Blacklisted `" + user.name + "#" + user.discriminator + "` Reason: `" + reason + "`")
+        elif action == "remove":
+            entry = getblacklistentry(id)
+            if entry == None:
+                await self.send_message(message.channel, "No blacklisted user can be found with an id of `" + id + "`")
+                return
+            try:
+                unblacklistuser(id)
+            except:
+                await self.send_message(message.channel, "No blacklisted user can be found with an id of `" + id + "`")
+                return
+            await self.send_message(message.channel, "Successfully unblacklisted `" + entry.get("name") + "#" + entry.get("discrim") + "`")
         else:
-            if self.blacklist.isdisjoint(user.id for user in user_mentions):
-                return Response('None of the users that you\'ve mentioned aren\'t in the list.', reply=True, delete_after=10)
+            await self.send_message(message.channel, "Valid actions are `add` and `remove`") 
 
-            else:
-                self.blacklist.difference_update(user.id for user in user_mentions)
-                write_file(self.config.blacklist_file, self.blacklist)
-
-                return Response(
-                    '%s users have been removed from the blacklist.' % (old_len - len(self.blacklist)),
-                    reply=True, delete_after=10
-                )
+    async def cmd_showblacklist(self, channel):
+        blacklist = getblacklist()
+        count = str(len(blacklist))
+        if blacklist == []:
+            blacklist = "There are no blacklisted users"
+        else:
+            blacklist = "\n".join(blacklist)
+        await self.send_message(channel, xl.format("Total blacklisted users: " + count + "\n\n" + blacklist))
 
     async def cmd_id(self, author, user_mentions):
         """
@@ -2634,32 +2631,37 @@ class RobTheBoat(discord.Client):
         	if shard_id == 4:
         		await self.send_message(message.channel, "Attempting to restart shard 4...")
         		raise exceptions.RestartSignal()
-       	if str(shardid) == "global":
-       		if shard_id == 0:
-        		await self.safe_send_message(message.channel, "restarting globally... (Shard 0 shutting down)")
-        		log.info("Bot is restarting globally!")
-        		await self.disconnect_all_voice_clients()
-        		raise exceptions.RestartSignal()
-       		if shard_id == 1:
-        		await self.safe_send_message(message.channel, "restarting globally... (Shard 1 shutting down)")
-        		log.info("Bot is restarting globally!")
-        		await self.disconnect_all_voice_clients()
-        		raise exceptions.RestartSignal()
-       		if shard_id == 2:
-        		await self.safe_send_message(message.channel, "restarting globally... (Shard 2 shutting down)")
-        		log.info("Bot is restarting globally!")
-        		await self.disconnect_all_voice_clients()
-        		raise exceptions.RestartSignal()
-       		if shard_id == 3:
-        		await self.safe_send_message(message.channel, "restarting globally... (Shard 3 shutting down)")
-        		log.info("Bot is restarting globally!")
-        		await self.disconnect_all_voice_clients()
-        		raise exceptions.RestartSignal()
-       		if shard_id == 4:
-        		await self.safe_send_message(message.channel, "restarting globally... (Shard 4 shutting down)")
-        		log.info("Bot is restarting globally!")
-        		await self.disconnect_all_voice_clients()
-        		raise exceptions.RestartSignal()
+        if str(shardid) == "global":
+            if shard_id == 0:
+                await self.safe_send_message(message.channel, "restarting globally... (Shard 0 shutting down)")
+                log.info("Bot is restarting globally!")
+                await self.disconnect_all_voice_clients()
+                raise exceptions.RestartSignal()
+            if shard_id == 1:
+                await self.safe_send_message(message.channel, "restarting globally... (Shard 1 shutting down)")
+                log.info("Bot is restarting globally!")
+                await self.disconnect_all_voice_clients()
+                raise exceptions.RestartSignal()
+            if shard_id == 2:
+                await self.safe_send_message(message.channel, "restarting globally... (Shard 2 shutting down)")
+                log.info("Bot is restarting globally!")
+                await self.disconnect_all_voice_clients()
+                raise exceptions.RestartSignal()
+            if shard_id == 3:
+                await self.safe_send_message(message.channel, "restarting globally... (Shard 3 shutting down)")
+                log.info("Bot is restarting globally!")
+                await self.disconnect_all_voice_clients()
+                raise exceptions.RestartSignal()
+            if shard_id == 4:
+                await self.safe_send_message(message.channel, "restarting globally... (Shard 4 shutting down)")
+                log.info("Bot is restarting globally!")
+                await self.disconnect_all_voice_clients()
+                raise exceptions.RestartSignal()
+            if shard_id == "global":
+                await self.safe_send_message(message.channel, "restarting globally... (shutting down)")
+                log.info("Bot is restarting!")
+                await self.disconnect_all_voice_clients()
+                raise exceptions.RestartSignal()
 
     async def cmd_timetodie(self, message, shardid):
         if str(shardid) == int(0):
@@ -2682,32 +2684,38 @@ class RobTheBoat(discord.Client):
         	if shard_id == 4:
         		await self.send_message(message.channel, "Attempting to shutdown shard 4...")
         		raise exceptions.TerminateSignal()
-       	if str(shardid) == "global":
-       		if shard_id == 0:
-        		await self.safe_send_message(message.channel, "dying globally... (Shard 0 shutting down)")
-        		log.info("Bot is restarting globally!")
-        		await self.disconnect_all_voice_clients()
-        		raise exceptions.TerminateSignal()
-       		if shard_id == 1:
-        		await self.safe_send_message(message.channel, "killing globally... (Shard 1 shutting down)")
-        		log.info("Bot is restarting globally!")
-        		await self.disconnect_all_voice_clients()
-        		raise exceptions.TerminateSignal()
-       		if shard_id == 2:
-        		await self.safe_send_message(message.channel, "murdering globally... (Shard 2 shutting down)")
-        		log.info("Bot is restarting globally!")
-        		await self.disconnect_all_voice_clients()
-        		raise exceptions.TerminateSignal()
-       		if shard_id == 3:
-        		await self.safe_send_message(message.channel, "Seth why did I type this in globally... (Shard 3 shutting down)")
-        		log.info("Bot is restarting globally!")
-        		await self.disconnect_all_voice_clients()
-        		raise exceptions.TerminateSignal()
-       		if shard_id == 4:
-        		await self.safe_send_message(message.channel, "Killing others globally... (Shard 4 shutting down)")
-        		log.info("Bot is restarting globally!")
-        		await self.disconnect_all_voice_clients()
-        		raise exceptions.TerminateSignal()
+        if str(shardid) == "global":
+            if shard_id == 0:
+                await self.safe_send_message(message.channel, "dying globally... (Shard 0 shutting down)")
+                log.info("Bot is restarting globally!")
+                await self.disconnect_all_voice_clients()
+                raise exceptions.TerminateSignal()
+            if shard_id == 1:
+                await self.safe_send_message(message.channel, "killing globally... (Shard 1 shutting down)")
+                log.info("Bot is restarting globally!")
+                await self.disconnect_all_voice_clients()
+                raise exceptions.TerminateSignal()
+            if shard_id == 2:
+                await self.safe_send_message(message.channel, "murdering globally... (Shard 2 shutting down)")
+                log.info("Bot is restarting globally!")
+                await self.disconnect_all_voice_clients()
+                raise exceptions.TerminateSignal()
+            if shard_id == 3:
+                await self.safe_send_message(message.channel, "Seth why did I type this in globally... (Shard 3 shutting down)")
+                # Idk robin but it won't work since the command only executed on 1 shard
+                log.info("Bot is restarting globally!")
+                await self.disconnect_all_voice_clients()
+                raise exceptions.TerminateSignal()
+            if shard_id == 4:
+                await self.safe_send_message(message.channel, "Killing others globally... (Shard 4 shutting down)")
+                log.info("Bot is restarting globally!")
+                await self.disconnect_all_voice_clients()
+                raise exceptions.TerminateSignal()
+            if shard_id == "global":
+                await self.safe_send_message(message.channel, "Killing others globally... (shutting down)")
+                log.info("Bot is restarting!")
+                await self.disconnect_all_voice_clients()
+                raise exceptions.TerminateSignal()
 
     @dev_only
     async def cmd_breakpoint(self, message):
@@ -2716,7 +2724,6 @@ class RobTheBoat(discord.Client):
 
     @dev_only
     async def cmd_objgraph(self, channel, func='most_common_types()'):
-        import objgraph
         await self.send_typing(channel)
 
         if func == 'growth':
@@ -3126,8 +3133,8 @@ class RobTheBoat(discord.Client):
 
     @owner_only
     async def cmd_respond(self, author, dorespond):
+        global respond
         if shard_id == 0:
-            global respond
             if dorespond == "false":
                 respond = False
                 await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
@@ -3144,7 +3151,6 @@ class RobTheBoat(discord.Client):
             	#return Response("Either \"true\" or \"false\"", delete_after=15)
             	return
         if shard_id == 1:
-            global respond
             if dorespond == "false":
                 respond = False
                 await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
@@ -3159,7 +3165,6 @@ class RobTheBoat(discord.Client):
             else:
                 return Response("Either \"true\" or \"false\"", delete_after=15)
         if shard_id == 2:
-            global respond
             if dorespond == "false":
                 respond = False
                 await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
@@ -3175,7 +3180,6 @@ class RobTheBoat(discord.Client):
             	#return Response("Either \"true\" or \"false\"", delete_after=15)
             	return
         if shard_id == 3:
-            global respond
             if dorespond == "false":
                 respond = False
                 await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
@@ -3192,7 +3196,22 @@ class RobTheBoat(discord.Client):
             	#return Response("Either \"true\" or \"false\"", delete_after=15)
                 return
         if shard_id == 4:
-            global respond
+            if dorespond == "false":
+                respond = False
+                await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
+                await self.disconnect_all_voice_clients()
+                log.warning("" + author.name + " disabled command responses. Not responding to commands.")
+                return Response("Not responding to commands", delete_after=15)
+            elif dorespond == "true":
+            	respond = True
+            	await self.change_presence(game=discord.Game(name="responsive"))
+            	log.warning(
+                	"" + author.name + " enabled command responses. Now responding to commands.")
+            	#return Response("Responding to commands", delete_after=15)
+            else:
+            	#return Response("Either \"true\" or \"false\"", delete_after=15)
+            	return
+        if shard_id == "global":
             if dorespond == "false":
                 respond = False
                 await self.change_presence(game=discord.Game(name="unresponsive"), status=discord.Status.dnd)
@@ -3717,17 +3736,7 @@ class RobTheBoat(discord.Client):
 
     @dev_only
     async def cmd_shardstatus(self, message):
-    	if shard_id == 0:
-            await self.send_message(message.channel, "Shard 0 is online")
-    	if shard_id == 1:
-            await self.send_message(message.channel, "Shard 1 is online")
-    	if shard_id == 2:
-            await self.send_message(message.channel, "Shard 2 is online")
-    	if shard_id == 3:
-            await self.send_message(message.channel, "Shard 3 is online")
-    	if shard_id == 4:
-            await self.send_message(message.channel, "Shard 4 is online")
-    	await self.send_message(message.channel, "If a number is missing, then that designated shard is currently offline.")
+        await self.send_message(message.channel, "Shard 0 online: " + str(shard_zero_online) + "\nShard 1 online: " + str(shard_one_online))
 
     async def cmd_showconfig(self, message):
         await self.send_typing(message.channel)
@@ -3757,31 +3766,32 @@ class RobTheBoat(discord.Client):
 
     async def on_message(self, message):
         x = message.server.id
-        if shard_id == 0:
-            if x >= "70373943822540800" and x <= "110373943822540800":
-                pass
-            else:
-                return
-        if shard_id == 1:
-            if x >= "110373943822540801" and x <= "174228936954216448":
-                pass
-            else:
-                return
-        if shard_id == 2:
-            if x >= "174228936954216449" and x <= "197799486813241354":
-                pass
-            else:
-                return
-        if shard_id == 3:
-            if x >= "197799486813241355" and x <= "214000000000000000":
-                pass
-            else:
-                return
-        if shard_id == 4:
-            if x >= "214000000000000001" and x <= "294000000000000000":
-                pass
-            else:
-                return
+        if shard_id != "global":
+            if shard_id == 0:
+                if x >= "70373943822540800" and x <= "110373943822540800":
+                    pass
+                else:
+                    return
+            if shard_id == 1:
+                if x >= "110373943822540801" and x <= "174228936954216448":
+                    pass
+                else:
+                    return
+            if shard_id == 2:
+                if x >= "174228936954216449" and x <= "197799486813241354":
+                    pass
+                else:
+                    return
+            if shard_id == 3:
+                if x >= "197799486813241355" and x <= "214000000000000000":
+                    pass
+                else:
+                    return
+            if shard_id == 4:
+                if x >= "214000000000000001" and x <= "294000000000000000":
+                    pass
+                else:
+                    return
         if message.server.id != None:
             pass
         else:
@@ -3831,8 +3841,9 @@ class RobTheBoat(discord.Client):
                 await self.send_message(message.channel, 'You cannot use this bot in private messages.')
                 return
 
-        if message.author.id in self.blacklist and message.author.id != self.config.owner_id:
-            log.warning("User blacklisted: {0.id}/{0!s} ({1})".format(message.author, command))
+        if getblacklistentry(message.author.id) != None:
+            entry = getblacklistentry(message.author.id)
+            await self.send_message(message.channel, entry.get("name") + "#" + entry.get("discrim") + " you are blacklisted. Reason: `" + entry.get("reason") + "`")
             return
 
         else:
@@ -3996,7 +4007,10 @@ class RobTheBoat(discord.Client):
         # preferebly without using _get_variable()
         if not state.joining and state.is_about_me and not self.voice_client_in(state.server) and not state.raw_change:
             log.debug("Resumed voice connection to {0.server.name}/{0.name}".format(state.voice_channel))
-            state.resuming = True
+            try:
+              state.resuming = True
+            except:
+              pass
 
         if not state.changes:
             log.voicedebug("Empty voice state update, likely a session id change")
