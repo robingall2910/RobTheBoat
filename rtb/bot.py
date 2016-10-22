@@ -88,6 +88,9 @@ shard_id = SID #begin sharding!
 
 shard_zero_online = False
 shard_one_online = False
+shard_two_online = False
+shard_three_online = False
+shard_four_online = False
 
 #Discord Game Statuses! :D
 dis_games = [
@@ -186,14 +189,31 @@ dis_games = [
     discord.Game(name='DREW'),
     discord.Game(name='ITS THE LAW.'),
     discord.Game(name='DOOM'),
-    discord.Game(name='Fallout Shelter is now available for PC! Install it now.'),
-    discord.Game(name='9:30 PM'),
+    #discord.Game(name='Fallout Shelter is now available for PC! Install it now.'),
+    #discord.Game(name='9:30 PM'),
     discord.Game(name='why would anyone think that this is my golden ticket idea?'),
     discord.Game(name='PRESSURE, PRESSURE, NOOSE AROUND MY NECK'),
     discord.Game(name='jenna is cute'),
     discord.Game(name='crippling social anxiety'),
-    discord.Game(name='HMU ON YOUTUBE: http://youtube.com/c/FUCKBOIS2016'),
-    discord.Game(name='Ow, my head hurts.')
+    #discord.Game(name='HMU ON YOUTUBE: http://youtube.com/c/FUCKBOIS2016'),
+    discord.Game(name='Ow, my head hurts.'),
+    discord.Game(name='with your mom\'s dildos'),
+    discord.Game(name='on a truck'),
+    discord.Game(name='in a restroom'),
+    discord.Game(name='probably fapping'),
+    discord.Game(name='excuse you, I\'m having sex here?'),
+    discord.Game(name='please don\'t steal my car radio'),
+    discord.Game(name='AND NOW I JUST SIT IN SILENCE'),
+    discord.Game(name='as an ADC'),
+    discord.Game(name='Nozomi\'s breasts'),
+    discord.Game(name='with a tanuki'),
+    discord.Game(name='on Yami\'s thighs'),
+    discord.Game(name='with his sister ;)'),
+    discord.Game(name='on Momo\'s stomach'),
+    discord.Game(name='with Troy\'s (no)dong'),
+    discord.Game(name='on its calculator'),
+    discord.Game(name='SEGMENTATION FAULT'),
+    discord.Game(name='suriving the reading section on the PSAT without a calculator')
 ]
 
 #Regex for IP addresses
@@ -206,7 +226,7 @@ ipv6_regex = re.compile(
 ratelevel = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 
 #for the perf command, i might eventually remove it smh
-tweetsthatareokhand = [
+"""tweetsthatareokhand = [
     "http://i.imgur.com/lkMJ1O9.png",
     "http://i.imgur.com/rbGmZqV.png",
     "http://i.imgur.com/hYzNxVR.png",
@@ -229,7 +249,7 @@ tweetsthatareokhand = [
     "https://cdn.discordapp.com/attachments/173887966031118336/177518766781890562/your-resistance-only-makes-my-penis-harder.jpg",
     "http://i.imgur.com/21bV05w.png",
     "http://i.imgur.com/7Y94F7L.png"
-]
+]"""
 
 #the .kill command messages
 suicidalmemes = [
@@ -2784,7 +2804,7 @@ class RobTheBoat(discord.Client):
     async def cmd_kys(self, message):
         # return Response("kill yourself and never _EVER_ come back to me again, you stupid peasant. how dare you ask me to die. like fucking hell, why not do it yourself to satisfy yourself?", delete_after=0)
         return Response(
-            "Seriously? You're such a fucking faggot. Kill yourself, unironically, hell, I'd kill you myself you fucking little shit, stupid fucking shitrag.",
+            "Fucking kill yourself man. You aren't needed in the world, unless, someone actually loves you. Right now, no one gives a shit about you. Go to hell and die in there, rot in there, and if you can't suicide if you need to.",
             delete_after=0)
         # return Response("kill yourself and don't come back again to ask me to kill myself, stupid peasant.", delete_after=0)
 
@@ -2808,9 +2828,9 @@ class RobTheBoat(discord.Client):
         else:
             return Response("You didn't enter a message. Templates: http://memegen.link/templates/", delete_after=0)
 
-    async def cmd_perf(self):
-        rt = random.choice(tweetsthatareokhand)
-        return Response(rt, delete_after=0)
+    #async def cmd_perf(self):
+    #    rt = random.choice(tweetsthatareokhand)
+    #    return Response(rt, delete_after=0)
 
     async def cmd_ver(self):
         return Response("`Ver. " + VER + " " + BUILD + "`", delete_after=0)
@@ -3118,14 +3138,14 @@ class RobTheBoat(discord.Client):
             await self.send_typing(message.channel)
             await self.send_message(message.channel, "Sent a message to the developers.")
             await self.send_message(discord.User(id='117678528220233731'), #Robin#0052
-                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n! Message: {}\n```".format(
-                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, alert))
+                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n- Server ID: {}\n- Shard ID: {}\n+ Message: {}\n```".format(
+                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, message.server.id, shard_id, alert))
             await self.send_message(discord.User(id="117053687045685248"), #Ryulise#0203
-                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n! Message: {}\n```".format(
-                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, alert))
+                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n- Server ID: {}\n- Shard ID: {}\n+ Message: {}\n```".format(
+                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, message.server.id, shard_id, alert))
             await self.send_message(discord.User(id="169597963507728384"), #CreeperSeth#9790
-                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n! Message: {}\n```".format(
-                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, alert))
+                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n- Server ID: {}\n- Shard ID: {}\n+ Message: {}\n```".format(
+                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, message.server.id, shard_id, alert))
 
             log.info("Message sent to the developers via the notifydev command: `" + alert)
         elif len(alert) == 0:
@@ -3746,6 +3766,26 @@ class RobTheBoat(discord.Client):
         syston = read_data_entry(message.server.id, "system-on")
         return Response("```xl\n~~~~~~~~~~Server Config~~~~~~~~~~\nMod Role Name: {}\nNSFW Channel Name: {}\nIgnore Role: {}\nServer-Side Bot Enabled: {}```".format(mod_role_name, nsfw_channel_name, ignore_role_name, syston))
 
+    async def cmd_determineshard(self, channel, id):
+         shard = None
+         if shard_id != "global":
+            if id == "110373943822540801" or "174228936954216448" or id >= "70373943822540800" and id <= "110373943822540800":
+                shard = "0"
+            elif id == "110373943822540801" or "174228936954216448" or id >= "110373943822540801" and id <= "174228936954216448":
+                shard = "1"
+            elif id == "174228936954216449" or "197799486813241354" or id >= "174228936954216449" and id <= "197799486813241354":
+                shard = "2"
+            elif id ==  "197799486813241355" or "214000000000000000" or id >= "197799486813241355" and id <= "214000000000000000":
+                shard = "3"
+            elif id == "21400000000000000" or "294000000000000000" or id >= "214000000000000001" and id <= "294000000000000000":
+                shard = "4"
+         if shard == None:
+             await self.send_message(channel, "`" + id + "` is not in any shard range")
+         elif shard == "global":
+             await self.send_message(channel, "This bot is not sharded.")
+         else:
+             await self.send_message(channel, "The shard ID for `" + id + "` is `" + shard + "`")
+
     async def cmd_config(self, message, type, value):
         """
         Usage: {command_prefix}config type value
@@ -3768,34 +3808,49 @@ class RobTheBoat(discord.Client):
         x = message.server.id
         if shard_id != "global":
             if shard_id == 0:
-                if x >= "70373943822540800" and x <= "110373943822540800":
+                if x >= "70373943822540800" and x <= "70373943822540800":
                     pass
                 else:
-                    return
+                    if x == "70373943822540800" or x == "70373943822540800":
+                        pass
+                    else:
+                        return
             if shard_id == 1:
                 if x >= "110373943822540801" and x <= "174228936954216448":
                     pass
                 else:
-                    return
+                    if x == "110373943822540801" or x == "174228936954216448":
+                        pass
+                    else:
+                        return
             if shard_id == 2:
                 if x >= "174228936954216449" and x <= "197799486813241354":
                     pass
                 else:
-                    return
+                    if x == "174228936954216449" or x == "197799486813241354":
+                        pass
+                    else:
+                        return
             if shard_id == 3:
                 if x >= "197799486813241355" and x <= "214000000000000000":
                     pass
                 else:
-                    return
+                    if x >= "197799486813241355" and x <= "214000000000000000":
+                        pass
+                    else:
+                        return
             if shard_id == 4:
                 if x >= "214000000000000001" and x <= "294000000000000000":
                     pass
                 else:
-                    return
-        if message.server.id != None:
-            pass
-        else:
-            return
+                    if x == "21400000000000001" or x == "294000000000000000":
+                        pass
+                    else:
+                        return
+            if message.server.id != None:
+                pass
+            else:
+                return
         ignore_role_name = read_data_entry(message.server.id, "ignore-role")
         mauthor = discord.utils.get(message.channel.server.members, name=message.author.name)
         if not discord.utils.get(mauthor.roles, name=ignore_role_name) == None:
