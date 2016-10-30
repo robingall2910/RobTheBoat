@@ -5,7 +5,7 @@ MAIN_VERSION = '4'
 SUB_VERSION = '-rev 1 '
 CODENAME = '"Version isn\'t found."'
 VER = VERSION + SUB_VERSION
-BDATE = 'September 27, 2016 @ 9:34 PM EDT'
+BDATE = 'October 30, 2016 @ 1:34 AM EDT'
 MAINVER = VERSION + SUB_VERSION + CODENAME
 BUILD_USERNAME = "Robin and Seth"
 
