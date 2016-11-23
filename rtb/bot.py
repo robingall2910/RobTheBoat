@@ -86,13 +86,8 @@ lock_status = False
 owner_id = "117678528220233731" or "117053687045685248" or "169597963507728384"
 shard_id = SID #begin sharding!
 
-# anal rape check, check.
-
 shard_zero_online = False
 shard_one_online = False
-shard_two_online = False
-shard_three_online = False
-shard_four_online = False
 
 #Discord Game Statuses! :D
 dis_games = [
@@ -191,31 +186,14 @@ dis_games = [
     discord.Game(name='DREW'),
     discord.Game(name='ITS THE LAW.'),
     discord.Game(name='DOOM'),
-    #discord.Game(name='Fallout Shelter is now available for PC! Install it now.'),
-    #discord.Game(name='9:30 PM'),
+    discord.Game(name='Fallout Shelter is now available for PC! Install it now.'),
+    discord.Game(name='9:30 PM'),
     discord.Game(name='why would anyone think that this is my golden ticket idea?'),
     discord.Game(name='PRESSURE, PRESSURE, NOOSE AROUND MY NECK'),
     discord.Game(name='jenna is cute'),
     discord.Game(name='crippling social anxiety'),
-    #discord.Game(name='HMU ON YOUTUBE: http://youtube.com/c/FUCKBOIS2016'),
-    discord.Game(name='Ow, my head hurts.'),
-    discord.Game(name='with your mom\'s dildos'),
-    discord.Game(name='on a truck'),
-    discord.Game(name='in a restroom'),
-    discord.Game(name='probably fapping'),
-    discord.Game(name='excuse you, I\'m having sex here?'),
-    discord.Game(name='please don\'t steal my car radio'),
-    discord.Game(name='AND NOW I JUST SIT IN SILENCE'),
-    discord.Game(name='as an ADC'),
-    discord.Game(name='Nozomi\'s breasts'),
-    discord.Game(name='with a tanuki'),
-    discord.Game(name='on Yami\'s thighs'),
-    discord.Game(name='with his sister ;)'),
-    discord.Game(name='on Momo\'s stomach'),
-    discord.Game(name='with Troy\'s (no)dong'),
-    discord.Game(name='on its calculator'),
-    discord.Game(name='SEGMENTATION FAULT'),
-    discord.Game(name='suriving the reading section on the PSAT without a calculator')
+    discord.Game(name='HMU ON YOUTUBE: http://youtube.com/c/FUCKBOIS2016'),
+    discord.Game(name='Ow, my head hurts.')
 ]
 
 #Regex for IP addresses
@@ -228,7 +206,7 @@ ipv6_regex = re.compile(
 ratelevel = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 
 #for the perf command, i might eventually remove it smh
-"""tweetsthatareokhand = [
+tweetsthatareokhand = [
     "http://i.imgur.com/lkMJ1O9.png",
     "http://i.imgur.com/rbGmZqV.png",
     "http://i.imgur.com/hYzNxVR.png",
@@ -251,7 +229,7 @@ ratelevel = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
     "https://cdn.discordapp.com/attachments/173887966031118336/177518766781890562/your-resistance-only-makes-my-penis-harder.jpg",
     "http://i.imgur.com/21bV05w.png",
     "http://i.imgur.com/7Y94F7L.png"
-]"""
+]
 
 #the .kill command messages
 suicidalmemes = [
@@ -2024,39 +2002,20 @@ class RobTheBoat(discord.Client):
             prog_str = ('`[{progress}]`' if streaming else '`[{progress}/{total}]`').format(
                 progress=song_progress, total=song_total
             )
-            prog_bar_str = ''
-
-            percentage = 0.0
-            if player.current_entry.duration > 0:
-                percentage = player.progress / player.current_entry.duration
-            """
-            This for loop adds  empty or full squares to prog_bar_str (it could look like
-            ■■■■■■■■■■□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□
-            if for example the song has already played 25% of the songs duration
-            """
-            progress_bar_length = 30
-            for i in range(progress_bar_length):
-                if (percentage < 1 / progress_bar_length * i):
-                    prog_bar_str += '□'
-                else:
-                    prog_bar_str += '■'
-
             action_text = 'Streaming' if streaming else 'Playing'
 
             if player.current_entry.meta.get('channel', False) and player.current_entry.meta.get('author', False):
-                np_text = "Now {action}: **{title}** added by **{author}**\nProgress: {progress_bar} {progress}\n\N{WHITE RIGHT POINTING BACKHAND INDEX} <{url}>".format(
+                np_text = "Now {action}: **{title}** added by **{author}** {progress}\n\N{WHITE RIGHT POINTING BACKHAND INDEX} <{url}>".format(
                     action=action_text,
                     title=player.current_entry.title,
                     author=player.current_entry.meta['author'].name,
-                    progress_bar=prog_bar_str,
                     progress=prog_str,
                     url=player.current_entry.url
                 )
             else:
-                np_text = "Now {action}: **{title}**\nProgress: {progress_bar} {progress}\n\N{WHITE RIGHT POINTING BACKHAND INDEX} <{url}>".format(
+                np_text = "Now {action}: **{title}** {progress}\n\N{WHITE RIGHT POINTING BACKHAND INDEX} <{url}>".format(
                     action=action_text,
                     title=player.current_entry.title,
-                    progress_bar=prog_bar_str,
                     progress=prog_str,
                     url=player.current_entry.url
                 )
@@ -2076,47 +2035,15 @@ class RobTheBoat(discord.Client):
 
         Call the bot to the voice channel.
         """
-        x = message.server.id #WHY HERE?
-        s0 = x >= "70373943822540800" and x <= "70373943822540800"
-        s1 = x >= "110373943822540801" and x <= "174228936954216448"
-        s2 = x >= "174228936954216449" and x <= "197799486813241354"
-        s3 = x >= "197799486813241355" and x <= "214000000000000000"
-        s4 = x >= "214000000000000001" and x <= "294000000000000000"
-        # if the server is EXACTLY the number so the shard doesn't ignore it
-        s0e = x == "70373943822540800" or x == "70373943822540800"
-        s1e = x == "110373943822540801" or x == "174228936954216448"
-        s2e = x == "174228936954216449" or x == "197799486813241354"
-        s3e = x == "197799486813241355" or x == "214000000000000000"
-        s4e = x == "21400000000000001" or x == "294000000000000000"
+
         if not author.voice_channel:
             raise exceptions.CommandError('You\'re not even connected to a voice channel...')
-        if s0 or s0e == True:
-            voice_client = self.voice_client_in(server)
-            if voice_client and server == author.voice_channel.server:
-                await voice_client.move_to(author.voice_channel)
-                return
-        elif s1 or s1e == True:
-            voice_client = self.voice_client_in(server)
-            if voice_client and server == author.voice_channel.server:
-                await voice_client.move_to(author.voice_channel)
-                return
-        elif s2 or s2e == True:
-            voice_client = self.voice_client_in(server)
-            if voice_client and server == author.voice_channel.server:
-                await voice_client.move_to(author.voice_channel)
-                return
-        elif s3 or s3e == True:
-            voice_client = self.voice_client_in(server)
-            if voice_client and server == author.voice_channel.server:
-                await voice_client.move_to(author.voice_channel)
-                return
-        elif s4 or s4e == True:
-            voice_client = self.voice_client_in(server)
-            if voice_client and server == author.voice_channel.server:
-                await voice_client.move_to(author.voice_channel)
-                return
-        else:
+
+        voice_client = self.voice_client_in(server)
+        if voice_client and server == author.voice_channel.server:
+            await voice_client.move_to(author.voice_channel)
             return
+
         # move to _verify_vc_perms?
         chperms = author.voice_channel.permissions_for(server.me)
 
@@ -2857,7 +2784,7 @@ class RobTheBoat(discord.Client):
     async def cmd_kys(self, message):
         # return Response("kill yourself and never _EVER_ come back to me again, you stupid peasant. how dare you ask me to die. like fucking hell, why not do it yourself to satisfy yourself?", delete_after=0)
         return Response(
-            "Fucking kill yourself man. You aren't needed in the world, unless, someone actually loves you. Right now, no one gives a shit about you. Go to hell and die in there, rot in there, and if you can't suicide if you need to.",
+            "Seriously? You're such a fucking faggot. Kill yourself, unironically, hell, I'd kill you myself you fucking little shit, stupid fucking shitrag.",
             delete_after=0)
         # return Response("kill yourself and don't come back again to ask me to kill myself, stupid peasant.", delete_after=0)
 
@@ -2881,9 +2808,9 @@ class RobTheBoat(discord.Client):
         else:
             return Response("You didn't enter a message. Templates: http://memegen.link/templates/", delete_after=0)
 
-    #async def cmd_perf(self):
-    #    rt = random.choice(tweetsthatareokhand)
-    #    return Response(rt, delete_after=0)
+    async def cmd_perf(self):
+        rt = random.choice(tweetsthatareokhand)
+        return Response(rt, delete_after=0)
 
     async def cmd_ver(self):
         return Response("`Ver. " + VER + " " + BUILD + "`", delete_after=0)
@@ -3191,14 +3118,14 @@ class RobTheBoat(discord.Client):
             await self.send_typing(message.channel)
             await self.send_message(message.channel, "Sent a message to the developers.")
             await self.send_message(discord.User(id='117678528220233731'), #Robin#0052
-                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n- Server ID: {}\n- Shard ID: {}\n+ Message: {}\n```".format(
-                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, message.server.id, shard_id, alert))
+                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n! Message: {}\n```".format(
+                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, alert))
             await self.send_message(discord.User(id="117053687045685248"), #Ryulise#0203
-                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n- Server ID: {}\n- Shard ID: {}\n+ Message: {}\n```".format(
-                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, message.server.id, shard_id, alert))
+                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n! Message: {}\n```".format(
+                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, alert))
             await self.send_message(discord.User(id="169597963507728384"), #CreeperSeth#9790
-                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n- Server ID: {}\n- Shard ID: {}\n+ Message: {}\n```".format(
-                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, message.server.id, shard_id, alert))
+                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n! Message: {}\n```".format(
+                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, alert))
 
             log.info("Message sent to the developers via the notifydev command: `" + alert)
         elif len(alert) == 0:
@@ -3305,36 +3232,20 @@ class RobTheBoat(discord.Client):
 
     @owner_only
     async def cmd_permsetgame(self, message, type, status):
-        x = message.server.id #WHY HERE?
-        s0 = x >= "70373943822540800" and x <= "70373943822540800"
-        s1 = x >= "110373943822540801" and x <= "174228936954216448"
-        s2 = x >= "174228936954216449" and x <= "197799486813241354"
-        s3 = x >= "197799486813241355" and x <= "214000000000000000"
-        s4 = x >= "214000000000000001" and x <= "294000000000000000"
-        # if the server is EXACTLY the number so the shard doesn't ignore it
-        s0e = x == "70373943822540800" or x == "70373943822540800"
-        s1e = x == "110373943822540801" or x == "174228936954216448"
-        s2e = x == "174228936954216449" or x == "197799486813241354"
-        s3e = x == "197799486813241355" or x == "214000000000000000"
-        s4e = x == "21400000000000001" or x == "294000000000000000"
-        if s0 or s0e or s1 or s1e or s2 or s2e or s3 or s3e or s4 or s4e == True:
-            global change_game
+        global change_game
         if type == "reset" and status is "none":
-            if s0 or s0e or s1 or s1e or s2 or s2e or s3 or s3e or s4 or s4e == True:
-                change_game = True
+            change_game = True
             return Response("Reset status, you can now use " + self.command_prefix + "setgame")
         elif type == "stream":
             status = message.content[len(self.command_prefix + "permsetgame " + type + " "):].strip()
-            if s0 or s0e or s1 or s1e or s2 or s2e or s3 or s3e or s4 or s4e == True:
-                change_game = False
+            change_game = False
             url = "https://twitch.tv/robingall2910"
             await self.change_presence(discord.Game(name=status, status=discord.Status.online, url=url, type=1))
             return Response(
                 "changed to stream mode with the status as `" + status + "` and as the URL as `" + url + "`.")
         elif type == "normal":
             status = message.content[len(self.command_prefix + "permsetgame " + type + " "):].strip()
-            if s0 or s0e or s1 or s1e or s2 or s2e or s3 or s3e or s4 or s4e == True:
-                change_game = False
+            change_game = False
             await self.change_presence(discord.Game(name=status, status=discord.Status.online))
             return Response("changed to normal status change mode with the status as `" + status + "`.")
         elif type == "none" and status is "none":
@@ -3356,8 +3267,7 @@ class RobTheBoat(discord.Client):
             {command_prefix}setstatus name
         Sets the game playing in the bot's status
         """
-        if s0 or s0e or s1 or s1e or s2 or s2e or s3 or s3e or s4 or s4e == True:
-            global cycle
+        global cycle
         n = message.content[len(self.command_prefix + "setgame "):].strip()
         if lock_status is True:
             return Response("The status is currently locked")
@@ -3817,15 +3727,12 @@ class RobTheBoat(discord.Client):
 
     async def cmd_stats(client, message):
         await client.send_message(message.channel,
-                                  "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Shard ID: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Server Emoji Count: {}\n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nMessage from the developer: do .devmsg to read```".format(
+                                  "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Shard ID: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Server Emoji Count: {}\n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n```".format(
                                       BUNAME, MVER, BUILD, SID, len(set(client.get_all_members())),
                                       len(set(client.messages)), len(client.servers),
                                       len(set(client.get_all_channels())), len(set(client.private_channels)),
                                       discord.__version__, len(message.server.emojis), time.strftime("%A, %B %d, %Y"),
                                       time.strftime("%I:%M:%S %p")))
-
-    async def cmd_devmsg(client, message):
-        return Response("Hi there. This is a message from the main developer, Robin. I know you guys like to complain that the bot keeps dying and such, but this was my first project with doing something with python and Discord itself. So it might, might not be my fault that I didn't learn enough. Still, I keep trying to find ways and more ways about on how to fix problems with the bot. Sooner or later, this version of the bot is gonna die. I'll start coding in Ruby, and it'll probably make this bot actually live again. Anyway, I'll keep trying. I also have Seth on my side to help and so you guys can complain to him first then me. Anyway. Thanks for reading furries n faggots. Have fun listening, and thank you for using my bot.", delete_after=0)
 
     @dev_only
     async def cmd_shardstatus(self, message):
@@ -3838,26 +3745,6 @@ class RobTheBoat(discord.Client):
         ignore_role_name = read_data_entry(message.server.id, "ignore-role")
         syston = read_data_entry(message.server.id, "system-on")
         return Response("```xl\n~~~~~~~~~~Server Config~~~~~~~~~~\nMod Role Name: {}\nNSFW Channel Name: {}\nIgnore Role: {}\nServer-Side Bot Enabled: {}```".format(mod_role_name, nsfw_channel_name, ignore_role_name, syston))
-
-    async def cmd_determineshard(self, channel, id):
-         shard = None
-         if shard_id != "global":
-            if id == "110373943822540801" or "174228936954216448" or id >= "70373943822540800" and id <= "110373943822540800":
-                shard = "0"
-            elif id == "110373943822540801" or "174228936954216448" or id >= "110373943822540801" and id <= "174228936954216448":
-                shard = "1"
-            elif id == "174228936954216449" or "197799486813241354" or id >= "174228936954216449" and id <= "197799486813241354":
-                shard = "2"
-            elif id ==  "197799486813241355" or "214000000000000000" or id >= "197799486813241355" and id <= "214000000000000000":
-                shard = "3"
-            elif id == "21400000000000000" or "294000000000000000" or id >= "214000000000000001" and id <= "294000000000000000":
-                shard = "4"
-         if shard == None:
-             await self.send_message(channel, "`" + id + "` is not in any shard range")
-         elif shard == "global":
-             await self.send_message(channel, "This bot is not sharded.")
-         else:
-             await self.send_message(channel, "The shard ID for `" + id + "` is `" + shard + "`")
 
     async def cmd_config(self, message, type, value):
         """
@@ -3878,54 +3765,37 @@ class RobTheBoat(discord.Client):
             return Response(type + " is not a valid type! If you need help go to the help website, or ask in the viralbot and napsta server by doing .serverinv")
 
     async def on_message(self, message):
-        #status or cmd_reboot or cmd_timetodie == True and shard_id is not "global":
-        #    pass
+        x = message.server.id
         if shard_id != "global":
-            x = message.server.id
             if shard_id == 0:
-                if x >= "70373943822540800" and x <= "70373943822540800":
+                if x >= "70373943822540800" and x <= "110373943822540800":
                     pass
                 else:
-                    if x == "70373943822540800" or x == "70373943822540800":
-                        pass
-                    else:
-                        return
+                    return
             if shard_id == 1:
                 if x >= "110373943822540801" and x <= "174228936954216448":
                     pass
                 else:
-                    if x == "110373943822540801" or x == "174228936954216448":
-                        pass
-                    else:
-                        return
+                    return
             if shard_id == 2:
                 if x >= "174228936954216449" and x <= "197799486813241354":
                     pass
                 else:
-                    if x == "174228936954216449" or x == "197799486813241354":
-                        pass
-                    else:
-                        return
+                    return
             if shard_id == 3:
                 if x >= "197799486813241355" and x <= "214000000000000000":
                     pass
                 else:
-                    if x == "197799486813241355" or x == "214000000000000000":
-                        pass
-                    else:
-                        return
+                    return
             if shard_id == 4:
                 if x >= "214000000000000001" and x <= "294000000000000000":
                     pass
                 else:
-                    if x == "21400000000000001" or x == "294000000000000000":
-                        pass
-                    else:
-                        return
-            if message.server.id != None:
-                pass
-            else:
-                return
+                    return
+        if message.server.id != None:
+            pass
+        else:
+            return
         ignore_role_name = read_data_entry(message.server.id, "ignore-role")
         mauthor = discord.utils.get(message.channel.server.members, name=message.author.name)
         if not discord.utils.get(mauthor.roles, name=ignore_role_name) == None:
@@ -3933,9 +3803,6 @@ class RobTheBoat(discord.Client):
         if respond is False:
             if not message.author.id == owner_id and message.author.id != "169597963507728384" and message.author.id != "117053687045685248":
                 return
-        sys = read_data_entry(message.server.id, "system-on")
-        if sys is "no" and not message.author.id == owner_id and not message.server.owner.id == True:
-            return
         elif message.content == "BrAiNpOwEr https://www.youtube.com/watch?v=P6Z_s5MfDiA":
             await self.send_message(message.channel, "WHAT HAVE YOU DONE.")
         elif message.author.bot == True: #Why isn't this fucking implemented yet on the main

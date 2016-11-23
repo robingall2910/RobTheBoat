@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect("db/Some Dragon.db")
+conn = sqlite3.connect("data/Some Dragon.db")
 cur = conn.cursor()
 
 def create_table():
