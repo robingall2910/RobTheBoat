@@ -3627,9 +3627,9 @@ class RobTheBoat(discord.Client):
         return Response("The help list is on here: https://dragonfire.me/robtheboat/info.html", delete_after=0)
 
     async def cmd_serverinv(self, message):
-        await self.safe_send_message(message.channel, "Sent via a PM.")
+        await self.safe_send_message(message.channel, "Check your private messages!")
         await self.safe_send_message(message.author,
-                                     "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
+                                     "https://discord.gg/qBj2ZRT - Going in for some bot help? Ask either Robin, Seth or Ryulise to help. Mention them. Or else death.")
 
     @dev_only
     async def cmd_hax0r(self, message):
