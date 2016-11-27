@@ -1,11 +1,11 @@
 import os.path
 
-VERSION = '4.0.4'
+VERSION = '4.0.5'
 MAIN_VERSION = '4'
-SUB_VERSION = '-rev 1 '
-CODENAME = '"Version isn\'t found."'
+SUB_VERSION = '-drogoz-final'
+CODENAME = '"What are you lookin at?"'
 VER = VERSION + SUB_VERSION
-BDATE = 'September 27, 2016 @ 9:34 PM EDT'
+BDATE = 'November 27, 2016 @ 5:15 PM EST'
 MAINVER = VERSION + SUB_VERSION + CODENAME
 BUILD_USERNAME = "Robin and Seth"
 
