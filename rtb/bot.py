@@ -24,6 +24,7 @@ import re
 import random
 import cleverbot
 import objgraph
+import psutil
 
 #python imports
 from io import BytesIO, StringIO
@@ -616,7 +617,7 @@ class RobTheBoat(discord.Client):
                     log.info("trying to slow down connection")
                     joined_servers.add(server)
                     asyncio.sleep(105)
-                    
+
 
                     log.info("Joined {0.server.name}/{0.name}".format(channel))
 
@@ -1341,8 +1342,10 @@ class RobTheBoat(discord.Client):
                 owner.discriminator
             ))
 
-            log.info('Server List:')
-            [log.info(' - ' + s.name) for s in self.servers]
+            #there's literally about 1.7k servers whats the point to show them all now
+            #log.info('Server List:')
+            #[log.info(' - ' + s.name) for s in self.servers]
+            log.info(str(len(self.servers)) + " servers seen.")
 
         elif self.servers:
             log.warning("Owner could not be found on any server (id: %s)\n" % self.config.owner_id)
@@ -1511,7 +1514,7 @@ class RobTheBoat(discord.Client):
                 return
             await self.send_message(message.channel, "Successfully unblacklisted `" + entry.get("name") + "#" + entry.get("discrim") + "`")
         else:
-            await self.send_message(message.channel, "Valid actions are `add` and `remove`") 
+            await self.send_message(message.channel, "Valid actions are `add` and `remove`")
 
     async def cmd_showblacklist(self, channel):
         blacklist = getblacklist()
@@ -1544,7 +1547,7 @@ class RobTheBoat(discord.Client):
         Asks the bot to join a server.  Note: Bot accounts cannot use invite links.
         """
 
-        if self.user.bot:
+        """if self.user.bot:
             url = await self.generate_invite_link()
             return Response(
                 #"Click here to add me to a server: \n{} - Use .notifydev if there's any problem.".format(url),
@@ -1559,6 +1562,8 @@ class RobTheBoat(discord.Client):
 
         except:
             raise exceptions.CommandError('Invalid URL provided:\n{}\n'.format(server_link), expire_in=30)
+            """
+        return Response("This command is deprecated. To invite the bot, open this: https://inv.rtb.dragonfire.me/")
 
     async def cmd_play(self, player, channel, author, permissions, leftover_args, song_url):
         """
@@ -2077,17 +2082,17 @@ class RobTheBoat(discord.Client):
         Call the bot to the voice channel.
         """
         x = message.server.id #WHY HERE?
-        s0 = x >= "70373943822540800" and x <= "70373943822540800"
-        s1 = x >= "110373943822540801" and x <= "174228936954216448"
-        s2 = x >= "174228936954216449" and x <= "197799486813241354"
-        s3 = x >= "197799486813241355" and x <= "214000000000000000"
-        s4 = x >= "214000000000000001" and x <= "294000000000000000"
+        s0 = x >= "70373943822540800" and x <= "110373943822540800"
+        s1 = x >= "110373943822540801" and x <= "14228936954216448"
+        s2 = x >= "144228936954216449" and x <= "197799486813241354"
+        s3 = x >= "197799486813241355" and x <= "244799486813241355"
+        s4 = x >= "244799486813241355" and x <= "294000000000000000"
         # if the server is EXACTLY the number so the shard doesn't ignore it
-        s0e = x == "70373943822540800" or x == "70373943822540800"
-        s1e = x == "110373943822540801" or x == "174228936954216448"
-        s2e = x == "174228936954216449" or x == "197799486813241354"
-        s3e = x == "197799486813241355" or x == "214000000000000000"
-        s4e = x == "21400000000000001" or x == "294000000000000000"
+        s0e = x == "70373943822540800" or x == "110373943822540800"
+        s1e = x == "110373943822540801" or x == "144228936954216448"
+        s2e = x == "144228936954216449" or x == "197799486813241354"
+        s3e = x == "197799486813241355" or x == "244799486813241354"
+        s4e = x == "244799486813241355" or x == "294000000000000000"
         if not author.voice_channel:
             raise exceptions.CommandError('You\'re not even connected to a voice channel...')
         if s0 or s0e == True:
@@ -2894,13 +2899,21 @@ class RobTheBoat(discord.Client):
             "What's new in " + VER + ": `deprecated, check the website OR check #ViralBot and Napsta's #todo-list/#announcements`",
             delete_after=0)
 
-    async def cmd_prune(self, channel, amount):
+    async def cmd_prune(self, message, amount, username): #heck
+        mod_role_name = read_data_entry(message.server.id, "mod-role")
+        user_id = extract_user_id(username)
+        member = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
+        mauthor = discord.utils.get(message.channel.server.members, name=message.author.name)
+        botcommander = discord.utils.get(message.author.roles, name=mod_role_name)
+        if botcommander == None:
+            raise exceptions.CommandError('You must have the \"' + mod_role_name + '\" role in order to use that command.',
+                                          expire_in=30)
         try:
             harambe = int(amount)
         except:
             raise exceptions.CommandError("That's not a valid number man.")
-        deleted = await self.purge_from(channel, limit=harambe)
-        await self.send_message(channel, "I deleted {} messages.".format(len(deleted)))
+        deleted = await self.purge_from(message.channel, limit=harambe)
+        await self.send_message(message.channel, "I deleted {} messages.".format(len(deleted)))
 
     @owner_only
     async def cmd_rtb(self, message, client):
@@ -2981,6 +2994,8 @@ class RobTheBoat(discord.Client):
             if not nsfw:
                 raise exceptions.CommandError('I must have the \"NSFW\" role in order to use that command in other channels that are not named \"' + nsfw_channel_name + '\", if you want to change this please notify your server owner ' + message.server.owner.name + "#" + message.server.owner.discriminator + " so they can change the .config.")
         await self.send_typing(message.channel)
+        if tags == None:
+            return Response("You didn't enter tags in. Please remember, this e621 command requires _tags_. Refer to the following links about tags: <https://e621.net/help/show/tags> and <https://e621.net/help/show/cheatsheet>")
         boobs = message.content[len(self.command_prefix + "e621 "):].strip()
         download_file("https://e621.net/post/index.xml?tags=" + boobs, "data/e621.xml")
         xmldoc = minidom.parse("data/e621.xml")
@@ -3102,6 +3117,12 @@ class RobTheBoat(discord.Client):
             return Response("Error, couldn't send command", delete_after=30)
 
     @owner_only
+    async def cmd_leavedeadservers(self, message, count: int):
+    	x = len([server for server in self.servers if len(server.members) < count])
+    	for server in self.servers in range(x):
+    		await self.leave_server()
+
+    @owner_only
     async def cmd_spam(self, message, times: int, lol):
         kek = copy.copy(lol)
         for i in range(times):
@@ -3173,10 +3194,11 @@ class RobTheBoat(discord.Client):
 
     async def cmd_ping(self, message):
         pingtime = time.time()
-        memes = random.choice(["pinging server...", "fucking furries...", "AAAAAAAAAAAAAAAAAA",
+        memes = random.choice(["pinging server...", "hmu on snapchat", "is \"meming\" a thing?", "sometimes I'm scared of furries myself.", "You might not understand, but this is gross.", "***0.0 secs***", "hi", "u h h h h h h h h h h h h h", "instagram live is lit asf", "SHOW THAT ASS MY NIG",
+                               "fucking furries...", "fucking maxie", "AAAAAAAAAAAAAAAAAA",
                                "why the fuck am I even doing this for you?", "but....", "meh.", "...",
                                "Did you really expect something better?", "kek", "I'm killing your dog next time.",
-                               "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.", "Damn it seth, why does your internet have to be slow?"])
+                               "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.", "Damn it seth, why does your internet have to be slow?", "EJ pls.", "Go check out ViralBot today! It's lit."])
         topkek = memes
         pingms = await self.send_message(message.channel, topkek)
         ping = time.time() - pingtime
@@ -3189,7 +3211,7 @@ class RobTheBoat(discord.Client):
         alert = message.content[len(".notifydev"):].strip()
         if len(alert) > 0:
             await self.send_typing(message.channel)
-            await self.send_message(message.channel, "Sent a message to the developers.")
+            await self.send_message(message.channel, "Sent a message to the bot administrators, please wait for a reply.")
             await self.send_message(discord.User(id='117678528220233731'), #Robin#0052
                                     "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n- Server ID: {}\n- Shard ID: {}\n+ Message: {}\n```".format(
                                         message.author.name, message.author.discriminator, message.author.id, message.server.name, message.server.id, shard_id, alert))
@@ -3422,8 +3444,8 @@ class RobTheBoat(discord.Client):
                                     "The `Muted` role was not found, creating one, re-run the command one more time")
             await self.create_role(message.channel.server, name="Muted", color=discord.Color(5130312),
                                    mentionable=False, hoist=True)
-        elif mute_role != None and discord.errors.Forbidden:
-            await self.send_message(message.channel, "I'm not allowed to make a role... Damn it.")
+        #elif mute_role != None and discord.errors.Forbidden:
+        #    await self.send_message(message.channel, "I'm not allowed to make a role... Damn it.")
         else:
             await self.send_message(message.channel,
                                     "Created. You can change the color and permissions of it if you want.")
@@ -3457,8 +3479,8 @@ class RobTheBoat(discord.Client):
             await self.create_role(message.channel.server, name="Muted", color=discord.Color(5130312),
                                    mentionable=False, hoist=True)
             return
-        elif mute_role != None and discord.errors.Forbidden:
-            await self.send_message(message.channel, "I'm not allowed to make a role... Damn it.")
+        #elif mute_role != None and discord.errors.Forbidden:
+        #    await self.send_message(message.channel, "I'm not allowed to make a role... Damn it.")
         else:
             await self.send_message(message.channel,
                                     "Created. You can change the color and permissions of it if you want.")
@@ -3717,9 +3739,9 @@ class RobTheBoat(discord.Client):
         return Response("The help list is on here: https://dragonfire.me/robtheboat/info.html", delete_after=0)
 
     async def cmd_serverinv(self, message):
-        await self.safe_send_message(message.channel, "Check your private messages, I sent you the invite.")
+        await self.safe_send_message(message.channel, "Sent via a PM.")
         await self.safe_send_message(message.author,
-                                     "https://discord.gg/qBj2ZRT - Going in for help? Do it in #bot-shit, mention someone that has a light-blue color. Robin isn't there? Ask Seth. if not, Ryulise.")
+                                     "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
 
     @dev_only
     async def cmd_hax0r(self, message):
@@ -3816,13 +3838,27 @@ class RobTheBoat(discord.Client):
         await self.send_message(message.channel, "\n".join(map(str, emotes)))
 
     async def cmd_stats(client, message):
-        await client.send_message(message.channel,
-                                  "```xl\n ~~~~~~RTB System Stats~~~~~\n Built by {}\n Bot Version: {}\n Build Date: {}\n Shard ID: {}\n Users: {}\n User Message Count: {}\n Servers: {}\n Channels: {}\n Private Channels: {}\n Discord Python Version: {}\n Server Emoji Count: {}\n Date: {}\n Time: {}\n ~~~~~~~~~~~~~~~~~~~~~~~~~~\n\nMessage from the developer: do .devmsg to read```".format(
-                                      BUNAME, MVER, BUILD, SID, len(set(client.get_all_members())),
-                                      len(set(client.messages)), len(client.servers),
-                                      len(set(client.get_all_channels())), len(set(client.private_channels)),
-                                      discord.__version__, len(message.server.emojis), time.strftime("%A, %B %d, %Y"),
-                                      time.strftime("%I:%M:%S %p")))
+        musage = psutil.Process().memory_full_info().uss / 1024**2
+        uniqueonline = str(sum(1 for m in client.get_all_members() if m.status != discord.Status.offline))
+        sethsfollowers = str(sum(len(s.members) for s in client.servers))
+        em = discord.Embed(description="\u200b")
+        em.title = client.user.name + "'s Help Server"
+        em.url = "https://discord.gg/qBj2ZRT"
+        em.add_field(name='Created by', value='Robin#0052 and Seth#9790')
+        em.add_field(name='Bot Version', value=MVER)
+        em.add_field(name="Build Date", value=BUILD)
+        em.add_field(name='Shard ID', value="Shard " + str(SID))
+        em.add_field(name='Voice Connections', value=str(len(client.voice_clients)) + " servers.")
+        em.add_field(name='Servers', value=len(client.servers))
+        em.add_field(name='Members', value=sethsfollowers + " members while only " + uniqueonline + " are online.")
+        em.add_field(name='Memory Usage (Shard ' + str(SID) + " only)", value='{:.2f} MiB'.format(musage))
+
+        em.timestamp = message.timestamp
+        em.set_author(name=client.user.name + "#" + client.user.discriminator + "'s Stats", icon_url=client.user.avatar_url)
+        #em.set_footer(text="Requested by " + message.author.name + "#" + message.author.discriminator + " // " + time.strftime("%A, %B %d, %Y") + " " + time.strftime("%I:%M %p") + " EST", icon_url=message.author.avatar_url)
+        em.set_footer(text="Requested by " + message.author.name + "#" + message.author.discriminator, icon_url=message.author.avatar_url)
+        em.timestamp = message.timestamp
+        await client.send_message(message.channel, embed=em)
 
     async def cmd_devmsg(client, message):
         return Response("Hi there. This is a message from the main developer, Robin. I know you guys like to complain that the bot keeps dying and such, but this was my first project with doing something with python and Discord itself. So it might, might not be my fault that I didn't learn enough. Still, I keep trying to find ways and more ways about on how to fix problems with the bot. Sooner or later, this version of the bot is gonna die. I'll start coding in Ruby, and it'll probably make this bot actually live again. Anyway, I'll keep trying. I also have Seth on my side to help and so you guys can complain to him first then me. Anyway. Thanks for reading furries n faggots. Have fun listening, and thank you for using my bot.", delete_after=0)
@@ -3839,7 +3875,7 @@ class RobTheBoat(discord.Client):
         syston = read_data_entry(message.server.id, "system-on")
         return Response("```xl\n~~~~~~~~~~Server Config~~~~~~~~~~\nMod Role Name: {}\nNSFW Channel Name: {}\nIgnore Role: {}\nServer-Side Bot Enabled: {}```".format(mod_role_name, nsfw_channel_name, ignore_role_name, syston))
 
-    async def cmd_determineshard(self, channel, id):
+    """async def cmd_determineshard(self, channel, id):
          shard = None
          if shard_id != "global":
             if id == "110373943822540801" or "174228936954216448" or id >= "70373943822540800" and id <= "110373943822540800":
@@ -3857,7 +3893,7 @@ class RobTheBoat(discord.Client):
          elif shard == "global":
              await self.send_message(channel, "This bot is not sharded.")
          else:
-             await self.send_message(channel, "The shard ID for `" + id + "` is `" + shard + "`")
+             await self.send_message(channel, "The shard ID for `" + id + "` is `" + shard + "`")"""
 
     async def cmd_config(self, message, type, value):
         """
@@ -3880,45 +3916,46 @@ class RobTheBoat(discord.Client):
     async def on_message(self, message):
         #status or cmd_reboot or cmd_timetodie == True and shard_id is not "global":
         #    pass
+
         if shard_id != "global":
             x = message.server.id
             if shard_id == 0:
-                if x >= "70373943822540800" and x <= "70373943822540800":
+                if x >= "70373943822540800" and x <= "110373943822540800":
                     pass
                 else:
-                    if x == "70373943822540800" or x == "70373943822540800":
+                    if x == "70373943822540800" or x == "110373943822540800":
                         pass
                     else:
                         return
             if shard_id == 1:
-                if x >= "110373943822540801" and x <= "174228936954216448":
+                if x >= "110373943822540801" and x <= "14228936954216448":
                     pass
                 else:
-                    if x == "110373943822540801" or x == "174228936954216448":
+                    if x == "110373943822540801" or x == "144228936954216448":
                         pass
                     else:
                         return
             if shard_id == 2:
-                if x >= "174228936954216449" and x <= "197799486813241354":
+                if x >= "144228936954216449" and x <= "197799486813241354":
                     pass
                 else:
-                    if x == "174228936954216449" or x == "197799486813241354":
+                    if x == "144228936954216449" or x == "197799486813241354":
                         pass
                     else:
                         return
             if shard_id == 3:
-                if x >= "197799486813241355" and x <= "214000000000000000":
+                if x >= "197799486813241355" and x <= "2447994868132413554":
                     pass
                 else:
-                    if x == "197799486813241355" or x == "214000000000000000":
+                    if x == "197799486813241355" or x == "244799486813241354":
                         pass
                     else:
                         return
             if shard_id == 4:
-                if x >= "214000000000000001" and x <= "294000000000000000":
+                if x >= "244799486813241355" and x <= "294000000000000000":
                     pass
                 else:
-                    if x == "21400000000000001" or x == "294000000000000000":
+                    if x == "244799486813241355" or x == "294000000000000000":
                         pass
                     else:
                         return
@@ -3928,8 +3965,8 @@ class RobTheBoat(discord.Client):
                 return
         ignore_role_name = read_data_entry(message.server.id, "ignore-role")
         mauthor = discord.utils.get(message.channel.server.members, name=message.author.name)
-        if not discord.utils.get(mauthor.roles, name=ignore_role_name) == None:
-            return
+        #if not discord.utils.get(mauthor.roles, name=ignore_role_name) == None:
+        #    return
         if respond is False:
             if not message.author.id == owner_id and message.author.id != "169597963507728384" and message.author.id != "117053687045685248":
                 return
