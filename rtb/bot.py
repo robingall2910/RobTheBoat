@@ -2896,12 +2896,12 @@ class RobTheBoat(discord.Client):
     # always remember to update this everytime you do an edit
     async def cmd_changes(self):
         return Response(
-            "What's new in " + VER + ": `deprecated, check the website OR check #ViralBot and Napsta's #todo-list/#announcements`",
+            "What's new in " + VER + ": `deprecated, check the website OR check #Some Hangout's #announcements`",
             delete_after=0)
 
-    async def cmd_prune(self, message, amount, username): #heck
+    async def cmd_prune(self, message, amount): #heck
         mod_role_name = read_data_entry(message.server.id, "mod-role")
-        user_id = extract_user_id(username)
+        user_id = message.author.id
         member = discord.utils.find(lambda mem: mem.id == str(user_id), message.channel.server.members)
         mauthor = discord.utils.get(message.channel.server.members, name=message.author.name)
         botcommander = discord.utils.get(message.author.roles, name=mod_role_name)
@@ -3208,20 +3208,13 @@ class RobTheBoat(discord.Client):
         # await self.edit_message(pingms, "hi. ` %ms`" % (ping[:-5]))
 
     async def cmd_notifydev(self, message, alert):
+    	server = "`{}` / `{}`".format(message.server.id, message.server.name)
+    	msg = make_message_embed(message.author, 0xFF4500, message, formatUser=True)
         alert = message.content[len(".notifydev"):].strip()
+        notifyids = ['117678528220233731', '117053687045685248', '169597963507728384'] #in this order: Robin#0052, #Ryulise#0203, and Seth#9790
         if len(alert) > 0:
-            await self.send_typing(message.channel)
-            await self.send_message(message.channel, "Sent a message to the bot administrators, please wait for a reply.")
-            await self.send_message(discord.User(id='117678528220233731'), #Robin#0052
-                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n- Server ID: {}\n- Shard ID: {}\n+ Message: {}\n```".format(
-                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, message.server.id, shard_id, alert))
-            await self.send_message(discord.User(id="117053687045685248"), #Ryulise#0203
-                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n- Server ID: {}\n- Shard ID: {}\n+ Message: {}\n```".format(
-                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, message.server.id, shard_id, alert))
-            await self.send_message(discord.User(id="169597963507728384"), #CreeperSeth#9790
-                                    "```diff\n+ NEW MESSAGE\n- {}#{} \n- ID: {}\n- Server: {}\n- Server ID: {}\n- Shard ID: {}\n+ Message: {}\n```".format(
-                                        message.author.name, message.author.discriminator, message.author.id, message.server.name, message.server.id, shard_id, alert))
-
+        	for id in notifyids:
+        		await bot.send_message(discord.User(id=id), "There's a new message. The user's ID is `{}` Server: {}".format(message.author.id, server), embed=msg)
             log.info("Message sent to the developers via the notifydev command: `" + alert)
         elif len(alert) == 0:
             await self.send_message(message.channel, "You'd need to put a message in this....")
@@ -3739,9 +3732,9 @@ class RobTheBoat(discord.Client):
         return Response("The help list is on here: https://dragonfire.me/robtheboat/info.html", delete_after=0)
 
     async def cmd_serverinv(self, message):
-        await self.safe_send_message(message.channel, "Sent via a PM.")
+        await self.safe_send_message(message.channel, "Check your PMs.")
         await self.safe_send_message(message.author,
-                                     "https://discord.gg/0xyhWAU4n2ji9ACe - If you came for RTB help, ask for Some Dragon, not Music-Napsta. Or else people will implode.")
+                                     "https://discord.gg/qBj2ZRT - Going in for help? Do it in #bot-shit, mention someone that has a light-blue color. Robin isn't there? Ask Seth. if not, Ryulise.")
 
     @dev_only
     async def cmd_hax0r(self, message):
@@ -3851,7 +3844,8 @@ class RobTheBoat(discord.Client):
         em.add_field(name='Voice Connections', value=str(len(client.voice_clients)) + " servers.")
         em.add_field(name='Servers', value=len(client.servers))
         em.add_field(name='Members', value=sethsfollowers + " members while only " + uniqueonline + " are online.")
-        em.add_field(name='Memory Usage (Shard ' + str(SID) + " only)", value='{:.2f} MiB'.format(musage))
+        em.add_field(name="\u200b", value="\u200b", inline=True)  # dummy field cuz discord is retarded
+        em.add_field(name='Memory Usage', value='{:.2f} MiB - Shard {} only'.format(musage, str(SID)))
 
         em.timestamp = message.timestamp
         em.set_author(name=client.user.name + "#" + client.user.discriminator + "'s Stats", icon_url=client.user.avatar_url)
@@ -3861,8 +3855,8 @@ class RobTheBoat(discord.Client):
         await client.send_message(message.channel, embed=em)
 
     async def cmd_devmsg(client, message):
-        return Response("Hi there. This is a message from the main developer, Robin. I know you guys like to complain that the bot keeps dying and such, but this was my first project with doing something with python and Discord itself. So it might, might not be my fault that I didn't learn enough. Still, I keep trying to find ways and more ways about on how to fix problems with the bot. Sooner or later, this version of the bot is gonna die. I'll start coding in Ruby, and it'll probably make this bot actually live again. Anyway, I'll keep trying. I also have Seth on my side to help and so you guys can complain to him first then me. Anyway. Thanks for reading furries n faggots. Have fun listening, and thank you for using my bot.", delete_after=0)
-
+        #return Response("Hi there. This is a message from the main developer, Robin. I know you guys like to complain that the bot keeps dying and such, but this was my first project with doing something with python and Discord itself. So it might, might not be my fault that I didn't learn enough. Still, I keep trying to find ways and more ways about on how to fix problems with the bot. Sooner or later, this version of the bot is gonna die. I'll start coding in Ruby, and it'll probably make this bot actually live again. Anyway, I'll keep trying. I also have Seth on my side to help and so you guys can complain to him first then me. Anyway. Thanks for reading furries n faggots. Have fun listening, and thank you for using my bot.", delete_after=0)
+        return Response("This doesn't exist anymore. Deleted `12/15/2016 at 9:11 PM EST`")
     @dev_only
     async def cmd_shardstatus(self, message):
         await self.send_message(message.channel, "Shard 0 online: " + str(shard_zero_online) + "\nShard 1 online: " + str(shard_one_online))
@@ -4257,15 +4251,15 @@ class RobTheBoat(discord.Client):
 
 
     async def on_server_join(self, server:discord.Server):
-        log.info("Bot has been joined server: {}".format(server.name))
+        log.info("Added to server: {}".format(server.name))
         log.debug("Creating data folder for server %s", server.id)
         pathlib.Path('data/%s/' % server.id).mkdir(exist_ok=True)
 
 
     async def on_server_remove(self, server: discord.Server):
-        log.info("Bot has been removed from server: {}".format(server.name))
-        log.debug('Updated server list:')
-        [log.debug(' - ' + s.name) for s in self.servers]
+        log.info("Left Server: {}".format(server.name))
+        #log.debug('Updated server list:')
+        #[log.debug(' - ' + s.name) for s in self.servers]
 
         if server.id in self.players:
             self.players.pop(server.id).kill()
