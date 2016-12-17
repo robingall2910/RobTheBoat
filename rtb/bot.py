@@ -56,7 +56,7 @@ from .opus_loader import load_opus_lib
 from .config import Config, ConfigDefaults
 from .permissions import Permissions, PermissionsDefaults
 from .constructs import SkipState, Response, VoiceStateUpdate
-from .utils import load_file, write_file, download_file, sane_round_int, fixg, ftimedelta, extract_user_id
+from .utils import load_file, write_file, download_file, sane_round_int, fixg, ftimedelta, extract_user_id, make_message_embed
 from .mysql import *
 from .blacklist import *
 
@@ -3208,13 +3208,13 @@ class RobTheBoat(discord.Client):
         # await self.edit_message(pingms, "hi. ` %ms`" % (ping[:-5]))
 
     async def cmd_notifydev(self, message, alert):
-    	server = "`{}` / `{}`".format(message.server.id, message.server.name)
-    	msg = make_message_embed(message.author, 0xFF4500, message, formatUser=True)
+        server = "`{}` (Shard `{}`) / `{}`".format(message.server.id, str(SID), message.server.name)
         alert = message.content[len(".notifydev"):].strip()
+        msg = make_message_embed(message.author, 0xFF4500, alert, formatUser=True)
         notifyids = ['117678528220233731', '117053687045685248', '169597963507728384'] #in this order: Robin#0052, #Ryulise#0203, and Seth#9790
         if len(alert) > 0:
-        	for id in notifyids:
-        		await bot.send_message(discord.User(id=id), "There's a new message. The user's ID is `{}` Server: {}".format(message.author.id, server), embed=msg)
+            for id in notifyids:
+                await self.send_message(discord.User(id=id), "There's a new message. The user's ID is `{}` Server: {}".format(message.author.id, server), embed=msg)
             log.info("Message sent to the developers via the notifydev command: `" + alert)
         elif len(alert) == 0:
             await self.send_message(message.channel, "You'd need to put a message in this....")

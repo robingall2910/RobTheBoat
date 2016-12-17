@@ -4,6 +4,7 @@ import logging
 import aiohttp
 import re
 import requests
+import discord
 
 from hashlib import md5
 from .constants import DISCORD_MSG_CHAR_LIMIT
@@ -47,6 +48,25 @@ def extract_user_id(argument):
     match = _USER_ID_MATCH.match(argument.replace("!", ""))
     if match:
         return int(match.group(1))
+
+def format_user(insertnerovar):
+    return insertnerovar.name + "#" + insertnerovar.discriminator
+
+def make_message_embed(author, color, message, *, formatUser=False, useNick=False):
+    if formatUser:
+        name = format_user(author)
+    else:
+        if useNick and author.nick:
+            name = author.nick
+        else:
+            name = author.name
+    if author.avatar_url:
+        avatar = author.avatar_url
+    else:
+        avatar = author.default_avatar_url
+    embed = discord.Embed(color=color, description=message)
+    embed.set_author(name=name, icon_url=avatar)
+    return embed
 
 def sane_round_int(x):
     return int(decimal.Decimal(x).quantize(1, rounding=decimal.ROUND_HALF_UP))
