@@ -3748,7 +3748,7 @@ class RobTheBoat(discord.Client):
                 "%I:%M:%S %p") + "\n" + "```", delete_after=0)
 
     async def cmd_talk(client, message):
-        cb1 = cleverbot.Cleverbot()
+        cb1 = cleverbot.Cleverbot('rtb')
         unsplit = message.content.split("talk")
         split = unsplit[1]
         answer = (cb1.ask(split))
