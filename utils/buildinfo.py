@@ -1,0 +1,4 @@
+BUILD_VERSION = "5.1"
+BUILD_AUTHORS = "Seth#0780 and Robin#0052"
+BUILD_CODENAME = "woah bye af"
+BUILD_DATE = "January 6th, 2017 at 6:01 PM EST"

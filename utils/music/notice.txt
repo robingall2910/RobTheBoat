@@ -1,0 +1,3 @@
+Hey there, just a notification for everyone out there for everyone using this bot. This might look stable and secure, but it really isn't. This is in a beta-like mode. If there's an error, please don't hesitate to either message based robin#0052 or Seth#0780. If you are unable to reach us, use .notifydev. Thanks for reading!
+
+- Bot Developers

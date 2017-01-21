@@ -1,1 +1,0 @@
-SHARD_ID = "global"
