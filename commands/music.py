@@ -126,6 +126,7 @@ class Music:
                     return
             try:
                 player = await state.voice.create_ytdl_player(song, ytdl_options=ytdl_format_options, after=state.toggle_next)
+                await asyncio.sleep(1)
             except Exception as e:
                 await self.bot.say("An error occurred while processing this request: {}".format(py.format("{}: {}".format(type(e).__name__, e))))
                 return
@@ -248,9 +249,16 @@ class Music:
             current_song = "Now playing: {}".format(state.current)
             if len(songs) != 0:
                 songs = "{}\n\n{}".format(current_song, "\n".join([str(song) for song in songs]))
-            else:
+            elif len(songs) == 0:
                 songs = "{}".format(current_song)
+            else len(songs) > 23:
+                songs = "{}".format("Too many songs requested, will not be displayed. Queue is longer than 23 songs.")
             await self.bot.say(songs)
+
+    @commands.command(pass_context=True)
+    async def np(self, ctx):
+        current_song = "Now playing: {}".format(state.current)
+        await self.bot.say(current_song)
 
     @commands.command()
     async def musicnotice(self):
