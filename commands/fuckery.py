@@ -138,7 +138,12 @@ class Fuckery():
     @commands.command(pass_context=True)
     async def talk(self, ctx, *, message:str):
         """Talk to the bot"""
-        await self.bot.say(ctx.message.author.name + ": " + cb().ask(message))
+        #all of this might not be needed but fuck it anyway.
+        cb1 = cleverbot.Cleverbot('Discord Bot')
+        unsplit = ctx.message.content.split("talk")
+        split = unsplit[1]
+        answer = (cb1.ask(split))
+        await self.bot.say(ctx.message.author.name + ": " + answer)
 
     @commands.command()
     async def ship(self, user1:discord.User=None, user2:discord.User=None):
@@ -154,7 +159,7 @@ class Fuckery():
         if user is None:
             await self.bot.say("I rate you a {}/10".format(random.randint(0, 10)))
         else:
-            await self.bot.say("I rate {} a {}/10".format(user.mention, random.randint(0, 10)))
+            await self.bot.say("I rate {} a {}/10".format(duser.mention, random.randint(0, 10)))
 
     @commands.command()
     async def honk(self):
