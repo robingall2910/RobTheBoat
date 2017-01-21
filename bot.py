@@ -466,8 +466,8 @@ async def ping(ctx):
                                "Did you really expect something better?", "kek", "I'm killing your dog next time.",
                                "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.", "Damn it seth, why does your internet have to be slow?", "EJ pls.", "Go check out ViralBot today! It's lit."])
     topkek = memes
-    ping = time.time() - pingtime
     pingms = await bot.send_message(ctx.message.channel, topkek)
+    ping = time.time() - pingtime
     await bot.edit_message(pingms, topkek + " // ***%.01f secs***" % (ping))
 
 @bot.command()
