@@ -2,12 +2,12 @@ import asyncio
 import cat
 import random
 import os
+import cleverbot
 
 from discord.ext import commands
 from utils.tools import *
 from utils.unicode import *
 from utils.fun.lists import *
-from cleverbot import Cleverbot as cb
 
 class Fuckery():
     def __init__(self, bot):
