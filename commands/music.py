@@ -251,7 +251,7 @@ class Music:
                 songs = "{}\n\n{}".format(current_song, "\n".join([str(song) for song in songs]))
             elif len(songs) == 0:
                 songs = "{}".format(current_song)
-            else len(songs) >= 23:
+            elif len(songs) >= 23:
                 songs = "{}".format("Too many songs requested, will not be displayed. Queue is longer than 23 songs.")
             await self.bot.say(songs)
 
