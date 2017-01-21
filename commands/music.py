@@ -7,7 +7,7 @@ from utils.mysql import *
 from utils.logger import log
 from utils import checks
 
-ytdl_format_options = {"outtmpl": "data/music/%(extractor)s-%(id)s-%(title)s.%(ext)s", "format": "bestaudio/best", "noplaylist": True, "nocheckcertificate": True, "ignoreerrors": False, "logtostderr": False, "quiet": True, "no_warnings": True, "default_search": "auto", "source_address": "0.0.0.0"}
+ytdl_format_options = {"outtmpl": "data/music/%(extractor)s-%(id)s-%(title)s.%(ext)s", "format": "bestaudio/best", "noplaylist": True, "nocheckcertificate": True, "prefer_insecure": True, "ignoreerrors": False, "logtostderr": False, "quiet": True, "no_warnings": True, "default_search": "auto", "source_address": "0.0.0.0"}
 
 class VoiceEntry:
     def __init__(self, message, player):
