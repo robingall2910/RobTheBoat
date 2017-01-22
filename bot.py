@@ -45,15 +45,8 @@ change_log = [
 ]
 
 async def _restart_bot():
-    loop = asyncio.get_event_loop()
-
-    try:
-        loop.run_until_complete(bot.login(config._token))
-        loop.run_until_complete(bot.connect())
-    except Exception:
-    	loop.run_until_complete(os.system("/home/robingall2910/rtb{}/bot.py".format(shard_id)))
-    finally:
-    	loop.close()
+    await bot.logout()
+    subprocess.call([sys.executable, "bot.py"])
 
 
 async def _shutdown_bot():
