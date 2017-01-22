@@ -159,7 +159,7 @@ class Fuckery():
         if user is None:
             await self.bot.say("I rate you a {}/10".format(random.randint(0, 10)))
         else:
-            await self.bot.say("I rate {} a {}/10".format(duser.mention, random.randint(0, 10)))
+            await self.bot.say("I rate {} a {}/10".format(user.mention, random.randint(0, 10)))
 
     @commands.command()
     async def honk(self):
