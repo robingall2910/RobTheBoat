@@ -15,15 +15,15 @@ psat_memes = [
 
 # Response for the 8ball command
 magic_conch_shell = [
-    "It is certain",
-    "It is decidedly so",
-    "Without a doubt",
-    "Yes definitely",
+    "It's probably certain.",
+    "Kinda true.",
+    "Without a doubt.",
+    "Definitely fam",
     "You may rely on it",
-    "As I see it yes",
+    "As I see it, yeah.",
     "Most likely",
     "Outlook good",
-    "Yes",
+    "yes.",
     "Signs point to yes",
     "Reply hazy try again",
     "Ask again later",
@@ -82,8 +82,8 @@ compliments = [
     "....yeah uhm, you're amazing",
     "you're a wonderful person",
     "i like you.....",
-    "wanna talk about some things?"
-]
+    "your hair doesn't look like a weave, it's actually real."
+    ]
 
 # Drunk lines for the actdrunk command
 drunkaf = [
