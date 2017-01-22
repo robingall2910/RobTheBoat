@@ -343,6 +343,21 @@ async def showblacklist():
         blacklist = "\n".join(blacklist)
     await bot.say(xl.format("Total blacklisted users: {}\n\n{}".format(count, blacklist)))
 
+@bot.command()
+async def commands_used(self):
+    """Gives info on how many commands have been used."""
+    msg = []
+    if dict(self.bot.commands_used):
+        for k, v in dict(self.bot.commands_used).items():
+            msg.append(str(k), str(v) + "uses")
+    else:
+        msg = [("None", "No commands seemed to have been run yet!")]
+    if self.bot.embeddable:
+            await self.bot.say(content="", embed=discord.Embed(title="Commands Run:", description=util.neatly(
+                entries=msg, colors="autohotkey")))
+            return
+    await self.bot.say(util.neatly(entries=msg, colors="autohotkey"))
+
 @bot.command(hidden=True)
 @checks.is_owner()
 async def lockstatus():
