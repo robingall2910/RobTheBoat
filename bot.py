@@ -45,8 +45,16 @@ change_log = [
 ]
 
 async def _restart_bot():
-    await bot.logout()
-    subprocess.call([sys.executable, "bot.py"])
+    loop = asyncio.get_event_loop()
+
+    try:
+        loop.run_until_complete(bot.login(config._token))
+        loop.run_until_complete(bot.connect())
+    except Exception:
+    	loop.run_until_complete(os.system("bot.py"))
+    finally:
+    	loop.close()
+
 
 async def _shutdown_bot():
     try:
@@ -445,6 +453,18 @@ async def reload(*, extension:str):
         await bot.say("Reloaded {}!".format(extension))
     else:
         await bot.say("Extension isn't available.")
+
+@bot.command(hidden=True)
+@checks.is_dev()
+async def disable(*, extension:str):
+	"""Disables an extension"""
+	extension = "commands.{}".format(extension)
+	if extension in extension:
+		await bot.say("Disabling {}...".format(extension))
+		bot.unload_exension(extension)
+		await bot.say("Disabled {}.".format(extension))
+	else:
+		await bot.say("Extension isn't available.")
 
 @bot.command(pass_context=True)
 async def joinserver(ctx):
