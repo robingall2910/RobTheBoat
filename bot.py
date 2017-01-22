@@ -352,11 +352,13 @@ async def commands_used(self):
             msg.append(str(k), str(v) + "uses")
     else:
         msg = [("None", "No commands seemed to have been run yet!")]
-    if self.bot.embeddable:
+    """if self.bot.embeddable:
             await self.bot.say(content="", embed=discord.Embed(title="Commands Run:", description=util.neatly(
                 entries=msg, colors="autohotkey")))
-            return
-    await self.bot.say(util.neatly(entries=msg, colors="autohotkey"))
+            return"""
+    #await self.bot.say(util.neatly(entries=msg, colors="autohotkey"))
+    await self.bot.say("Commands Ran: " + msg)
+    #its not neat but damn you EJH2
 
 @bot.command(hidden=True)
 @checks.is_owner()
