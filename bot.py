@@ -51,7 +51,7 @@ async def _restart_bot():
         loop.run_until_complete(bot.login(config._token))
         loop.run_until_complete(bot.connect())
     except Exception:
-    	loop.run_until_complete(os.system("bot.py"))
+    	loop.run_until_complete(os.system("/home/robingall2910/rtb{}/bot.py".format(shard_id)))
     finally:
     	loop.close()
 
@@ -124,7 +124,7 @@ async def on_command_error(error, ctx):
     if isinstance(error, commands.CommandNotFound):
         return
     if ctx.message.channel.is_private:
-        await bot.send_message(ctx.message.channel, "Command borked. If this is in a PM, do it in the server. Try to report this with {}notifydev.".format(config.command_preifx))
+        await bot.send_message(ctx.message.channel, "Command borked. If this is in a PM, do it in the server. Try to report this with {}notifydev.".format(config.command_prefix))
         return
 
     # In case the bot failed to send a message to the channel, the try except pass statement is to prevent another error
