@@ -367,17 +367,16 @@ async def lockstatus():
 
 @bot.command(pass_context=True)
 async def stream(ctx, *, name:str):
-    """Sets the streaming status with the specified name"""
+    """Sets the status for the bot stream mode. Advertise your twitch and shit if you'd like."""
     if lock_status:
         await bot.say("The status is currently locked.")
         return
     await bot.change_presence(game=discord.Game(name=name, type=1, url="https://www.twitch.tv/robingall2910"))
     await bot.say("Now streaming `{}`".format(name))
-    #await channel_logger.log_to_channel(":information_source: `{}`/`{}` changed the streaming status to `{}`".format(ctx.message.author.id, ctx.message.author, name))
 
 @bot.command(pass_context=True)
 async def changestatus(ctx, status:str, *, name:str=None):
-    """Changes the bot's status with the specified status type and name"""
+    """Changes the bot status to a certain status type and game/name/your shitty advertisement/seth's life story/your favorite beyonce lyrics and so on"""
     if lock_status:
         await bot.say("The status is currently locked")
         return
@@ -511,7 +510,7 @@ async def github():
     await bot.say("My official github repo can be found here: https://github.com/robingall2910/RobTheBoat")
 
 @bot.command()
-async def stats():
+async def stats(self):
     """Grabs bot statistics."""
     SID = shard_id
     musage = psutil.Process().memory_full_info().uss / 1024**2
@@ -523,14 +522,15 @@ async def stats():
     em = discord.Embed(description="\u200b")
     em.title = bot.user.name + "'s Help Server"
     em.url = "https://discord.gg/qBj2ZRT"
+    em.set_thumbnail(url=self.bot.user.avatar_url)
     em.add_field(name='Created by', value='Robin#0052 and Seth#9790')
     em.add_field(name='Bot Version', value=BUILD_VERSION)
     em.add_field(name="Build Date", value=BUILD_DATE)
     em.add_field(name='Shard ID', value="Shard " + str(SID))
-    em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.")
+    em.add_field(name='Voice Connections', value=str(len(self.bot.voice_clients)) + " servers.")
     em.add_field(name='Servers', value=sumitup)
-    em.add_field(name='Members', value=sethsfollowers + " members while only " + uniqueonline + " are online.")
-    em.add_field(name="Shard Server Count", value=len(bot.servers), inline=True)
+    em.add_field(name='Members', value=sumupmembers + "/" + sumupuni)
+    em.add_field(name="Shard Server Count", value=len(self.bot.servers))
     em.add_field(name='Memory Usage', value='{:.2f} MiB - Shard {} only'.format(musage, str(SID)))
     await bot.say(embed=em)
 
