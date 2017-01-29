@@ -88,7 +88,7 @@ class Information():
         await self.bot.say(emote.url)
 
     @commands.command()
-    async def discrim(self, *, discriminator:str):
+    async def discr(self, *, discriminator:str):
         """Gets a username#discriminator list of all users that the bot can see with the specified discriminator"""
         members = []
         for member in list(self.bot.get_all_members()):
@@ -111,7 +111,7 @@ class Information():
         await self.bot.say("Days until christmas: `{} days`".format((christmas - date.today()).days))
 
     @commands.command()
-    async def daystillchristmas(self):
+    async def daystillnewyears(self):
         """Displays how many days until it's christmas"""
         await self.bot.say("Days until new years: `{} days`".format((newyear - date.today()).days))
 
@@ -179,8 +179,18 @@ class Information():
         except IndexError:
             await self.bot.say("Could find any osu! profile named `{}`".format(username))
             return
-        results = xl.format("~~~~~~~~~~Osu! Stats~~~~~~~~~~\nUsername: {}\nID: {}\nCountry: {}\nLevel: {}\nTotal hits: {}\nTotal score: {}\nAccuracy: {}\nPlay count: {}\nRanked score: {}\nA rank: {}\nS rank: {}\nSS rank: {}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~".format("\"" + user.username + "\"", user.user_id, "\"" + user.country + "\"", int(user.level), user.total_hits, user.total_score, "{0:.2f}%".format(user.accuracy), user.playcount, user.ranked_score,user.count_rank_a, user.count_rank_s, user.count_rank_ss))
-        await self.bot.say(results)
+        results = discord.Embed(description="\u200b")
+        results.title = user.username + "'s osu! stats"
+        results.add_field(name='ID', value=user.user_id)
+        results.add_field(name='Country', value=user.country)
+        results.add_field(name='Level', value=int(user.level))
+        results.add_field(name='Total Hits', value=user.total_hits)
+        results.add_field(name='Total Score', value=user.total_score)
+        results.add_field(name='Accuracy', value="{0:.2f}%".format(user.accuracy))
+        results.add_field(name='Play Count', value=user.playcount)
+        results.add_field(name='Ranked Score', value=user.ranked_score)
+        results.add_field(name='A Rank Count/S Rank Count/SS Rank Count', value="{}/{}/{}".format(user.ranked_score,user.count_rank_a, user.count_rank_s, user.count_rank_ss))
+        await self.bot.say(embed=results)
 
     @commands.command(pass_context=True)
     async def donate(self, ctx):
