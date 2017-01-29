@@ -279,9 +279,9 @@ async def notifydev(ctx, *, message:str):
     else:
         server = "`{}` / `{}`".format(ctx.message.server.id, ctx.message.server.name)
     msg = make_message_embed(ctx.message.author, 0xCC0000, message, formatUser=True)
-    await bot.send_message(discord.User(id=config.owner_id), "You have received a new message! The user's ID is `{}` Server: {}".format(ctx.message.author.id, server), embed=msg)
+    await bot.send_message(discord.User(id=config.owner_id), "You have received a new message! The user's ID is `{}` Server: {} Shard: {}".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
     for id in config.dev_ids:
-        await bot.send_message(discord.User(id=id), "You have received a new message! The user's ID is `{}` Server: {}".format(ctx.message.author.id, server), embed=msg)
+        await bot.send_message(discord.User(id=id), "You have received a new message! The user's ID is `{}` Server: {} Shard: {}".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
     await bot.send_message(ctx.message.author, "You've sent a message to the developers. The following message contained: `{}`".format(message))
     await bot.say("Message sent!")
 
