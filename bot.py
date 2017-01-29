@@ -73,7 +73,7 @@ async def set_default_status():
                 os._exit(1)
             game = discord.Game(name=game, url="http://twitch.tv/robingall2910", type=1)
         else:
-            game = discord.Game(name="Shard " + str(shard_id) + " - " + game)
+            game = discord.Game(name="Shard {} of {} // {} guilds on this shard".format(str(shard_id), str(shard_count), len(bot.servers)))
         await bot.change_presence(status=type, game=game)
     else:
         await bot.change_presence(status=type)
@@ -508,6 +508,12 @@ async def website():
 async def github():
     """Gives the link to the github repo"""
     await bot.say("My official github repo can be found here: https://github.com/robingall2910/RobTheBoat")
+
+@bot.command()
+async def sneaky(self, ctx):
+    hax = await self.create_invite(
+    discord.utils.find(lambda m: m.name == ctx.message.content[len(".hax0r"):].strip(), self.servers))
+    await self.send_message(message.channel, hax)
 
 @bot.command()
 async def stats(self):
