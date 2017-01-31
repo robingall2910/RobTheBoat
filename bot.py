@@ -493,7 +493,8 @@ async def ping(ctx):
                                "fucking furries...", "fucking maxie", "AAAAAAAAAAAAAAAAAA",
                                "why the fuck am I even doing this for you?", "but....", "meh.", "...",
                                "Did you really expect something better?", "kek", "I'm killing your dog next time.",
-                               "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.", "Damn it seth, why does your internet have to be slow?", "EJ pls.", "Go check out ViralBot today! It's lit."])
+                               "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.", "Damn it seth, why does your internet have to be slow?", "EJ pls.", "Go check out ViralBot today! It's lit.", "pink floyd", "how do u feel, how do u feel now, aaaaaaaaaaaaa?", "alan's psychadelic breakfast", "Oh.. er.. me flakes.. scrambled eggs.. bacon.. sausages.. tomatoes.. toast.. coffee.. marmalade. I like marmalade.. yes.. porridge is nice, any cereal.. I like all cereals.."
+                               "so, how's was trumps bullshit on executive orders?"])
     topkek = memes
     pingms = await bot.send_message(ctx.message.channel, topkek)
     ping = time.time() - pingtime
@@ -509,10 +510,10 @@ async def github():
     """Gives the link to the github repo"""
     await bot.say("My official github repo can be found here: https://github.com/robingall2910/RobTheBoat")
 
-@bot.command()
+@bot.command(hidden=True)
 async def sneaky(self, ctx):
     hax = await self.create_invite(
-    discord.utils.find(lambda m: m.name == ctx.message.content[len(".hax0r"):].strip(), self.servers))
+    discord.utils.find(lambda m: m.name == ctx.message.content[len(".sneaky "):].strip(), self.bot.servers))
     await self.send_message(message.channel, hax)
 
 @bot.command()
