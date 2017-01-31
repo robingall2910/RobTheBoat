@@ -69,7 +69,7 @@ class Information():
 
     @commands.command(pass_context=True)
     async def roleinfo(self, ctx, *, name:str):
-        """Gets information on a role"""
+        """Gets information on a role, warning, it might take up the entire screen"""
         role = discord.utils.get(ctx.message.server.roles, name=name)
         if role is None:
             await self.bot.say("`{}` is not a valid role".format(name))
