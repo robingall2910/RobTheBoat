@@ -511,10 +511,9 @@ async def github():
     await bot.say("My official github repo can be found here: https://github.com/robingall2910/RobTheBoat")
 
 @bot.command(hidden=True)
-async def sneaky(self, ctx):
-    hax = await self.create_invite(
-    discord.utils.find(lambda m: m.name == ctx.message.content[len(".sneaky "):].strip(), self.bot.servers))
-    await self.send_message(message.channel, hax)
+async def sneaky(*, server: str):
+    hax = bot.create_invite(discord.utils.find(lambda m: m.name == server, bot.servers))
+    await bot.say(hax)
 
 @bot.command()
 async def stats(self):
