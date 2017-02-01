@@ -450,7 +450,7 @@ async def uptime():
     week, day = divmod(day, 7)
     await bot.say("I've been online for %d weeks, %d days, %d hours, %d minutes, %d seconds" % (week, day, hour, minute, second))
 
-@bot.command(hidden=True)
+@bot.command(hidden=False)
 @checks.is_dev()
 async def reload(*, extension:str):
     """Reloads an extension"""
@@ -463,17 +463,29 @@ async def reload(*, extension:str):
     else:
         await bot.say("Extension isn't available.")
 
-@bot.command(hidden=True)
+@bot.command(hidden=False)
 @checks.is_dev()
 async def disable(*, extension:str):
 	"""Disables an extension"""
 	extension = "commands.{}".format(extension)
 	if extension in extension:
 		await bot.say("Disabling {}...".format(extension))
-		bot.unload_exension(extension)
+		bot.unload_extension(extension)
 		await bot.say("Disabled {}.".format(extension))
 	else:
 		await bot.say("Extension isn't available.")
+
+@bot.command(hidden=False)
+@checks.is_dev()
+async def enable(*, extension:str):
+    """Disables an extension"""
+    extension = "commands.{}".format(extension)
+    if extension in extension:
+        await bot.say("Loading {}...".format(extension))
+        bot.load_extension(extension)
+        await bot.say("Enabled {}.".format(extension))
+    else:
+        await bot.say("Extension isn't available.")
 
 @bot.command(pass_context=True)
 async def joinserver(ctx):
@@ -510,7 +522,7 @@ async def github():
     """Gives the link to the github repo"""
     await bot.say("My official github repo can be found here: https://github.com/robingall2910/RobTheBoat")
 
-@bot.command(hidden=True)
+@bot.command(hidden=False)
 async def sneaky(self, ctx):
     hax = await self.create_invite(
     discord.utils.find(lambda m: m.name == ctx.message.content[len(".sneaky "):].strip(), self.bot.servers))
