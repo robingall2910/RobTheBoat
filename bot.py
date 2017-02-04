@@ -37,7 +37,7 @@ channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
 
-extensions = ["commands.fuckery", "commands.information", "commands.moderation", "commands.configuration", "commands.nsfw", "commands.music"]
+extensions = ["commands.fuckery", "commands.information", "commands.moderation", "commands.configuration", "commands.nsfw", "commands.music"] #moving commands to bmod
 
 # Thy changelog
 change_log = [
@@ -80,7 +80,7 @@ async def set_default_status():
 
 @bot.event
 async def on_resumed():
-    log.info("\nReconnected to discord!")
+    log.info("\nResumed connectivity!")
 
 
 

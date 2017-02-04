@@ -1,4 +1,4 @@
-BUILD_VERSION = "5.4.1"
-BUILD_AUTHORS = "Seth#0780 and Robin#0052"
-BUILD_CODENAME = "Le Revolution"
-BUILD_DATE = "January 31st, 2016 @ 3:48 PM EST"
+BUILD_VERSION = "5.5"
+BUILD_AUTHORS = "based robin#0052 and "
+BUILD_CODENAME = "French Revolution from Louis XIV"
+BUILD_DATE = "Febuary 4th, 2016 @ 12:20 PM EST"
