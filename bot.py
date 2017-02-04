@@ -288,7 +288,7 @@ async def notifydev(ctx, *, message:str):
 @bot.command(hidden=True, pass_context=True)
 @checks.is_dev()
 async def blacklist(ctx, id:str, *, reason:str):
-    """Blacklists a user"""
+    """Blacklists a user, BOT OWNER ONLY."""
     await bot.send_typing(ctx.message.channel)
     user = discord.utils.get(list(bot.get_all_members()), id=id)
     if user is None:
@@ -450,7 +450,7 @@ async def uptime():
     week, day = divmod(day, 7)
     await bot.say("I've been online for %d weeks, %d days, %d hours, %d minutes, %d seconds" % (week, day, hour, minute, second))
 
-@bot.command(hidden=False)
+@bot.command(hidden=True)
 @checks.is_dev()
 async def reload(*, extension:str):
     """Reloads an extension"""
@@ -463,7 +463,7 @@ async def reload(*, extension:str):
     else:
         await bot.say("Extension isn't available.")
 
-@bot.command(hidden=False)
+@bot.command(hidden=True)
 @checks.is_dev()
 async def disable(*, extension:str):
 	"""Disables an extension"""
@@ -475,7 +475,7 @@ async def disable(*, extension:str):
 	else:
 		await bot.say("Extension isn't available.")
 
-@bot.command(hidden=False)
+@bot.command(hidden=True)
 @checks.is_dev()
 async def enable(*, extension:str):
     """Disables an extension"""
@@ -522,14 +522,13 @@ async def github():
     """Gives the link to the github repo"""
     await bot.say("My official github repo can be found here: https://github.com/robingall2910/RobTheBoat")
 
-@bot.command(hidden=False)
-async def sneaky(self, ctx):
-    hax = await self.create_invite(
-    discord.utils.find(lambda m: m.name == ctx.message.content[len(".sneaky "):].strip(), self.bot.servers))
-    await self.send_message(message.channel, hax)
+@bot.command(hidden=True)
+async def sneaky(*, server: str):
+    hax = bot.create_invite(discord.utils.find(lambda m: m.name == server, bot.servers))
+    await bot.say(hax)
 
 @bot.command()
-async def stats(self):
+async def stats():
     """Grabs bot statistics."""
     SID = shard_id
     musage = psutil.Process().memory_full_info().uss / 1024**2
@@ -541,15 +540,15 @@ async def stats(self):
     em = discord.Embed(description="\u200b")
     em.title = bot.user.name + "'s Help Server"
     em.url = "https://discord.gg/qBj2ZRT"
-    em.set_thumbnail(url=self.bot.user.avatar_url)
+    em.set_thumbnail(url=bot.user.avatar_url)
     em.add_field(name='Created by', value='Robin#0052 and Seth#9790')
     em.add_field(name='Bot Version', value=BUILD_VERSION)
     em.add_field(name="Build Date", value=BUILD_DATE)
     em.add_field(name='Shard ID', value="Shard " + str(SID))
-    em.add_field(name='Voice Connections', value=str(len(self.bot.voice_clients)) + " servers.")
+    em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.")
     em.add_field(name='Servers', value=sumitup)
     em.add_field(name='Members', value=sumupmembers + "/" + sumupuni)
-    em.add_field(name="Shard Server Count", value=len(self.bot.servers))
+    em.add_field(name="Shard Server Count", value=len(bot.servers))
     em.add_field(name='Memory Usage', value='{:.2f} MiB - Shard {} only'.format(musage, str(SID)))
     await bot.say(embed=em)
 
