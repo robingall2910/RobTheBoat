@@ -109,28 +109,27 @@ class Moderation():
 
     @commands.command(pass_context=True)
     async def masshban(self, ctx, ids:str, *):
-    """Massively bans a group of IDs from the server (Useful if they aren't on the server yet)"""
-    mod_role_name = read_data_entry(ctx.message.server.id, "mod-role")
-    mod = discord.utils.get(ctx.message.server.id, name=mod_role_name)
-    fuck = asyncio.get_event_loop()
-    if not mod:
-        await self.bot.say("You must have the `{}` role in order to use that command.".format(mod_role_name))
-        return
-    if reason is None:
+        """Massively bans a group of IDs from the server (Useful if they aren't on the server yet)"""
+        mod_role_name = read_data_entry(ctx.message.server.id, "mod-role")
+        mod = discord.utils.get(ctx.message.server.id, name=mod_role_name)
+        fuck = asyncio.get_event_loop()
+        if not mod:
+            await self.bot.say("You must have the `{}` role in order to use that command.".format(mod_role_name))
+            return
+        if reason is None:
         reason = "none"
-    try:
+        try:
+            for id in ids:
+                await self.bot.http.ban(id, ctx.message.server.id)
+        except discord.errors.HTTPException or discord.errors.NotFound:
+            await self.bot.say("No discord user has the id of `{}`".format(id))
+            return
+        except discord.errors.Forbidden:
+            await self.bot.say("I don't have the permission to ban members.")
+        banlist = await self.bot.get_bans(ctx.message.server)
         for id in ids:
-            await self.bot.http.ban(id, ctx.message.server.id)
-    except discord.errors.HTTPException or discord.errors.NotFound:
-        await self.bot.say("No discord user has the id of `{}`".format(id))
-        return
-    except discord.errors.Forbidden:
-        await self.bot.say("I don't have the permission to ban members.")
-    banlist = await self.bot.get_bans(ctx.message.server)
-    for id in ids:
-        user = discord.utils.get(banlist, id=id)
-        await self.bot.say("Successfully banned `{}`".format(user))
-
+            user = discord.utils.get(banlist, id=id)
+            await self.bot.say("Successfully banned `{}`".format(user))
 
     @commands.command(pass_context=True)
     async def banlist(self, ctx):
