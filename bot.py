@@ -547,7 +547,7 @@ async def stats():
     em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
     em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.", inline=True)
     em.add_field(name='Servers', value=sumitup, inline=True)
-    em.add_field(name='Members', value=sumupuni + "***online*** out of " + sumupmembers, inline=True)
+    em.add_field(name='Members', value=sumupuni + " ***online*** out of " + sumupmembers, inline=True)
     em.add_field(name="Shard Server Count", value=len(bot.servers), inline=True)
     em.add_field(name='Memory Usage', value='{:.2f} MiB - Shard {} only'.format(musage, str(SID)), inline=True)
     await bot.say(embed=em)
