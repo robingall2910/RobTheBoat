@@ -108,7 +108,7 @@ class Moderation():
         #await self.logger.mod_log(ctx.message.server, "`{}` banned `{}` Reason: `{}`".format(ctx.message.author, user, reason))
 
     @commands.command(pass_context=True)
-    async def masshban(self, ctx, ids:str, *):
+    async def masshban(self, ctx, *, ids:str):
         """Massively bans a group of IDs from the server (Useful if they aren't on the server yet)"""
         mod_role_name = read_data_entry(ctx.message.server.id, "mod-role")
         mod = discord.utils.get(ctx.message.server.id, name=mod_role_name)
