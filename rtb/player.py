@@ -13,7 +13,8 @@ from collections import deque
 from shutil import get_terminal_size
 from websockets.exceptions import InvalidState
 
-from discord.http import _func_
+#from discord.http import _func_
+from discord import *
 
 from .utils import avg
 from .lib.event_emitter import EventEmitter
