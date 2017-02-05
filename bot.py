@@ -535,8 +535,8 @@ async def stats():
     uniqueonline = str(sum(1 for m in bot.get_all_members() if m.status != discord.Status.offline))
     sethsfollowers = str(sum(len(s.members) for s in bot.servers))
     sumitup = str(int(len(bot.servers)) * int(shard_count))
-    sumupmembers = int(str(sethsfollowers)) * int(shard_count)
-    sumupuni = int(str(uniqueonline)) * int(shard_count)
+    sumupmembers = str(int(str(sethsfollowers)) * int(shard_count))
+    sumupuni = str(int(str(uniqueonline)) * int(shard_count))
     em = discord.Embed(description="\u200b")
     em.title = bot.user.name + "'s Help Server"
     em.url = "https://discord.gg/qBj2ZRT"
