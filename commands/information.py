@@ -193,6 +193,11 @@ class Information():
         await self.bot.say(embed=results)
 
     @commands.command(pass_context=True)
+    async def github(self, ctx, * username:str):
+        """Gets a github profile and posts the current stats of that user."""
+        return
+
+    @commands.command(pass_context=True)
     async def donate(self, ctx):
         await self.bot.say("`http://donate.dragonfire.me` - Here I guess. I can't keep up with the server, so I'm going to need all the help I can get. Thanks.")
 
