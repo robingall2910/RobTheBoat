@@ -117,7 +117,7 @@ class Moderation():
             await self.bot.say("You must have the `{}` role in order to use that command.".format(mod_role_name))
             return
         if reason is None:
-        reason = "none"
+            reason = "none"
         try:
             for id in ids:
                 await self.bot.http.ban(id, ctx.message.server.id)
