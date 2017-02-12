@@ -138,8 +138,7 @@ class Fuckery():
     @commands.command(pass_context=True)
     async def talk(self, ctx, *, message:str):
         """Talk to the bot"""
-        #all of this might not be needed but fuck it anyway.
-        cb1 = cleverbot.Cleverbot('Discord Bot')
+        cb1 = cleverbot.Cleverbot()
         unsplit = ctx.message.content.split("talk")
         split = unsplit[1]
         answer = (cb1.ask(split))
