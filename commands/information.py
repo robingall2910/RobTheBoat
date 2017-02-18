@@ -191,12 +191,7 @@ class Information():
         results.add_field(name='Ranked Score', value=user.ranked_score)
         results.add_field(name='A Rank Count/S Rank Count/SS Rank Count', value="{}/{}/{}".format(user.ranked_score,user.count_rank_a, user.count_rank_s, user.count_rank_ss))
         await self.bot.say(embed=results)
-
-    @commands.command(pass_context=True)
-    async def github(self, ctx, * username:str):
-        """Gets a github profile and posts the current stats of that user."""
-        return
-
+        
     @commands.command(pass_context=True)
     async def donate(self, ctx):
         await self.bot.say("`http://donate.dragonfire.me` - Here I guess. I can't keep up with the server, so I'm going to need all the help I can get. Thanks.")
