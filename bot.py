@@ -527,29 +527,54 @@ async def sneaky(*, server: str):
     hax = bot.create_invite(discord.utils.find(lambda m: m.name == server, bot.servers))
     await bot.say(hax)
 
-@bot.command()
-async def stats():
+@bot.command(pass_context=True)
+async def stats(ctx):
     """Grabs bot statistics."""
-    SID = shard_id
-    musage = psutil.Process().memory_full_info().uss / 1024**2
-    uniqueonline = str(sum(1 for m in bot.get_all_members() if m.status != discord.Status.offline))
-    sethsfollowers = str(sum(len(s.members) for s in bot.servers))
-    sumitup = str(int(len(bot.servers)) * int(shard_count))
-    sumupmembers = str(int(str(sethsfollowers)) * int(shard_count))
-    sumupuni = str(int(str(uniqueonline)) * int(shard_count))
-    em = discord.Embed(description="\u200b")
-    em.title = bot.user.name + "'s Help Server"
-    em.url = "https://discord.gg/qBj2ZRT"
-    em.set_thumbnail(url=bot.user.avatar_url)
-    em.add_field(name='Created by', value='Robin#0052 and Seth#9790', inline=True)
-    em.add_field(name='Bot Version', value=BUILD_VERSION, inline=True)
-    em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
-    em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
-    em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.", inline=True)
-    em.add_field(name='Servers', value=sumitup, inline=True)
-    em.add_field(name='Members', value=sumupuni + " ***online*** out of " + sumupmembers, inline=True)
-    em.add_field(name="Shard Server Count", value=len(bot.servers), inline=True)
-    em.add_field(name='Memory Usage', value='{:.2f} MiB - Shard {} only'.format(musage, str(SID)), inline=True)
-    await bot.say(embed=em)
+    if ctx.message.server is None:
+        SID = shard_id
+        musage = psutil.Process().memory_full_info().uss / 1024**2
+        uniqueonline = str(sum(1 for m in bot.get_all_members() if m.status != discord.Status.offline))
+        sethsfollowers = str(sum(len(s.members) for s in bot.servers))
+        sumitup = str(int(len(bot.servers)) * int(shard_count))
+        sumupmembers = str(int(str(sethsfollowers)) * int(shard_count))
+        sumupuni = str(int(str(uniqueonline)) * int(shard_count))
+        em = discord.Embed(description="\u200b")
+        em.title = bot.user.name + "'s Help Server"
+        em.url = "https://discord.gg/qBj2ZRT"
+        em.set_thumbnail(url=bot.user.avatar_url)
+        #copy and paste is a useful feature
+        em.add_field(name='Created by', value='Robin#0052 and Seth#9790', inline=True)
+        em.add_field(name='Bot Version', value=BUILD_VERSION, inline=True)
+        em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
+        em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
+        em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.", inline=True)
+        em.add_field(name='Servers', value=sumitup, inline=True)
+        em.add_field(name='Members', value=sumupuni + " ***online*** out of " + sumupmembers, inline=True)
+        em.add_field(name="Shard Server Count", value=len(bot.servers), inline=True)
+        em.add_field(name='Memory Usage', value='{:.2f} MiB - Shard {} only'.format(musage, str(SID)), inline=True)
+        await bot.say(embed=em)
+    else:
+        SID = shard_id
+        musage = psutil.Process().memory_full_info().uss / 1024**2
+        uniqueonline = str(sum(1 for m in bot.get_all_members() if m.status != discord.Status.offline))
+        sethsfollowers = str(sum(len(s.members) for s in bot.servers))
+        sumitup = str(int(len(bot.servers)) * int(shard_count))
+        sumupmembers = str(int(str(sethsfollowers)) * int(shard_count))
+        sumupuni = str(int(str(uniqueonline)) * int(shard_count))
+        em = discord.Embed(description="\u200b")
+        em.title = bot.user.name + "'s Help Server"
+        em.url = "https://discord.gg/qBj2ZRT"
+        em.set_thumbnail(url=bot.user.avatar_url)
+        em.color = ctx.message.server.me.color
+        em.add_field(name='Created by', value='Robin#0052 and Seth#9790', inline=True)
+        em.add_field(name='Bot Version', value=BUILD_VERSION, inline=True)
+        em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
+        em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
+        em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.", inline=True)
+        em.add_field(name='Servers', value=sumitup, inline=True)
+        em.add_field(name='Members', value=sumupuni + " ***online*** out of " + sumupmembers, inline=True)
+        em.add_field(name="Shard Server Count", value=len(bot.servers), inline=True)
+        em.add_field(name='Memory Usage', value='{:.2f} MiB - Shard {} only'.format(musage, str(SID)), inline=True)
+        await bot.say(embed=em)
 
 bot.run(config._token)
