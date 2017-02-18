@@ -140,6 +140,8 @@ async def on_message(message):
     if discord.Member is type(message.author):
         if discord.utils.get(message.author.roles, name="Dragon Ignorance"):
             return
+    if message.author is message.author.bot:
+        return
 
     if getblacklistentry(message.author.id) is not None:
         return
