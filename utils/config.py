@@ -17,6 +17,8 @@ class Defaults:
     enable_default_status = False
     default_status_name = None
     default_status_type = "online"
+    cb_api_key = None
+    cb_user_key = None
     enableMal = False
     malUsername = None
     malPassword = None
@@ -41,7 +43,7 @@ class Config:
         config = configparser.ConfigParser(interpolation=None)
         config.read(self.config_file, encoding="utf-8")
 
-        sections = {"Credentials", "Bot", "Status", "Logging", "MyAnimeList", "Osu"}.difference(config.sections())
+        sections = {"Credentials", "Bot", "Status", "Logging", "Cleverbot", "MyAnimeList", "Osu"}.difference(config.sections())
         if sections:
             log.critical("Could not load a section in the config file, please obtain a new config file from the github repo if regenerating the config doesn't work!")
             os._exit(1)
@@ -58,6 +60,8 @@ class Config:
         self.debug = config.getboolean("Logging", "Debug", fallback=Defaults.debug)
         self.channel_logger_id = config.get("Logging", "Channel_Logger_ID", fallback=Defaults.channel_logger_id)
         self.log_timeformat = config.get("Logging", "Time_Format", fallback=Defaults.log_timeformat)
+        self.cb_user_key = config.get("Cleverbot", "User_Key", fallback=Defaults.cb_api_key)
+        self.cb_api_key = config.get("Cleverbot", "API_Key", fallback=Defaults.cb_user_key)
         self.enableMal = config.getboolean("MyAnimeList", "enable", fallback=Defaults.enableMal)
         self._malUsername = config.get("MyAnimeList", "username", fallback=Defaults.malUsername)
         self._malPassword = config.get("MyAnimeList", "password", fallback=Defaults.malPassword)

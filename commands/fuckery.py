@@ -2,12 +2,32 @@ import asyncio
 import cat
 import random
 import os
-import cleverbot
+import json
+import urllib.request
 
+from utils.config import Config
 from discord.ext import commands
 from utils.tools import *
 from utils.unicode import *
 from utils.fun.lists import *
+
+class Cleverbot:
+    def __init__(self, api_user, api_key, nick = None):
+        self.user = api_user
+        self.key = api_key
+        self.nick = None
+        params = {"user":self.user,"key":self.key}
+        data = str.encode(urllib.parse.urlencode(params))
+        if self.nick == None:
+            req = urllib.request.Request('https://cleverbot.io/1.0/create', headers={'User-Agent': 'Mozilla/5.0'})
+            response = json.loads(bytes.decode(urllib.request.urlopen(req, data).read()))
+            self.nick = response['nick']
+    def say(self, statement):
+        req = urllib.request.Request('https://cleverbot.io/1.0/ask', headers={'User-Agent': 'Mozilla/5.0'})
+        params = {"user":self.user,"key":self.key,"text":statement,"nick":self.nick}
+        data = str.encode(urllib.parse.urlencode(params))
+        response = json.loads(bytes.decode(urllib.request.urlopen(req, data).read()))
+        return response['response']
 
 class Fuckery():
     def __init__(self, bot):
@@ -136,13 +156,13 @@ class Fuckery():
         await self.bot.say(random.choice(drunkaf))
 
     @commands.command(pass_context=True)
-    async def talk(self, ctx, *, message:str):
-        """Talk to the bot"""
-        cb1 = cleverbot.Cleverbot()
-        unsplit = ctx.message.content.split("talk")
-        split = unsplit[1]
-        answer = (cb1.ask(split))
-        await self.bot.say(ctx.message.author.name + ": " + answer)
+    async def talk(self, ctx, *, pussy:str):
+        """talk to the bot"""
+        api_user = config.cb_user_key
+        api_key = config.cb_api_key
+        fuck = Cleverbot(api_user, api_key)
+        response = fuck.say(pussy)
+        await self.bot.say(ctx.message.author.name + " >> " + response)
 
     @commands.command()
     async def ship(self, user1:discord.User=None, user2:discord.User=None):
