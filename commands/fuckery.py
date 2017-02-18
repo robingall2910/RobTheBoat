@@ -158,6 +158,7 @@ class Fuckery():
     @commands.command(pass_context=True)
     async def talk(self, ctx, *, pussy:str):
         """talk to the bot"""
+        config = Config()
         api_user = config.cb_user_key
         api_key = config.cb_api_key
         fuck = Cleverbot(api_user, api_key)
