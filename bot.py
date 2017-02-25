@@ -32,16 +32,16 @@ from utils.sharding import shard_count
 config = Config()
 if config.debug:
     log.enableDebugging() # pls no flame
-bot = commands.Bot(command_prefix=config.command_prefix, description="A multi-purpose furry dragon bot that includes music", shard_id=shard_id, shard_count=shard_count, pm_help=True)
+bot = commands.Bot(command_prefix=config.command_prefix, description="A multipurposed furry dragon bot, containing music, nsfw, and much more coming.", shard_id=shard_id, shard_count=shard_count, pm_help=True)
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
 
-extensions = ["commands.fuckery", "commands.information", "commands.moderation", "commands.configuration", "commands.nsfw", "commands.music"] #moving commands to bmod
+extensions = ["commands.fuckery", "commands.information", "commands.moderation", "commands.configuration", "commands.nsfw", "commands.music"]
 
 # Thy changelog
 change_log = [
-    "Version increment, more bugs fixed/removed"
+    "you'll never see shit"
 ]
 
 async def _restart_bot():
@@ -507,7 +507,7 @@ async def ping(ctx):
                                "fucking furries...", "fucking maxie", "AAAAAAAAAAAAAAAAAA",
                                "why the fuck am I even doing this for you?", "but....", "meh.", "...",
                                "Did you really expect something better?", "kek", "I'm killing your dog next time.",
-                               "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.", "Damn it seth, why does your internet have to be slow?", "EJ pls.", "Go check out ViralBot today! It's lit.", "pink floyd", "how do u feel, how do u feel now, aaaaaaaaaaaaa?", "alan's psychadelic breakfast", "Oh.. er.. me flakes.. scrambled eggs.. bacon.. sausages.. tomatoes.. toast.. coffee.. marmalade. I like marmalade.. yes.. porridge is nice, any cereal.. I like all cereals.."
+                               "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.", "Damn it seth, why does your internet have to be slow?", "EJ pls.", "Go check out ViralBot today! It's lit.", "pink floyd", "how do u feel, how do u feel now, aaaaaaaaaaaaa?", "alan's psychadelic breakfast", "Oh.. er.. me flakes.. scrambled eggs.. bacon.. sausages.. tomatoes.. toast.. coffee.. marmalade. I like marmalade.. yes.. porridge is nice, any cereal.. I like all cereals..",
                                "so, how's was trumps bullshit on executive orders?", "don't sign the I-407 in the airport"])
     topkek = memes
     pingms = await bot.send_message(ctx.message.channel, topkek)
@@ -517,16 +517,16 @@ async def ping(ctx):
 @bot.command()
 async def website():
     """Gives the link to the bot docs"""
-    await bot.say("My official website can be found here: https://dragonfire.me/robtheboat/info.html")
+    await bot.say("My official website can be found here: https://dragonfire.me/robtheboat/info.html - Please be aware its outdated.")
 
 @bot.command()
 async def github():
     """Gives the link to the github repo"""
-    await bot.say("My official github repo can be found here: https://github.com/robingall2910/RobTheBoat")
+    await bot.say("My official github repo can be found here: https://github.com/robingall2910/RobTheBoat - This is running the ***dragon*** branch.")
 
 @bot.command(hidden=True)
 async def sneaky(*, server: str):
-    hax = bot.create_invite(discord.utils.find(lambda m: m.name == server, bot.servers))
+    hax = await bot.create_invite(discord.utils.find(lambda m: m.name == server, bot.servers))
     await bot.say(hax)
 
 @bot.command(pass_context=True)
@@ -545,7 +545,7 @@ async def stats(ctx):
         em.url = "https://discord.gg/qBj2ZRT"
         em.set_thumbnail(url=bot.user.avatar_url)
         #copy and paste is a useful feature
-        em.add_field(name='Created by', value='Robin#0052 and Seth#9790', inline=True)
+        em.add_field(name='Created by', value='Robin#0052 and Seth#0780', inline=True)
         em.add_field(name='Bot Version', value=BUILD_VERSION, inline=True)
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
         em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
@@ -568,7 +568,7 @@ async def stats(ctx):
         em.url = "https://discord.gg/qBj2ZRT"
         em.set_thumbnail(url=bot.user.avatar_url)
         em.color = ctx.message.server.me.color
-        em.add_field(name='Created by', value='Robin#0052 and Seth#9790', inline=True)
+        em.add_field(name='Created by', value='Robin#0052 and Seth#0780', inline=True)
         em.add_field(name='Bot Version', value=BUILD_VERSION, inline=True)
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
         em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
