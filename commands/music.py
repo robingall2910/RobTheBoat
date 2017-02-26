@@ -108,7 +108,7 @@ class Music:
                 await self.bot.say("Connected.")
             except:
                 await ctx.invoke(self.disconnect)
-                await self.bot.say("An error occured and the voice client had to disconnect, please run {}summon again".format(self.bot.command_prefix))
+                await self.bot.say("An error occured and the voice client had to disconnect, please run {}connect again".format(self.bot.command_prefix))
                 log.debug("Bot failed to connect to voice channel")
                 return False
         else:
@@ -135,12 +135,14 @@ class Music:
             player.volume = state.volume
             entry = VoiceEntry(ctx.message, player)
             await self.bot.say("Enqueued {}".format(entry))
+            await self.bot.say("***Temporary Notice***: We are aware of the bot skipping songs and such, please try to limit your queue up to 4 or 3 songs. We're gonna have to work this issue when this bot is rewritten.")
             await state.songs.put(entry)
             state.queue.append(entry)
         except AttributeError:
             await self.bot.say("You have not connected the bot to a voice server yet.")
         except Exception as e:
             await self.bot.say(traceback.format_exc())
+            await self.bot.say("If the error contains that song isn't subscriptable or something like that, it's because one of these three things: 1. Bot can't play it since it's not allowed in the area it's hosted, aka France. 2. No song found. 3. Copyright issues, or the uploader fucked up the song data.")
             log.debug("{}: {}\n{}".format(type(e).__name__, e, traceback.format_exc()))
 
     @commands.command(pass_context=True, no_pm=True)
