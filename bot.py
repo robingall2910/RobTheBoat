@@ -542,10 +542,10 @@ async def stats(ctx):
         sumupuni = str(int(str(uniqueonline)) * int(shard_count))
         em = discord.Embed(description="\u200b")
         em.title = bot.user.name + "'s Help Server"
-        em.url = "https://discord.gg/qBj2ZRT"
+        em.url = "https://discord.gg/vvAKvaG"
         em.set_thumbnail(url=bot.user.avatar_url)
         #copy and paste is a useful feature
-        em.add_field(name='Created by', value='Robin#0052 and Seth#0780', inline=True)
+        em.add_field(name='Created by', value='based robin#0052 and Seth#0780', inline=True)
         em.add_field(name='Bot Version', value=BUILD_VERSION, inline=True)
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
         em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
@@ -565,10 +565,10 @@ async def stats(ctx):
         sumupuni = str(int(str(uniqueonline)) * int(shard_count))
         em = discord.Embed(description="\u200b")
         em.title = bot.user.name + "'s Help Server"
-        em.url = "https://discord.gg/qBj2ZRT"
+        em.url = "https://discord.gg/vvAKvaG"
         em.set_thumbnail(url=bot.user.avatar_url)
         em.color = ctx.message.server.me.color
-        em.add_field(name='Created by', value='Robin#0052 and Seth#0780', inline=True)
+        em.add_field(name='Created by', value='based robin#0052 and Seth#0780', inline=True)
         em.add_field(name='Bot Version', value=BUILD_VERSION, inline=True)
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
         em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
