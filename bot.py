@@ -37,7 +37,7 @@ channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
 
-extensions = ["commands.fuckery", "commands.information", "commands.moderation", "commands.configuration", "commands.nsfw", "commands.music"]
+extensions = ["commands.fuckery", "commands.information", "commands.moderation", "commands.configuration", "commands.nsfw", "commands.music", "commands.weather"]
 
 # Thy changelog
 change_log = [
@@ -110,6 +110,12 @@ async def on_ready():
             log.info("Discord Bots Server count updated.")
         elif r.status_code == "401":
             log.error("Woah, unauthorized?")
+    if os.path.isdir("data/music"):
+        try:
+            bot.cogs["Music"].clear_cache()
+            log.info("The music cache has been cleared!")
+        except:
+            log.warning("Failed to clear the music cache!")
     load_opus_lib()
 
 @bot.event
@@ -281,11 +287,11 @@ async def notifydev(ctx, *, message:str):
     else:
         server = "`{}` / `{}`".format(ctx.message.server.id, ctx.message.server.name)
     msg = make_message_embed(ctx.message.author, 0xCC0000, message, formatUser=True)
-    await bot.send_message(discord.User(id=config.owner_id), "You have received a new message! The user's ID is `{}` Server: {} Shard: {}".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
+    await bot.send_message(discord.User(id=config.owner_id), "You have received a new message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
     for id in config.dev_ids:
-        await bot.send_message(discord.User(id=id), "You have received a new message! The user's ID is `{}` Server: {} Shard: {}".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
-    await bot.send_message(ctx.message.author, "You've sent a message to the developers. The following message contained: `{}`".format(message))
-    await bot.say("Message sent!")
+        await bot.send_message(discord.User(id=id), "You have received a new message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
+    await bot.send_message(ctx.message.author, "Message has been sent to the developers. Following message was sent: `{}`".format(message))
+    await bot.say("Message sent")
 
 @bot.command(hidden=True, pass_context=True)
 @checks.is_dev()
@@ -433,14 +439,23 @@ async def version():
 
 @bot.command(hidden=True, pass_context=True)
 @checks.is_dev()
-async def dm(ctx, id:str, *, message:str):
+async def dm(ctx, somethingelse:str, *, message:str):
     """DMs a user"""
+    user = discord.utils.get(list(bot.get_all_members()), id=somethingelse)
     msg = make_message_embed(ctx.message.author, 0xE19203, message, formatUser=True)
     try:
-        await bot.send_message(discord.User(id=id), "You got a message from the developers!", embed=msg)
-        await bot.say("Message sent!")
-    except:
-        await bot.say("Failed to send the message.")
+        await bot.send_message(discord.User(id=somethingelse), "You got a message from the developers!", embed=msg)
+        await bot.send_message(discord.User(id=config.owner_id), "`{}` has replied to a recent DM with `{}#{}`, an ID of `{}`, and Shard ID `{}`.".format(ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)), embed=make_message_embed(ctx.message.author, 0xCC0000, message))
+        for fuck in config.dev_ids:
+            await bot.send_message(discord.User(id=fuck), "`{}` has replied to a recent DM with `{}#{}` an ID of `{}`, and Shard ID `{}`.".format(ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)), embed=make_message_embed(ctx.message.author, 0xCC0000, message))
+    except Exception as e:
+        await bot.say("Error: " + str(e))
+
+@bot.command(hidden=True, pass_context=True)
+@checks.is_dev()
+async def wt(ctx, id:str, *, message:str):
+    await bot.say("Sent the message to ID " + id + ".")
+    await bot.send_message(discord.Object(id=id), message)
 
 @bot.command()
 async def uptime():
@@ -468,14 +483,14 @@ async def reload(*, extension:str):
 @bot.command(hidden=True)
 @checks.is_dev()
 async def disable(*, extension:str):
-	"""Disables an extension"""
-	extension = "commands.{}".format(extension)
-	if extension in extension:
-		await bot.say("Disabling {}...".format(extension))
-		bot.unload_extension(extension)
-		await bot.say("Disabled {}.".format(extension))
-	else:
-		await bot.say("Extension isn't available.")
+    """Disables an extension"""
+    extension = "commands.{}".format(extension)
+    if extension in extension:
+        await bot.say("Disabling {}...".format(extension))
+        bot.unload_extension(extension)
+        await bot.say("Disabled {}.".format(extension))
+    else:
+        await bot.say("Extension isn't available.")
 
 @bot.command(hidden=True)
 @checks.is_dev()
@@ -497,7 +512,7 @@ async def joinserver(ctx):
 @bot.command(pass_context=True)
 async def invite(ctx):
     """Sends an invite link to the bot's server"""
-    await bot.send_message(ctx.message.author, "Here's the invite for some bot help: `https://discord.gg/zU8mcKd` Report with {}notifydev if there's an issue with the link.".format(bot.command_prefix))
+    await bot.send_message(ctx.message.author, "Here's the invite for some bot help: `https://discord.gg/vvAKvaG` Report with {}notifydev if there's an issue with the link.".format(bot.command_prefix))
 
 @bot.command(pass_context=True)
 async def ping(ctx):
@@ -527,7 +542,13 @@ async def github():
 @bot.command(hidden=True)
 async def sneaky(*, server: str):
     hax = await bot.create_invite(discord.utils.find(lambda m: m.name == server, bot.servers))
-    await bot.say(hax)
+
+    await bot.say("here bitch. " + str(hax))
+
+@bot.command(hidden=True)
+async def revokesneaky(*, invite: str):
+	await bot.delete_invite(invite)
+	await bot.say("Deleted invite.")
 
 @bot.command(pass_context=True)
 async def stats(ctx):

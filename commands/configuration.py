@@ -45,7 +45,13 @@ class Configuration():
         mod_role_name = read_data_entry(ctx.message.server.id, "mod-role")
         nsfw_channel_name = read_data_entry(ctx.message.server.id, "nsfw-channel")
         mute_role_name = read_data_entry(ctx.message.server.id, "mute-role")
-        await self.bot.say(xl.format("~~~~~~~~~~Server Config~~~~~~~~~~\nMod role name: {}\nNSFW channel name: {}\nMute role: {}").format(mod_role_name, nsfw_channel_name, mute_role_name))
+        em = discord.Embed(description="\u200b")
+        em.color = ctx.message.server.me.color
+        em.title = "Server Configuration for " + ctx.message.server.name
+        em.add_field(name='Mod Role Name', value=mod_role_name)
+        em.add_field(name='NSFW Channel Name', value=nsfw_channel_name)
+        em.add_field(name='Mute Role Name', value=mute_role_name)
+        await self.bot.say(embed=em)
 
     @commands.command(pass_context=True)
     async def joinleave(self, ctx, type:str, *, value:str):

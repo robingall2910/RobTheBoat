@@ -5,29 +5,12 @@ import os
 import json
 import urllib.request
 
+from cleverwrap import CleverWrap
 from utils.config import Config
 from discord.ext import commands
 from utils.tools import *
 from utils.unicode import *
 from utils.fun.lists import *
-
-class Cleverbot:
-    def __init__(self, api_user, api_key, nick = None):
-        self.user = api_user
-        self.key = api_key
-        self.nick = None
-        params = {"user":self.user,"key":self.key}
-        data = str.encode(urllib.parse.urlencode(params))
-        if self.nick == None:
-            req = urllib.request.Request('https://cleverbot.io/1.0/create', headers={'User-Agent': 'Mozilla/5.0'})
-            response = json.loads(bytes.decode(urllib.request.urlopen(req, data).read()))
-            self.nick = response['nick']
-    def say(self, statement):
-        req = urllib.request.Request('https://cleverbot.io/1.0/ask', headers={'User-Agent': 'Mozilla/5.0'})
-        params = {"user":self.user,"key":self.key,"text":statement,"nick":self.nick}
-        data = str.encode(urllib.parse.urlencode(params))
-        response = json.loads(bytes.decode(urllib.request.urlopen(req, data).read()))
-        return response['response']
 
 class Fuckery():
     def __init__(self, bot):
@@ -124,16 +107,11 @@ class Fuckery():
     async def lenny(self):
         """<Insert lenny face here>"""
         await self.bot.say(lenny)
-
-    """@commands.command()
+        #they're back fuck yeah
+    @commands.command()
     async def psat(self):
         #Please.
-        await self.bot.say(random.choice(psat_memes))"""
-
-    """@commands.command()
-    async def alex(self):
-        #ALEX IS A STUPID NIGERIAN!
-        await self.bot.say("https://www.youtube.com/watch?v=GX5xQPhC6UY")"""
+        await self.bot.say(random.choice(psat_memes))
 
     @commands.command(pass_context=True, name="8ball")
     async def ball(self, ctx, *, question:str):
@@ -159,11 +137,9 @@ class Fuckery():
     async def talk(self, ctx, *, pussy:str):
         """talk to the bot"""
         config = Config()
-        api_user = config.cb_user_key
         api_key = config.cb_api_key
-        fuck = Cleverbot(api_user, api_key)
-        response = fuck.say(pussy)
-        await self.bot.say(ctx.message.author.name + " >> " + response)
+        cw = CleverWrap(api_key)
+        await self.bot.say(str(ctx.message.author) + " >> " + cw.say(pussy))
 
     @commands.command()
     async def ship(self, user1:discord.User=None, user2:discord.User=None):
@@ -174,12 +150,12 @@ class Fuckery():
             await self.bot.say("I hereby ship {} and {} officially by bot code.".format(user1.mention, user2.mention))
 
     @commands.command()
-    async def rate(self, user:discord.User=None):
+    async def rate(self, *, user):
         """Have the bot rate yourself or another user"""
         if user is None:
-            await self.bot.say("I rate you a {}/10".format(random.randint(0, 10)))
+            await self.bot.say("I rate you a `{}`/`10`".format(random.randint(0, 10)))
         else:
-            await self.bot.say("I rate {} a {}/10".format(user.mention, random.randint(0, 10)))
+            await self.bot.say("I rate `{}` a `{}`/`10`".format(user, random.randint(0, 10)))
 
     @commands.command()
     async def honk(self):

@@ -1,31 +1,49 @@
 import asyncio
 import traceback
+import youtube_dl
+import os
+import subprocess
+import shutil
 
 from discord.ext import commands
 from utils.tools import *
 from utils.mysql import *
 from utils.logger import log
+from utils.opus_loader import load_opus_lib
 from utils import checks
 
+load_opus_lib()
 
-ytdl_format_options = {"outtmpl": "data/music/%(extractor)s-%(id)s-%(title)s.%(ext)s", "format": "bestaudio/best", "noplaylist": True, "nocheckcertificate": True, "extractaudio": True, 'audioformat': 'mp3', "ignoreerrors": True, "logtostderr": False, "quiet": True, "no_warnings": True, "default_search": "auto", "source_address": "0.0.0.0"}
+ytdl_format_options = {"format": "bestaudio/best", "extractaudio": True, "audioformat": "mp3", "noplaylist": True, "nocheckcertificate": True, "ignoreerrors": False, "logtostderr": False, "quiet": True, "no_warnings": True, "default_search": "auto", "source_address": "0.0.0.0", "preferredcodec": "libmp3lame"}
+
+def get_ytdl(id):
+    format = ytdl_format_options
+    format["outtmpl"] = "data/music/{}/%(id)s.mp3".format(id)
+    return youtube_dl.YoutubeDL(format)
+
+def clear_data(id=None):
+    if id is None:
+        shutil.rmtree("data/music")
+    else:
+        shutil.rmtree("data/music/{}".format(id))
 
 class VoiceEntry:
-    def __init__(self, message, player):
+    def __init__(self, message, player, data, file_url):
         self.requester = message.author
         self.channel = message.channel
         self.player = player
+        self.data = data
+        self.file_url = file_url
 
     def __str__(self):
-        string = "**{}** requested by `{}`".format(self.player.title, self.requester.display_name)
-        duration = self.player.duration
+        string = "**{}** requested by `{}`".format(self.data["title"], self.requester.display_name)
+        duration = self.data["duration"]
         if duration:
             m, s = divmod(duration, 60)
             h, m = divmod(m, 60)
             length = "%02d:%02d:%02d" % (h, m, s)
             string = "{} [`{}`]".format(string, length)
         return string
-
 
 class VoiceState:
     def __init__(self, bot):
@@ -35,8 +53,8 @@ class VoiceState:
         self.play_next_song = asyncio.Event()
         self.songs = asyncio.Queue()
         self.queue = []
-        # Set to 0.3 by default to make audio distortion minimal
-        self.volume = 0.3
+        # Set to 0.5 by default to prevent jumpscares
+        self.volume = 0.5
         self.skip_votes = set()
         self.audio_player = self.bot.loop.create_task(self.audio_change_task())
 
@@ -59,14 +77,19 @@ class VoiceState:
 
     async def audio_change_task(self):
         while True:
+            log.debug("Change task ran")
+            if self.current is not None:
+                try:
+                    os.remove(self.current.file_url)
+                except:
+                    log.warning("Failed to remove {}".format(self.current.file_url))
             self.play_next_song.clear()
             self.current = await self.songs.get()
             self.queue.remove(self.current)
-            await asyncio.sleep(1)
             await self.bot.send_message(self.current.channel, "Now playing {}".format(self.current))
             self.current.player.volume = self.volume
             self.current.player.start()
-            log.debug("\"{}\" is now playing in \"{}\" on \"{}\"".format(self.current.player.title, self.voice.channel.name, self.current.channel.server.name))
+            log.debug("\"{}\" is now playing in \"{}\" on \"{}\"".format(self.current.data["title"], self.voice.channel.name, self.current.channel.server.name))
             await self.play_next_song.wait()
 
 
@@ -82,11 +105,6 @@ class Music:
             self.voice_states[server.id] = voice_state
         return voice_state
 
-    async def create_voice_client(self, channel:discord.Channel):
-        voice = await self.bot.join_voice_channel(channel)
-        state = self.get_voice_state(channel.server)
-        state.voice = voice
-
     async def disconnect_all_voice_clients(self):
         for id in self.voice_states:
             state = self.voice_states[id]
@@ -94,6 +112,9 @@ class Music:
             await state.voice.disconnect()
         log.debug("All voice clients were disconnected!")
 
+    def clear_cache(self):
+        # This is here because I can't call clear_data() from the main class for obvious reasons
+        clear_data()
 
     @commands.command(pass_context=True)
     async def connect(self, ctx):
@@ -105,10 +126,9 @@ class Music:
         if state.voice is None:
             try:
                 state.voice = await self.bot.join_voice_channel(ctx.message.author.voice_channel)
-                await self.bot.say("Connected.")
             except:
                 await ctx.invoke(self.disconnect)
-                await self.bot.say("An error occured and the voice client had to disconnect, please run {}connect again".format(self.bot.command_prefix))
+                await self.bot.say("An error occured and the voice client had to disconnect, please run {}summon again".format(self.bot.command_prefix))
                 log.debug("Bot failed to connect to voice channel")
                 return False
         else:
@@ -119,31 +139,49 @@ class Music:
     async def play(self, ctx, *, song:str):
         """Plays a song, searches youtube or gets video from youtube url"""
         await self.bot.send_typing(ctx.message.channel)
+        song = song.strip("<>")
         try:
             state = self.get_voice_state(ctx.message.server)
             if state.voice is None:
                 success = await ctx.invoke(self.summon)
                 if not success:
                     return
+            ytdl = get_ytdl(ctx.message.server.id)
             try:
-                await asyncio.sleep(1)
-                player = await state.voice.create_ytdl_player(song, ytdl_options=ytdl_format_options, after=state.toggle_next)
-                await asyncio.sleep(1)
+                song_info = ytdl.extract_info(song, download=False, process=False)
+                if "url" in song_info:
+                    if song_info["url"].startswith("ytsearch"):
+                        song_info = ytdl.extract_info(song_info["url"], download=False, process=False)
+                        log.debug(song_info)
+                    if "entries" in song_info:
+                        url = song_info["entries"][0]["url"]
+                    else:
+                        url = song_info["url"]
+                    url = "https://youtube.com/watch?v={}".format(url)
+                else:
+                    url = song
+                log.debug(url)
+                song_info = ytdl.extract_info(url, download=True)
+                id = song_info["id"]
+                title = song_info["title"]
+                file_url = "data/music/{}/{}.mp3".format(ctx.message.server.id, id)
+                await asyncio.sleep(2)
+                player = state.voice.create_ffmpeg_player(file_url, stderr=subprocess.PIPE, after=state.toggle_next)
             except Exception as e:
-                await self.bot.say("An error occurred while processing this request: {}".format(py.format("{}: {}".format(type(e).__name__, e))))
+                await self.bot.say("An error occurred while processing this request: {}".format(py.format("{}: {}\n{}".format(type(e).__name__, e, traceback.format_exc()))))
                 return
             player.volume = state.volume
-            entry = VoiceEntry(ctx.message, player)
-            await self.bot.say("Enqueued {}".format(entry))
-            await self.bot.say("***Temporary Notice***: We are aware of the bot skipping songs and such, please try to limit your queue up to 4 or 3 songs. We're gonna have to work this issue when this bot is rewritten.")
+            entry = VoiceEntry(ctx.message, player, song_info, file_url)
+            em = discord.Embed(description="\u200b")
+            em.title = "Enqueued"
+            em.color = 0x7CFC00
+            em.add_field(name="Song", value=entry)
+            await self.bot.say(embed=em)
             await state.songs.put(entry)
             state.queue.append(entry)
-        except AttributeError:
-            await self.bot.say("You have not connected the bot to a voice server yet.")
         except Exception as e:
             await self.bot.say(traceback.format_exc())
-            await self.bot.say("If the error contains that song isn't subscriptable or something like that, it's because one of these three things: 1. Bot can't play it since it's not allowed in the area it's hosted, aka France. 2. No song found. 3. Copyright issues, or the uploader fucked up the song data.")
-            log.debug("{}: {}\n{}".format(type(e).__name__, e, traceback.format_exc()))
+            log.debug("{}: {}\n\n{}".format(type(e).__name__, e, traceback.format_exc()))
 
     @commands.command(pass_context=True, no_pm=True)
     async def volume(self, ctx, amount:int):
@@ -153,9 +191,17 @@ class Music:
             player = state.player
             player.volume = amount / 100
             state.volume = amount / 100
-            await self.bot.say("Set the volume to `{:.0%}`".format(player.volume))
+            em = discord.Embed(description="\u200b")
+            em.title = "Volume has been set"
+            em.color = 0x7CFC00
+            em.add_field(name="Value changed.", value="Now {:.0%}".format(player.volume))
+            await self.bot.say(embed=em)
         else:
-            await self.bot.say("Nothing is playing!")
+            em = discord.Embed(description="\u200b")
+            em.title = "Unable to change volume."
+            em.color = 0x8C001A
+            em.add_field(name="Reason", value="There's nothing playing.")
+            await self.bot.say(embed=em)
 
     @commands.command(pass_context=True)
     async def disconnect(self, ctx):
@@ -176,7 +222,7 @@ class Music:
                 except:
                     log.error("Bot failed to force the disconnection from a voice channel!\n{}".format(traceback.format_exc()))
                     pass
-        await self.bot.say("Disconnected.")
+        await self.bot.say("Disconnected from the voice channel")
 
     @commands.command(pass_context=True)
     async def skip(self, ctx):
@@ -243,32 +289,17 @@ class Music:
     @commands.command(pass_context=True)
     async def queue(self, ctx):
         """Displays the song queue"""
-        lines = []
         state = self.get_voice_state(ctx.message.server)
         songs = state.queue
-        andmoretext = '* ... and %s more*' % ('x' * len(songs))
         if len(songs) == 0 and not state.current:
             await self.bot.say("Nothing is in the queue!")
         else:
             current_song = "Now playing: {}".format(state.current)
             if len(songs) != 0:
                 songs = "{}\n\n{}".format(current_song, "\n".join([str(song) for song in songs]))
-            elif len(songs) == 0:
+            else:
                 songs = "{}".format(current_song)
-            elif len(songs) >= 23:
-                songs = "{}".format("Too many songs requested, will not be displayed. Queue is longer than 23 songs.")
             await self.bot.say(songs)
-
-    @commands.command(pass_context=True)
-    async def np(self, ctx):
-        current_song = "Now playing: {}".format(state.current)
-        await self.bot.say(current_song)
-
-    @commands.command()
-    async def musicnotice(self):
-        """PLEASE READ!!!"""
-        with open("utils/music/notice.txt") as notice:
-            await self.bot.say(notice.read())
 
     @commands.command(hidden=True, pass_context=True)
     @checks.is_dev()
