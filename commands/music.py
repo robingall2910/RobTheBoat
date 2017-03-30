@@ -128,7 +128,7 @@ class Music:
                 state.voice = await self.bot.join_voice_channel(ctx.message.author.voice_channel)
             except:
                 await ctx.invoke(self.disconnect)
-                await self.bot.say("An error occured and the voice client had to disconnect, please run {}summon again".format(self.bot.command_prefix))
+                await self.bot.say("An error occured and the voice client had to disconnect, please run {}connect again".format(self.bot.command_prefix))
                 log.debug("Bot failed to connect to voice channel")
                 return False
         else:
@@ -143,7 +143,7 @@ class Music:
         try:
             state = self.get_voice_state(ctx.message.server)
             if state.voice is None:
-                success = await ctx.invoke(self.summon)
+                success = await ctx.invoke(self.connect)
                 if not success:
                     return
             ytdl = get_ytdl(ctx.message.server.id)
@@ -165,18 +165,14 @@ class Music:
                 id = song_info["id"]
                 title = song_info["title"]
                 file_url = "data/music/{}/{}.mp3".format(ctx.message.server.id, id)
-                await asyncio.sleep(2)
+                await asyncio.sleep(5)
                 player = state.voice.create_ffmpeg_player(file_url, stderr=subprocess.PIPE, after=state.toggle_next)
             except Exception as e:
                 await self.bot.say("An error occurred while processing this request: {}".format(py.format("{}: {}\n{}".format(type(e).__name__, e, traceback.format_exc()))))
                 return
             player.volume = state.volume
             entry = VoiceEntry(ctx.message, player, song_info, file_url)
-            em = discord.Embed(description="\u200b")
-            em.title = "Enqueued"
-            em.color = 0x7CFC00
-            em.add_field(name="Song", value=entry)
-            await self.bot.say(embed=em)
+            await self.bot.say("Enqueued {}".format(entry))
             await state.songs.put(entry)
             state.queue.append(entry)
         except Exception as e:
@@ -191,17 +187,9 @@ class Music:
             player = state.player
             player.volume = amount / 100
             state.volume = amount / 100
-            em = discord.Embed(description="\u200b")
-            em.title = "Volume has been set"
-            em.color = 0x7CFC00
-            em.add_field(name="Value changed.", value="Now {:.0%}".format(player.volume))
-            await self.bot.say(embed=em)
+            await self.bot.say("Set the volume to `{:.0%}`".format(player.volume))
         else:
-            em = discord.Embed(description="\u200b")
-            em.title = "Unable to change volume."
-            em.color = 0x8C001A
-            em.add_field(name="Reason", value="There's nothing playing.")
-            await self.bot.say(embed=em)
+            await self.bot.say("Nothing is playing!")
 
     @commands.command(pass_context=True)
     async def disconnect(self, ctx):

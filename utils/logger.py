@@ -1,6 +1,7 @@
 import logging
 import sys
 import colorlog
+import time
 
 debugging = False
 
@@ -10,13 +11,14 @@ class log:
             return
 
         shandler = logging.StreamHandler(stream=sys.stdout)
+        datefmt = "{} at {}".format(time.strftime("%m/%d/%Y"), time.strftime("%I:%M:%S %p %Z"))
         shandler.setFormatter(colorlog.LevelFormatter(
             fmt = {
-                "DEBUG": "{log_color}[{levelname}] {message}",
-                "INFO": "{log_color}[{levelname}] {message}",
-                "WARNING": "{log_color}[{levelname}] {message}",
-                "ERROR": "{log_color}[{levelname}] {message}",
-                "CRITICAL": "{log_color}[{levelname}] {message}"
+                "DEBUG": "{log_color}[" + datefmt + "] [{levelname}] {message}",
+                "INFO": "{log_color}[" + datefmt + "] [{levelname}] {message}",
+                "WARNING": "{log_color}[" + datefmt + "] [{levelname}] {message}",
+                "ERROR": "{log_color}[" + datefmt + "] [{levelname}] {message}",
+                "CRITICAL": "{log_color}[" + datefmt + "] [{levelname}] {message}"
             },
             log_colors = {
                 "DEBUG":    "cyan",

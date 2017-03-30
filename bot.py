@@ -139,16 +139,19 @@ async def on_command(command, ctx):
         server = "Private Message"
     else:
         server = "{}/{}".format(ctx.message.server.id, ctx.message.server.name)
-    print("[Command] [{}] [{}/{}]: {}".format(server, ctx.message.author.id, ctx.message.author, ctx.message.content))
+    print("[{} at {}] [Command] [{}] [{}/{}]: {}".format(time.strftime("%m/%d/%Y"), time.strftime("%I:%M:%S %p %Z"), server, ctx.message.author.id, ctx.message.author, ctx.message.content))
 
 @bot.event
 async def on_message(message):
     if discord.Member is type(message.author):
         if discord.utils.get(message.author.roles, name="Dragon Ignorance"):
             return
-    if message.author is message.author.bot:
+    if message.author.bot:
         return
-
+    if str(message.author) == "based robin#0052":
+        f = open('markovrobin.txt','r+')
+        f.write(message.clean_content + "\n")
+        print("[Markov] Added entry: " + message.clean_content)
     if getblacklistentry(message.author.id) is not None:
         return
 
@@ -344,23 +347,6 @@ async def showblacklist():
         blacklist = "\n".join(blacklist)
     await bot.say(xl.format("Total blacklisted users: {}\n\n{}".format(count, blacklist)))
 
-@bot.command()
-async def commands_used(self):
-    """Gives info on how many commands have been used."""
-    msg = []
-    if dict(self.bot.commands_used):
-        for k, v in dict(self.bot.commands_used).items():
-            msg.append(str(k), str(v) + "uses")
-    else:
-        msg = [("None", "No commands seemed to have been run yet!")]
-    """if self.bot.embeddable:
-            await self.bot.say(content="", embed=discord.Embed(title="Commands Run:", description=util.neatly(
-                entries=msg, colors="autohotkey")))
-            return"""
-    #await self.bot.say(util.neatly(entries=msg, colors="autohotkey"))
-    await self.bot.say("Commands Ran: " + msg)
-    #its not neat but damn you EJH2
-
 @bot.command(hidden=True)
 @checks.is_owner()
 async def lockstatus():
@@ -441,10 +427,10 @@ async def version():
 @checks.is_dev()
 async def dm(ctx, somethingelse:str, *, message:str):
     """DMs a user"""
-    user = discord.utils.get(list(bot.get_all_members()), id=somethingelse)
     msg = make_message_embed(ctx.message.author, 0xE19203, message, formatUser=True)
     try:
-        await bot.send_message(discord.User(id=somethingelse), "You got a message from the developers!", embed=msg)
+        sent_message = await bot.send_message(discord.User(id=somethingelse), "You got a message from the developers!", embed=msg)
+        user = sent_message.channel.user
         await bot.send_message(discord.User(id=config.owner_id), "`{}` has replied to a recent DM with `{}#{}`, an ID of `{}`, and Shard ID `{}`.".format(ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)), embed=make_message_embed(ctx.message.author, 0xCC0000, message))
         for fuck in config.dev_ids:
             await bot.send_message(discord.User(id=fuck), "`{}` has replied to a recent DM with `{}#{}` an ID of `{}`, and Shard ID `{}`.".format(ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)), embed=make_message_embed(ctx.message.author, 0xCC0000, message))
@@ -523,11 +509,11 @@ async def ping(ctx):
                                "why the fuck am I even doing this for you?", "but....", "meh.", "...",
                                "Did you really expect something better?", "kek", "I'm killing your dog next time.",
                                "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.", "Damn it seth, why does your internet have to be slow?", "EJ pls.", "Go check out ViralBot today! It's lit.", "pink floyd", "how do u feel, how do u feel now, aaaaaaaaaaaaa?", "alan's psychadelic breakfast", "Oh.. er.. me flakes.. scrambled eggs.. bacon.. sausages.. tomatoes.. toast.. coffee.. marmalade. I like marmalade.. yes.. porridge is nice, any cereal.. I like all cereals..",
-                               "so, how's was trumps bullshit on executive orders?", "don't sign the I-407 in the airport"])
+                               "so, how's was trumps bullshit on executive orders?", "don't sign the I-407 in the airport", "hi", "hi can i get a  uh h hh h h h ", "stop pinging me", "go away nerd", "i secretly love you", "owo", "uwu"])
     topkek = memes
     pingms = await bot.send_message(ctx.message.channel, topkek)
     ping = time.time() - pingtime
-    await bot.edit_message(pingms, topkek + " // ***%.01f secs***" % (ping))
+    await bot.edit_message(pingms, topkek + " // ***{} ms***".format(str(ping)[3:][:3]))
 
 @bot.command()
 async def website():
@@ -542,7 +528,6 @@ async def github():
 @bot.command(hidden=True)
 async def sneaky(*, server: str):
     hax = await bot.create_invite(discord.utils.find(lambda m: m.name == server, bot.servers))
-
     await bot.say("here bitch. " + str(hax))
 
 @bot.command(hidden=True)

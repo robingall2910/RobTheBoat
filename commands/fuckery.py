@@ -4,6 +4,8 @@ import random
 import os
 import json
 import urllib.request
+import wikipedia
+import time
 
 from cleverwrap import CleverWrap
 from utils.config import Config
@@ -23,7 +25,15 @@ class Fuckery():
             await self.bot.delete_message(ctx.message)
         except:
             pass
-        await self.bot.say(message.replace("@everyone", "everyone"))
+        if ctx.message.author is not ctx.message.author.bot:
+            await self.bot.say(message.replace("@everyone", "everyone"))
+        else:
+            return
+
+    @commands.command(pass_context=True)
+    async def test(self, ctx):
+        """No context."""
+        await self.bot.say("( ͡° ͜ʖ ͡°) I love you")
 
     @commands.command(pass_context=True)
     async def cat(self, ctx):
@@ -155,7 +165,53 @@ class Fuckery():
         if user is None:
             await self.bot.say("I rate you a `{}`/`10`".format(random.randint(0, 10)))
         else:
-            await self.bot.say("I rate `{}` a `{}`/`10`".format(user, random.randint(0, 10)))
+            await self.bot.say("I rate {} a `{}`/`10`".format(user, random.randint(0, 10)))
+
+    @commands.command(pass_context=True)
+    async def wiki(self, ctx, *, query: str):
+        """
+        Search the infite pages!
+        """
+        cont2 = query
+        cont = re.sub(r"\s+", '_', query)
+        q = wikipedia.page(cont)
+        await self.bot.send_typing(ctx.message.channel)
+        await self.bot.send_message(ctx.message.channel, "{}:\n```\n{}\n```\nFor more information, visit <{}>".format(q.title,
+                                                                                                              wikipedia.summary(
+                                                                                                                  query,
+                                                                                                                  sentences=5),
+                                                                                                              q.url))
+        await self.bot.send_message(ctx.message.channel, cont)
+        if wikipedia.exceptions.PageError == True:
+            await self.bot.send_message(ctx.message.channel, "Error 404. Try another.")
+        elif wikipedia.exceptions.DisambiguationError == True:
+            await self.bot.send_message(ctx.message.channel, "Too many alike searches, please narrow it down more...")
+
+    @commands.command(pass_context=True)
+    async def time(self, ctx):
+        d = time.strftime("%A, %B %d, %Y")
+        t = time.strftime("%I:%M:%S %p %Z")
+        linemedaddy = "```ruby\n Current Date: " + d + '\n Current Time: ' + t + "\n" + "```"
+        await self.bot.send_message(ctx.message.channel, linemedaddy)
+
+    @commands.command(pass_context=True)
+    async def markov(self, ctx):
+        markov = open('markovrobin.txt').read().splitlines()
+        somethingsudden = random.choice(markov)
+        await self.bot.say(somethingsudden)
+
+
+    @commands.command(pass_context=True)
+    async def memegen(self, ctx, template: str, *, lines: str):
+        """
+        Attempt on trying to create a meme command, .memeg (template/line1/line2)
+        List: http://memegen.link/templates/
+        """
+        if len(template) and len(lines) != 0:
+            memeg = str(template) + " " + str(lines)
+            await self.bot.say("http://memegen.link/" + re.sub(r"\s+", '-', memeg) + ".jpg")
+        else:
+            await self.bot.say("You didn't enter a message. Templates: http://memegen.link/templates/")
 
     @commands.command()
     async def honk(self):

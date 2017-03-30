@@ -1,7 +1,7 @@
-import time
+import os
 
 from discord.ext import commands
-from datetime import date
+from datetime import *
 from utils.tools import *
 from utils.logger import log
 from utils.config import Config
@@ -195,6 +195,35 @@ class Information():
     @commands.command(pass_context=True)
     async def donate(self, ctx):
         await self.bot.say("`http://donate.dragonfire.me` - Here I guess. I can't keep up with the server, so I'm going to need all the help I can get. Thanks.")
+
+    @commands.command(pass_context=True)
+    async def st(self, ctx):
+        rb = "```rb\n{0}\n```"
+        await self.bot.send_typing(ctx.message.channel)
+        msg = "speedtest-cli --share --simple"
+        input = os.popen(msg)
+        output = input.read()
+        await self.bot.send_message(ctx.message.channel, rb.format(output))
+        # msg.replace("serverip", "Server IP").replace("\n", "\n").replace("\"", "").replace("b'", "").replace("'",
+        #                                                                                                     "")))
+    
+    @commands.command(pass_context=True)
+    async def ipping(self, ctx, *, ip: str):
+        rb = "```rb\n{0}\n```"
+        await self.bot.send_typing(ctx.message.channel)
+        msg = "ping -c 4 {0}".format(ip)
+        input = os.popen(msg)
+        output = input.read()
+        await self.bot.send_message(ctx.message.channel, rb.format(output))
+
+    @commands.command(pass_context=True)
+    async def traceroute(self, ctx, *, ip: str):
+        rb = "```rb\n{0}\n```"
+        await self.bot.send_typing(ctx.message.channel)
+        msg = "traceroute {0}".format(ip)
+        input = os.popen(msg)
+        output = input.read()
+        await self.bot.send_message(ctx.message.channel, rb.format(output))
 
 def setup(bot):
     bot.add_cog(Information(bot))

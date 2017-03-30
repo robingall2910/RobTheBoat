@@ -4,6 +4,7 @@ import geocoder
 import json
 
 from forecastiopy import *
+from pprint import pprint
 from discord.ext import commands
 from utils.sharding import darkskyapi
 
@@ -22,9 +23,15 @@ class Weather():
                 fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1],
                                             units=ForecastIO.ForecastIO.UNITS_US)
                 current = FIOCurrently.FIOCurrently(fio)
+                if fio.has_flags() is True:
+                	flags = FIOFlags.FIOFlags(fio)
+                	pprint(vars(flags))
                 loc = geocoder.google(address)
                 k = loc.json
-                await self.bot.say(str(ctx.message.author) + " >> Currently in {}: `{} F` with a humidity percentage of `{}%`. Chance of rain: `{}%`.".format(k['city'] + ", " + k['state'], current.temperature, current.humidity, current.precipProbability))
+                if flags:
+                	await self.bot.say(str(ctx.message.author) + " >> Currently in {}: `{} F` with a humidity percentage of `{:.0%}`. Chance of rain: `{:.0%}`. Alerts: {}".format(k['city'] + ", " + k['state'], current.temperature, current.humidity, current.precipProbability, flags.units))
+                else:
+                	await self.bot.say(str(ctx.message.author) + " >> Currently in {}: `{} F` with a humidity percentage of `{:.0%}`. Chance of rain: `{:.0%}`. Alerts: None.".format(k['city'] + ", " + k['state'], current.temperature, current.humidity, current.precipProbability))
             except Exception as e:
                 await self.bot.say("```py\n{}\n```".format(e))
         else:
