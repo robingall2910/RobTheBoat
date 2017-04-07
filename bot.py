@@ -6,7 +6,19 @@ import sys
 import subprocess
 import psutil
 import random
-
+"""
+Hey there, just felt like giving a few messages here.
+Thank you all for making me start Some Dragon a year back exactly. Though it was a really terrible bot, it was well worth.
+It did stay as a really shitty code formatting until Q4 of 2016, which is when I rewrote it to context. In the end, thanks for seeing this.
+I hope this stays as long as it could, it's well appreciated in a few communites.
+(Even though I forced it to leave well known servers a bit back, lol)
+Thanks once again. Few people I'd like to thank myself, actually.
+- Ryulise#0203 - dog
+- Seth#0780 - thank u seth for the rewrite and ur welcome for u hh h h h hh some things
+- Printendo#0447, EJH2#0245, Maxie#7555, Célia#1782, and ***others***, I just haven't gotten your usernames lol, you might know who you are.
+Finally, POSTMORTEM#9714. Though, EVEN if you didn't do anything to contribute to this bot, I still did fill up my schedule and literally seperated you out of my time for a while, til now.
+Thanks for being paitent hun.
+"""
 start_time = time.time()
 
 # Initialize the logger first so the colors and shit are setup
@@ -550,16 +562,18 @@ async def stats(ctx):
         em.title = bot.user.name + "'s Help Server"
         em.url = "https://discord.gg/vvAKvaG"
         em.set_thumbnail(url=bot.user.avatar_url)
-        #copy and paste is a useful feature
-        em.add_field(name='Created by', value='based robin#0052 and Seth#0780', inline=True)
-        em.add_field(name='Bot Version', value=BUILD_VERSION, inline=True)
+        #c&p is a good feature
+        em.add_field(name='Creators', value='based robin#0052 and Seth#0780', inline=True)
+        em.add_field(name='Support Team', value='Ryulise#0203 and SkunkSmasher#3835', inline=True)
+        em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
+        em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
-        em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
+        #em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
         em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.", inline=True)
         em.add_field(name='Servers', value=sumitup, inline=True)
         em.add_field(name='Members', value=sumupuni + " ***online*** out of " + sumupmembers, inline=True)
         em.add_field(name="Shard Server Count", value=len(bot.servers), inline=True)
-        em.add_field(name='Memory Usage', value='{:.2f} MiB - Shard {} only'.format(musage, str(SID)), inline=True)
+        em.add_field(name='Memory Usage & Shard Number', value='{:.2f} MiB - Shard {}'.format(musage, str(SID)), inline=True)
         await bot.say(embed=em)
     else:
         SID = shard_id
@@ -574,15 +588,17 @@ async def stats(ctx):
         em.url = "https://discord.gg/vvAKvaG"
         em.set_thumbnail(url=bot.user.avatar_url)
         em.color = ctx.message.server.me.color
-        em.add_field(name='Created by', value='based robin#0052 and Seth#0780', inline=True)
-        em.add_field(name='Bot Version', value=BUILD_VERSION, inline=True)
+        em.add_field(name='Creators', value='based robin#0052 and Seth#0780', inline=True)
+        em.add_field(name='Support Team', value='Ryulise#0203 and SkunkSmasher#3835', inline=True)
+        em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
+        em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
-        em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
+        #em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
         em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.", inline=True)
         em.add_field(name='Servers', value=sumitup, inline=True)
         em.add_field(name='Members', value=sumupuni + " ***online*** out of " + sumupmembers, inline=True)
         em.add_field(name="Shard Server Count", value=len(bot.servers), inline=True)
-        em.add_field(name='Memory Usage', value='{:.2f} MiB - Shard {} only'.format(musage, str(SID)), inline=True)
+        em.add_field(name='Memory Usage & Shard Number', value='{:.2f} MiB - Shard {}'.format(musage, str(SID)), inline=True)
         await bot.say(embed=em)
 
 bot.run(config._token)
