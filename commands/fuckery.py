@@ -60,12 +60,6 @@ class Fuckery():
         await self.bot.say("http://i.giphy.com/lae7QSMFxEkkE.gif")
 
     @commands.command(pass_context=True)
-    async def allahuakbar(self, ctx):
-        """ALLAHU AKBAR!"""
-        await self.bot.send_typing(ctx.message.channel)
-        await self.bot.send_file(ctx.message.channel, "assets/imgs/allahuakbar.gif")
-
-    @commands.command(pass_context=True)
     async def rekt(self, ctx):
         """#REKT"""
         await self.bot.send_typing(ctx.message.channel)
@@ -102,22 +96,23 @@ class Fuckery():
         await self.bot.send_file(ctx.message.channel, "assets/imgs/quotes/{}.png".format(random.randint(1, len([file for file in os.listdir("assets/imgs/quotes")]))))
 
     @commands.command(pass_context=True)
-    async def cykablyat(self, ctx):
-        """Cyka blyat!"""
-        await self.bot.send_typing(ctx.message.channel)
-        await self.bot.send_file(ctx.message.channel, "assets/imgs/cykablyat.jpg")
-
-    @commands.command(pass_context=True)
     async def delet(self, ctx):
         """Delet this"""
         await self.bot.send_typing(ctx.message.channel)
         await self.bot.send_file(ctx.message.channel, "assets/imgs/delet_this.jpg")
+
+    @commands.command(pass_context=True)
+    async def roll(self, ctx, sides: int):
+        """Roll the fuck out of this shit."""
+        rolling = random.randint(1, sides)
+        await self.bot.say("You got a {} out of the {} sided die.".format(rolling, str(sides)))
 
     @commands.command()
     async def lenny(self):
         """<Insert lenny face here>"""
         await self.bot.say(lenny)
         #they're back fuck yeah
+        
     @commands.command()
     async def psat(self):
         #Please.

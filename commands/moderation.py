@@ -27,24 +27,6 @@ class Moderation():
             return
         #await self.logger.mod_log(ctx.message.server, "`{}` kicked `{}` Reason: `{}`".format(ctx.message.author, user, reason))
 
-    @commands.command(pass_context=True) #aliases don't really work so
-    async def kill(self, ctx, user:discord.Member, *, reason:str=None):
-        """Kicks the specified user from the server"""
-        mod_role_name = read_data_entry(ctx.message.server.id, "mod-role")
-        mod = discord.utils.get(ctx.message.author.roles, name=mod_role_name)
-        if not mod:
-            await self.bot.say("You must have the `{}` role in order to use that command.".format(mod_role_name))
-            return
-        if reason is None:
-            reason = "No reason was specified"
-        try:
-            await self.bot.kick(user)
-        except discord.errors.Forbidden:
-            await self.bot.say("I either do not the `Kick Members` permission or my highest role is not higher than that users highest role.")
-            return
-        #await self.logger.mod_log(ctx.message.server, "`{}` kicked `{}` Reason: `{}`".format(ctx.message.author, user, reason))
-
-
     @commands.command(pass_context=True)
     async def ban(self, ctx, user:discord.Member, *, reason:str=None):
         """Bans the specified user from the server"""
@@ -211,6 +193,27 @@ class Moderation():
         except:
             pass
 
+    @commands.command(pass_context=True)
+    async def pruneuser(self, ctx, amount:int, *, user:discord.Member):
+        """Prunes the specified amount of messages by a member."""
+        mod_role_name = read_data_entry(ctx.message.server.id, "mod-role")
+        mod = discord.utils.get(ctx.message.author.roles, name=mod_role_name)
+        if not mod:
+            await self.bot.say("You're required to have the {} role in order to use the command, sorry.".format(mod_role_name))
+            return
+        try:
+           await self.bot.delete_message(ctx.message)
+       except discord.errors.Forbidden:
+            await self.bot.say("Well then. I'm missing the Manage Messages permission. Sorry that I can't delete the messages.")
+        def the_retarded_fool_tbh(how_could_you_do_this):
+            return how_could_you_do_this.user == user
+        deleted = await self.bot.purge_from(ctx.message.channel, limit=amount, check=the_retarded_fool_tbh)
+        deleted_message = await self.bot.say("{} Deleted {} messages".format(ctx.message.author.mention, len(deleted)))
+        # Read the message for the top command you lazy fuck. Or well, I'm the lazy fuck here for not copying.
+        try:
+            await self.bot.deleted_message(deleted_message)
+        except:
+            pass
     """@commands.command(pass_context=True)
     async def clean(self, ctx, amount:int, search_range=50):
         #(!) (WIP) Cleans only the bots messages and the prefixes that has been sent by the user.

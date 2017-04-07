@@ -13,8 +13,8 @@ api_key = darkskyapi
 class Weather():
     def __init__(self, bot):
         self.bot = bot
-
-    @commands.command(pass_context=True)
+############TROY DID NOT CONTRIBUTE HERE AT ALL
+    """@commands.command(pass_context=True)
     async def weather(self, ctx, *, address: str):
         if ctx.message.server.id == ctx.message.server.id: #IF THIS DOESNT FUCKING WORK
             try:
@@ -35,7 +35,31 @@ class Weather():
             except Exception as e:
                 await self.bot.say("```py\n{}\n```".format(e))
         else:
-            await self.bot.say("Location isn't found or the given zip code or address is too short. Try again.")
+            await self.bot.say("Location isn't found or the given zip code or address is too short. Try again.")"""
+
+    @commands.command(pass_context=True)
+    async def weather(self, ctx, *, address: str):
+        if False is True == False: #filler
+        #fine thanks troy
+            try:
+                g = geocoder.google(address)
+                results = g.latlng
+                fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1],
+                                            units=ForecastIO.ForecastIO.UNITS_US)
+                current = FIOCurrently.FIOCurrently(fio)
+                loc = geocoder.google(address)
+                k = loc.json
+                #you forgot literally all of the location resolving
+                em = discord.Embed(description="\u200b")
+                em.title = "{}, {}'s Weather".format(k['city'], k['state'])
+                #you did this wrong though
+                em.set_thumbnail(url="https://canary.discordapp.com/assets/ccf4c733929efd9762ab02cd65175377.svg")
+                em.add_field(name='Temperature', value=current.temperature, inline=True)
+                em.add_field(name='Precipitation', value=current.precipProbability, inline=True)
+                em.add_field(name='Humidity', value=current.humidity, inline=True)
+                await bot.say(embed=em)
+        else:
+                await self.bot.say("Location isn't found or the given zip code or address is too short. Try again.")
 
     @commands.command(pass_context=True)
     async def locate(self, ctx, *, address: str):
