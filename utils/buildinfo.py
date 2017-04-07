@@ -1,4 +1,4 @@
-BUILD_VERSION = "6.3"
-BUILD_AUTHORS = "based robin#0052 and Seth#0780"
-BUILD_CODENAME = "hmu for wrestling tickets"
-BUILD_DATE = "March 26, 2017 @ 12:33 AM EDT"
+BUILD_VERSION = "6.6"
+BUILD_AUTHORS = "based robin#0052"
+BUILD_CODENAME = "Don't you wish this was 6.6.6?"
+BUILD_DATE = "April 7th, 2017 @ 1:14 AM EDT"
