@@ -72,7 +72,7 @@ class Information():
         """Gets information on a role, warning, it might take up the entire screen"""
         role = discord.utils.get(ctx.message.server.roles, name=name)
         if role is None:
-            await self.bot.say("`{}` is not a valid role".format(name))
+            await self.bot.say("`{}` isn't real. Or is it?".format(name))
             return
         color = role.color
         if color == discord.Color(value=0x000000):
@@ -95,7 +95,7 @@ class Information():
             if member.discriminator == discriminator and str(member) not in members:
                 members.append(str(member))
         if len(members) == 0:
-            members = "I could not find any users in any of the servers I'm in with a discriminator of `{}`".format(discriminator)
+            members = "Well, I don't see anyone with `{}` anywhere really...".format(discriminator)
         else:
             members = "```{}```".format(", ".join(members))
         await self.bot.say(members)
@@ -120,7 +120,7 @@ class Information():
         """Gets very basic server info on the server with the specified name"""
         server = discord.utils.get(self.bot.servers, name=name)
         if server is None:
-            await self.bot.say("I could not find a server by the name of `{}`".format(name))
+            await self.bot.say("I don't know `{}` is. Is that some kind of server I don't know of?!?".format(name))
         else:
             await self.bot.say("```Name: {}\nID: {}\nOwner: {}\nOwner ID: {}\nMember count: {}\nDate created: {}```".format(server.name, server.id, server.owner, server.owner.id, len(server.members), server.created_at))
 
@@ -194,7 +194,7 @@ class Information():
         
     @commands.command(pass_context=True)
     async def donate(self, ctx):
-        await self.bot.say("`http://donate.dragonfire.me` - Here I guess. I can't keep up with the server, so I'm going to need all the help I can get. Thanks.")
+        await self.bot.say("https://donate.dragonfire.me/ pls give me money xdxd (Wells Fargo SurePay also exists, but that's when you really can't donate via PayPal)")
 
     @commands.command(pass_context=True)
     async def st(self, ctx):

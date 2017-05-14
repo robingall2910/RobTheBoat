@@ -5,6 +5,7 @@ import time
 import sys
 import subprocess
 import psutil
+import pyping
 import random
 """
 Hey there, just felt like giving a few messages here.
@@ -44,12 +45,12 @@ from utils.sharding import shard_count
 config = Config()
 if config.debug:
     log.enableDebugging() # pls no flame
-bot = commands.Bot(command_prefix=config.command_prefix, description="A multipurposed furry dragon bot, containing music, nsfw, and much more coming.", shard_id=shard_id, shard_count=shard_count, pm_help=True)
+bot = commands.Bot(command_prefix=config.command_prefix, description="A multipurposed bot with a theme for the furry fandom. Contains nsfw, info, weather, music and much more.", shard_id=shard_id, shard_count=shard_count, pm_help=True)
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
 
-extensions = ["commands.fuckery", "commands.information", "commands.moderation", "commands.configuration", "commands.nsfw", "commands.music", "commands.weather"]
+extensions = ["commands.fuckery", "commands.information", "commands.moderation", "commands.configuration", "commands.nsfw", "commands.music", "commands.weather", "commands.gw2", "commands.netflix"]
 
 # Thy changelog
 change_log = [
@@ -98,6 +99,7 @@ async def on_resumed():
 
 @bot.event
 async def on_ready():
+    print("\n")
     print("Logged in as:\n{}/{}#{}\n----------".format(bot.user.id, bot.user.name, bot.user.discriminator))
     print("Bot version: {}\nAuthor(s): {}\nCode name: {}\nBuild date: {}".format(BUILD_VERSION, BUILD_AUTHORS, BUILD_CODENAME, BUILD_DATE))
     log.debug("Debugging enabled!")
@@ -118,9 +120,9 @@ async def on_ready():
     if config._dbots_token:
         log.info("Updating DBots Statistics...")
         r = requests.post("https://bots.discord.pw/api/bots/{}/stats".format(bot.user.id), json={"shard_id": shard_id, "shard_count": shard_count, "server_count":len(bot.servers)}, headers={"Authorization":config._dbots_token})
-        if r.status_code == "200":
+        if r.status_code == 200:
             log.info("Discord Bots Server count updated.")
-        elif r.status_code == "401":
+        elif r.status_code == 401:
             log.error("Woah, unauthorized?")
     if os.path.isdir("data/music"):
         try:
@@ -254,18 +256,35 @@ async def debug(ctx, *, shit:str):
     except Exception as damnit:
         await bot.say(py.format("{}: {}".format(type(damnit).__name__, damnit)))
 
+"""@bot.command(hidden=True, pass_context=True)
+@checks.is_dev()
+async def eval(ctx, self):
+    await bot.say("Eval enabled. Insert the code you want to evaluate. If you don't want to, type `quit` to exit.")
+    if death = await bot.wait_for_message(author=ctx.message.author, content=quit):
+        return
+    else:
+        to_the_death = await bot.wait_for_message(author=ctx.message.author)
+        try:
+            ethan_makes_me_suffer = eval(to_the_death)
+            if asyncio.iscoroutine(ethan_makes_me_suffer):
+                ethan_makes_me_suffer = await ethan_makes_me_suffer
+            await bot.say(py.format(ethan_makes_me_suffer))
+        except Exception as why_do_you_do_this_to_me:
+            await bot.say(py.format("{}: {}".format(type(why_do_you_do_this_to_me).__name__, why_do_you_do_this_to_me)))"""
+
+
 @bot.command(hidden=True)
 @checks.is_owner()
 async def rename(*, name:str):
     """Renames the bot"""
     await bot.edit_profile(username=name)
-    await bot.say("Changed my name to {}".format(name))
+    await bot.say("How dare you change my name to {}".format(name))
 
 @bot.command(hidden=True, pass_context=True)
 @checks.is_dev()
 async def shutdown(ctx):
     """Shuts down the bot"""
-    await bot.say("Goodbye.")
+    await bot.say("I'm leaving you, it's over. See me in magistrate court tomorrow for our divorce.")
     log.warning("{} has shut down the bot!".format(ctx.message.author))
     await _shutdown_bot()
 
@@ -273,7 +292,7 @@ async def shutdown(ctx):
 @checks.is_dev()
 async def restart(ctx):
     """Restarts the bot"""
-    await bot.say("Restarting, I'll come back.")
+    await bot.say("I'm gonna leave because I'm mad at you, and then I'll come back. See you.")
     log.warning("{} has restarted the bot!".format(ctx.message.author))
     await _restart_bot()
 
@@ -302,11 +321,11 @@ async def notifydev(ctx, *, message:str):
     else:
         server = "`{}` / `{}`".format(ctx.message.server.id, ctx.message.server.name)
     msg = make_message_embed(ctx.message.author, 0xCC0000, message, formatUser=True)
-    await bot.send_message(discord.User(id=config.owner_id), "You have received a new message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
+    await bot.send_message(discord.User(id=config.owner_id), "New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
     for id in config.dev_ids:
-        await bot.send_message(discord.User(id=id), "You have received a new message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
-    await bot.send_message(ctx.message.author, "Message has been sent to the developers. Following message was sent: `{}`".format(message))
-    await bot.say("Message sent")
+        await bot.send_message(discord.User(id=id), "New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
+    await bot.send_message(ctx.message.author, "Heyo, the following message has been sent to the developers: `{}`".format(message))
+    await bot.say("Completed the quest.")
 
 @bot.command(hidden=True, pass_context=True)
 @checks.is_dev()
@@ -315,15 +334,15 @@ async def blacklist(ctx, id:str, *, reason:str):
     await bot.send_typing(ctx.message.channel)
     user = discord.utils.get(list(bot.get_all_members()), id=id)
     if user is None:
-        await bot.say("Could not find a user with an id of `{}`".format(id))
+        await bot.say("Can't find anyone with `{}`".format(id))
         return
     if getblacklistentry(id) != None:
-        await bot.say("`{}` is already blacklisted".format(user))
+        await bot.say("`{}` is already blacklisted, stop trying.".format(user))
         return
     blacklistuser(id, user.name, user.discriminator, reason)
-    await bot.say("Blacklisted `{}` Reason: `{}`".format(user, reason))
+    await bot.say("Ok, blacklisted `{}` Reason: `{}`".format(user, reason))
     try:
-        await bot.send_message(user, "You have been blacklisted from the bot by `{}` Reason: `{}`".format(ctx.message.author, reason))
+        await bot.send_message(user, "You've been blacklisted. We aren't supposed to talk. Sorry. `{}` Reason: `{}`".format(ctx.message.author, reason))
     except:
         log.debug("Couldn't send a message to a user with an ID of \"{}\"".format(id))
     #await channel_logger.log_to_channel(":warning: `{}` blacklisted `{}`/`{}` Reason: `{}`".format(ctx.message.author, id, user, reason))
@@ -334,18 +353,18 @@ async def unblacklist(ctx, id:str):
     """Unblacklists a user"""
     entry = getblacklistentry(id)
     if entry is None:
-        await bot.say("No blacklisted user can be found with an id of `{}`".format(id))
+        await bot.say("No one's found with the ID of `{}`".format(id))
         return
     try:
         unblacklistuser(id)
     except:
-        await bot.say("No blacklisted user can be found with an id of `{}`".format(id)) # Don't ask pls
+        await bot.say("Can't find the blacklisted user `{}`".format(id)) # Don't ask pls
         return
-    await bot.say("Successfully unblacklisted `{}#{}`".format(entry.get("name"), entry.get("discrim")))
+    await bot.say("Gave freedom once more to `{}#{}`".format(entry.get("name"), entry.get("discrim")))
     try:
-        await bot.send_message(discord.User(id=id), "You have been unblacklisted from the bot by `{}`".format(ctx.message.author))
+        await bot.send_message(discord.User(id=id), "You're unblacklisted you titty. You were unblacklisted by `{}`".format(ctx.message.author))
     except:
-        log.debug("Couldn't send a message to a user with an ID of \"{}\"".format(id))
+        log.debug("Can't send msg to \"{}\"".format(id))
     #await channel_logger.log_to_channel(":warning: `{}` unblacklisted `{}`/`{}#{}`".format(ctx.message.author, id, entry.get("name"), entry.get("discrim")))
 
 @bot.command()
@@ -366,10 +385,10 @@ async def lockstatus():
     global lock_status
     if lock_status:
         lock_status = False
-        await bot.say("The status has been unlocked")
+        await bot.say("Unlocked.")
     else:
         lock_status = True
-        await bot.say("The status has been locked")
+        await bot.say("Locked.")
 
 @bot.command(pass_context=True)
 async def stream(ctx, *, name:str):
@@ -378,13 +397,13 @@ async def stream(ctx, *, name:str):
         await bot.say("The status is currently locked.")
         return
     await bot.change_presence(game=discord.Game(name=name, type=1, url="https://www.twitch.tv/robingall2910"))
-    await bot.say("Now streaming `{}`".format(name))
+    await bot.say("Streaming `{}`".format(name))
 
 @bot.command(pass_context=True)
 async def changestatus(ctx, status:str, *, name:str=None):
     """Changes the bot status to a certain status type and game/name/your shitty advertisement/seth's life story/your favorite beyonce lyrics and so on"""
     if lock_status:
-        await bot.say("The status is currently locked")
+        await bot.say("Status is locked. Don't try.")
         return
     game = None
     if status == "invisible" or status == "offline":
@@ -413,7 +432,7 @@ async def terminal(ctx, *, command:str):
         await bot.send_typing(ctx.message.channel)
         await bot.say(xl.format(os.popen(command).read()))
     except:
-        await bot.say("Unable to send the command, too long?")
+        await bot.say("I broke.")
 
 @bot.command(hidden=True, pass_context=True)
 @checks.is_dev()
@@ -441,7 +460,7 @@ async def dm(ctx, somethingelse:str, *, message:str):
     """DMs a user"""
     msg = make_message_embed(ctx.message.author, 0xE19203, message, formatUser=True)
     try:
-        sent_message = await bot.send_message(discord.User(id=somethingelse), "You got a message from the developers!", embed=msg)
+        sent_message = await bot.send_message(discord.User(id=somethingelse), "You have a new message from the devs!", embed=msg)
         user = sent_message.channel.user
         await bot.send_message(discord.User(id=config.owner_id), "`{}` has replied to a recent DM with `{}#{}`, an ID of `{}`, and Shard ID `{}`.".format(ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)), embed=make_message_embed(ctx.message.author, 0xCC0000, message))
         for fuck in config.dev_ids:
@@ -521,11 +540,13 @@ async def ping(ctx):
                                "why the fuck am I even doing this for you?", "but....", "meh.", "...",
                                "Did you really expect something better?", "kek", "I'm killing your dog next time.",
                                "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.", "Damn it seth, why does your internet have to be slow?", "EJ pls.", "Go check out ViralBot today! It's lit.", "pink floyd", "how do u feel, how do u feel now, aaaaaaaaaaaaa?", "alan's psychadelic breakfast", "Oh.. er.. me flakes.. scrambled eggs.. bacon.. sausages.. tomatoes.. toast.. coffee.. marmalade. I like marmalade.. yes.. porridge is nice, any cereal.. I like all cereals..",
-                               "so, how's was trumps bullshit on executive orders?", "don't sign the I-407 in the airport", "hi", "hi can i get a  uh h hh h h h ", "stop pinging me", "go away nerd", "i secretly love you", "owo", "uwu"])
+                               "so, how's was trumps bullshit on executive orders?", "don't sign the I-407 in the airport", "hi", "hi can i get a  uh h hh h h h ", "stop pinging me", "go away nerd", "i secretly love you", "owo", "uwu", "google blobs are the best", "lets keep advertising viralbot more!", "napstabot isn't good :^)"])
     topkek = memes
     pingms = await bot.send_message(ctx.message.channel, topkek)
     ping = time.time() - pingtime
-    await bot.edit_message(pingms, topkek + " // ***{} ms***".format(str(ping)[3:][:3]))
+    r = pyping.ping('dragonfire.me')
+    #await bot.edit_message(pingms, topkek + " // ***{} ms***".format(str(ping)[3:][:3]))
+    await bot.edit_message(pingms, topkek + " // ***{} ms***".format(r.avg_rtt))
 
 @bot.command()
 async def website():
@@ -564,7 +585,7 @@ async def stats(ctx):
         em.set_thumbnail(url=bot.user.avatar_url)
         #c&p is a good feature
         em.add_field(name='Creators', value='based robin#0052 and Seth#0780', inline=True)
-        em.add_field(name='Support Team', value='Ryulise#0203 and SkunkSmasher#3835', inline=True)
+        em.add_field(name='Support Team', value='Ivan#2120 and Blackjaw Shadowsynth#3835', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
@@ -589,7 +610,7 @@ async def stats(ctx):
         em.set_thumbnail(url=bot.user.avatar_url)
         em.color = ctx.message.server.me.color
         em.add_field(name='Creators', value='based robin#0052 and Seth#0780', inline=True)
-        em.add_field(name='Support Team', value='Ryulise#0203 and SkunkSmasher#3835', inline=True)
+        em.add_field(name='Support Team', value='Ivan#2120 and Blackjaw Shadowsynth#3835', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)

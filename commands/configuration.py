@@ -12,14 +12,14 @@ class Configuration():
     async def config(self, ctx, type:str, *, value:str):
         """Modifies the server's local config"""
         if ctx.message.author is not ctx.message.server.owner:
-            await self.bot.say("Only the server owner (`{}`) can use this command.".format(format_user(ctx.message.server.owner)))
+            await self.bot.say("Only my otp the server owner aka {} can use this command.".format(format_user(ctx.message.server.owner)))
             return
         await self.bot.send_typing(ctx.message.channel)
         if type == "mod-role" or type == "nsfw-channel" or type == "mute-role":
             if type == "nsfw-channel":
                 value = value.lower().strip(" ")
             update_data_entry(ctx.message.server.id, type, value)
-            await self.bot.say("Successfully set the {} to `{}`".format(type, value))
+            await self.bot.say("Set the {} with value `{}`".format(type, value))
         else:
             await self.bot.say("`{}` isn't a valid type. The only types available are mod-role, nsfw-channel, and mute-role.".format(type))
 
@@ -27,14 +27,14 @@ class Configuration():
     async def cfgbypass(self, ctx, type:str, *, value:str):
         """Modifies the server's local config (bot owner bypass)"""
         if ctx.message.author.id != config.owner_id:
-            await self.bot.say("Only the bot developer can use this command.")
+            await self.bot.say("Back off. Only my masters can use this.")
             return
         await self.bot.send_typing(ctx.message.channel)
         if type == "mod-role" or type == "nsfw-channel" or type == "mute-role":
             if type == "nsfw-channel":
                 value = value.lower().strip(" ")
             update_data_entry(ctx.message.server.id, type, value)
-            await self.bot.say("Successfully set the {} to `{}`".format(type, value))
+            await self.bot.say("Set the {} with value `{}`.".format(type, value))
         else:
             await self.bot.say("`{}` isn't a valid type. The only types available are mod-role, nsfw-channel, and mute-role.".format(type))
 

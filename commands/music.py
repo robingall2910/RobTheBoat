@@ -128,7 +128,7 @@ class Music:
                 state.voice = await self.bot.join_voice_channel(ctx.message.author.voice_channel)
             except:
                 await ctx.invoke(self.disconnect)
-                await self.bot.say("An error occured and the voice client had to disconnect, please run {}connect again".format(self.bot.command_prefix))
+                await self.bot.say("Something broke. Do {}connect to connect again.".format(self.bot.command_prefix))
                 log.debug("Bot failed to connect to voice channel")
                 return False
         else:
@@ -142,6 +142,8 @@ class Music:
         song = song.strip("<>")
         try:
             state = self.get_voice_state(ctx.message.server)
+            if not state.voice.channel.voice_members:
+                await bot.say("You aren't in the voice channel. Please connect and you'll be able to play the song.")
             if state.voice is None:
                 success = await ctx.invoke(self.connect)
                 if not success:
@@ -187,9 +189,9 @@ class Music:
             player = state.player
             player.volume = amount / 100
             state.volume = amount / 100
-            await self.bot.say("Set the volume to `{:.0%}`".format(player.volume))
+            await self.bot.say("Okay, I set the volume to `{:.0%}`.".format(player.volume))
         else:
-            await self.bot.say("Nothing is playing!")
+            await self.bot.say("I forgot, but uh, nothing's playing man.")
 
     @commands.command(pass_context=True)
     async def disconnect(self, ctx):
@@ -210,29 +212,29 @@ class Music:
                 except:
                     log.error("Bot failed to force the disconnection from a voice channel!\n{}".format(traceback.format_exc()))
                     pass
-        await self.bot.say("Disconnected from the voice channel")
+        await self.bot.say("Alright, I left the voice channel.")
 
     @commands.command(pass_context=True)
     async def skip(self, ctx):
         """Vote to skip a song. Server mods, the server owner, bot developers, and the song requester can skip the song"""
         state = self.get_voice_state(ctx.message.server)
         if not state.is_playing():
-            await self.bot.say("Nothing is playing!")
+            await self.bot.say("Nothing's playing, once again.")
             return
         voter = ctx.message.author
         mod_role_name = read_data_entry(ctx.message.server.id, "mod-role")
         mod = discord.utils.get(voter.roles, name=mod_role_name)
         if voter == state.current.requester:
-            await self.bot.say("Requester requested to skip the song, skipping song...")
+            await self.bot.say("The requester chose to skip the song.")
             state.skip()
         elif mod:
-            await self.bot.say("Server moderator requested to skip the song, skipping song...")
+            await self.bot.say("Server moderator didn't like the song, skipping it.")
             state.skip()
         elif voter == ctx.message.server.owner:
-            await self.bot.say("Server owner requested to skip the song, skipping song...")
+            await self.bot.say("Server owner hates the song. Skipping it.")
             state.skip()
         elif checks.is_dev_check(ctx.message.author):
-            await self.bot.say("Bot developer requested to skip the song, skipping song...")
+            await self.bot.say("Bot developer doesn't love you. Skipping song...")
             state.skip()
         elif voter.id not in state.skip_votes:
             votes_needed = 3
@@ -242,15 +244,17 @@ class Music:
                     members.append(member)
             if len(members) < 3:
                 votes_needed = len(members)
+            if not state.voice.channel.voice_members:
+                await bot.say("You aren't in the voice channel. Please connect and you'll be able to skip the song.")
             state.skip_votes.add(voter.id)
             total_votes = len(state.skip_votes)
             if total_votes >= votes_needed:
-                await self.bot.say("Skip vote passed, skipping song...")
+                await self.bot.say("All of the required votes were passed on, skipping the song.")
                 state.skip()
             else:
-                await self.bot.say("Skip vote added, currently at `{}/{}`".format(total_votes, votes_needed))
+                await self.bot.say("Added the skip vote. Currently at `{}/{}`".format(total_votes, votes_needed))
         else:
-            await self.bot.say("You have already voted to skip this song.")
+            await self.bot.say("You already voted it, I know you hate it, but wait.")
 
     @commands.command(pass_context=True)
     async def pause(self, ctx):
@@ -259,9 +263,9 @@ class Music:
         if state.is_playing():
             player = state.player
             player.pause()
-            await self.bot.say("Song paused")
+            await self.bot.say("Alright, pausing the song.")
         else:
-            await self.bot.say("Nothing is playing!")
+            await self.bot.say("Hey, I can't pause dead air!")
 
     @commands.command(pass_context=True)
     async def resume(self, ctx):
@@ -270,9 +274,9 @@ class Music:
         if state.is_playing():
             player = state.player
             player.resume()
-            await self.bot.say("Song resumed")
+            await self.bot.say("Welcome back! Resuming the song.")
         else:
-            await self.bot.say("Nothing is playing!")
+            await self.bot.say("What, are you expecting me to resume nothing?")
 
     @commands.command(pass_context=True)
     async def queue(self, ctx):
@@ -280,9 +284,9 @@ class Music:
         state = self.get_voice_state(ctx.message.server)
         songs = state.queue
         if len(songs) == 0 and not state.current:
-            await self.bot.say("Nothing is in the queue!")
+            await self.bot.say("Queue is empty, my boy.")
         else:
-            current_song = "Now playing: {}".format(state.current)
+            current_song = "Raping your ears with: {}".format(state.current)
             if len(songs) != 0:
                 songs = "{}\n\n{}".format(current_song, "\n".join([str(song) for song in songs]))
             else:

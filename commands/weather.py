@@ -2,6 +2,7 @@ import os
 #import forecastiopy
 import geocoder
 import json
+import discord
 
 from forecastiopy import *
 from pprint import pprint
@@ -39,7 +40,7 @@ class Weather():
 
     @commands.command(pass_context=True)
     async def weather(self, ctx, *, address: str):
-        if False is True == False: #filler
+        if ctx.message.author == ctx.message.author: #filler
         #fine thanks troy
             try:
                 g = geocoder.google(address)
@@ -53,13 +54,24 @@ class Weather():
                 em = discord.Embed(description="\u200b")
                 em.title = "{}, {}'s Weather".format(k['city'], k['state'])
                 #you did this wrong though
-                em.set_thumbnail(url="https://canary.discordapp.com/assets/ccf4c733929efd9762ab02cd65175377.svg")
-                em.add_field(name='Temperature', value=current.temperature, inline=True)
-                em.add_field(name='Precipitation', value=current.precipProbability, inline=True)
-                em.add_field(name='Humidity', value=current.humidity, inline=True)
-                await bot.say(embed=em)
+                if current.precipProbability == int(0):
+                	var = "It's not raining, is it?"
+                else:
+                	var = "Looks like it's raining."
+                if ctx.message.server.me.color == None:
+                	maybe = None
+                else:
+                	maybe = ctx.message.server.me.color
+                em.set_thumbnail(url="https://dragonfire.me/474be77b-23bc-42e4-a779-6eb7b3b9a892.jpg")
+                em.color = maybe
+                em.add_field(name='Temperature', value="{}°F".format(current.temperature), inline=True)
+                em.add_field(name='Precipitation', value=var, inline=True)
+                em.add_field(name='Humidity', value="{:.0%}".format(current.humidity), inline=True)
+                await self.bot.say(embed=em)
+            except Exception as fucking_hell:
+                await self.bot.say("```py\n{}\n```".format(fucking_hell))
         else:
-                await self.bot.say("Location isn't found or the given zip code or address is too short. Try again.")
+            await self.bot.say("Location isn't found or the given zip code or address is too short. Try again.")
 
     @commands.command(pass_context=True)
     async def locate(self, ctx, *, address: str):

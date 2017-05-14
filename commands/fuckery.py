@@ -47,7 +47,7 @@ class Fuckery():
     @commands.command(pass_context=True)
     async def f(self, ctx):
         """Press F to pay your respects"""
-        await self.bot.say("`{}` has paid their respects! Respects paid: {}".format(ctx.message.author, random.randint(1, 10000)))
+        await self.bot.say("Guess what? {} just paid their respects! Amount paid: {}".format(ctx.message.author, random.randint(1, 10000)))
 
     @commands.command()
     async def nicememe(self):
@@ -231,7 +231,7 @@ class Fuckery():
         """Quotes a message with the specified message ID"""
         message = await self.bot.get_message(ctx.message.channel, id)
         if message is None:
-            await self.bot.say("I could not find a message with an ID of `{}` in this channel".format(id))
+            await self.bot.say("Can't find {} in here.".format(id))
             return
         embed = make_message_embed(message.author, message.author.color, message.content, formatUser=True)
         await self.bot.say(None, embed=embed)
