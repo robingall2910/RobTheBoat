@@ -54,7 +54,7 @@ class Weather():
                 em = discord.Embed(description="\u200b")
                 em.title = "{}, {}'s Weather".format(k['city'], k['state'])
                 #you did this wrong though
-                if current.precipProbability == int(0):
+                if current.precipProbability == 0:
                 	var = "It's not raining, is it?"
                 else:
                 	var = "Looks like it's raining."
@@ -80,7 +80,11 @@ class Weather():
             loc = g.json
             var = json.dumps(loc)
             k = json.loads(var)
-            await self.bot.say(k['address'])
+            if k['status'] == 'OK':
+            	yes = k['address']
+            elif k['status'] == 'ZERO_RESULTS':
+            	yes = "There's no results found for this location."
+            await self.bot.say(yes)
         except Exception as e:
             await self.bot.say("```py\n{}\n```".format(e))
 

@@ -140,10 +140,9 @@ class Music:
         """Plays a song, searches youtube or gets video from youtube url"""
         await self.bot.send_typing(ctx.message.channel)
         song = song.strip("<>")
+        song = song.strip("/")
         try:
             state = self.get_voice_state(ctx.message.server)
-            if not state.voice.channel.voice_members:
-                await bot.say("You aren't in the voice channel. Please connect and you'll be able to play the song.")
             if state.voice is None:
                 success = await ctx.invoke(self.connect)
                 if not success:
@@ -174,7 +173,7 @@ class Music:
                 return
             player.volume = state.volume
             entry = VoiceEntry(ctx.message, player, song_info, file_url)
-            await self.bot.say("Enqueued {}".format(entry))
+            await self.bot.say("Added {} to the queue list!".format(entry))
             await state.songs.put(entry)
             state.queue.append(entry)
         except Exception as e:
