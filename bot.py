@@ -609,8 +609,8 @@ async def stats(ctx):
         em.url = "https://discord.gg/vvAKvaG"
         em.set_thumbnail(url=bot.user.avatar_url)
         em.color = ctx.message.server.me.color
-        em.add_field(name='Creators', value='based robin#0052 and Seth#0780', inline=True)
-        em.add_field(name='Support Team', value='Ivan#2120 and Blackjaw Shadowsynth#3835', inline=True)
+        em.add_field(name='Creators', value='based robin#0052 and Seth#0051', inline=True)
+        em.add_field(name='Support Team', value='Ivan#5175 and Blackjaw Shadowsynth#3835', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
