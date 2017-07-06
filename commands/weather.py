@@ -6,6 +6,7 @@ import discord
 
 from forecastiopy import *
 from pprint import pprint
+from darksky import forecast
 from discord.ext import commands
 from utils.sharding import darkskyapi
 
@@ -14,29 +15,6 @@ api_key = darkskyapi
 class Weather():
     def __init__(self, bot):
         self.bot = bot
-############TROY DID NOT CONTRIBUTE HERE AT ALL
-    """@commands.command(pass_context=True)
-    async def weather(self, ctx, *, address: str):
-        if ctx.message.server.id == ctx.message.server.id: #IF THIS DOESNT FUCKING WORK
-            try:
-                g = geocoder.google(address)
-                results = g.latlng
-                fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1],
-                                            units=ForecastIO.ForecastIO.UNITS_US)
-                current = FIOCurrently.FIOCurrently(fio)
-                if fio.has_flags() is True:
-                	flags = FIOFlags.FIOFlags(fio)
-                	pprint(vars(flags))
-                loc = geocoder.google(address)
-                k = loc.json
-                if flags:
-                	await self.bot.say(str(ctx.message.author) + " >> Currently in {}: `{} F` with a humidity percentage of `{:.0%}`. Chance of rain: `{:.0%}`. Alerts: {}".format(k['city'] + ", " + k['state'], current.temperature, current.humidity, current.precipProbability, flags.units))
-                else:
-                	await self.bot.say(str(ctx.message.author) + " >> Currently in {}: `{} F` with a humidity percentage of `{:.0%}`. Chance of rain: `{:.0%}`. Alerts: None.".format(k['city'] + ", " + k['state'], current.temperature, current.humidity, current.precipProbability))
-            except Exception as e:
-                await self.bot.say("```py\n{}\n```".format(e))
-        else:
-            await self.bot.say("Location isn't found or the given zip code or address is too short. Try again.")"""
 
     @commands.command(pass_context=True)
     async def weather(self, ctx, *, address: str):
@@ -45,28 +23,66 @@ class Weather():
             try:
                 g = geocoder.google(address)
                 results = g.latlng
-                fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1],
-                                            units=ForecastIO.ForecastIO.UNITS_US)
+                fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1], units=ForecastIO.ForecastIO.UNITS_US)
                 current = FIOCurrently.FIOCurrently(fio)
+                alerts = FIOAlerts.FIOAlerts(fio)
                 loc = geocoder.google(address)
+                ds = forecast(api_key, results[0], results[1])
                 k = loc.json
                 #you forgot literally all of the location resolving
-                em = discord.Embed(description="\u200b")
-                em.title = "{}, {}'s Weather".format(k['city'], k['state'])
-                #you did this wrong though
-                if current.precipProbability == 0:
-                	var = "It's not raining, is it?"
+                em = discord.Embed(description="This information is displayed in Farenheit.")
+                state = k['state']
+                city = k['city']
+                country = k['country']
+                if country is 'country':
+                    country = "N/A"
+                if city is 'city':
+                    city = "N/A"
+                if state is 'state':
+                    state = "N/A"
+                em.title = "{}, {}, {}'s Current Weather".format(city, state, country)
+                if current.uvIndex == 0:
+                    uvresult = "There isn't probably any sun right now."
+                    uvint = "0"
+                elif current.uvIndex == range(1, 5):
+                    uvresult = "Few sun rays are hitting."
+                    uvint = current.uvIndex
+                elif current.uvIndex == range(5, 8):
+                    uvresult = "Hm.. The sun might be a bit stronk. Wear sunscreen if you're going out."
+                    uvint = current.uvIndex
+                elif current.uvIndex == range(8, 15):
+                    uvresult = "Damn, the sun rays are hitting good here! Wear sunscreen definitely!"
+                    uvint = current.uvIndex
                 else:
-                	var = "Looks like it's raining."
+                    uvresult = "Not available."
+                    uvint = "N/A"
+                try:
+                    visib = current.visibility
+                except AttributeError:
+                    visib = "Not available."
+                if current.precipProbability == 0:
+                	var = "Pretty sure it isn't."
+                else:
+                	var = "Yes. it is."
                 if ctx.message.server.me.color == None:
                 	maybe = None
                 else:
                 	maybe = ctx.message.server.me.color
+                try:
+                    counties = ', '.join(ds.alerts[0].regions)
+                    alertresult = "{} in {} County. More info [at NWS]({} 'National Weather Service')".format(ds.alerts[0].title, counties, ds.alerts[0].uri)
+                except AttributeError:
+                    alertresult = "Not available."
                 em.set_thumbnail(url="https://dragonfire.me/474be77b-23bc-42e4-a779-6eb7b3b9a892.jpg")
                 em.color = maybe
-                em.add_field(name='Temperature', value="{}°F".format(current.temperature), inline=True)
-                em.add_field(name='Precipitation', value=var, inline=True)
+                em.add_field(name='Current Temperature', value="{}°F".format(current.temperature), inline=True)
+                em.add_field(name='Is it raining?', value=var, inline=True)
                 em.add_field(name='Humidity', value="{:.0%}".format(current.humidity), inline=True)
+                em.add_field(name='Wind Speed/Wind Gust', value="{} mph/{} mph".format(current.windSpeed, current.windGust))
+                em.add_field(name='Visibility', value="{} miles".format(visib), inline=True)
+                em.add_field(name='UV Index', value="{} current index is **{}**.".format(uvresult, uvint), inline=True)
+                if fio.has_alerts() is True:
+                    em.add_field(name='Weather Alert', value=alertresult, inline=True)
                 await self.bot.say(embed=em)
             except Exception as fucking_hell:
                 await self.bot.say("```py\n{}\n```".format(fucking_hell))

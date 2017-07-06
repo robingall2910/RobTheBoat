@@ -126,7 +126,7 @@ class Fuckery():
     @commands.command()
     async def insult(self, *, user:str):
         """Insult those ass wipes"""
-        await self.bot.say("{} {}".format(user, random.choice(insults)))
+        await self.bot.say("{} {}".format(user.strip('<@>'), random.choice(insults)))
 
     @commands.command()
     async def compliment(self):
@@ -144,7 +144,10 @@ class Fuckery():
         config = Config()
         api_key = config.cb_api_key
         cw = CleverWrap(api_key)
-        await self.bot.say(str(ctx.message.author) + " >> " + cw.say(pussy))
+        try:
+            await self.bot.say(str(ctx.message.author) + " >> " + cw.say(pussy))
+        except UnicodeDecodeError:
+            await self.bot.say("Error has occured trying to decode the Cleverbot message.")
 
     @commands.command()
     async def ship(self, user1:discord.User=None, user2:discord.User=None):
@@ -161,6 +164,15 @@ class Fuckery():
             await self.bot.say("I rate you a `{}`/`10`".format(random.randint(0, 10)))
         else:
             await self.bot.say("I rate {} a `{}`/`10`".format(user, random.randint(0, 10)))
+
+    @commands.command(pass_context=True)
+    async def coinflip(self, ctx):
+        """Make the bot flip either heads or tails."""
+        result = random.randint(0, 1)
+        if 0:
+            await self.bot.say("You flipped a coin as high as you could. It falls on the floor since you can't catch it. Surprise, it's heads!")
+        else:
+            await self.bot.say("You flip the coin. You catch it somehow, and interestingly enough, it's tails!")
 
     @commands.command(pass_context=True)
     async def wiki(self, ctx, *, query: str):

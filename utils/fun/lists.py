@@ -15,26 +15,26 @@ psat_memes = [
 
 # Response for the 8ball command
 magic_conch_shell = [
-    "It's probably certain.",
-    "Kinda true.",
-    "Without a doubt.",
-    "Definitely fam",
-    "You may rely on it",
-    "As I see it, yeah.",
-    "Most likely",
-    "Outlook good",
+    "probably certain.",
+    "ehh, let's say it's true.",
+    "without a doubt!",
+    "definitely",
+    "you can rely on it.",
+    "well, it looks like it.",
+    "mhm, most likely",
+    "outlook looks good on this one.",
     "yes.",
-    "Signs point to yes",
-    "Reply hazy try again",
-    "Ask again later",
-    "Better not tell you now",
-    "Cannot predict now",
-    "Concentrate and ask again",
-    "Don't count on it",
-    "My reply is no",
-    "My sources say no",
-    "Outlook not so good",
-    "Very doubtful"
+    "every damn sign points to yes",
+    "reply hazy, retry.",
+    "ask later.",
+    "better not tell you now",
+    "can't predict at the moment",
+    "think hard, then ask again.",
+    "yeah, don't count on it.",
+    "my reply is a definite no.",
+    "my sources say no.",
+    "outlook doesn't look nice",
+    "mmm doubtful."
 ]
 
 # Insults for the insult command
@@ -65,8 +65,17 @@ insults = [
     "is a fucking shithead",
     "is a scotsman",
     "is a fucking edgelord",
-    "needs to fucking die"
-    "is a godfucking-shitheaded-pooeating-foureyed-bigheaded-pedofilic-godforesaken-pissdrinking-assfucking-homofilic-beerbellied-mophaired-cronical-heroinaddicted-tetanussuffering-monkeyassed-cocksucking-hepatitisinfected-gangreneinfested-pimplefaced-bugeyed-gasolineinhaling-cokewhore cunt!"
+    "needs to fucking die",
+    "is a godfucking-shitheaded-pooeating-foureyed-bigheaded-pedofilic-godforesaken-pissdrinking-assfucking-homofilic-beerbellied-mophaired-cronical-heroinaddicted-tetanussuffering-monkeyassed-cocksucking-hepatitisinfected-gangreneinfested-pimplefaced-bugeyed-gasolineinhaling-cokewhore cunt!",
+    "is a cheese eating surrender monkey",
+    "is a fucking mong",
+    "has a high probability of being inbred",
+    "eats ass with a condom over their mouth to avoid STD's",
+    "buys their daily supplies from poundworld",
+    "thinks communism should be implemented into all countries around the world",
+    "sits down and drinks tea with a stuffed my little pony toy that they fuck every night",
+    "buys their daily supplies from dollar tree",
+    "has a dried up pussy"
 ]
 
 

@@ -139,8 +139,7 @@ class Music:
     async def play(self, ctx, *, song:str):
         """Plays a song, searches youtube or gets video from youtube url"""
         await self.bot.send_typing(ctx.message.channel)
-        song = song.strip("<>")
-        song = song.strip("/")
+        song = song.strip(str([".play", "<>", "/"]))
         try:
             state = self.get_voice_state(ctx.message.server)
             if state.voice is None:

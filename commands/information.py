@@ -24,6 +24,22 @@ class Information():
             await self.bot.say("{}'s ID is `{}`".format(user.mention, user.id))
 
     @commands.command(pass_context=True)
+    async def top10servers(self, ctx):
+        """Gets the top 10 most populated servers the bot is on"""
+        servers = []
+        for server in sorted(self.bot.servers, key=lambda e: e.member_count, reverse=True)[:10]:
+            members = 0
+            bots = 0
+            total = len(server.members)
+            for member in server.members:
+                if member.bot:
+                    bots += 1
+                else:
+                    members += 1
+            servers.append("{}: {} members, {} bots ({} total)".format(server.name, members, bots, total))
+        await bot.say("```{}```".format("\n\n".join(servers)))
+
+    @commands.command(pass_context=True)
     async def serverinfo(self, ctx):
         """Gets information on the current server"""
         server = ctx.message.server

@@ -324,7 +324,7 @@ async def notifydev(ctx, *, message:str):
     await bot.send_message(discord.User(id=config.owner_id), "New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
     for id in config.dev_ids:
         await bot.send_message(discord.User(id=id), "New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
-    await bot.send_message(ctx.message.author, "Heyo, the following message has been sent to the developers: `{}`".format(message))
+    await bot.send_message(ctx.message.author, "Hey, the following message has been sent to the developers: `{}` PS: Yes you idiot, this actually does work. I'm not kidding. Be aware lol".format(message))
     await bot.say("Completed the quest.")
 
 @bot.command(hidden=True, pass_context=True)
@@ -544,7 +544,7 @@ async def ping(ctx):
     topkek = memes
     pingms = await bot.send_message(ctx.message.channel, topkek)
     ping = time.time() - pingtime
-    r = pyping.ping('dragonfire.me')
+    r = pyping.ping('discordapp.com')
     #await bot.edit_message(pingms, topkek + " // ***{} ms***".format(str(ping)[3:][:3]))
     await bot.edit_message(pingms, topkek + " // ***{} ms***".format(r.avg_rtt))
 
@@ -584,8 +584,8 @@ async def stats(ctx):
         em.url = "https://discord.gg/vvAKvaG"
         em.set_thumbnail(url=bot.user.avatar_url)
         #c&p is a good feature
-        em.add_field(name='Creators', value='based robin#0052 and Seth#0780', inline=True)
-        em.add_field(name='Support Team', value='Ivan#2120 and Blackjaw Shadowsynth#3835', inline=True)
+        em.add_field(name='Creators', value='based robin#0052 and Seth#0051', inline=True)
+        em.add_field(name='Support Team', value='Skoonk & Xeoda#3835 and Owlotic#0278', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
@@ -610,7 +610,7 @@ async def stats(ctx):
         em.set_thumbnail(url=bot.user.avatar_url)
         em.color = ctx.message.server.me.color
         em.add_field(name='Creators', value='based robin#0052 and Seth#0051', inline=True)
-        em.add_field(name='Support Team', value='Ivan#5175 and Blackjaw Shadowsynth#3835', inline=True)
+        em.add_field(name='Support Team', value='Skoonk & Xeoda#3835 and Owlotic#0278', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
