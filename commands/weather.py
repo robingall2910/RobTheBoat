@@ -70,7 +70,7 @@ class Weather():
                 	maybe = ctx.message.server.me.color
                 try:
                     counties = ', '.join(ds.alerts[0].regions)
-                    alertresult = "{} in {} County. More info [at NWS]({} 'National Weather Service')".format(ds.alerts[0].title, counties, ds.alerts[0].uri)
+                    alertresult = "{} in {}. More info [at NWS]({} 'National Weather Service')".format(ds.alerts[0].title, counties, ds.alerts[0].uri)
                 except AttributeError:
                     alertresult = "Not available."
                 em.set_thumbnail(url="https://dragonfire.me/474be77b-23bc-42e4-a779-6eb7b3b9a892.jpg")
