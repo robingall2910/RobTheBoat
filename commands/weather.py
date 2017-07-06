@@ -59,7 +59,7 @@ class Weather():
                 try:
                     visib = current.visibility
                 except AttributeError:
-                    visib = "Not available."
+                    visib = "N/A"
                 if current.precipProbability == 0:
                 	var = "Pretty sure it isn't."
                 else:
