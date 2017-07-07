@@ -115,7 +115,7 @@ class Fuckery():
         
     @commands.command()
     async def psat(self):
-        #Please.
+        """Please."""
         await self.bot.say(random.choice(psat_memes))
 
     @commands.command(pass_context=True, name="8ball")
@@ -179,8 +179,9 @@ class Fuckery():
     @commands.command(pass_context=True)
     async def wiki(self, ctx, *, query: str):
         """
-        Search the infite pages!
+        Search the infinite pages of wikipedia!
         """
+        #Holy fucking shit, how long has that mistake been here?
         cont2 = query
         cont = re.sub(r"\s+", '_', query)
         q = wikipedia.page(cont)
@@ -198,6 +199,7 @@ class Fuckery():
 
     @commands.command(pass_context=True)
     async def time(self, ctx):
+        """Tells the current time from the server"""
         d = time.strftime("%A, %B %d, %Y")
         t = time.strftime("%I:%M:%S %p %Z")
         linemedaddy = "```ruby\n Current Date: " + d + '\n Current Time: ' + t + "\n" + "```"
@@ -205,6 +207,7 @@ class Fuckery():
 
     @commands.command(pass_context=True)
     async def markov(self, ctx):
+        """A big failure on trying to copy what I say"""
         markov = open('markovrobin.txt').read().splitlines()
         somethingsudden = random.choice(markov)
         await self.bot.say(somethingsudden)

@@ -210,10 +210,12 @@ class Information():
         
     @commands.command(pass_context=True)
     async def donate(self, ctx):
+        """give me money"""
         await self.bot.say("https://donate.dragonfire.me/ pls give me money xdxd (Wells Fargo SurePay also exists, but that's when you really can't donate via PayPal)")
 
     @commands.command(pass_context=True)
     async def st(self, ctx):
+        """Speedtest.net results"""
         rb = "```rb\n{0}\n```"
         await self.bot.send_typing(ctx.message.channel)
         msg = "speedtest-cli --share --simple"
@@ -225,6 +227,7 @@ class Information():
     
     @commands.command(pass_context=True)
     async def ipping(self, ctx, *, ip: str):
+        """Pings to an ip address or domain"""
         rb = "```rb\n{0}\n```"
         await self.bot.send_typing(ctx.message.channel)
         msg = "ping -c 4 {0}".format(ip)
@@ -234,6 +237,7 @@ class Information():
 
     @commands.command(pass_context=True)
     async def traceroute(self, ctx, *, ip: str):
+        """Traces the route to the connection of a website or IP"""
         rb = "```rb\n{0}\n```"
         await self.bot.send_typing(ctx.message.channel)
         msg = "traceroute {0}".format(ip)

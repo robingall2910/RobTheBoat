@@ -18,6 +18,7 @@ class Weather():
 
     @commands.command(pass_context=True)
     async def weather(self, ctx, *, address: str):
+        """Dark Sky Weather Results"""
         if ctx.message.author == ctx.message.author: #filler
         #fine thanks troy
             try:
@@ -50,10 +51,6 @@ class Weather():
                     visib = current.visibility
                 except AttributeError:
                     visib = "N/A"
-                if current.precipProbability == 0:
-                	var = "Pretty sure it isn't."
-                else:
-                	var = "Yes. it is."
                 if ctx.message.server.me.color == None:
                 	maybe = None
                 else:
@@ -65,8 +62,8 @@ class Weather():
                     alertresult = "Not available."
                 em.set_thumbnail(url="https://dragonfire.me/474be77b-23bc-42e4-a779-6eb7b3b9a892.jpg")
                 em.color = maybe
-                em.add_field(name='Current Temperature', value="{}°F".format(current.temperature), inline=True)
-                em.add_field(name='Is it raining?', value=var, inline=True)
+                em.add_field(name='Temperature', value="{}°F".format(current.temperature), inline=True)
+                em.add_field(name='Currently', value="{}".format(current.summary), inline=True)
                 em.add_field(name='Humidity', value="{:.0%}".format(current.humidity), inline=True)
                 em.add_field(name='Wind Speed/Wind Gust', value="{} mph/{} mph".format(current.windSpeed, current.windGust), inline=True)
                 em.add_field(name='Visibility', value="{} miles".format(visib), inline=True)
@@ -81,6 +78,7 @@ class Weather():
 
     @commands.command(pass_context=True)
     async def locate(self, ctx, *, address: str):
+        """Go fucking stalk someone"""
         try:
             g = geocoder.google(address)
             loc = g.json
