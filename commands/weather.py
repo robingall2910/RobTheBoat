@@ -26,21 +26,11 @@ class Weather():
                 fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1], units=ForecastIO.ForecastIO.UNITS_US)
                 current = FIOCurrently.FIOCurrently(fio)
                 alerts = FIOAlerts.FIOAlerts(fio)
-                loc = geocoder.google(address)
+                loc = g.address
                 ds = forecast(api_key, results[0], results[1])
-                k = loc.json
                 #you forgot literally all of the location resolving
                 em = discord.Embed(description="This information is displayed in Farenheit.")
-                state = k['state']
-                city = k['city']
-                country = k['country']
-                if country is 'country':
-                    country = "N/A"
-                if city is 'city':
-                    city = "N/A"
-                if state is 'state':
-                    state = "N/A"
-                em.title = "{}, {}, {}'s Current Weather".format(city, state, country)
+                em.title = "{}'s Current Weather".format(loc)
                 if current.uvIndex == 0:
                     uvresult = "There isn't probably any sun right now."
                     uvint = "0"
@@ -78,7 +68,7 @@ class Weather():
                 em.add_field(name='Current Temperature', value="{}°F".format(current.temperature), inline=True)
                 em.add_field(name='Is it raining?', value=var, inline=True)
                 em.add_field(name='Humidity', value="{:.0%}".format(current.humidity), inline=True)
-                em.add_field(name='Wind Speed/Wind Gust', value="{} mph/{} mph".format(current.windSpeed, current.windGust))
+                em.add_field(name='Wind Speed/Wind Gust', value="{} mph/{} mph".format(current.windSpeed, current.windGust), inline=True)
                 em.add_field(name='Visibility', value="{} miles".format(visib), inline=True)
                 em.add_field(name='UV Index', value="{} current index is **{}**.".format(uvresult, uvint), inline=True)
                 if fio.has_alerts() is True:
