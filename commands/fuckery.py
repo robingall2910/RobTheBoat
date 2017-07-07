@@ -144,8 +144,10 @@ class Fuckery():
         config = Config()
         api_key = config.cb_api_key
         cw = CleverWrap(api_key)
+        themessage = cw.say(pussy)
+        result = themessage.encode(encoding='UTF-8')
         try:
-            await self.bot.say(str(ctx.message.author) + " >> " + cw.say(pussy))
+            await self.bot.say(str(ctx.message.author) + " >> " + cw.say(result))
         except UnicodeDecodeError:
             await self.bot.say("Error has occured trying to decode the Cleverbot message.")
 

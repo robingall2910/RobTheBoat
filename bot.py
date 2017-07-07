@@ -544,7 +544,7 @@ async def ping(ctx):
     topkek = memes
     pingms = await bot.send_message(ctx.message.channel, topkek)
     ping = time.time() - pingtime
-    r = pyping.ping('creeperseth.com')
+    r = pyping.ping('dragonfire.me')
     #await bot.edit_message(pingms, topkek + " // ***{} ms***".format(str(ping)[3:][:3]))
     await bot.edit_message(pingms, topkek + " // ***{} ms***".format(r.avg_rtt))
 
