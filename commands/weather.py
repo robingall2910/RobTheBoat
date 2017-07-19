@@ -33,7 +33,7 @@ class Weather():
                 em = discord.Embed(description="This information is displayed in Farenheit.")
                 em.title = "{}'s Current Weather".format(loc)
                 if current.uvIndex == 0:
-                    uvresult = "There isn't probably any sun right now."
+                    uvresult = "There probably isn't any sun right now."
                     uvint = "0"
                 elif current.uvIndex == range(1, 5):
                     uvresult = "Few sun rays are hitting."
@@ -67,7 +67,7 @@ class Weather():
                 em.add_field(name='Humidity', value="{:.0%}".format(current.humidity), inline=True)
                 em.add_field(name='Wind Speed/Wind Gust', value="{} mph/{} mph".format(current.windSpeed, current.windGust), inline=True)
                 em.add_field(name='Visibility', value="{} miles".format(visib), inline=True)
-                em.add_field(name='UV Index', value="{} current index is **{}**.".format(uvresult, uvint), inline=True)
+                em.add_field(name='UV Index', value="{} Current index is **{}**.".format(uvresult, uvint), inline=True)
                 if fio.has_alerts() is True:
                     em.add_field(name='Weather Alert', value=alertresult, inline=True)
                 await self.bot.say(embed=em)
