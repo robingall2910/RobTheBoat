@@ -126,7 +126,11 @@ class Fuckery():
     @commands.command()
     async def insult(self, *, user:str):
         """Insult those ass wipes"""
-        await self.bot.say("{} {}".format(user.strip('<@>'), random.choice(insults)))
+        if user is "@everyone" or "@here":
+            result = user.strip('<@>')
+        else:
+            result = user
+        await self.bot.say("{} {}".format(result, random.choice(insults)))
 
     @commands.command()
     async def compliment(self):
@@ -171,9 +175,9 @@ class Fuckery():
     async def coinflip(self, ctx):
         """Make the bot flip either heads or tails."""
         result = random.randint(0, 1)
-        if 0:
+        if result == int(0):
             await self.bot.say("You flipped a coin as high as you could. It falls on the floor since you can't catch it. Surprise, it's heads!")
-        else:
+        elif result == int(1):
             await self.bot.say("You flip the coin. You catch it somehow, and interestingly enough, it's tails!")
 
     @commands.command(pass_context=True)
