@@ -7,19 +7,7 @@ import subprocess
 import psutil
 import pyping
 import random
-"""
-Hey there, just felt like giving a few messages here.
-Thank you all for making me start Some Dragon a year back exactly. Though it was a really terrible bot, it was well worth.
-It did stay as a really shitty code formatting until Q4 of 2016, which is when I rewrote it to context. In the end, thanks for seeing this.
-I hope this stays as long as it could, it's well appreciated in a few communites.
-(Even though I forced it to leave well known servers a bit back, lol)
-Thanks once again. Few people I'd like to thank myself, actually.
-- Ryulise#0203 - dog
-- Seth#0780 - thank u seth for the rewrite and ur welcome for u hh h h h hh some things
-- Printendo#0447, EJH2#0245, Maxie#7555, Célia#1782, and ***others***, I just haven't gotten your usernames lol, you might know who you are.
-Finally, POSTMORTEM#9714. Though, EVEN if you didn't do anything to contribute to this bot, I still did fill up my schedule and literally seperated you out of my time for a while, til now.
-Thanks for being paitent hun.
-"""
+
 start_time = time.time()
 
 # Initialize the logger first so the colors and shit are setup
