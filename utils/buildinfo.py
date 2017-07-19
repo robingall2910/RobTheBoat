@@ -1,4 +1,4 @@
-BUILD_VERSION = "6.9.2"
+BUILD_VERSION = "6.9.3"
 BUILD_AUTHORS = "based robin#0052"
-BUILD_CODENAME = "It's time to listen, it's time to fight"
-BUILD_DATE = "July 7th, 2017 @ 3:22 PM EDT"
+BUILD_CODENAME = "we haven't served that spirit here since 1969"
+BUILD_DATE = "July 19th, 2017 @ 12:55 AM EDT"
