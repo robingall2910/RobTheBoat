@@ -132,22 +132,22 @@ async def on_command_error(error, ctx):
     if isinstance(error, commands.CommandNotFound):
         return
     if ctx.message.channel.is_private:
-        await bot.send_message(ctx.message.channel, "Command borked. If this is in a PM, do it in the server. Try to report this with {}notifydev.".format(config.command_prefix))
+        await ctx.send(ctx.message.channel, "Command borked. If this is in a PM, do it in the server. Try to report this with {}notifydev.".format(config.command_prefix))
         return
 
     # In case the bot failed to send a message to the channel, the try except pass statement is to prevent another error
     try:
-        await bot.send_message(ctx.message.channel, error)
+        await ctx.send(ctx.message.channel, error)
     except:
         pass
     log.error("An error occured while executing the command named {}: {}".format(ctx.command.qualified_name, error))
 
 @bot.event
-async def on_command(command, ctx):
-    if ctx.message.channel.is_private:
-        server = "Private Message"
+async def on_command(ctx):
+    if isinstance(ctx.channel, discord.DMChannel)
+        guild = "Private Message"
     else:
-        server = "{}/{}".format(ctx.message.server.id, ctx.message.server.name)
+        server = "{}/{}".format(ctx.guild.id, ctx.guild.name)
     print("[{} at {}] [Command] [{}] [{}/{}]: {}".format(time.strftime("%m/%d/%Y"), time.strftime("%I:%M:%S %p %Z"), server, ctx.message.author.id, ctx.message.author, ctx.message.content))
 
 @bot.event
@@ -210,7 +210,7 @@ async def on_member_join(member:discord.Member):
         join_role = None
     if join_leave_channel is not None and join_message is not None:
         try:
-            await bot.send_message(join_leave_channel, join_message)
+            await ctx.send(join_leave_channel, join_message)
         except:
             pass
     if join_role is not None:
@@ -233,7 +233,7 @@ async def on_member_remove(member:discord.Member):
         join_leave_channel = None
     if join_leave_channel is not None and leave_message is not None:
         try:
-            await bot.send_message(join_leave_channel, leave_message)
+            await ctx.send(join_leave_channel, leave_message)
         except:
             pass
 
@@ -314,12 +314,12 @@ async def notifydev(ctx, *, message:str):
     if ctx.message.channel.is_private:
         server = "`Sent via PM, not a server`"
     else:
-        server = "`{}` / `{}`".format(ctx.message.server.id, ctx.message.server.name)
+        server = "`{}` / `{}`".format(ctx.guild.id, ctx.guild.name)
     msg = make_message_embed(ctx.message.author, 0xCC0000, message, formatUser=True)
-    await bot.send_message(discord.User(id=config.owner_id), "New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
+    await ctx.send(discord.User(id=config.owner_id), "New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
     for id in config.dev_ids:
-        await bot.send_message(discord.User(id=id), "New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
-    await bot.send_message(ctx.message.author, "Hey, the following message has been sent to the developers: `{}` PS: Yes you idiot, this actually does work. I'm not kidding. Be aware lol".format(message))
+        await ctx.send(discord.User(id=id), "New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
+    await ctx.send(ctx.message.author, "Hey, the following message has been sent to the developers: `{}` PS: Yes you idiot, this actually does work. I'm not kidding. Be aware lol".format(message))
     await bot.say("Completed the quest.")
 
 @bot.command(hidden=True, pass_context=True)
@@ -337,7 +337,7 @@ async def blacklist(ctx, id:str, *, reason:str):
     blacklistuser(id, user.name, user.discriminator, reason)
     await bot.say("Ok, blacklisted `{}` Reason: `{}`".format(user, reason))
     try:
-        await bot.send_message(user, "You've been blacklisted. We aren't supposed to talk. Sorry. `{}` Reason: `{}`".format(ctx.message.author, reason))
+        await ctx.send(user, "You've been blacklisted. We aren't supposed to talk. Sorry. `{}` Reason: `{}`".format(ctx.message.author, reason))
     except:
         log.debug("Couldn't send a message to a user with an ID of \"{}\"".format(id))
     #await channel_logger.log_to_channel(":warning: `{}` blacklisted `{}`/`{}` Reason: `{}`".format(ctx.message.author, id, user, reason))
@@ -357,7 +357,7 @@ async def unblacklist(ctx, id:str):
         return
     await bot.say("Gave freedom once more to `{}#{}`".format(entry.get("name"), entry.get("discrim")))
     try:
-        await bot.send_message(discord.User(id=id), "You're unblacklisted you titty. You were unblacklisted by `{}`".format(ctx.message.author))
+        await ctx.send(discord.User(id=id), "You're unblacklisted you titty. You were unblacklisted by `{}`".format(ctx.message.author))
     except:
         log.debug("Can't send msg to \"{}\"".format(id))
     #await channel_logger.log_to_channel(":warning: `{}` unblacklisted `{}`/`{}#{}`".format(ctx.message.author, id, entry.get("name"), entry.get("discrim")))
@@ -455,11 +455,11 @@ async def dm(ctx, somethingelse:str, *, message:str):
     """DMs a user"""
     msg = make_message_embed(ctx.message.author, 0xE19203, message, formatUser=True)
     try:
-        sent_message = await bot.send_message(discord.User(id=somethingelse), "You have a new message from the devs!", embed=msg)
+        sent_message = await ctx.send(discord.User(id=somethingelse), "You have a new message from the devs!", embed=msg)
         user = sent_message.channel.user
-        await bot.send_message(discord.User(id=config.owner_id), "`{}` has replied to a recent DM with `{}#{}`, an ID of `{}`, and Shard ID `{}`.".format(ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)), embed=make_message_embed(ctx.message.author, 0xCC0000, message))
+        await ctx.send(discord.User(id=config.owner_id), "`{}` has replied to a recent DM with `{}#{}`, an ID of `{}`, and Shard ID `{}`.".format(ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)), embed=make_message_embed(ctx.message.author, 0xCC0000, message))
         for fuck in config.dev_ids:
-            await bot.send_message(discord.User(id=fuck), "`{}` has replied to a recent DM with `{}#{}` an ID of `{}`, and Shard ID `{}`.".format(ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)), embed=make_message_embed(ctx.message.author, 0xCC0000, message))
+            await ctx.send(discord.User(id=fuck), "`{}` has replied to a recent DM with `{}#{}` an ID of `{}`, and Shard ID `{}`.".format(ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)), embed=make_message_embed(ctx.message.author, 0xCC0000, message))
     except Exception as e:
         await bot.say("Error: " + str(e))
 
@@ -467,7 +467,7 @@ async def dm(ctx, somethingelse:str, *, message:str):
 @checks.is_dev()
 async def wt(ctx, id:str, *, message:str):
     await bot.say("Sent the message to ID " + id + ".")
-    await bot.send_message(discord.Object(id=id), message)
+    await ctx.send(discord.Object(id=id), message)
 
 @bot.command()
 async def uptime():
@@ -519,12 +519,12 @@ async def enable(*, extension:str):
 @bot.command(pass_context=True)
 async def joinserver(ctx):
     """Sends the bot's OAuth2 link"""
-    await bot.send_message(ctx.message.author, "Want a link to invite me into your server? Here you go. `http://inv.rtb.dragonfire.me`")
+    await ctx.send(ctx.message.author, "Want a link to invite me into your server? Here you go. `http://inv.rtb.dragonfire.me`")
 
 @bot.command(pass_context=True)
 async def invite(ctx):
     """Sends an invite link to the bot's server"""
-    await bot.send_message(ctx.message.author, "Here's the invite for some bot help: `https://discord.gg/vvAKvaG` Report with {}notifydev if there's an issue with the link.".format(bot.command_prefix))
+    await ctx.send(ctx.message.author, "Here's the invite for some bot help: `https://discord.gg/vvAKvaG` Report with {}notifydev if there's an issue with the link.".format(bot.command_prefix))
 
 @bot.command(pass_context=True)
 async def ping(ctx):
@@ -537,7 +537,7 @@ async def ping(ctx):
                                "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.", "Damn it seth, why does your internet have to be slow?", "EJ pls.", "Go check out ViralBot today! It's lit.", "pink floyd", "how do u feel, how do u feel now, aaaaaaaaaaaaa?", "alan's psychadelic breakfast", "Oh.. er.. me flakes.. scrambled eggs.. bacon.. sausages.. tomatoes.. toast.. coffee.. marmalade. I like marmalade.. yes.. porridge is nice, any cereal.. I like all cereals..",
                                "so, how's was trumps bullshit on executive orders?", "don't sign the I-407 in the airport", "hi", "hi can i get a  uh h hh h h h ", "stop pinging me", "go away nerd", "i secretly love you", "owo", "uwu", "google blobs are the best", "lets keep advertising viralbot more!", "napstabot isn't good :^)"])
     topkek = memes
-    pingms = await bot.send_message(ctx.message.channel, topkek)
+    pingms = await ctx.send(ctx.message.channel, topkek)
     ping = time.time() - pingtime
     r = pyping.ping('dragonfire.me')
     #await bot.edit_message(pingms, topkek + " // ***{} ms***".format(str(ping)[3:][:3]))
@@ -603,7 +603,7 @@ async def stats(ctx):
         em.title = bot.user.name + "'s Help Server"
         em.url = "https://discord.gg/vvAKvaG"
         em.set_thumbnail(url=bot.user.avatar_url)
-        em.color = ctx.message.server.me.color
+        em.color = ctx.guild.me.color
         em.add_field(name='Creators', value='based robin#0052 and Seth#0051', inline=True)
         em.add_field(name='Support Team', value='Skoonk & Xeoda#3835 and Owlotic#0278', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
