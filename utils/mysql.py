@@ -5,18 +5,18 @@ conn.row_factory = sqlite3.Row
 cur = conn.cursor()
 
 def create_tables():
-    cur.execute("""CREATE TABLE IF NOT EXISTS servers(id TEXT, type TEXT, value TEXT)""")
-    cur.execute("""CREATE TABLE IF NOT EXISTS blacklist(id TEXT, name TEXT, discrim TEXT, reason TEXT)""")
+    cur.execute("""CREATE TABLE IF NOT EXISTS guilds(id INT, type TEXT, value TEXT)""")
+    cur.execute("""CREATE TABLE IF NOT EXISTS blacklist(id INT, name TEXT, discrim TEXT, reason TEXT)""")
 
 def format_user(insertnerovar):
     return insertnerovar.name + "#" + insertnerovar.discriminator
 
 def insert_data_entry(id, type, value):
-    cur.execute("""INSERT INTO servers(id, type, value) VALUES (?, ?, ?)""", (id, type, value))
+    cur.execute("""INSERT INTO guilds(id, type, value) VALUES (?, ?, ?)""", (id, type, value))
     conn.commit()
 
 def read_data_entry(id, type):
-    cur.execute("""SELECT value FROM servers WHERE id=(?) AND type=(?)""", (id, type))
+    cur.execute("""SELECT value FROM guilds WHERE id=(?) AND type=(?)""", (id, type))
     val = None
     try:
         val = cur.fetchone()[0]
@@ -46,11 +46,11 @@ def read_data_entry(id, type):
 
 def update_data_entry(id, type, value):
     exists = read_data_entry(id, type)
-    cur.execute("""UPDATE servers SET value=(?) WHERE id=(?) AND type=(?)""", (value, id, type))
+    cur.execute("""UPDATE guilds SET value=(?) WHERE id=(?) AND type=(?)""", (value, id, type))
     conn.commit()
 
 def delete_data_entry(id, type):
-    cur.execute("""DELETE FROM servers WHERE id=(?) AND type=(?)""", (id, type))
+    cur.execute("""DELETE FROM guilds WHERE id=(?) AND type=(?)""", (id, type))
     conn.commit()
 
 def blacklistuser(id, name, discrim, reason):
@@ -58,11 +58,11 @@ def blacklistuser(id, name, discrim, reason):
     conn.commit()
 
 def unblacklistuser(id):
-    cur.execute("""DELETE FROM blacklist WHERE id=""" + id)
+    cur.execute("""DELETE FROM blacklist WHERE id=""" + str(id))
     conn.commit()
 
 def getblacklistentry(id):
-    cur.execute("""SELECT id FROM blacklist WHERE id=""" + id)
+    cur.execute("""SELECT id FROM blacklist WHERE id=""" + str(id))
     id = None
     name = None
     discrim = None
