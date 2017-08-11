@@ -1,44 +1,69 @@
-# Thanks Maxie!
-
-import discord
-
 from discord.ext import commands
 from utils.config import Config
+from utils.mysql import *
 config = Config()
 
+class dev_only(commands.CommandError):
+    pass
 
-def is_owner_check(user):
-    return user.id == config.owner_id
+class owner_only(commands.CommandError):
+    pass
 
+class not_nsfw_channel(commands.CommandError):
+    pass
 
-def is_dev_check(user):
-    return user.id in config.dev_ids or is_owner_check(user)
+class not_guild_owner(commands.CommandError):
+    pass
 
+class no_permission(commands.CommandError):
+    pass
 
 def is_owner():
-    return commands.check(lambda ctx: is_owner_check(ctx.message.author))
-
+    def predicate(ctx):
+        if ctx.author.id == int(config.owner_id):
+            return True
+        else:
+            raise owner_only
+    return commands.check(predicate)
 
 def is_dev():
-    return commands.check(lambda ctx: is_dev_check(ctx.message.author))
+    def predicate(ctx):
+        if ctx.author.id in config.dev_ids or ctx.author.id == int(config.owner_id):
+            return True
+        else:
+            raise dev_only
+    return commands.check(predicate)
 
+def is_nsfw_channel():
+    def predicate(ctx):
+        if ctx.channel.name == "nsfw" or ctx.channel.name.startswith("nsfw-"):
+            return True
+        else:
+            raise not_nsfw_channel
+    return commands.check(predicate)
 
-def check_perm(ctx, perms):
-    msg = ctx.message
-    if is_owner_check(msg):
-        return True
-    channel = msg.channel
-    author = msg.author
-    resolved = channel.permissions_for(author)
-    return all(getattr(resolved, name, None) == value for name, value in perms.items())
+def is_guild_owner():
+    def predicate(ctx):
+        if ctx.author.id == ctx.guild.owner_id:
+            return True
+        else:
+            raise not_guild_owner
+    return commands.check(predicate)
 
+def server_mod_or_perms(**permissions):
+    def predicate(ctx):
+        mod_role_name = read_data_entry(ctx.guild.id, "mod-role")
+        mod = discord.utils.get(ctx.author.roles, name=mod_role_name)
+        if mod or permissions and all(getattr(ctx.channel.permissions_for(ctx.author), name, None) == value for name, value in permissions.items()):
+            return True
+        else:
+            raise no_permission
+    return commands.check(predicate)
 
-def role_or_perm(ctx, check, **perms):
-    if check_perm(ctx, perms):
-        return True
-    channel = ctx.message.channel
-    author = ctx.message.author
-    if channel.is_private:
-        return False
-    role = discord.utils.find(check, author.roles)
-    return role is not None
+def has_permissions(**permissions):
+    def predicate(ctx):
+        if all(getattr(ctx.channel.permissions_for(ctx.author), name, None) == value for name, value in permissions.items()):
+            return True
+        else:
+            raise no_permission
+    return commands.check(predicate)

@@ -25,122 +25,122 @@ class Fuckery():
             await self.bot.delete_message(ctx.message)
         except:
             pass
-        if ctx.message.author is not ctx.message.author.bot:
-            await self.bot.say(message.replace("@everyone", "everyone"))
+        if ctx.author is not ctx.author.bot:
+            await ctx.send(message.replace("@everyone", "everyone"))
         else:
             return
 
     @commands.command(pass_context=True)
     async def test(self, ctx):
         """No context."""
-        await self.bot.say("( ͡° ͜ʖ ͡°) I love you")
+        await ctx.send("( ͡° ͜ʖ ͡°) I love you")
 
     @commands.command(pass_context=True)
     async def cat(self, ctx):
         """Sends a random cute cat gifs because cats are soooo cuteeee <3 >.< -Seth, 2016"""
-        await self.bot.send_typing(ctx.message.channel)
+        await self.bot.send_typing(ctx.channel)
         cat.getCat(directory="data", filename="cat", format="gif")
         await asyncio.sleep(1) # This is so the bot has enough time to download the file
-        await self.bot.send_file(ctx.message.channel, "data/cat.gif")
+        await self.bot.send_file(ctx.channel, "data/cat.gif")
         # Watch Nero spam this command until the bot crashes
 
     @commands.command(pass_context=True)
     async def f(self, ctx):
         """Press F to pay your respects"""
-        await self.bot.say("Guess what? {} just paid their respects! Amount paid: {}".format(ctx.message.author, random.randint(1, 10000)))
+        await ctx.send("Guess what? {} just paid their respects! Amount paid: {}".format(ctx.author, random.randint(1, 10000)))
 
     @commands.command()
-    async def nicememe(self):
+    async def nicememe(self, ctx):
         """Nice Meme!"""
-        await self.bot.say("http://niceme.me")
+        await ctx.send("http://niceme.me")
 
     @commands.command()
-    async def dab(self):
+    async def dab(self, ctx):
         """Dab for me squiddy"""
-        await self.bot.say("http://i.giphy.com/lae7QSMFxEkkE.gif")
+        await ctx.send("http://i.giphy.com/lae7QSMFxEkkE.gif")
 
     @commands.command(pass_context=True)
     async def rekt(self, ctx):
         """#REKT"""
-        await self.bot.send_typing(ctx.message.channel)
-        await self.bot.send_file(ctx.message.channel, "assets/imgs/rekt.gif")
+        await self.bot.send_typing(ctx.channel)
+        await self.bot.send_file(ctx.channel, "assets/imgs/rekt.gif")
 
     @commands.command(pass_context=True)
     async def roasted(self, ctx):
         """MY NIGGA YOU JUST GOT ROASTED!"""
-        await self.bot.send_typing(ctx.message.channel)
-        await self.bot.send_file(ctx.message.channel, "assets/imgs/roasted.gif")
+        await self.bot.send_typing(ctx.channel)
+        await self.bot.send_file(ctx.channel, "assets/imgs/roasted.gif")
 
     @commands.command(pass_context=True)
     async def yiffinhell(self, ctx):
         """snek yiff"""
-        await self.bot.send_typing(ctx.message.channel)
-        await self.bot.send_file(ctx.message.channel, "assets/imgs/yiffinhell.png")
+        await self.bot.send_typing(ctx.channel)
+        await self.bot.send_file(ctx.channel, "assets/imgs/yiffinhell.png")
 
     @commands.command(pass_context=True)
     async def spam(self, ctx):
         """SPAM SPAM SPAM"""
-        await self.bot.send_typing(ctx.message.channel)
-        await self.bot.send_file(ctx.message.channel, "assets/imgs/spam.png")
+        await self.bot.send_typing(ctx.channel)
+        await self.bot.send_file(ctx.channel, "assets/imgs/spam.png")
 
     @commands.command(pass_context=True)
     async def internetrules(self, ctx):
         """The rules of the internet"""
-        await self.bot.send_typing(ctx.message.channel)
-        await self.bot.send_file(ctx.message.channel, "assets/InternetRules.txt")
+        await self.bot.send_typing(ctx.channel)
+        await self.bot.send_file(ctx.channel, "assets/InternetRules.txt")
 
     @commands.command(pass_context=True)
     async def quote(self, ctx):
         """Don't quote me on that"""
-        await self.bot.send_typing(ctx.message.channel)
-        await self.bot.send_file(ctx.message.channel, "assets/imgs/quotes/{}.png".format(random.randint(1, len([file for file in os.listdir("assets/imgs/quotes")]))))
+        await self.bot.send_typing(ctx.channel)
+        await self.bot.send_file(ctx.channel, "assets/imgs/quotes/{}.png".format(random.randint(1, len([file for file in os.listdir("assets/imgs/quotes")]))))
 
     @commands.command(pass_context=True)
     async def delet(self, ctx):
         """Delet this"""
-        await self.bot.send_typing(ctx.message.channel)
-        await self.bot.send_file(ctx.message.channel, "assets/imgs/delet_this.jpg")
+        await self.bot.send_typing(ctx.channel)
+        await self.bot.send_file(ctx.channel, "assets/imgs/delet_this.jpg")
 
     @commands.command(pass_context=True)
     async def roll(self, ctx, sides: int):
         """Roll the fuck out of this shit."""
         rolling = random.randint(1, sides)
-        await self.bot.say("You got a {} out of the {} sided die.".format(rolling, str(sides)))
+        await ctx.send("You got a {} out of the {} sided die.".format(rolling, str(sides)))
 
     @commands.command()
-    async def lenny(self):
+    async def lenny(self, ctx):
         """<Insert lenny face here>"""
-        await self.bot.say(lenny)
+        await ctx.send(lenny)
         #they're back fuck yeah
         
     @commands.command()
-    async def psat(self):
+    async def psat(self, ctx):
         """Please."""
-        await self.bot.say(random.choice(psat_memes))
+        await ctx.send(random.choice(psat_memes))
 
     @commands.command(pass_context=True, name="8ball")
     async def ball(self, ctx, *, question:str):
         """It's just python random don't take it seriously kthx"""
-        await self.bot.say("{}: {}".format(ctx.message.author.name, random.choice(magic_conch_shell)))
+        await ctx.send("{}: {}".format(ctx.author.name, random.choice(magic_conch_shell)))
 
     @commands.command()
-    async def insult(self, *, user:str):
+    async def insult(self, ctx, *, user:str):
         """Insult those ass wipes"""
         if user is "@everyone" or "@here":
             result = user.strip('<@>')
         else:
             result = user
-        await self.bot.say("{} {}".format(result, random.choice(insults)))
+        await ctx.send("{} {}".format(result, random.choice(insults)))
 
     @commands.command()
-    async def compliment(self):
+    async def compliment(self, ctx):
         """I love you."""
-        await self.bot.say("{}".format(random.choice(compliments)))
+        await ctx.send("{}".format(random.choice(compliments)))
 
     @commands.command()
-    async def actdrunk(self):
+    async def actdrunk(self, ctx):
         """I got drunk on halloween in 2016 it was great"""
-        await self.bot.say(random.choice(drunkaf))
+        await ctx.send(random.choice(drunkaf))
 
     @commands.command(pass_context=True)
     async def talk(self, ctx, *, pussy:str):
@@ -151,34 +151,34 @@ class Fuckery():
         themessage = cw.say(pussy)
         result = themessage.encode(encoding='UTF-8')
         try:
-            await self.bot.say(str(ctx.message.author) + " >> " + cw.say(result))
+            await ctx.send(str(ctx.author) + " >> " + cw.say(result))
         except UnicodeDecodeError:
-            await self.bot.say("Error has occured trying to decode the Cleverbot message.")
+            await ctx.send("Error has occured trying to decode the Cleverbot message.")
 
     @commands.command()
-    async def ship(self, user1:discord.User=None, user2:discord.User=None):
+    async def ship(self, ctx, user1:discord.User=None, user2:discord.User=None):
         """Treat yourself to shipping to FedEx, DHL, UPS, USPS, and more. Nah not really. Ship yourself with someone if you could."""
         if user2 is None:
-            await self.bot.say("I see you haven't shipped yourself with anyone. Sad.")
+            await ctx.send("I see you haven't shipped yourself with anyone. Sad.")
         else:
-            await self.bot.say("I hereby ship {} and {} officially by bot code.".format(user1.mention, user2.mention))
+            await ctx.send("I hereby ship {} and {} officially by bot code.".format(user1.mention, user2.mention))
 
     @commands.command()
-    async def rate(self, *, user):
+    async def rate(self, ctx, *, user):
         """Have the bot rate yourself or another user"""
         if user is None:
-            await self.bot.say("I rate you a `{}`/`10`".format(random.randint(0, 10)))
+            await ctx.send("I rate you a `{}`/`10`".format(random.randint(0, 10)))
         else:
-            await self.bot.say("I rate {} a `{}`/`10`".format(user, random.randint(0, 10)))
+            await ctx.send("I rate {} a `{}`/`10`".format(user, random.randint(0, 10)))
 
     @commands.command(pass_context=True)
     async def coinflip(self, ctx):
         """Make the bot flip either heads or tails."""
         result = random.randint(0, 1)
         if result == int(0):
-            await self.bot.say("You flipped a coin as high as you could. It falls on the floor since you can't catch it. Surprise, it's heads!")
+            await ctx.send("You flipped a coin as high as you could. It falls on the floor since you can't catch it. Surprise, it's heads!")
         elif result == int(1):
-            await self.bot.say("You flip the coin. You catch it somehow, and interestingly enough, it's tails!")
+            await ctx.send("You flip the coin. You catch it somehow, and interestingly enough, it's tails!")
 
     @commands.command(pass_context=True)
     async def wiki(self, ctx, *, query: str):
@@ -189,17 +189,17 @@ class Fuckery():
         cont2 = query
         cont = re.sub(r"\s+", '_', query)
         q = wikipedia.page(cont)
-        await self.bot.send_typing(ctx.message.channel)
-        await self.bot.send_message(ctx.message.channel, "{}:\n```\n{}\n```\nFor more information, visit <{}>".format(q.title,
+        await self.bot.send_typing(ctx.channel)
+        await self.bot.send_message(ctx.channel, "{}:\n```\n{}\n```\nFor more information, visit <{}>".format(q.title,
                                                                                                               wikipedia.summary(
                                                                                                                   query,
                                                                                                                   sentences=5),
                                                                                                               q.url))
-        await self.bot.send_message(ctx.message.channel, cont)
+        await self.bot.send_message(ctx.channel, cont)
         if wikipedia.exceptions.PageError == True:
-            await self.bot.send_message(ctx.message.channel, "Error 404. Try another.")
+            await self.bot.send_message(ctx.channel, "Error 404. Try another.")
         elif wikipedia.exceptions.DisambiguationError == True:
-            await self.bot.send_message(ctx.message.channel, "Too many alike searches, please narrow it down more...")
+            await self.bot.send_message(ctx.channel, "Too many alike searches, please narrow it down more...")
 
     @commands.command(pass_context=True)
     async def time(self, ctx):
@@ -207,14 +207,14 @@ class Fuckery():
         d = time.strftime("%A, %B %d, %Y")
         t = time.strftime("%I:%M:%S %p %Z")
         linemedaddy = "```ruby\n Current Date: " + d + '\n Current Time: ' + t + "\n" + "```"
-        await self.bot.send_message(ctx.message.channel, linemedaddy)
+        await self.bot.send_message(ctx.channel, linemedaddy)
 
     @commands.command(pass_context=True)
     async def markov(self, ctx):
         """A big failure on trying to copy what I say"""
         markov = open('markovrobin.txt').read().splitlines()
         somethingsudden = random.choice(markov)
-        await self.bot.say(somethingsudden)
+        await ctx.send(somethingsudden)
 
 
     @commands.command(pass_context=True)
@@ -225,37 +225,37 @@ class Fuckery():
         """
         if len(template) and len(lines) != 0:
             memeg = str(template) + " " + str(lines)
-            await self.bot.say("http://memegen.link/" + re.sub(r"\s+", '-', memeg) + ".jpg")
+            await ctx.send("http://memegen.link/" + re.sub(r"\s+", '-', memeg) + ".jpg")
         else:
-            await self.bot.say("You didn't enter a message. Templates: http://memegen.link/templates/")
+            await ctx.send("You didn't enter a message. Templates: http://memegen.link/templates/")
 
     @commands.command()
-    async def honk(self):
+    async def honk(self, ctx):
         """Honk honk mother fucker. yes this came back lukkan."""
-        await self.bot.say(random.choice(honkhonkfgt))
+        await ctx.send(random.choice(honkhonkfgt))
 
     @commands.command(pass_context=True)
     async def plzmsgme(self, ctx, *, message:str):
         """Seriously, why the fuck are you doing this to yourself?"""
-        await self.bot.send_message(ctx.message.author, message)
-        await self.bot.say(":ok_hand: check your DMs")
+        await self.bot.send_message(ctx.author, message)
+        await ctx.send(":ok_hand: check your DMs")
 
     @commands.command(pass_context=True)
     async def lameme(self, ctx):
         """la meme my bro xdddddddddddddddddd"""
-        await self.bot.send_typing(ctx.message.channel)
-        await self.bot.send_message(ctx.message.channel, "la meme xd xd")
-        await self.bot.send_file(ctx.message.channel, "assets/imgs/lameme.jpg")
+        await self.bot.send_typing(ctx.channel)
+        await self.bot.send_message(ctx.channel, "la meme xd xd")
+        await self.bot.send_file(ctx.channel, "assets/imgs/lameme.jpg")
 
     @commands.command(pass_context=True)
-    async def quote(self, ctx, id:str):
+    async def quote(self, ctx, id:int):
         """Quotes a message with the specified message ID"""
-        message = await self.bot.get_message(ctx.message.channel, id)
+        message = await self.bot.get_message(ctx.channel, id)
         if message is None:
-            await self.bot.say("Can't find {} in here.".format(id))
+            await ctx.send("Can't find {} in here.".format(id))
             return
         embed = make_message_embed(message.author, message.author.color, message.content, formatUser=True)
-        await self.bot.say(None, embed=embed)
+        await ctx.send(None, embed=embed)
 
 def setup(bot):
     bot.add_cog(Fuckery(bot))
