@@ -1,0 +1,9 @@
+wikipedia
+darkskylib
+geocoder
+pyping
+discord[voice]
+cat
+urllib
+youtube_dl
+forecastiopy
