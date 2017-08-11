@@ -38,8 +38,15 @@ channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
 
-extensions = ["commands.fuckery", "commands.information", "commands.moderation", "commands.configuration", "commands.nsfw", "commands.music", "commands.weather", "commands.gw2", "commands.netflix"]
-
+extensions = [
+    #"commands.configuration",
+    #"commands.fuckery",
+    #"commands.information",
+    #"commands.moderation",
+    #"commands.music",
+    #"commands.nsfw",
+    #"commands.weather"
+    ]
 # Thy changelog
 change_log = [
     "you'll never see shit"
