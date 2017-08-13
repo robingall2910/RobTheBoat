@@ -26,7 +26,6 @@ from utils.channel_logger import Channel_Logger
 from utils.mysql import *
 from utils.buildinfo import *
 from utils.opus_loader import load_opus_lib
-#import isinstance as sethisreallytrulyaprettygayboy - sethpls
 from utils.sharding import shard_id
 from utils.sharding import shard_count
 
