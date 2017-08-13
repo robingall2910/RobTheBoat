@@ -1,56 +1,52 @@
 import asyncio
 import os
-import aiohttp
-import time
-import sys
+import random
 import subprocess
+import sys
+import time
+
+import aiohttp
 import psutil
 import pyping
-import random
+from discord.ext import commands
+
+from utils import checks
+from utils.bootstrap import Bootstrap
+from utils.buildinfo import *
+from utils.channel_logger import Channel_Logger
+from utils.config import Config
+from utils.logger import log
+from utils.mysql import *
+from utils.opus_loader import load_opus_lib
+from utils.sharding import shard_count
+from utils.sharding import shard_id
+from utils.tools import *
 
 start_time = time.time()
 
 # Initialize the logger first so the colors and shit are setup
-from utils.logger import log
-log.init() # Yes I could just use __init__ but I'm dumb
+log.init()  # Yes I could just use __init__ but I'm dumb
 
-from utils.bootstrap import Bootstrap
 Bootstrap.run_checks()
-
-from utils import checks
-
-from discord.ext import commands
-from utils.config import Config
-from utils.tools import *
-from utils.channel_logger import Channel_Logger
-from utils.mysql import *
-from utils.buildinfo import *
-from utils.opus_loader import load_opus_lib
-#import isinstance as sethisreallytrulyaprettygayboy - sethpls
-from utils.sharding import shard_id
-from utils.sharding import shard_count
 
 config = Config()
 if config.debug:
-    log.enableDebugging() # pls no flame
-bot = commands.Bot(command_prefix=config.command_prefix, description="A multipurposed bot with a theme for the furry fandom. Contains nsfw, info, weather, music and much more.", shard_id=shard_id, shard_count=shard_count, pm_help=True)
+    log.enableDebugging()  # pls no flame
+bot = commands.Bot(command_prefix=config.command_prefix,
+                   description="A multipurposed bot with a theme for the furry fandom. Contains nsfw, info, weather, music and much more.",
+                   shard_id=shard_id, shard_count=shard_count, pm_help=True)
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
 
-extensions = [
-    #"commands.configuration",
-    #"commands.fuckery",
-    #"commands.information",
-    #"commands.moderation",
-    #"commands.music",
-    #"commands.nsfw",
-    #"commands.weather"
-    ]
+extensions = ["commands.fuckery", "commands.information", "commands.moderation", "commands.configuration",
+              "commands.nsfw", "commands.music", "commands.weather", "commands.gw2", "commands.netflix"]
+
 # Thy changelog
 change_log = [
     "you'll never see shit"
 ]
+
 
 async def _restart_bot():
     await bot.logout()
@@ -59,11 +55,12 @@ async def _restart_bot():
 
 async def _shutdown_bot():
     try:
-      aiosession.close()
-      await bot.cogs["Music"].disconnect_all_voice_clients()
+        aiosession.close()
+        await bot.cogs["Music"].disconnect_all_voice_clients()
     except:
-       pass
+        pass
     await bot.logout()
+
 
 async def set_default_status():
     if not config.enable_default_status:
@@ -81,22 +78,24 @@ async def set_default_status():
                 os._exit(1)
             game = discord.Game(name=game, url="http://twitch.tv/robingall2910", type=1)
         else:
-            game = discord.Game(name="Shard {} of {} // {} guilds on this shard".format(str(shard_id), str(shard_count), len(bot.servers)))
+            game = discord.Game(name="Shard {} of {} // {} guilds on this shard".format(str(shard_id), str(shard_count),
+                                                                                        len(bot.servers)))
         await bot.change_presence(status=type, game=game)
     else:
         await bot.change_presence(status=type)
+
 
 @bot.event
 async def on_resumed():
     log.info("\nResumed connectivity!")
 
 
-
 @bot.event
 async def on_ready():
     print("\n")
     print("Logged in as:\n{}/{}#{}\n----------".format(bot.user.id, bot.user.name, bot.user.discriminator))
-    print("Bot version: {}\nAuthor(s): {}\nCode name: {}\nBuild date: {}".format(BUILD_VERSION, BUILD_AUTHORS, BUILD_CODENAME, BUILD_DATE))
+    print("Bot version: {}\nAuthor(s): {}\nCode name: {}\nBuild date: {}".format(BUILD_VERSION, BUILD_AUTHORS,
+                                                                                 BUILD_CODENAME, BUILD_DATE))
     log.debug("Debugging enabled!")
     await set_default_status()
     for extension in extensions:
@@ -114,7 +113,9 @@ async def on_ready():
         log.info("The osu! module has been enabled in the config!")
     if config._dbots_token:
         log.info("Updating DBots Statistics...")
-        r = requests.post("https://bots.discord.pw/api/bots/{}/stats".format(bot.user.id), json={"shard_id": shard_id, "shard_count": shard_count, "server_count":len(bot.servers)}, headers={"Authorization":config._dbots_token})
+        r = requests.post("https://bots.discord.pw/api/bots/{}/stats".format(bot.user.id),
+                          json={"shard_id": shard_id, "shard_count": shard_count, "server_count": len(bot.servers)},
+                          headers={"Authorization": config._dbots_token})
         if r.status_code == 200:
             log.info("Discord Bots Server count updated.")
         elif r.status_code == 401:
@@ -127,44 +128,52 @@ async def on_ready():
             log.warning("Failed to clear the music cache!")
     load_opus_lib()
 
+
 @bot.event
 async def on_command_error(error, ctx):
     if isinstance(error, commands.CommandNotFound):
         return
-    if ctx.message.channel.is_private:
-        await ctx.send(ctx.message.channel, "Command borked. If this is in a PM, do it in the server. Try to report this with {}notifydev.".format(config.command_prefix))
+    if isinstance(ctx.channel, discord.abc.PrivateChannel):
+        await ctx.channel.send("Command borked. If this is in a PM, do it in the server. Try to report this with "
+                               "{}notifydev.".format(config.command_prefix))
         return
 
     # In case the bot failed to send a message to the channel, the try except pass statement is to prevent another error
     try:
-        await ctx.send(ctx.message.channel, error)
+        await ctx.channel.send(error)
     except:
         pass
     log.error("An error occured while executing the command named {}: {}".format(ctx.command.qualified_name, error))
 
+
 @bot.event
-async def on_command(ctx):
-    if isinstance(ctx.channel, discord.DMChannel)
-        guild = "Private Message"
+async def on_command(command, ctx):
+    if isinstance(ctx.channel, discord.abc.PrivateChannel):
+        server = "Private Message"
     else:
-        server = "{}/{}".format(ctx.guild.id, ctx.guild.name)
-    print("[{} at {}] [Command] [{}] [{}/{}]: {}".format(time.strftime("%m/%d/%Y"), time.strftime("%I:%M:%S %p %Z"), server, ctx.message.author.id, ctx.message.author, ctx.message.content))
+        server = "{}/{}".format(ctx.message.guild.id, ctx.message.guild.name)
+    print("[{} at {}] [Command] [{}] [{}/{}]: {}".format(time.strftime("%m/%d/%Y"), time.strftime("%I:%M:%S %p %Z"),
+                                                         server, ctx.message.author.id, ctx.message.author,
+                                                         ctx.message.content))
+
 
 @bot.event
 async def on_message(message):
-    if discord.Member is type(message.author):
+    if isinstance(message.author, discord.Member):
         if discord.utils.get(message.author.roles, name="Dragon Ignorance"):
             return
     if message.author.bot:
         return
-    if str(message.author) == "based robin#0052":
-        f = open('markovrobin.txt','r+')
+    if message.author.id == 117678528220233731:
+        f = open('markovrobin.txt', 'r+')
         f.write(message.clean_content + "\n")
         print("[Markov] Added entry: " + message.clean_content)
     if getblacklistentry(message.author.id) is not None:
         return
 
     await bot.process_commands(message)
+
+
 """
 @bot.event
 async def on_server_update(before:discord.Server, after:discord.Server):
@@ -189,57 +198,61 @@ async def on_server_update(before:discord.Server, after:discord.Server):
     if before.owner != after.owner:
         await channel_logger.mod_log(after, "Server ownership was transferred from `{}` to `{}`".format(before.owner, after.owner))
 """
+
+
 @bot.event
-async def on_member_join(member:discord.Member):
-    join_message = read_data_entry(member.server.id, "join-message")
+async def on_member_join(member: discord.Member):
+    join_message = read_data_entry(member.guild.id, "join-message")
     if join_message is not None:
-        join_message = join_message.replace("!USER!", member.mention).replace("!SERVER!", member.server.name)
-    join_leave_channel_id = read_data_entry(member.server.id, "join-leave-channel")
+        join_message = join_message.replace("!USER!", member.mention).replace("!SERVER!", member.guild.name)
+    join_leave_channel_id = read_data_entry(member.guild.id, "join-leave-channel")
     if join_leave_channel_id is not None:
-        join_leave_channel = discord.utils.get(member.server.channels, id=join_leave_channel_id)
+        join_leave_channel = discord.utils.get(member.guild.channels, id=join_leave_channel_id)
         if join_leave_channel is None:
-            update_data_entry(member.server.id, "join-leave-channel", None)
+            update_data_entry(member.guild.id, "join-leave-channel", None)
     else:
         join_leave_channel = None
-    join_role_id = read_data_entry(member.server.id, "join-role")
+    join_role_id = read_data_entry(member.guild.id, "join-role")
     if join_role_id is not None:
-        join_role = discord.utils.get(member.server.roles, id=join_role_id)
+        join_role = discord.utils.get(member.guild.roles, id=join_role_id)
         if join_role is None:
-            update_data_entry(member.server.id, "join-role", None)
+            update_data_entry(member.guild.id, "join-role", None)
     else:
         join_role = None
     if join_leave_channel is not None and join_message is not None:
         try:
-            await ctx.send(join_leave_channel, join_message)
+            await join_leave_channel.send(join_message)
         except:
             pass
     if join_role is not None:
         try:
-            await bot.add_roles(member, join_role)
+            await member.add_roles(join_role)
         except:
-            None
+            pass
+
 
 @bot.event
-async def on_member_remove(member:discord.Member):
-    leave_message = read_data_entry(member.server.id, "leave-message")
+async def on_member_remove(member: discord.Member):
+    leave_message = read_data_entry(member.guild.id, "leave-message")
     if leave_message is not None:
-        leave_message = leave_message.replace("!USER!", member.mention).replace("!SERVER!", member.server.name)
-    join_leave_channel_id = read_data_entry(member.server.id, "join-leave-channel")
+        leave_message = leave_message.replace("!USER!", member.mention).replace("!SERVER!", member.guild.name)
+    join_leave_channel_id = read_data_entry(member.guild.id, "join-leave-channel")
     if join_leave_channel_id is not None:
-        join_leave_channel = discord.utils.get(member.server.channels, id=join_leave_channel_id)
+        join_leave_channel = discord.utils.get(member.guild.channels, id=join_leave_channel_id)
         if join_leave_channel is None:
-            update_data_entry(member.server.id, "join-leave-channel", None)
+            update_data_entry(member.guild.id, "join-leave-channel", None)
     else:
         join_leave_channel = None
     if join_leave_channel is not None and leave_message is not None:
         try:
-            await ctx.send(join_leave_channel, leave_message)
+            await join_leave_channel.send(leave_message)
         except:
             pass
 
-@bot.command(hidden=True, pass_context=True)
+
+@bot.command(hidden=True)
 @checks.is_dev()
-async def debug(ctx, *, shit:str):
+async def debug(ctx, *, shit: str):
     """This is the part where I make 20,000 typos before I get it right"""
     # "what the fuck is with your variable naming" - EJH2
     # seth seriously what the fuck - Robin
@@ -247,9 +260,10 @@ async def debug(ctx, *, shit:str):
         rebug = eval(shit)
         if asyncio.iscoroutine(rebug):
             rebug = await rebug
-        await bot.say(py.format(rebug))
+        await ctx.send(py.format(rebug))
     except Exception as damnit:
-        await bot.say(py.format("{}: {}".format(type(damnit).__name__, damnit)))
+        await ctx.send(py.format("{}: {}".format(type(damnit).__name__, damnit)))
+
 
 """@bot.command(hidden=True, pass_context=True)
 @checks.is_dev()
@@ -265,105 +279,127 @@ async def eval(ctx, self):
                 ethan_makes_me_suffer = await ethan_makes_me_suffer
             await bot.say(py.format(ethan_makes_me_suffer))
         except Exception as why_do_you_do_this_to_me:
-            await bot.say(py.format("{}: {}".format(type(why_do_you_do_this_to_me).__name__, why_do_you_do_this_to_me)))"""
+            await bot.say(py.format("{}: {}".format(type(why_do_you_do_this_to_me).__name__, why_do_you_do_this_to_me)))
+            """
 
 
 @bot.command(hidden=True)
 @checks.is_owner()
-async def rename(*, name:str):
+async def rename(ctx, *, name: str):
     """Renames the bot"""
-    await bot.edit_profile(username=name)
-    await bot.say("How dare you change my name to {}".format(name))
+    await bot.user.edit(username=name)
+    await ctx.send("How dare you change my name to {}".format(name))
 
-@bot.command(hidden=True, pass_context=True)
+
+@bot.command(hidden=True)
 @checks.is_dev()
 async def shutdown(ctx):
     """Shuts down the bot"""
-    await bot.say("I'm leaving you, it's over. See me in magistrate court tomorrow for our divorce.")
+    await ctx.send("I'm leaving you, it's over. See me in magistrate court tomorrow for our divorce.")
     log.warning("{} has shut down the bot!".format(ctx.message.author))
     await _shutdown_bot()
 
-@bot.command(hidden=True, pass_context=True)
+
+@bot.command(hidden=True)
 @checks.is_dev()
 async def restart(ctx):
     """Restarts the bot"""
-    await bot.say("I'm gonna leave because I'm mad at you, and then I'll come back. See you.")
+    await ctx.send("I'm gonna leave because I'm mad at you, and then I'll come back. See you.")
     log.warning("{} has restarted the bot!".format(ctx.message.author))
     await _restart_bot()
 
-@bot.command(hidden=True, pass_context=True)
+
+@bot.command(hidden=True)
 @checks.is_owner()
-async def setavatar(ctx, *, url:str=None):
+async def setavatar(ctx, *, url: str = None):
     """Changes the bot's avatar"""
     if ctx.message.attachments:
         url = ctx.message.attachments[0]["url"]
     elif url is None:
-        await bot.say("u didn't fuken include a url or a picture retardese")
+        await ctx.send("u didn't fuken include a url or a picture retardese")
         return
     try:
         with aiohttp.Timeout(10):
             async with aiosession.get(url.strip("<>")) as image:
-                await bot.edit_profile(avatar=await image.read())
+                await bot.user.edit(avatar=await image.read())
     except Exception as e:
-        await bot.say("Unable to change avatar: {}".format(e))
-    await bot.say(":eyes:")
+        await ctx.send("Unable to change avatar: {}".format(e))
+    await ctx.send(":eyes:")
 
-@bot.command(pass_context=True)
-async def notifydev(ctx, *, message:str):
+
+@bot.command()
+async def notifydev(ctx, *, message: str):
     """Sends a message to the developers"""
-    if ctx.message.channel.is_private:
+    if isinstance(ctx.channel, discord.abc.PrivateChannel):
         server = "`Sent via PM, not a server`"
     else:
-        server = "`{}` / `{}`".format(ctx.guild.id, ctx.guild.name)
+        server = "`{}` / `{}`".format(ctx.message.server.id, ctx.message.server.name)
     msg = make_message_embed(ctx.message.author, 0xCC0000, message, formatUser=True)
-    await ctx.send(discord.User(id=config.owner_id), "New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
+    owner =bot.get_user(config.owner_id)
+    await owner.send("New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id,
+                                                                                        server, str(shard_id)),
+                     embed=msg)
     for id in config.dev_ids:
-        await ctx.send(discord.User(id=id), "New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id, server, str(shard_id)), embed=msg)
-    await ctx.send(ctx.message.author, "Hey, the following message has been sent to the developers: `{}` PS: Yes you idiot, this actually does work. I'm not kidding. Be aware lol".format(message))
-    await bot.say("Completed the quest.")
+        person = bot.get_user(id)
+        await person.send("New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id,
+                                                                                                  server,
+                                                                                                  str(shard_id)),
+                          embed=msg)
+    await ctx.author.send("Hey, the following message has been sent to the developers: `{}` PS: Yes you idiot, "
+                          "this actually does work. I'm not kidding. Be aware lol".format(
+                               message))
+    await ctx.send("Completed the quest.")
 
-@bot.command(hidden=True, pass_context=True)
+
+@bot.command(hidden=True)
 @checks.is_dev()
-async def blacklist(ctx, id:str, *, reason:str):
+async def blacklist(ctx, id: str, *, reason: str):
     """Blacklists a user, BOT OWNER ONLY."""
-    await bot.send_typing(ctx.message.channel)
-    user = discord.utils.get(list(bot.get_all_members()), id=id)
+    await ctx.channel.trigger_typing()
+    user = bot.get_user(id)
     if user is None:
-        await bot.say("Can't find anyone with `{}`".format(id))
+        await ctx.send("Can't find anyone with `{}`".format(id))
         return
-    if getblacklistentry(id) != None:
-        await bot.say("`{}` is already blacklisted, stop trying.".format(user))
+    if getblacklistentry(id) is not None:
+        await ctx.send("`{}` is already blacklisted, stop trying.".format(user))
         return
     blacklistuser(id, user.name, user.discriminator, reason)
-    await bot.say("Ok, blacklisted `{}` Reason: `{}`".format(user, reason))
+    await ctx.send("Ok, blacklisted `{}` Reason: `{}`".format(user, reason))
     try:
-        await ctx.send(user, "You've been blacklisted. We aren't supposed to talk. Sorry. `{}` Reason: `{}`".format(ctx.message.author, reason))
+        await user.send("You've been blacklisted. We aren't supposed to talk. Sorry. `{}` Reason: `{}`".format(
+                                   ctx.message.author, reason))
     except:
         log.debug("Couldn't send a message to a user with an ID of \"{}\"".format(id))
-    #await channel_logger.log_to_channel(":warning: `{}` blacklisted `{}`/`{}` Reason: `{}`".format(ctx.message.author, id, user, reason))
+        # await channel_logger.log_to_channel(":warning: `{}` blacklisted `{}`/`{}` Reason: `{}`".format
+        # (ctx.message.author, id, user, reason))
 
-@bot.command(hidden=True, pass_context=True)
+
+@bot.command(hidden=True)
 @checks.is_dev()
-async def unblacklist(ctx, id:str):
+async def unblacklist(ctx, id: str):
     """Unblacklists a user"""
     entry = getblacklistentry(id)
+    user = bot.get_user(id)
     if entry is None:
-        await bot.say("No one's found with the ID of `{}`".format(id))
+        await ctx.send("No one's found with the ID of `{}`".format(id))
         return
     try:
         unblacklistuser(id)
     except:
-        await bot.say("Can't find the blacklisted user `{}`".format(id)) # Don't ask pls
+        await ctx.send("Can't find the blacklisted user `{}`".format(id))  # Don't ask pls
         return
-    await bot.say("Gave freedom once more to `{}#{}`".format(entry.get("name"), entry.get("discrim")))
+    await ctx.send("Gave freedom once more to `{}#{}`".format(entry.get("name"), entry.get("discrim")))
     try:
-        await ctx.send(discord.User(id=id), "You're unblacklisted you titty. You were unblacklisted by `{}`".format(ctx.message.author))
+        await user.send("You're unblacklisted you titty. You were unblacklisted by `{}`".format(
+                                   ctx.message.author))
     except:
         log.debug("Can't send msg to \"{}\"".format(id))
-    #await channel_logger.log_to_channel(":warning: `{}` unblacklisted `{}`/`{}#{}`".format(ctx.message.author, id, entry.get("name"), entry.get("discrim")))
+        # await channel_logger.log_to_channel(":warning: `{}` unblacklisted `{}`/`{}#{}`".format(ctx.message.author,
+        # id, entry.get("name"), entry.get("discrim")))
+
 
 @bot.command()
-async def showblacklist():
+async def showblacklist(ctx):
     """Shows the list of users that are blacklisted from the bot"""
     blacklist = getblacklist()
     count = len(blacklist)
@@ -371,250 +407,304 @@ async def showblacklist():
         blacklist = "No blacklisted users! Congratulations."
     else:
         blacklist = "\n".join(blacklist)
-    await bot.say(xl.format("Total blacklisted users: {}\n\n{}".format(count, blacklist)))
+    await ctx.send(xl.format("Total blacklisted users: {}\n\n{}".format(count, blacklist)))
+
 
 @bot.command(hidden=True)
 @checks.is_owner()
-async def lockstatus():
+async def lockstatus(ctx):
     """Toggles the lock on the status"""
     global lock_status
     if lock_status:
         lock_status = False
-        await bot.say("Unlocked.")
+        await ctx.send("Unlocked.")
     else:
         lock_status = True
-        await bot.say("Locked.")
+        await ctx.send("Locked.")
 
-@bot.command(pass_context=True)
-async def stream(ctx, *, name:str):
+
+@bot.command()
+async def stream(ctx, *, name: str):
     """Sets the status for the bot stream mode. Advertise your twitch and shit if you'd like."""
     if lock_status:
-        await bot.say("The status is currently locked.")
+        await ctx.send("The status is currently locked.")
         return
     await bot.change_presence(game=discord.Game(name=name, type=1, url="https://www.twitch.tv/robingall2910"))
-    await bot.say("Streaming `{}`".format(name))
+    await ctx.send("Streaming `{}`".format(name))
 
-@bot.command(pass_context=True)
-async def changestatus(ctx, status:str, *, name:str=None):
-    """Changes the bot status to a certain status type and game/name/your shitty advertisement/seth's life story/your favorite beyonce lyrics and so on"""
+
+@bot.command()
+async def changestatus(ctx, status: str, *, name: str = None):
+    """Changes the bot status to a certain status type and game/name/your shitty advertisement/seth's
+    life story/your favorite beyonce lyrics and so on"""
     if lock_status:
-        await bot.say("Status is locked. Don't try.")
+        await ctx.send("Status is locked. Don't try.")
         return
     game = None
     if status == "invisible" or status == "offline":
-        await bot.say("You can not use the status type `{}`".format(status))
+        await ctx.send("You can not use the status type `{}`".format(status))
         return
     try:
         statustype = discord.Status(status)
     except ValueError:
-        await bot.say("`{}` is not a valid status type, valid status types are `online`, `idle`, `do_not_disurb`, and `dnd`".format(status))
+        await ctx.send(
+            "`{}` is not a valid status type, valid status types are `online`, `idle`, `do_not_disurb`, and `dnd`".format(
+                status))
         return
     if name != "":
         game = discord.Game(name=name)
     await bot.change_presence(game=game, status=statustype)
     if name is not None:
-        await bot.say("Changed game name to `{}` with a(n) `{}` status type".format(name, status))
-        #await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name, status))
+        await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name, status))
+        # await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n)
+        # `{}` status type".format(ctx.message.author.id, ctx.message.author, name, status))
     else:
-        await bot.say("Changed status type to `{}`".format(status))
-        #await channel_logger.log_to_channel(":information_source: `{}`/`{}` has changed the status type to `{}`".format(ctx.message.author.id, ctx.message.author, status))
+        await ctx.send("Changed status type to `{}`".format(status))
+        # await channel_logger.log_to_channel(":information_source: `{}`/`{}` has changed the status type to
+        # `{}`".format(ctx.message.author.id, ctx.message.author, status))
 
-@bot.command(hidden=True, pass_context=True)
+
+@bot.command(hidden=True)
 @checks.is_dev()
-async def terminal(ctx, *, command:str):
+async def terminal(ctx, *, command: str):
     """Runs terminal commands and shows the output via a message. Oooh spoopy!"""
     try:
-        await bot.send_typing(ctx.message.channel)
-        await bot.say(xl.format(os.popen(command).read()))
+        await ctx.channel.trigger_typing()
+        await ctx.send(xl.format(os.popen(command).read()))
     except:
-        await bot.say("I broke.")
+        await ctx.send("I broke.")
 
-@bot.command(hidden=True, pass_context=True)
+
+@bot.command(hidden=True)
 @checks.is_dev()
-async def uploadfile(ctx, *, path:str):
+async def uploadfile(ctx, *, path: str):
     """Uploads any file on the system. What is this hackery?"""
-    await bot.send_typing(ctx.message.channel)
+    await ctx.channel.trigger_typing()
     try:
-        await bot.send_file(ctx.message.channel, path)
+        await ctx.channel.send(file=discord.File(path))
     except FileNotFoundError:
-        await bot.say("File doesn't exist.")
+        await ctx.send("File doesn't exist.")
+
 
 @bot.command()
-async def changelog():
+async def changelog(ctx):
     """The latest changelog"""
-    await bot.say("For command usages and a list of commands go to https://dragonfire.me/robtheboat/info.html or do `{0}help` (`{0}help command` for a command usage)\n{1}".format(bot.command_prefix, diff.format("\n".join(map(str, change_log)))))
+    await ctx.send(
+        "For command usages and a list of commands go to https://dragonfire.me/robtheboat/info.html or do `{0}help` "
+        "(`{0}help command` for a command usage)\n{1}".format(
+            bot.command_prefix, diff.format("\n".join(map(str, change_log)))))
+
 
 @bot.command()
-async def version():
+async def version(ctx):
     """Get the bot's current version"""
-    await bot.say("Bot version: {}\nAuthor(s): {}\nCode name: {}\nBuild date: {}".format(BUILD_VERSION, BUILD_AUTHORS, BUILD_CODENAME, BUILD_DATE))
+    await ctx.send("Bot version: {}\nAuthor(s): {}\nCode name: {}\nBuild date: {}".format(BUILD_VERSION, BUILD_AUTHORS,
+                                                                                         BUILD_CODENAME, BUILD_DATE))
 
-@bot.command(hidden=True, pass_context=True)
+
+@bot.command(hidden=True)
 @checks.is_dev()
-async def dm(ctx, somethingelse:str, *, message:str):
+async def dm(ctx, somethingelse: int, *, message: str):
     """DMs a user"""
+    user = bot.get_user(somethingelse)
+    owner = bot.get_user(config.owner_id)
     msg = make_message_embed(ctx.message.author, 0xE19203, message, formatUser=True)
     try:
-        sent_message = await ctx.send(discord.User(id=somethingelse), "You have a new message from the devs!", embed=msg)
-        user = sent_message.channel.user
-        await ctx.send(discord.User(id=config.owner_id), "`{}` has replied to a recent DM with `{}#{}`, an ID of `{}`, and Shard ID `{}`.".format(ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)), embed=make_message_embed(ctx.message.author, 0xCC0000, message))
+        await user.send("You have a new message from the devs!", embed=msg)
+        await owner.send(
+                               "`{}` has replied to a recent DM with `{}#{}`, an ID of `{}`, and Shard ID `{}`.".format(
+                                   ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)),
+                               embed=make_message_embed(ctx.message.author, 0xCC0000, message))
         for fuck in config.dev_ids:
-            await ctx.send(discord.User(id=fuck), "`{}` has replied to a recent DM with `{}#{}` an ID of `{}`, and Shard ID `{}`.".format(ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)), embed=make_message_embed(ctx.message.author, 0xCC0000, message))
+            xd = bot.get_user(fuck)
+            await xd.send("`{}` has replied to a recent DM with `{}#{}` an ID of `{}`, and Shard ID `{}`.".format(
+                          ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)),
+                          embed=make_message_embed(ctx.message.author, 0xCC0000, message))
     except Exception as e:
-        await bot.say("Error: " + str(e))
+        await ctx.send("Error: " + str(e))
 
-@bot.command(hidden=True, pass_context=True)
+"""
+@bot.command(hidden=True)
 @checks.is_dev()
-async def wt(ctx, id:str, *, message:str):
-    await bot.say("Sent the message to ID " + id + ".")
-    await ctx.send(discord.Object(id=id), message)
+async def wt(ctx, id: str, *, message: str):
+    await ctx.send("Sent the message to ID " + id + ".")
+    await bot.send_message(discord.Object(id=id), message) # There's no good rw replacement
+"""
+
 
 @bot.command()
-async def uptime():
+async def uptime(ctx):
     """Displays how long the bot has been online for"""
     second = time.time() - start_time
     minute, second = divmod(second, 60)
     hour, minute = divmod(minute, 60)
     day, hour = divmod(hour, 24)
     week, day = divmod(day, 7)
-    await bot.say("I've been online for %d weeks, %d days, %d hours, %d minutes, %d seconds" % (week, day, hour, minute, second))
+    await ctx.send(
+        "I've been online for %d weeks, %d days, %d hours, %d minutes, %d seconds" % (week, day, hour, minute, second))
+
 
 @bot.command(hidden=True)
 @checks.is_dev()
-async def reload(*, extension:str):
+async def reload(ctx, *, extension: str):
     """Reloads an extension"""
     extension = "commands.{}".format(extension)
     if extension in extension:
-        await bot.say("Reloading {}...".format(extension))
+        await ctx.send("Reloading {}...".format(extension))
         bot.unload_extension(extension)
         bot.load_extension(extension)
-        await bot.say("Reloaded {}!".format(extension))
+        await ctx.send("Reloaded {}!".format(extension))
     else:
-        await bot.say("Extension isn't available.")
+        await ctx.send("Extension isn't available.")
+
 
 @bot.command(hidden=True)
 @checks.is_dev()
-async def disable(*, extension:str):
+async def disable(ctx, *, extension: str):
     """Disables an extension"""
     extension = "commands.{}".format(extension)
     if extension in extension:
-        await bot.say("Disabling {}...".format(extension))
+        await ctx.send("Disabling {}...".format(extension))
         bot.unload_extension(extension)
-        await bot.say("Disabled {}.".format(extension))
+        await ctx.send("Disabled {}.".format(extension))
     else:
-        await bot.say("Extension isn't available.")
+        await ctx.send("Extension isn't available.")
+
 
 @bot.command(hidden=True)
 @checks.is_dev()
-async def enable(*, extension:str):
+async def enable(ctx, *, extension: str):
     """Disables an extension"""
     extension = "commands.{}".format(extension)
     if extension in extension:
-        await bot.say("Loading {}...".format(extension))
+        await ctx.send("Loading {}...".format(extension))
         bot.load_extension(extension)
-        await bot.say("Enabled {}.".format(extension))
+        await ctx.send("Enabled {}.".format(extension))
     else:
-        await bot.say("Extension isn't available.")
+        await ctx.send("Extension isn't available.")
 
-@bot.command(pass_context=True)
+
+@bot.command()
 async def joinserver(ctx):
     """Sends the bot's OAuth2 link"""
-    await ctx.send(ctx.message.author, "Want a link to invite me into your server? Here you go. `http://inv.rtb.dragonfire.me`")
+    await ctx.author.send("Want a link to invite me into your server? Here you go. `http://inv.rtb.dragonfire.me`")
 
-@bot.command(pass_context=True)
+
+@bot.command()
 async def invite(ctx):
     """Sends an invite link to the bot's server"""
-    await ctx.send(ctx.message.author, "Here's the invite for some bot help: `https://discord.gg/vvAKvaG` Report with {}notifydev if there's an issue with the link.".format(bot.command_prefix))
+    await ctx.author.send("Here's the invite for some bot help: `https://discord.gg/vvAKvaG` "
+                          "Report with {}notifydev if there's an issue with the link.".format(
+                              bot.command_prefix))
 
-@bot.command(pass_context=True)
+
+@bot.command()
 async def ping(ctx):
     """Pings the bot"""
     pingtime = time.time()
-    memes = random.choice(["pinging server...", "hmu on snapchat", "is \"meming\" a thing?", "sometimes I'm scared of furries myself.", "You might not understand, but this is gross.", "***0.0 secs***", "hi", "u h h h h h h h h h h h h h", "instagram live is lit asf", "SHOW THAT ASS MY NIG",
-                               "fucking furries...", "fucking maxie", "AAAAAAAAAAAAAAAAAA",
-                               "why the fuck am I even doing this for you?", "but....", "meh.", "...",
-                               "Did you really expect something better?", "kek", "I'm killing your dog next time.",
-                               "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.", "Damn it seth, why does your internet have to be slow?", "EJ pls.", "Go check out ViralBot today! It's lit.", "pink floyd", "how do u feel, how do u feel now, aaaaaaaaaaaaa?", "alan's psychadelic breakfast", "Oh.. er.. me flakes.. scrambled eggs.. bacon.. sausages.. tomatoes.. toast.. coffee.. marmalade. I like marmalade.. yes.. porridge is nice, any cereal.. I like all cereals..",
-                               "so, how's was trumps bullshit on executive orders?", "don't sign the I-407 in the airport", "hi", "hi can i get a  uh h hh h h h ", "stop pinging me", "go away nerd", "i secretly love you", "owo", "uwu", "google blobs are the best", "lets keep advertising viralbot more!", "napstabot isn't good :^)"])
+    memes = random.choice(
+        ["pinging server...", "hmu on snapchat", "is \"meming\" a thing?", "sometimes I'm scared of furries myself.",
+         "You might not understand, but this is gross.", "***0.0 secs***", "hi", "u h h h h h h h h h h h h h",
+         "instagram live is lit asf", "SHOW THAT ASS MY NIG",
+         "fucking furries...", "fucking maxie", "AAAAAAAAAAAAAAAAAA",
+         "why the fuck am I even doing this for you?", "but....", "meh.", "...",
+         "Did you really expect something better?", "kek", "I'm killing your dog next time.",
+         "Give me a reason to live.", "anyway...", "porn is good.", "I'm edgy.",
+         "Damn it seth, why does your internet have to be slow?", "EJ pls.", "Go check out ViralBot today! It's lit.",
+         "pink floyd", "how do u feel, how do u feel now, aaaaaaaaaaaaa?", "alan's psychadelic breakfast",
+         "Oh.. er.. me flakes.. scrambled eggs.. bacon.. sausages.. tomatoes.. toast.. coffee.. marmalade. I like "
+         "marmalade.. yes.. porridge is nice, any cereal.. I like all cereals..",
+         "so, how's was trumps bullshit on executive orders?", "don't sign the I-407 in the airport", "hi",
+         "hi can i get a  uh h hh h h h ", "stop pinging me", "go away nerd", "i secretly love you", "owo", "uwu",
+         "google blobs are the best", "lets keep advertising viralbot more!", "napstabot isn't good :^)"])
     topkek = memes
-    pingms = await ctx.send(ctx.message.channel, topkek)
+    pingms = await ctx.send(topkek)
     ping = time.time() - pingtime
     r = pyping.ping('dragonfire.me')
-    #await bot.edit_message(pingms, topkek + " // ***{} ms***".format(str(ping)[3:][:3]))
-    await bot.edit_message(pingms, topkek + " // ***{} ms***".format(r.avg_rtt))
+    # await bot.edit_message(pingms, topkek + " // ***{} ms***".format(str(ping)[3:][:3]))
+    await pingms.edit(topkek + " // ***{} ms***".format(r.avg_rtt))
+
 
 @bot.command()
-async def website():
+async def website(ctx):
     """Gives the link to the bot docs"""
-    await bot.say("My official website can be found here: https://dragonfire.me/robtheboat/info.html - Please be aware its outdated.")
+    await ctx.send(
+        "My official website can be found here: https://dragonfire.me/robtheboat/info.html - Please be aware its outdated.")
+
 
 @bot.command()
-async def github():
+async def github(ctx):
     """Gives the link to the github repo"""
-    await bot.say("My official github repo can be found here: https://github.com/robingall2910/RobTheBoat - This is running the ***dragon*** branch.")
+    await ctx.send(
+        "My official github repo can be found here: https://github.com/robingall2910/RobTheBoat - This is running the ***dragon*** branch.")
+
 
 @bot.command(hidden=True)
-async def sneaky(*, server: str):
-    hax = await bot.create_invite(discord.utils.find(lambda m: m.name == server, bot.servers))
-    await bot.say("here bitch. " + str(hax))
+async def sneaky(ctx, *, server: str):
+    hax = await discord.utils.get(bot.guilds, name=server).create_invite()
+    await ctx.send("here bitch. " + str(hax))
+
 
 @bot.command(hidden=True)
-async def revokesneaky(*, invite: str):
-	await bot.delete_invite(invite)
-	await bot.say("Deleted invite.")
+async def revokesneaky(ctx, *, invite: str):
+    await bot.delete_invite(invite)
+    await ctx.send("Deleted invite.")
+
 
 @bot.command(pass_context=True)
 async def stats(ctx):
     """Grabs bot statistics."""
-    if ctx.message.server is None:
+    if ctx.message.guild is None:
         SID = shard_id
-        musage = psutil.Process().memory_full_info().uss / 1024**2
+        musage = psutil.Process().memory_full_info().uss / 1024 ** 2
         uniqueonline = str(sum(1 for m in bot.get_all_members() if m.status != discord.Status.offline))
         sethsfollowers = str(sum(len(s.members) for s in bot.servers))
         sumitup = str(int(len(bot.servers)) * int(shard_count))
         sumupmembers = str(int(str(sethsfollowers)) * int(shard_count))
         sumupuni = str(int(str(uniqueonline)) * int(shard_count))
-        em = discord.Embed(description="\u200b")
+        em = discord.Embed(description="\u200b", color=ctx.message.guild.me.color)
         em.title = bot.user.name + "'s Help Server"
         em.url = "https://discord.gg/vvAKvaG"
         em.set_thumbnail(url=bot.user.avatar_url)
-        #c&p is a good feature
+        # c&p is a good feature
         em.add_field(name='Creators', value='based robin#0052 and Seth#0051', inline=True)
         em.add_field(name='Support Team', value='Skoonk & Xeoda#3835 and Owlotic#0278', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
-        #em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
+        # em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
         em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.", inline=True)
         em.add_field(name='Servers', value=sumitup, inline=True)
         em.add_field(name='Members', value=sumupuni + " ***online*** out of " + sumupmembers, inline=True)
-        em.add_field(name="Shard Server Count", value=len(bot.servers), inline=True)
-        em.add_field(name='Memory Usage & Shard Number', value='{:.2f} MiB - Shard {}'.format(musage, str(SID)), inline=True)
-        await bot.say(embed=em)
+        em.add_field(name="Shard Server Count", value=str(len(bot.guilds)), inline=True)
+        em.add_field(name='Memory Usage & Shard Number', value='{:.2f} MiB - Shard {}'.format(musage, str(SID)),
+                     inline=True)
+        await ctx.send(embed=em)
     else:
         SID = shard_id
-        musage = psutil.Process().memory_full_info().uss / 1024**2
+        musage = psutil.Process().memory_full_info().uss / 1024 ** 2
         uniqueonline = str(sum(1 for m in bot.get_all_members() if m.status != discord.Status.offline))
         sethsfollowers = str(sum(len(s.members) for s in bot.servers))
-        sumitup = str(int(len(bot.servers)) * int(shard_count))
+        sumitup = str(int(len(bot.guilds)) * int(shard_count))
         sumupmembers = str(int(str(sethsfollowers)) * int(shard_count))
         sumupuni = str(int(str(uniqueonline)) * int(shard_count))
         em = discord.Embed(description="\u200b")
         em.title = bot.user.name + "'s Help Server"
         em.url = "https://discord.gg/vvAKvaG"
         em.set_thumbnail(url=bot.user.avatar_url)
-        em.color = ctx.guild.me.color
         em.add_field(name='Creators', value='based robin#0052 and Seth#0051', inline=True)
         em.add_field(name='Support Team', value='Skoonk & Xeoda#3835 and Owlotic#0278', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
-        #em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
+        # em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
         em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.", inline=True)
         em.add_field(name='Servers', value=sumitup, inline=True)
         em.add_field(name='Members', value=sumupuni + " ***online*** out of " + sumupmembers, inline=True)
-        em.add_field(name="Shard Server Count", value=len(bot.servers), inline=True)
-        em.add_field(name='Memory Usage & Shard Number', value='{:.2f} MiB - Shard {}'.format(musage, str(SID)), inline=True)
-        await bot.say(embed=em)
+        em.add_field(name="Shard Server Count", value=str(len(bot.guilds)), inline=True)
+        em.add_field(name='Memory Usage & Shard Number', value='{:.2f} MiB - Shard {}'.format(musage, str(SID)),
+                     inline=True)
+        await ctx.send(embed=em)
+
 
 bot.run(config._token)
