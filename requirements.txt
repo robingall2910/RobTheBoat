@@ -3,11 +3,8 @@ darkskylib
 geocoder
 pyping
 discord[voice]
-cat
 urllib
 youtube_dl
 forecastiopy
-zipfile
-codecs
 postgres
 asyncqlio
