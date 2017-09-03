@@ -24,17 +24,33 @@ class Weather():
                 g = geocoder.google(address)
                 results = g.latlng
                 loc = g.address
-                if "USA" in address:
-                    fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1], units=ForecastIO.ForecastIO.UNITS_US)
+                #if any(sin in address for sin in the_sin):
+                #    theresult = True
+                #else:
+                #    theresult = False
+                if ", USA" in loc:
+                    thedisplay = True
+                    thevariable = True
+                elif ", USA" not in loc:
+                    thedisplay = False
+                    thevariable = False
+                if ", UK" in loc:
+                    print("Passing as United Kingdom")
+                    fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1], units=ForecastIO.ForecastIO.UNITS_UK)
+                if ", Canada" in loc:
+                    print("Passing as Canada")
+                    fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1], units=ForecastIO.ForecastIO.UNITS_CA)
                 else:
-                    #for y'all celcius folks
+                    print("Passing with an automatic unit")
                     fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1])
                 current = FIOCurrently.FIOCurrently(fio)
                 alerts = FIOAlerts.FIOAlerts(fio)
                 ds = forecast(api_key, results[0], results[1])
-                if "USA" in address:
+                if thedisplay == True:
+                    print("The display passed")
                     em = discord.Embed(description="This information is displayed in Farenheit.")
-                else:
+                elif thedisplay == False:
+                    print("The display didn't pass")
                     em = discord.Embed(description="This information is displayed in Celcius.")
                 em.title = "{}'s Current Weather".format(loc)
                 if current.uvIndex == 0:
@@ -67,16 +83,34 @@ class Weather():
                     alertresult = "Not available."
                 em.set_thumbnail(url="https://dragonfire.me/474be77b-23bc-42e4-a779-6eb7b3b9a892.jpg")
                 em.color = maybe
-                if "USA" in address:
+                if thevariable == True:
+                    print("The variable passed")
                     em.add_field(name='Temperature', value="{}°F".format(current.temperature), inline=True)
-                else:
+                elif thevariable == False:
+                    print("The variable didn't pass")
                     em.add_field(name='Temperature', value="{}°C".format(current.temperature), inline=True)
                 em.add_field(name='Currently', value="{}".format(current.summary), inline=True)
                 em.add_field(name='Humidity', value="{:.0%}".format(current.humidity), inline=True)
                 #this is a bit tricky when it comes to some countries so i'll leave it as is
-                em.add_field(name='Wind Speed/Wind Gust', value="{} mph/{} mph".format(current.windSpeed, current.windGust), inline=True)
+                if ", UK" in loc:
+                    print("speeds as UK")
+                    em.add_field(name='Wind Speed/Gust (imperial)', value="{} mph/{} mph".format(current.windSpeed, current.windGust), inline=True)
+                if ", USA" in loc:
+                    print("speeds as America")
+                    em.add_field(name='Wind Speed/Wind Gust', value="{} mph/{} mph".format(current.windSpeed, current.windGust), inline=True)
+                else:
+                    print("speeds in Metric (automatic)")
+                    em.add_field(name='Wind Speed/Gust', value="{} km/h/{} km/h".format(current.windSpeed, current.windGust), inline=True)
                 #same for this
-                em.add_field(name='Visibility', value="{} miles".format(visib), inline=True)
+                if ", UK" in loc:
+                    print("visibilty as UK")
+                    em.add_field(name='Visibility (imperial)', value="{} miles".format(visib), inline=True)
+                if ", USA" in loc:
+                    print("visibility as America")
+                    em.add_field(name='Visibility', value="{} miles".format(visib), inline=True)
+                else:
+                    print("visibility in Metric (automatic)")
+                    em.add_field(name='Visibility', value="{} kilometers".format(visib), inline=True)
                 em.add_field(name='UV Index', value="{} Current index is **{}**.".format(uvresult, uvint), inline=True)
                 if fio.has_alerts() is True:
                     em.add_field(name='Weather Alert', value=alertresult, inline=True)
