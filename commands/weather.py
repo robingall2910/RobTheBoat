@@ -20,17 +20,22 @@ class Weather():
     async def weather(self, ctx, *, address: str):
         """Dark Sky Weather Results"""
         if ctx.message.author == ctx.message.author: #filler
-        #fine thanks troy
             try:
                 g = geocoder.google(address)
                 results = g.latlng
-                fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1], units=ForecastIO.ForecastIO.UNITS_US)
+                if "United States" or "USA" in geocoder.google(address):
+                    fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1], units=ForecastIO.ForecastIO.UNITS_US)
+                else:
+                    #for y'all celcius folks
+                    fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1])
                 current = FIOCurrently.FIOCurrently(fio)
                 alerts = FIOAlerts.FIOAlerts(fio)
                 loc = g.address
                 ds = forecast(api_key, results[0], results[1])
-                #you forgot literally all of the location resolving
-                em = discord.Embed(description="This information is displayed in Farenheit.")
+                if "United States" or "USA" in geocoder.google(address):
+                    em = discord.Embed(description="This information is displayed in Farenheit.")
+                else:
+                    em = discord.Embed(description="This information is displayed in Celcius.")
                 em.title = "{}'s Current Weather".format(loc)
                 if current.uvIndex == 0:
                     uvresult = "There probably isn't any sun right now."
@@ -62,10 +67,15 @@ class Weather():
                     alertresult = "Not available."
                 em.set_thumbnail(url="https://dragonfire.me/474be77b-23bc-42e4-a779-6eb7b3b9a892.jpg")
                 em.color = maybe
-                em.add_field(name='Temperature', value="{}°F".format(current.temperature), inline=True)
+                if "United States" or "USA" in geocoder.google(address):
+                    em.add_field(name='Temperature', value="{}°F".format(current.temperature), inline=True)
+                else:
+                    em.add_field(name='Temperature', value="{}°C".format(current.temperature), inline=True)
                 em.add_field(name='Currently', value="{}".format(current.summary), inline=True)
                 em.add_field(name='Humidity', value="{:.0%}".format(current.humidity), inline=True)
+                #this is a bit tricky when it comes to some countries so i'll leave it as is
                 em.add_field(name='Wind Speed/Wind Gust', value="{} mph/{} mph".format(current.windSpeed, current.windGust), inline=True)
+                #same for this
                 em.add_field(name='Visibility', value="{} miles".format(visib), inline=True)
                 em.add_field(name='UV Index', value="{} Current index is **{}**.".format(uvresult, uvint), inline=True)
                 if fio.has_alerts() is True:
