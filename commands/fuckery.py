@@ -127,7 +127,7 @@ class Fuckery():
     async def insult(self, *, user:str):
         """Insult those ass wipes"""
         if user is "@everyone" or "@here":
-            result = user.strip('<@>')
+            result = user.replace("@ everyone", "").replace("@ here", "")
         else:
             result = user
         await self.bot.say("{} {}".format(result, random.choice(insults)))
