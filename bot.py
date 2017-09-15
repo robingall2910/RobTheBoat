@@ -34,13 +34,13 @@ if config.debug:
     log.enableDebugging()  # pls no flame
 bot = commands.Bot(command_prefix=config.command_prefix,
                    description="A multipurposed bot with a theme for the furry fandom. Contains nsfw, info, weather, music and much more.",
-                   shard_id=shard_id, shard_count=shard_count, pm_help=True)
+                   shard_id=shard_id, shard_count=shard_count, pm_help=None)
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
 
 extensions = ["commands.fuckery", "commands.information", "commands.moderation", "commands.configuration",
-              "commands.nsfw", "commands.music", "commands.weather", "commands.gw2", "commands.netflix"]
+              "commands.nsfw", "commands.music", "commands.weather"]
 
 # Thy changelog
 change_log = [
@@ -130,25 +130,45 @@ async def on_ready():
 
 
 @bot.event
-async def on_command_error(error, ctx):
+async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         return
-    if isinstance(ctx.channel, discord.abc.PrivateChannel):
-        await ctx.channel.send("Command borked. If this is in a PM, do it in the server. Try to report this with "
-                               "{}notifydev.".format(config.command_prefix))
+    if isinstance(error, commands.DisabledCommand):
+        await ctx.send("This command has been disabled")
+        return
+    if isinstance(error, checks.dev_only):
+        await ctx.send("This command can only be ran by the bot developers")
+        return
+    if isinstance(error, checks.owner_only):
+        await ctx.send("This command can only be ran by the bot owner")
+        return
+    if isinstance(error, checks.not_nsfw_channel):
+        await ctx.send("This command can only be ran in NSFW enabled channels.")
+        return
+    if isinstance(error, checks.not_guild_owner):
+        await ctx.send(ctx.channel, "Only the server owner (`{}`) can use this command".format(ctx.guild.owner))
+        return
+    if isinstance(error, checks.no_permission):
+        await ctx.send("You do not have permission to use this command".format(ctx.guild.owner))
+        return
+    if isinstance(error, commands.NoPrivateMessage):
+        await ctx.send("This command can only be ran on servers".format(ctx.guild.owner))
+        return
+    if isinstance(ctx.channel, discord.DMChannel):
+        await ctx.send("An error occured while trying to run this command, this is most likely because it was ran in a private message channel. Please try running this command on a guild.")
         return
 
-    # In case the bot failed to send a message to the channel, the try except pass statement is to prevent another error
+    #In case the bot failed to send a message to the channel, the try except pass statement is to prevent another error
     try:
-        await ctx.channel.send(error)
+        await ctx.send("An error occured while processing this command: `{}`".format(error))
     except:
         pass
-    log.error("An error occured while executing the command named {}: {}".format(ctx.command.qualified_name, error))
+    log.error("An error occured while executing the {} command: {}".format(ctx.command.qualified_name, error))
 
 
 @bot.event
 async def on_command(command, ctx):
-    if isinstance(ctx.channel, discord.abc.PrivateChannel):
+    if isinstance(ctx.channel, discord.DMChannel):
         server = "Private Message"
     else:
         server = "{}/{}".format(ctx.message.guild.id, ctx.message.guild.name)
@@ -172,83 +192,6 @@ async def on_message(message):
         return
 
     await bot.process_commands(message)
-
-
-"""
-@bot.event
-async def on_server_update(before:discord.Server, after:discord.Server):
-    if before.name != after.name:
-        await channel_logger.mod_log(after, "Server name was changed from `{}` to `{}`".format(before.name, after.name))
-    if before.region != after.region:
-        await channel_logger.mod_log(after, "Server region was changed from `{}` to `{}`".format(before.region, after.region))
-    if before.afk_channel != after.afk_channel:
-        await channel_logger.Channel_logg.mod_log(after, "Server afk channel was changed from `{}` to `{}`".format(before.afk_channel.name, after.afk_channel.name))
-    if before.afk_timeout != after.afk_timeout:
-        await channel_logger.mod_log(after, "Server afk timeout was changed from `{}` seconds to `{}` seconds".format(before.afk_timeout, after.afk_timeout))
-    if before.icon != after.icon:
-        await channel_logger.mod_log(after, "Server icon was changed from {} to {}".format(before.icon_url, after.icon_url))
-    if before.mfa_level != after.mfa_level:
-        if after.mfa_level == 0:
-            mfa = "enabled"
-        else:
-            mfa = "disabled"
-        await channel_logger.mod_log(after, "Server two-factor authentication requirement has been `{}`".format(mfa))
-    if before.verification_level != after.verification_level:
-        await channel_logger.mod_log(after, "Server verification level was changed from `{}` to `{}`".format(before.verification_level, after.verification_level))
-    if before.owner != after.owner:
-        await channel_logger.mod_log(after, "Server ownership was transferred from `{}` to `{}`".format(before.owner, after.owner))
-"""
-
-
-@bot.event
-async def on_member_join(member: discord.Member):
-    join_message = read_data_entry(member.guild.id, "join-message")
-    if join_message is not None:
-        join_message = join_message.replace("!USER!", member.mention).replace("!SERVER!", member.guild.name)
-    join_leave_channel_id = read_data_entry(member.guild.id, "join-leave-channel")
-    if join_leave_channel_id is not None:
-        join_leave_channel = discord.utils.get(member.guild.channels, id=join_leave_channel_id)
-        if join_leave_channel is None:
-            update_data_entry(member.guild.id, "join-leave-channel", None)
-    else:
-        join_leave_channel = None
-    join_role_id = read_data_entry(member.guild.id, "join-role")
-    if join_role_id is not None:
-        join_role = discord.utils.get(member.guild.roles, id=join_role_id)
-        if join_role is None:
-            update_data_entry(member.guild.id, "join-role", None)
-    else:
-        join_role = None
-    if join_leave_channel is not None and join_message is not None:
-        try:
-            await join_leave_channel.send(join_message)
-        except:
-            pass
-    if join_role is not None:
-        try:
-            await member.add_roles(join_role)
-        except:
-            pass
-
-
-@bot.event
-async def on_member_remove(member: discord.Member):
-    leave_message = read_data_entry(member.guild.id, "leave-message")
-    if leave_message is not None:
-        leave_message = leave_message.replace("!USER!", member.mention).replace("!SERVER!", member.guild.name)
-    join_leave_channel_id = read_data_entry(member.guild.id, "join-leave-channel")
-    if join_leave_channel_id is not None:
-        join_leave_channel = discord.utils.get(member.guild.channels, id=join_leave_channel_id)
-        if join_leave_channel is None:
-            update_data_entry(member.guild.id, "join-leave-channel", None)
-    else:
-        join_leave_channel = None
-    if join_leave_channel is not None and leave_message is not None:
-        try:
-            await join_leave_channel.send(leave_message)
-        except:
-            pass
-
 
 @bot.command(hidden=True)
 @checks.is_dev()
@@ -287,8 +230,8 @@ async def eval(ctx, self):
 @checks.is_owner()
 async def rename(ctx, *, name: str):
     """Renames the bot"""
-    await bot.user.edit(username=name)
-    await ctx.send("How dare you change my name to {}".format(name))
+    await bot.edit_profile(username=name)
+    await ctx.send("fuck you i changed it to {}".format(name))
 
 
 @bot.command(hidden=True)
@@ -321,33 +264,28 @@ async def setavatar(ctx, *, url: str = None):
     try:
         with aiohttp.Timeout(10):
             async with aiosession.get(url.strip("<>")) as image:
-                await bot.user.edit(avatar=await image.read())
+                await bot.user.edit_profile(avatar=await image.read())
     except Exception as e:
         await ctx.send("Unable to change avatar: {}".format(e))
     await ctx.send(":eyes:")
 
 
 @bot.command()
-async def notifydev(ctx, *, message: str):
+async def notifydev(ctx, *, message:str):
     """Sends a message to the developers"""
-    if isinstance(ctx.channel, discord.abc.PrivateChannel):
-        server = "`Sent via PM, not a server`"
+    if isinstance(ctx.channel, discord.DMChannel):
+        guild = "`Sent via Direct Messages`"
     else:
-        server = "`{}` / `{}`".format(ctx.message.server.id, ctx.message.server.name)
-    msg = make_message_embed(ctx.message.author, 0xCC0000, message, formatUser=True)
-    owner =bot.get_user(config.owner_id)
-    await owner.send("New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id,
-                                                                                        server, str(shard_id)),
-                     embed=msg)
+        guild = "`{}` / `{}`".format(ctx.guild.id, ctx.guild.name)
+    msg = make_message_embed(ctx.author, 0xFF0000, message, formatUser=True)
+    owner = bot.get_user(config.owner_id)
+    if owner:
+        await owner.send("You have received a new message! The user's ID is `{}` Server: {}".format(ctx.author.id, guild), embed=msg)
     for id in config.dev_ids:
-        person = bot.get_user(id)
-        await person.send("New message! The user's ID is `{}` Server: {} Shard: `{}`".format(ctx.message.author.id,
-                                                                                                  server,
-                                                                                                  str(shard_id)),
-                          embed=msg)
-    await ctx.author.send("Hey, the following message has been sent to the developers: `{}` PS: Yes you idiot, "
-                          "this actually does work. I'm not kidding. Be aware lol".format(
-                               message))
+        dev = bot.get_user(id)
+        if dev:
+            await dev.send("You have received a new message! The user's ID is `{}` Server: {}".format(ctx.author.id, guild), embed=msg)
+    await ctx.author.send("You've sent in a message to the developers. Your message was: `{}`".format(message))
     await ctx.send("Completed the quest.")
 
 
@@ -466,19 +404,20 @@ async def changestatus(ctx, status: str, *, name: str = None):
 
 @bot.command(hidden=True)
 @checks.is_dev()
-async def terminal(ctx, *, command: str):
-    """Runs terminal commands and shows the output via a message. Oooh spoopy!"""
+async def terminal(ctx, *, command:str):
+    """Spoopy as fuck. Sends a command to the Linux OS."""
     try:
         await ctx.channel.trigger_typing()
-        await ctx.send(xl.format(os.popen(command).read()))
+        await ctx.send(xl.format(subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0].decode("ascii")))
     except:
-        await ctx.send("I broke.")
+        await ctx.send("Well, I broke there.")
+
 
 
 @bot.command(hidden=True)
 @checks.is_dev()
 async def uploadfile(ctx, *, path: str):
-    """Uploads any file on the system. What is this hackery?"""
+    """Uploads any file on the system that the bot can access. The hell? My nudes!"""
     await ctx.channel.trigger_typing()
     try:
         await ctx.channel.send(file=discord.File(path))
@@ -650,6 +589,21 @@ async def revokesneaky(ctx, *, invite: str):
     await bot.delete_invite(invite)
     await ctx.send("Deleted invite.")
 
+@bot.command()
+@checks.is_dev()
+async def editmessage(ctx, id:int, *, newmsg:str):
+    """Edits a message sent by the bot"""
+    try:
+        msg = await bot.get_message(ctx.channel, id)
+    except discord.errors.NotFound:
+        await ctx.send("Whoops! Can't find the message ID of `{}` in this channel".format(id))
+        return
+    if msg.author != ctx.guild.me:
+        await ctx.send("I didn't send that message... Stop making me edit other people's messages, weirdo.")
+        return
+    await msg.edit(content=newmsg)
+    await ctx.send("owo")
+
 
 @bot.command(pass_context=True)
 async def stats(ctx):
@@ -705,6 +659,22 @@ async def stats(ctx):
         em.add_field(name='Memory Usage & Shard Number', value='{:.2f} MiB - Shard {}'.format(musage, str(SID)),
                      inline=True)
         await ctx.send(embed=em)
+
+@bot.command()
+async def top10servers(ctx):
+    """Gets the top 10 most populated servers the bot is on for this shard"""
+    guilds = []
+    for guild in sorted(bot.guilds, key=lambda e: e.member_count, reverse=True)[:10]:
+        members = 0
+        bots = 0
+        total = len(guild.members)
+        for member in guild.members:
+            if member.bot:
+                bots += 1
+            else:
+                members += 1
+        guilds.append("{}: {} members, {} bots ({} total)".format(guild.name, members, bots, total))
+    await ctx.send("```{}```".format("\n\n".join(guilds)))
 
 
 bot.run(config._token)
