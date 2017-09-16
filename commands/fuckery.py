@@ -41,7 +41,7 @@ class Fuckery():
         await ctx.channel.trigger_typing()
         cat.getCat(directory="data", filename="cat", format="gif")
         await asyncio.sleep(1) # This is so the bot has enough time to download the file
-        await ctx.send(file=discord.File( "data/cat.gif")
+        await ctx.send(file=discord.File("data/cat.gif"))
         # Watch Nero spam this command until the bot crashes
 
     @commands.command()
@@ -106,7 +106,7 @@ class Fuckery():
         ":-)",
         ":^)",
         ":)",
-        ":~')",
+        ":'~)",
         ":racehorse:",
         ":horse",
         "(:",
@@ -142,7 +142,7 @@ class Fuckery():
         """Please."""
         await ctx.send(random.choice(psat_memes))
 
-    @commands.command(, name="8ball")
+    @commands.command(name="8ball")
     async def ball(self, ctx, *, question:str):
         """It's just python random don't take it seriously kthx"""
         await ctx.send("{}: {}".format(ctx.author.name, random.choice(magic_conch_shell)))

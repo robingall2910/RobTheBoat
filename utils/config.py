@@ -81,7 +81,10 @@ class Config:
 
         if len(self.dev_ids) is not 0:
             try:
-                self.dev_ids = list(self.dev_ids.split())
+                ids = self.dev_ids.split()
+                self.dev_ids = []
+                for id in ids:
+                    self.dev_ids.append(int(id))
             except:
                 log.warning("Developer IDs are invalid, all developer IDs have been ignored!")
                 self.dev_ids = Defaults.dev_ids

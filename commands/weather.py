@@ -52,10 +52,10 @@ class Weather():
                     visib = current.visibility
                 except AttributeError:
                     visib = "N/A"
-                if ctx.message.server.me.color == None:
+                if ctx.me.color == None:
                 	maybe = None
                 else:
-                	maybe = ctx.message.server.me.color
+                	maybe = ctx.me.color
                 try:
                     counties = ', '.join(ds.alerts[0].regions)
                     alertresult = "{} in {}. More info [at NWS]({} 'National Weather Service')".format(ds.alerts[0].title, counties, ds.alerts[0].uri)

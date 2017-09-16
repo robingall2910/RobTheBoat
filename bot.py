@@ -79,7 +79,7 @@ async def set_default_status():
             game = discord.Game(name=game, url="http://twitch.tv/robingall2910", type=1)
         else:
             game = discord.Game(name="Shard {} of {} // {} guilds on this shard".format(str(shard_id), str(shard_count),
-                                                                                        len(bot.servers)))
+                                                                                        len(bot.guilds)))
         await bot.change_presence(status=type, game=game)
     else:
         await bot.change_presence(status=type)
@@ -114,7 +114,7 @@ async def on_ready():
     if config._dbots_token:
         log.info("Updating DBots Statistics...")
         r = requests.post("https://bots.discord.pw/api/bots/{}/stats".format(bot.user.id),
-                          json={"shard_id": shard_id, "shard_count": shard_count, "server_count": len(bot.servers)},
+                          json={"shard_id": shard_id, "shard_count": shard_count, "server_count": len(bot.guilds)},
                           headers={"Authorization": config._dbots_token})
         if r.status_code == 200:
             log.info("Discord Bots Server count updated.")
@@ -166,8 +166,8 @@ async def on_command_error(ctx, error):
     log.error("An error occured while executing the {} command: {}".format(ctx.command.qualified_name, error))
 
 
-@bot.event
-async def on_command(command, ctx):
+@bot.before_invoke
+async def on_command_preprocess(ctx):
     if isinstance(ctx.channel, discord.DMChannel):
         server = "Private Message"
     else:
@@ -561,7 +561,7 @@ async def ping(ctx):
     ping = time.time() - pingtime
     r = pyping.ping('dragonfire.me')
     # await bot.edit_message(pingms, topkek + " // ***{} ms***".format(str(ping)[3:][:3]))
-    await pingms.edit(topkek + " // ***{} ms***".format(r.avg_rtt))
+    await pingms.edit(content=topkek + " // ***{} ms***".format(r.avg_rtt))
 
 
 @bot.command()
@@ -612,8 +612,8 @@ async def stats(ctx):
         SID = shard_id
         musage = psutil.Process().memory_full_info().uss / 1024 ** 2
         uniqueonline = str(sum(1 for m in bot.get_all_members() if m.status != discord.Status.offline))
-        sethsfollowers = str(sum(len(s.members) for s in bot.servers))
-        sumitup = str(int(len(bot.servers)) * int(shard_count))
+        sethsfollowers = str(sum(len(s.members) for s in bot.guilds))
+        sumitup = str(int(len(bot.guilds)) * int(shard_count))
         sumupmembers = str(int(str(sethsfollowers)) * int(shard_count))
         sumupuni = str(int(str(uniqueonline)) * int(shard_count))
         em = discord.Embed(description="\u200b", color=ctx.message.guild.me.color)
@@ -638,7 +638,7 @@ async def stats(ctx):
         SID = shard_id
         musage = psutil.Process().memory_full_info().uss / 1024 ** 2
         uniqueonline = str(sum(1 for m in bot.get_all_members() if m.status != discord.Status.offline))
-        sethsfollowers = str(sum(len(s.members) for s in bot.servers))
+        sethsfollowers = str(sum(len(s.members) for s in bot.guilds))
         sumitup = str(int(len(bot.guilds)) * int(shard_count))
         sumupmembers = str(int(str(sethsfollowers)) * int(shard_count))
         sumupuni = str(int(str(uniqueonline)) * int(shard_count))
