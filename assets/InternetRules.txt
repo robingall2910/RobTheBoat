@@ -1,4 +1,4 @@
-/d/. WASH MY EYES OUT
+\/d\/. WASH MY EYES OUT
 ♂. You are being watched by hoMoses.
 -. All rules after this line either use letters or special characters as rule numbers, or a single digit. no exceptions.
 Q. Stacy's Mom has got it going on. No exceptions.
@@ -26,8 +26,8 @@ Q. Stacy's Mom has got it going on. No exceptions.
 -3. If you are srs, everyone is srs. No exceptions.
 -2 1/2. Never cuss any Canadians.
 -2. You won the game
--1.1. Lil /b/ is my friend
--1. /b/ is not your friend. No exceptions.
+-1.1. Lil \/b\/ is my friend
+-1. \/b\/ is not your friend. No exceptions.
 e^(i*pi)+1. Complex numbers are the truth. No exceptions.
 -0. Positive numbers are a lie. No exceptions.
 0. Negative numbers are a lie. No exceptions.
@@ -290,12 +290,12 @@ ln 9001. Power levels tell you nothing. Rules of the Internet tell you everythin
 127.0.0.1. HEY KEEP IT DOWN OUT THERE, I'M TRYING TO SLEEP
 127.0.0.0.1. OP is a gay. No exceptions.
 128. Everything you know is a lie, but all those lies are nothing. So by using the transitive property we can conclude that everything = nothing and if you add an integer (x) into the equation we can single anything out and turn it into a certain amount of nothing explained by this graph e = everything n = nothing
-  |          _ 
+```  |          _ 
   |      ___/ \ 
 e | ____/      \ 
   |/            \ 
   |______________\________________
-               n
+               n```
 As you can see, at a certain point of everything, nothing cannot exist. So in conclusion, I have no idea what I'm talking about. See Rule 93.
 128.2. Math is hard. See above if you think of any exceptions.
 129. BOTS will be dismantled.
@@ -401,7 +401,7 @@ Win + Fail = Epicfail Fail + Fail = Win Win + Win = Fail Epicfail + Epicfail = C
 216.4. Fibonacci.
 216.5. Catalan.
 217. Creator of 4chan is mentally Disturbed. No exceptions.
-217.5. /b/ will only be referred to as /b/ outside of /b/. Please refer to rules 1 and 2. No exceptions.
+217.5. /b/ will only be referred to as \/b\/ outside of \/b\/. Please refer to rules 1 and 2. No exceptions.
 219. Google is not a calculator.
 220. Longcat is LOOOOOOOOOOOOOOOOONG. No exceptions.
 222. The game.
@@ -684,7 +684,7 @@ HTTP 404. The rule you were looking for was not found.
 465. Rule 464 will come into effect on your next turn.
 466. Modok will devour your soul. No exceptions.
 467. Dora is a pretty good show.
-468. / is better than \ because no one uses \.
+468. / is better than \ because no one uses \\.
 469. Awesome.
 470. There is a lack of chese in every forum. They must be destroyed.
 471. DOS is missed.
@@ -710,8 +710,8 @@ HTTP 404. The rule you were looking for was not found.
 488. Andrew W.K. is the partiest. No Exceptions.
 489. Four ate e9. No x epshunz.
 490. Wat is this.
- __
-[__] <— Is that a rectangle, or a box?
+``` __
+[__]``` <— Is that a rectangle, or a box?
 490.2. Newbies can't rectangle, or box.
 491. The following is red or blue.
 492. Stop skipping rule numbers.
@@ -728,7 +728,7 @@ HTTP 404. The rule you were looking for was not found.
 502. Bad Gateway. No exceptions.
 503. Service Unavailable. No exceptions.
 504. No one likes Scrappy. No exceptions.
-505. Here's a template: _____ > _____ only when _____ is _____.
+505. Here's a template: \_____ > \_____ only when \_____ is \_____.
 506. Your rules > everything else only when the viewer is drunk and/or 5.
 507. I agree with rule 506. You do, too.
 507.2. Are they really that bad?
@@ -775,28 +775,28 @@ HTTP 404. The rule you were looking for was not found.
 543. Anyone that has the name Trevor or Shukin can go rule 93. No Exceptions.
 544. Anonymous owns a horse by default.
 545. The lazah is broken right now. If you can fix it, you are legion.
-546. Turbo broke this rule by getting Captain Spruce (a girl) to respond to a request for rule 32 to be enforced, thereby changing the universe forever and revealing that at least one girl does exist somewhere on the Internet. However, this subject is still wrapped up in heavy debate and widely disputed by scientists in The CIA and the government (see rule 97). Regardless, turbo won, thereby negating ganzgoober's ability to always win. No exceptions.
-_______________________________________________________________
- |                     /
- |                    /
- |                 /\/
- |                /
- |               /
- |              /
- |             /                 
- |            /                 
- |           /                
- |          /                       
-S | /
- |      /\/                     
- |     /                                
- |    /                               
- |   /                          
- |  /                                   
- | /                                     
- |/                                       
- |________________________________________________________________
-                        R
+546. Turbo broke this rule by getting Captain Spruce (a girl) to respond to a request for rule 32 to be enforced, thereby changing the universe forever and revealing that at least one girl does exist somewhere on the Internet. However, this subject is still wrapped up in heavy debate and widely disputed by scientists in The CIA and the government (see rule 97). Regardless, turbo won, thereby negating ganzgoober's ability to always win. No exceptions. 
+```    _______________________________________________________________
+   |                     /
+   |                    /
+   |                 /\/
+   |                /
+   |               /
+   |              /
+   |             /                 
+   |            /                 
+   |           /                
+   |          /                       
+ S |         /
+   |      /\/                     
+   |     /                                
+   |    /                               
+   |   /                          
+   |  /                                   
+   | /                                     
+   |/                                       
+   |________________________________________________________________
+                         R```
 If your wondering why it goes down in the middle of the graph it's because he kicked two slaves out.
 548. Rule 205 is false, Germans are the fattest.
 549. Living in New Jersey is not wrong. Being proud of it is.
