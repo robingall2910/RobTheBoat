@@ -1,3 +1,4 @@
+# encoding=utf8
 import asyncio
 import cat
 import random
@@ -89,11 +90,8 @@ class Fuckery():
         """The rules of the internet"""
         await ctx.channel.trigger_typing()
         #this is how you create a memory leak
-        reload(sys)
-        sys.setdefaultencoding('utf8')
-        reload(sys)
         print("attempted to try " + sys.getdefaultencoding())
-        gayrule = random.choice(open('assets/InternetRules.txt').readlines())
+        gayrule = random.choice(open('assets/InternetRules.txt', encoding="utf8").readlines())
         await ctx.send(gayrule)
 
     @commands.command()
@@ -119,9 +117,18 @@ class Fuckery():
         "pppppppppppppppppppppppppppppppppppppppppppppppppppppppbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhtttttttttttttttttttt",
         "I SPIT ON YOU.",
         "Nine nine nine",
-        ":drum: :racehorse:"
+        ":drum: :racehorse:",
+        ":french_bread:",
+        ":duck:",
+        "spt",
+        "spt2",
         "ssssssssssssssssssssspppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppptttttttttttttttttttttttttt"
         ]
+        sppt = random.choice(yes)
+        if sppt == "spt":
+            await ctx.send(file=discord.File("assets/imgs/spt.png"))
+        if sppt == "spt2":
+            await ctx.send(file=discord.File("assets/imgs/spt2.png"))
         await ctx.send(random.choice(yes))
 
     @commands.command()
