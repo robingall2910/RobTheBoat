@@ -102,7 +102,8 @@ class Fuckery():
         ":)",
         ":~')",
         ":racehorse:",
-        ":horse"
+        ":horse",
+        "(:",
         ]
         await ctx.send(random.choice(yes))
 
