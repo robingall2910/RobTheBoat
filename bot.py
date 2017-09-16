@@ -160,7 +160,7 @@ async def on_command_error(ctx, error):
 
     #In case the bot failed to send a message to the channel, the try except pass statement is to prevent another error
     try:
-        await ctx.send("An error occured while processing this command: `{}`".format(error))
+        await ctx.send("Bot machine broke. Debug results: `{}`".format(error))
     except:
         pass
     log.error("An error occured while executing the {} command: {}".format(ctx.command.qualified_name, error))
