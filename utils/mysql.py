@@ -1,5 +1,6 @@
 import sqlite3
 
+#change this if you're running it from somewhere else
 conn = sqlite3.connect("/home/robingall2910/RTB Blacklist.db")
 conn.row_factory = sqlite3.Row
 cur = conn.cursor()

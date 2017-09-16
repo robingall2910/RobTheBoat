@@ -36,7 +36,7 @@ def is_dev():
 
 def is_nsfw_channel():
     def predicate(ctx):
-        if ctx.channel.name == "nsfw" or ctx.channel.name.startswith("nsfw-"):
+        if ctx.channel.is_nsfw():
             return True
         else:
             raise not_nsfw_channel
@@ -67,3 +67,4 @@ def has_permissions(**permissions):
         else:
             raise no_permission
     return commands.check(predicate)
+
