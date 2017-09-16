@@ -47,7 +47,7 @@ class Fuckery():
     @commands.command()
     async def f(self, ctx):
         """Press F to pay your respects"""
-        await ctx.send("Guess what? {} just paid their respects! Amount paid: {}".format(ctx.author, random.randint(1, 10000)))
+        await ctx.send("Guess what? {} just paid their respects! Amount paid: {}".format(ctx.author, random.randint(0, 10000)))
 
     @commands.command()
     async def nicememe(self, ctx):
@@ -63,25 +63,25 @@ class Fuckery():
     async def rekt(self, ctx):
         """#REKT"""
         await ctx.channel.trigger_typing()
-        await ctx.send(file=discord.File( "assets/imgs/rekt.gif"))
+        await ctx.send(file=discord.File("assets/imgs/rekt.gif"))
 
     @commands.command()
     async def roasted(self, ctx):
         """MY NIGGA YOU JUST GOT ROASTED!"""
         await ctx.channel.trigger_typing()
-        await ctx.send(file=discord.File( "assets/imgs/roasted.gif"))
+        await ctx.send(file=discord.File("assets/imgs/roasted.gif"))
 
     @commands.command()
     async def yiffinhell(self, ctx):
         """snek yiff"""
         await ctx.channel.trigger_typing()
-        await ctx.send(file=discord.File( "assets/imgs/yiffinhell.png"))
+        await ctx.send(file=discord.File("assets/imgs/yiffinhell.png"))
 
     @commands.command()
     async def spam(self, ctx):
         """SPAM SPAM SPAM"""
         await ctx.channel.trigger_typing()
-        await ctx.send(file=discord.File( "assets/imgs/spam.png"))
+        await ctx.send(file=discord.File("assets/imgs/spam.png"))
 
     @commands.command()
     async def internetrules(self, ctx):
@@ -90,6 +90,12 @@ class Fuckery():
         #this is how you create a memory leak
         gayrule = random.choice(open('assets/InternetRules.txt').readlines())
         await ctx.send(gayrule)
+
+    @commands.command()
+    async def cmd_perf(self):
+        """the return of the furry bullshit"""
+        rt = random.choice(tweetsthatareokhand)
+        ctx.send(rt)
 
     @commands.command()
     async def smiley(self, ctx):
@@ -111,7 +117,7 @@ class Fuckery():
     async def quote(self, ctx):
         """Don't quote me on that"""
         await ctx.channel.trigger_typing()
-        await ctx.send(file=discord.File( "assets/imgs/quotes/{}.png".format(random.randint(1, len([file for file in os.listdir("assets/imgs/quotes")])))))
+        await ctx.send(file=discord.File("assets/imgs/quotes/{}.png".format(random.randint(1, len([file for file in os.listdir("assets/imgs/quotes")])))))
 
     @commands.command()
     async def delet(self, ctx):
