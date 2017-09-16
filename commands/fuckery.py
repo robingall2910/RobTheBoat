@@ -255,7 +255,7 @@ class Fuckery():
     @commands.command()
     async def plzmsgme(self, ctx, *, message:str):
         """Seriously, why the fuck are you doing this to yourself?"""
-        await self.bot.send_message(ctx.author, message)
+        await ctx.author.dm_channel.send(message)
         await ctx.send(":ok_hand: check your DMs")
 
     @commands.command()
@@ -268,7 +268,7 @@ class Fuckery():
     @commands.command()
     async def quote(self, ctx, id:int):
         """Quotes a message with the specified message ID"""
-        message = await self.bot.get_message(ctx.channel, id)
+        message = await ctx.channel.get_message(id)
         if message is None:
             await ctx.send("Can't find {} in here.".format(id))
             return
