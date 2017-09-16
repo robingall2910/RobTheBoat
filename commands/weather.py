@@ -22,6 +22,7 @@ class Weather():
         if ctx.message.author == ctx.message.author: #filler
         #fine thanks troy
             try:
+                await ctx.channel.trigger_typing()
                 g = geocoder.google(address)
                 results = g.latlng
                 fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1], units=ForecastIO.ForecastIO.UNITS_US)
@@ -70,16 +71,17 @@ class Weather():
                 em.add_field(name='UV Index', value="{} Current index is **{}**.".format(uvresult, uvint), inline=True)
                 if fio.has_alerts() is True:
                     em.add_field(name='Weather Alert', value=alertresult, inline=True)
-                await self.bot.say(embed=em)
+                await ctx.send(embed=em)
             except Exception as fucking_hell:
-                await self.bot.say("```py\n{}\n```".format(fucking_hell))
+                await ctx.send("```py\n{}\n```".format(fucking_hell))
         else:
-            await self.bot.say("Location isn't found or the given zip code or address is too short. Try again.")
+            await ctx.send("Location isn't found or the given zip code or address is too short. Try again.")
 
     @commands.command(pass_context=True)
     async def locate(self, ctx, *, address: str):
         """Go fucking stalk someone"""
         try:
+            await ctx.channel.trigger_typing()
             g = geocoder.google(address)
             loc = g.json
             var = json.dumps(loc)
@@ -88,9 +90,9 @@ class Weather():
             	yes = k['address']
             elif k['status'] == 'ZERO_RESULTS':
             	yes = "There's no results found for this location."
-            await self.bot.say(yes)
+            await ctx.send(yes)
         except Exception as e:
-            await self.bot.say("```py\n{}\n```".format(e))
+            await ctx.send("```py\n{}\n```".format(e))
 
 def setup(bot):
     bot.add_cog(Weather(bot))
