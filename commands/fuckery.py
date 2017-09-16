@@ -38,10 +38,10 @@ class Fuckery():
     @commands.command(pass_context=True)
     async def cat(self, ctx):
         """Sends a random cute cat gifs because cats are soooo cuteeee <3 >.< -Seth, 2016"""
-        await self.bot.send_typing(ctx.channel)
+        await ctx.channel.trigger_typing()
         cat.getCat(directory="data", filename="cat", format="gif")
         await asyncio.sleep(1) # This is so the bot has enough time to download the file
-        await self.bot.send_file(ctx.channel, "data/cat.gif")
+        await ctx.send(file=discord.File( "data/cat.gif")
         # Watch Nero spam this command until the bot crashes
 
     @commands.command(pass_context=True)
@@ -62,44 +62,46 @@ class Fuckery():
     @commands.command(pass_context=True)
     async def rekt(self, ctx):
         """#REKT"""
-        await self.bot.send_typing(ctx.channel)
-        await self.bot.send_file(ctx.channel, "assets/imgs/rekt.gif")
+        await ctx.channel.trigger_typing()
+        await ctx.send(file=discord.File( "assets/imgs/rekt.gif"))
 
     @commands.command(pass_context=True)
     async def roasted(self, ctx):
         """MY NIGGA YOU JUST GOT ROASTED!"""
-        await self.bot.send_typing(ctx.channel)
-        await self.bot.send_file(ctx.channel, "assets/imgs/roasted.gif")
+        await ctx.channel.trigger_typing()
+        await ctx.send(file=discord.File( "assets/imgs/roasted.gif"))
 
     @commands.command(pass_context=True)
     async def yiffinhell(self, ctx):
         """snek yiff"""
-        await self.bot.send_typing(ctx.channel)
-        await self.bot.send_file(ctx.channel, "assets/imgs/yiffinhell.png")
+        await ctx.channel.trigger_typing()
+        await ctx.send(file=discord.File( "assets/imgs/yiffinhell.png"))
 
     @commands.command(pass_context=True)
     async def spam(self, ctx):
         """SPAM SPAM SPAM"""
-        await self.bot.send_typing(ctx.channel)
-        await self.bot.send_file(ctx.channel, "assets/imgs/spam.png")
+        await ctx.channel.trigger_typing()
+        await ctx.send(file=discord.File( "assets/imgs/spam.png"))
 
     @commands.command(pass_context=True)
     async def internetrules(self, ctx):
         """The rules of the internet"""
-        await self.bot.send_typing(ctx.channel)
-        await self.bot.send_file(ctx.channel, "assets/InternetRules.txt")
+        await ctx.channel.trigger_typing()
+        #this is how you create a memory leak
+        gayrule = random.choice(open('assets/InternetRules.txt').readlines())
+        await ctx.send(gayrule)
 
     @commands.command(pass_context=True)
     async def quote(self, ctx):
         """Don't quote me on that"""
-        await self.bot.send_typing(ctx.channel)
-        await self.bot.send_file(ctx.channel, "assets/imgs/quotes/{}.png".format(random.randint(1, len([file for file in os.listdir("assets/imgs/quotes")]))))
+        await ctx.channel.trigger_typing()
+        await ctx.send(file=discord.File( "assets/imgs/quotes/{}.png".format(random.randint(1, len([file for file in os.listdir("assets/imgs/quotes")])))))
 
     @commands.command(pass_context=True)
     async def delet(self, ctx):
         """Delet this"""
-        await self.bot.send_typing(ctx.channel)
-        await self.bot.send_file(ctx.channel, "assets/imgs/delet_this.jpg")
+        await ctx.channel.trigger_typing()
+        await ctx.send(file=discord.File("assets/imgs/delet_this.jpg"))
 
     @commands.command(pass_context=True)
     async def roll(self, ctx, sides: int):
@@ -189,17 +191,17 @@ class Fuckery():
         cont2 = query
         cont = re.sub(r"\s+", '_', query)
         q = wikipedia.page(cont)
-        await self.bot.send_typing(ctx.channel)
-        await self.bot.send_message(ctx.channel, "{}:\n```\n{}\n```\nFor more information, visit <{}>".format(q.title,
+        await ctx.channel.trigger_typing()
+        await ctx.send("{}:\n```\n{}\n```\nFor more information, visit <{}>".format(q.title,
                                                                                                               wikipedia.summary(
                                                                                                                   query,
                                                                                                                   sentences=5),
                                                                                                               q.url))
-        await self.bot.send_message(ctx.channel, cont)
+        await ctx.send(cont)
         if wikipedia.exceptions.PageError == True:
-            await self.bot.send_message(ctx.channel, "Error 404. Try another.")
+            await ctx.send("Error 404. Try another.")
         elif wikipedia.exceptions.DisambiguationError == True:
-            await self.bot.send_message(ctx.channel, "Too many alike searches, please narrow it down more...")
+            await ctx.send("Too many alike searches, please narrow it down more...")
 
     @commands.command(pass_context=True)
     async def time(self, ctx):
@@ -207,7 +209,7 @@ class Fuckery():
         d = time.strftime("%A, %B %d, %Y")
         t = time.strftime("%I:%M:%S %p %Z")
         linemedaddy = "```ruby\n Current Date: " + d + '\n Current Time: ' + t + "\n" + "```"
-        await self.bot.send_message(ctx.channel, linemedaddy)
+        await ctx.send(linemedaddy)
 
     @commands.command(pass_context=True)
     async def markov(self, ctx):
@@ -243,9 +245,9 @@ class Fuckery():
     @commands.command(pass_context=True)
     async def lameme(self, ctx):
         """la meme my bro xdddddddddddddddddd"""
-        await self.bot.send_typing(ctx.channel)
-        await self.bot.send_message(ctx.channel, "la meme xd xd")
-        await self.bot.send_file(ctx.channel, "assets/imgs/lameme.jpg")
+        await ctx.channel.trigger_typing()
+        await ctx.send("la meme xd xd")
+        await ctx.send(file=discord.File( "assets/imgs/lameme.jpg"))
 
     @commands.command(pass_context=True)
     async def quote(self, ctx, id:int):
