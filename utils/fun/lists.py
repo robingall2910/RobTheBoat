@@ -145,5 +145,6 @@ tweetsthatareokhand = [
     "http://i.imgur.com/m5fx7U9.png",
     "https://cdn.discordapp.com/attachments/173887966031118336/177518766781890562/your-resistance-only-makes-my-penis-harder.jpg",
     "http://i.imgur.com/21bV05w.png",
-    "http://i.imgur.com/7Y94F7L.png"
+    "http://i.imgur.com/7Y94F7L.png",
+    "H-hewwo? OwO are you dewe?"
 ]
