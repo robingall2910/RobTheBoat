@@ -6,6 +6,7 @@ import json
 import urllib.request
 import wikipedia
 import time
+import sys
 
 from cleverwrap import CleverWrap
 from utils.config import Config
@@ -88,6 +89,10 @@ class Fuckery():
         """The rules of the internet"""
         await ctx.channel.trigger_typing()
         #this is how you create a memory leak
+        reload(sys)
+        sys.setdefaultencoding('utf8')
+        reload(sys)
+        print("attempted to try " + sys.getdefaultencoding())
         gayrule = random.choice(open('assets/InternetRules.txt').readlines())
         await ctx.send(gayrule)
 
@@ -98,7 +103,7 @@ class Fuckery():
         ctx.send(rt)
 
     @commands.command()
-    async def smiley(self, ctx):
+    async def santropez(self, ctx):
         """:~)"""
         yes = [
         ":~)",
@@ -110,6 +115,12 @@ class Fuckery():
         ":racehorse:",
         ":horse",
         "(:",
+        "pppppppppppppbbbbbbbbbbbbbbbbbbbbbbbbbbbbhhhhhhhhhhhhhhhhhhhhhhtttttttttttttttttttt",
+        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhtttttttttttttttttttt",
+        "I SPIT ON YOU.",
+        "Nine nine nine",
+        ":drum: :racehorse:"
+        "ssssssssssssssssssssspppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppptttttttttttttttttttttttttt"
         ]
         await ctx.send(random.choice(yes))
 
