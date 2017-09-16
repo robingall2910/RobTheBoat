@@ -18,7 +18,7 @@ class Fuckery():
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def say(self, ctx, *, message:str):
         """Make the bot say whatever you want it to say"""
         try:
@@ -30,12 +30,12 @@ class Fuckery():
         else:
             return
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def test(self, ctx):
         """No context."""
         await ctx.send("( ͡° ͜ʖ ͡°) I love you")
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def cat(self, ctx):
         """Sends a random cute cat gifs because cats are soooo cuteeee <3 >.< -Seth, 2016"""
         await ctx.channel.trigger_typing()
@@ -44,7 +44,7 @@ class Fuckery():
         await ctx.send(file=discord.File( "data/cat.gif")
         # Watch Nero spam this command until the bot crashes
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def f(self, ctx):
         """Press F to pay your respects"""
         await ctx.send("Guess what? {} just paid their respects! Amount paid: {}".format(ctx.author, random.randint(1, 10000)))
@@ -59,31 +59,31 @@ class Fuckery():
         """Dab for me squiddy"""
         await ctx.send("http://i.giphy.com/lae7QSMFxEkkE.gif")
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def rekt(self, ctx):
         """#REKT"""
         await ctx.channel.trigger_typing()
         await ctx.send(file=discord.File( "assets/imgs/rekt.gif"))
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def roasted(self, ctx):
         """MY NIGGA YOU JUST GOT ROASTED!"""
         await ctx.channel.trigger_typing()
         await ctx.send(file=discord.File( "assets/imgs/roasted.gif"))
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def yiffinhell(self, ctx):
         """snek yiff"""
         await ctx.channel.trigger_typing()
         await ctx.send(file=discord.File( "assets/imgs/yiffinhell.png"))
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def spam(self, ctx):
         """SPAM SPAM SPAM"""
         await ctx.channel.trigger_typing()
         await ctx.send(file=discord.File( "assets/imgs/spam.png"))
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def internetrules(self, ctx):
         """The rules of the internet"""
         await ctx.channel.trigger_typing()
@@ -91,19 +91,34 @@ class Fuckery():
         gayrule = random.choice(open('assets/InternetRules.txt').readlines())
         await ctx.send(gayrule)
 
-    @commands.command(pass_context=True)
+    @commands.command()
+    async def smiley(self, ctx):
+        """:~)"""
+        yes = [
+        ":~)",
+        ":~)",
+        ":-)",
+        ":^)",
+        ":)",
+        ":~')",
+        ":racehorse:",
+        ":horse"
+        ]
+        await ctx.send(random.choice(yes))
+
+    @commands.command()
     async def quote(self, ctx):
         """Don't quote me on that"""
         await ctx.channel.trigger_typing()
         await ctx.send(file=discord.File( "assets/imgs/quotes/{}.png".format(random.randint(1, len([file for file in os.listdir("assets/imgs/quotes")])))))
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def delet(self, ctx):
         """Delet this"""
         await ctx.channel.trigger_typing()
         await ctx.send(file=discord.File("assets/imgs/delet_this.jpg"))
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def roll(self, ctx, sides: int):
         """Roll the fuck out of this shit."""
         rolling = random.randint(1, sides)
@@ -120,7 +135,7 @@ class Fuckery():
         """Please."""
         await ctx.send(random.choice(psat_memes))
 
-    @commands.command(pass_context=True, name="8ball")
+    @commands.command(, name="8ball")
     async def ball(self, ctx, *, question:str):
         """It's just python random don't take it seriously kthx"""
         await ctx.send("{}: {}".format(ctx.author.name, random.choice(magic_conch_shell)))
@@ -144,7 +159,7 @@ class Fuckery():
         """I got drunk on halloween in 2016 it was great"""
         await ctx.send(random.choice(drunkaf))
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def talk(self, ctx, *, pussy:str):
         """talk to the bot"""
         config = Config()
@@ -173,7 +188,7 @@ class Fuckery():
         else:
             await ctx.send("I rate {} a `{}`/`10`".format(user, random.randint(0, 10)))
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def coinflip(self, ctx):
         """Make the bot flip either heads or tails."""
         result = random.randint(0, 1)
@@ -182,7 +197,7 @@ class Fuckery():
         elif result == int(1):
             await ctx.send("You flip the coin. You catch it somehow, and interestingly enough, it's tails!")
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def wiki(self, ctx, *, query: str):
         """
         Search the infinite pages of wikipedia!
@@ -203,7 +218,7 @@ class Fuckery():
         elif wikipedia.exceptions.DisambiguationError == True:
             await ctx.send("Too many alike searches, please narrow it down more...")
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def time(self, ctx):
         """Tells the current time from the server"""
         d = time.strftime("%A, %B %d, %Y")
@@ -211,7 +226,7 @@ class Fuckery():
         linemedaddy = "```ruby\n Current Date: " + d + '\n Current Time: ' + t + "\n" + "```"
         await ctx.send(linemedaddy)
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def markov(self, ctx):
         """A big failure on trying to copy what I say"""
         markov = open('markovrobin.txt').read().splitlines()
@@ -219,7 +234,7 @@ class Fuckery():
         await ctx.send(somethingsudden)
 
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def memegen(self, ctx, template: str, *, lines: str):
         """
         Attempt on trying to create a meme command, .memeg (template/line1/line2)
@@ -236,20 +251,20 @@ class Fuckery():
         """Honk honk mother fucker. yes this came back lukkan."""
         await ctx.send(random.choice(honkhonkfgt))
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def plzmsgme(self, ctx, *, message:str):
         """Seriously, why the fuck are you doing this to yourself?"""
         await self.bot.send_message(ctx.author, message)
         await ctx.send(":ok_hand: check your DMs")
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def lameme(self, ctx):
         """la meme my bro xdddddddddddddddddd"""
         await ctx.channel.trigger_typing()
         await ctx.send("la meme xd xd")
         await ctx.send(file=discord.File( "assets/imgs/lameme.jpg"))
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def quote(self, ctx, id:int):
         """Quotes a message with the specified message ID"""
         message = await self.bot.get_message(ctx.channel, id)
