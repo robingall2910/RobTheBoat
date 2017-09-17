@@ -1,3 +1,5 @@
+# encoding=utf8
+
 import asyncio
 import os
 import random
@@ -180,10 +182,6 @@ async def on_message(message):
             return
     if message.author.bot:
         return
-    if message.author.id == 117678528220233731:
-        f = open('markovrobin.txt', 'r+')
-        f.write(message.clean_content + "\n")
-        print("[Markov] Added entry: " + message.clean_content)
     if getblacklistentry(message.author.id) is not None:
         return
 

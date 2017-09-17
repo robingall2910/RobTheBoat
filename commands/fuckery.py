@@ -252,14 +252,6 @@ class Fuckery():
         await ctx.send(linemedaddy)
 
     @commands.command()
-    async def markov(self, ctx):
-        """A big failure on trying to copy what I say"""
-        markov = open('markovrobin.txt').read().splitlines()
-        somethingsudden = random.choice(markov)
-        await ctx.send(somethingsudden)
-
-
-    @commands.command()
     async def memegen(self, ctx, template: str, *, lines: str):
         """
         Attempt on trying to create a meme command, .memeg (template/line1/line2)
