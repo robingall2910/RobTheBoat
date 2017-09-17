@@ -264,11 +264,10 @@ async def setavatar(ctx, *, url: str = None):
     try:
         with aiohttp.Timeout(10):
             async with aiosession.get(url.strip("<>")) as image:
-                await bot.user.edit_profile(avatar=await image.read())
+                await bot.user.edit(avatar=await image.read())
     except Exception as e:
         await ctx.send("Unable to change avatar: {}".format(e))
     await ctx.send(":eyes:")
-
 
 @bot.command()
 async def notifydev(ctx, *, message:str):
