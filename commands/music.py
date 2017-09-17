@@ -234,10 +234,10 @@ class Music:
         """Sets the volume"""
         queue = self.get_queue(ctx)
         if not amount:
-            await self.bot.say("The current volume is `{:.0%}`".format(queue.voice_client.source.volume))
+            await ctx.send("The current volume is `{:.0%}`".format(queue.voice_client.source.volume))
             return
         queue.voice_client.source.volume = amount
-        await self.bot.say("Set the volume to `{:.0%}`".format(queue.voice_client.source.volume))
+        await ctx.send("Set the volume to `{:.0%}`".format(queue.voice_client.source.volume))
 
     @commands.command()
     async def np(self, ctx):

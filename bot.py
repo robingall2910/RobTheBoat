@@ -18,8 +18,6 @@ from utils.config import Config
 from utils.logger import log
 from utils.mysql import *
 from utils.opus_loader import load_opus_lib
-from utils.sharding import shard_count
-from utils.sharding import shard_id
 from utils.tools import *
 
 start_time = time.time()
@@ -33,7 +31,7 @@ config = Config()
 if config.debug:
     log.enableDebugging()  # pls no flame
 
-bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(config.command_prefix), description="A multipurposed bot with a theme for the furry fandom. Contains nsfw, info, weather, music and much more.", shard_id=shard_id, shard_count=shard_count, pm_help=None)
+bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(config.command_prefix), description="A multipurposed bot with a theme for the furry fandom. Contains nsfw, info, weather, music and much more.", pm_help=None)
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
@@ -77,8 +75,7 @@ async def set_default_status():
                 os._exit(1)
             game = discord.Game(name=game, url="http://twitch.tv/robingall2910", type=1)
         else:
-            game = discord.Game(name="Shard {} of {} // {} guilds on this shard".format(str(shard_id), str(shard_count),
-                                                                                        len(bot.guilds)))
+            game = discord.Game(name="uhhhhh... nothing.")
         await bot.change_presence(status=type, game=game)
     else:
         await bot.change_presence(status=type)
@@ -113,7 +110,7 @@ async def on_ready():
     if config._dbots_token:
         log.info("Updating DBots Statistics...")
         r = requests.post("https://bots.discord.pw/api/bots/{}/stats".format(bot.user.id),
-                          json={"shard_id": shard_id, "shard_count": shard_count, "server_count": len(bot.guilds)},
+                          json={"server_count": len(bot.guilds)},
                           headers={"Authorization": config._dbots_token})
         if r.status_code == 200:
             log.info("Discord Bots Server count updated.")
@@ -450,12 +447,12 @@ async def dm(ctx, somethingelse: int, *, message: str):
         await user.send("You have a new message from the devs!", embed=msg)
         await owner.send(
                                "`{}` has replied to a recent DM with `{}#{}`, an ID of `{}`, and Shard ID `{}`.".format(
-                                   ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)),
+                                   ctx.message.author, user.name, user.discriminator, somethingelse, str(bot.shard_id)),
                                embed=make_message_embed(ctx.message.author, 0xCC0000, message))
         for fuck in config.dev_ids:
             xd = bot.get_user(fuck)
             await xd.send("`{}` has replied to a recent DM with `{}#{}` an ID of `{}`, and Shard ID `{}`.".format(
-                          ctx.message.author, user.name, user.discriminator, somethingelse, str(shard_id)),
+                          ctx.message.author, user.name, user.discriminator, somethingelse, str(bot.shard_id)),
                           embed=make_message_embed(ctx.message.author, 0xCC0000, message))
     except Exception as e:
         await ctx.send("Error: " + str(e))
@@ -607,55 +604,46 @@ async def editmessage(ctx, id:int, *, newmsg:str):
 async def stats(ctx):
     """Grabs bot statistics."""
     if ctx.message.guild is None:
-        SID = shard_id
+        SID = bot.shard_id
         musage = psutil.Process().memory_full_info().uss / 1024 ** 2
         uniqueonline = str(sum(1 for m in bot.get_all_members() if m.status != discord.Status.offline))
         sethsfollowers = str(sum(len(s.members) for s in bot.guilds))
-        sumitup = str(int(len(bot.guilds)) * int(shard_count))
-        sumupmembers = str(int(str(sethsfollowers)) * int(shard_count))
-        sumupuni = str(int(str(uniqueonline)) * int(shard_count))
+        sumitup = str(int(len(bot.guilds)) * int(bot.shard_count))
+        sumupmembers = str(int(str(sethsfollowers)) * int(bot.shard_count))
+        sumupuni = str(int(str(uniqueonline)) * int(bot.shard_count))
         em = discord.Embed(description="\u200b", color=ctx.message.guild.me.color)
         em.title = bot.user.name + "'s Help Server"
         em.url = "https://discord.gg/vvAKvaG"
         em.set_thumbnail(url=bot.user.avatar_url)
-        # c&p is a good feature
-        em.add_field(name='Creators', value='based robin#0052 and Seth#0051', inline=True)
-        em.add_field(name='Support Team', value='Skoonk & Xeoda#3835 and Owlotic#0278', inline=True)
+        em.add_field(name='Creators', value='based robin#0052 and ZeroEpoch1969#0051', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
         # em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
         em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.", inline=True)
-        em.add_field(name='Servers', value=sumitup, inline=True)
+        em.add_field(name="Servers", value=str(len(bot.guilds)), inline=True)
         em.add_field(name='Members', value=sumupuni + " ***online*** out of " + sumupmembers, inline=True)
-        em.add_field(name="Shard Server Count", value=str(len(bot.guilds)), inline=True)
-        em.add_field(name='Memory Usage & Shard Number', value='{:.2f} MiB - Shard {}'.format(musage, str(SID)),
-                     inline=True)
+        em.add_field(name='Memory Usage', value='{:.2f} MiB'.format(musage), inline=True)
         await ctx.send(embed=em)
     else:
-        SID = shard_id
         musage = psutil.Process().memory_full_info().uss / 1024 ** 2
         uniqueonline = str(sum(1 for m in bot.get_all_members() if m.status != discord.Status.offline))
         sethsfollowers = str(sum(len(s.members) for s in bot.guilds))
-        sumitup = str(int(len(bot.guilds)) * int(shard_count))
-        sumupmembers = str(int(str(sethsfollowers)) * int(shard_count))
-        sumupuni = str(int(str(uniqueonline)) * int(shard_count))
+        sumupmembers = str(int(str(sethsfollowers)) * int(bot.shard_count))
+        sumupuni = str(int(str(uniqueonline)) * int(bot.shard_count))
         em = discord.Embed(description="\u200b")
         em.title = bot.user.name + "'s Help Server"
         em.url = "https://discord.gg/vvAKvaG"
         em.set_thumbnail(url=bot.user.avatar_url)
-        em.add_field(name='Creators', value='based robin#0052 and Seth#0051', inline=True)
-        em.add_field(name='Support Team', value='Skoonk & Xeoda#3835 and Owlotic#0278', inline=True)
+        em.add_field(name='Creators', value='based robin#0052 and ZeroEpoch1969#0051', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
         # em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
         em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.", inline=True)
-        em.add_field(name='Servers', value=sumitup, inline=True)
+        em.add_field(name="Servers", value=str(len(bot.guilds)), inline=True)
         em.add_field(name='Members', value=sumupuni + " ***online*** out of " + sumupmembers, inline=True)
-        em.add_field(name="Shard Server Count", value=str(len(bot.guilds)), inline=True)
-        em.add_field(name='Memory Usage & Shard Number', value='{:.2f} MiB - Shard {}'.format(musage, str(SID)),
-                     inline=True)
+        em.add_field(name='Memory Usage', value='{:.2f} MiB'.format(musage), inline=True)
         await ctx.send(embed=em)
 
 @bot.command()
