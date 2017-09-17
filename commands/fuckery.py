@@ -95,7 +95,7 @@ class Fuckery():
         await ctx.send(gayrule)
 
     @commands.command()
-    async def cmd_perf(self):
+    async def perf(self):
         """the return of the furry bullshit"""
         rt = random.choice(tweetsthatareokhand)
         ctx.send(rt)
