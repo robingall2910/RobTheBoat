@@ -209,7 +209,7 @@ class Music:
         queue = self.get_queue(ctx)
         if queue.current:
             if not queue.voice_client.is_paused() and not queue.voice_client.is_playing():
-                await ctx.send("Nothing isn't in the queue.")
+                await ctx.send("Nothing's in the queue.")
                 return
             else:
                 song_list = "Currently earraping: {}".format(queue.current)
