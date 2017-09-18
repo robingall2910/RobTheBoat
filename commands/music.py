@@ -238,7 +238,7 @@ class Music:
         if not amount:
             await ctx.send("The current volume is `{:.0%}`".format(queue.voice_client.source.volume))
             return
-        queue.voice_client.source.volume = amount
+        queue.voice_client.source.volume = amount / 100
         await ctx.send("Set the volume to `{:.0%}`".format(queue.voice_client.source.volume))
 
     @commands.command()
