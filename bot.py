@@ -33,13 +33,19 @@ config = Config()
 if config.debug:
     log.enableDebugging()  # pls no flame
 
-bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(config.command_prefix), description="A multipurposed bot with a theme for the furry fandom. Contains nsfw, info, weather, music and much more.", pm_help=None)
+bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(config.command_prefix), 
+                              description="A multipurposed bot with a theme for the furry fandom. Contains nsfw, info, weather, music and much more.", pm_help=None)
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
 
-extensions = ["commands.fuckery", "commands.information", "commands.moderation", "commands.configuration",
-              "commands.nsfw", "commands.music", "commands.weather"]
+extensions = ["commands.fuckery", 
+              "commands.information", 
+              "commands.moderation", 
+              "commands.configuration",
+              "commands.nsfw", 
+              "commands.music", 
+              "commands.weather"]
 
 # Thy changelog
 change_log = [
@@ -401,7 +407,8 @@ async def terminal(ctx, *, command:str):
     """Spoopy as fuck. Sends a command to the Linux OS."""
     try:
         await ctx.channel.trigger_typing()
-        await ctx.send(xl.format(subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0].decode("ascii")))
+        await ctx.send(xl.format(subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate(
+        )[0].decode("ascii")))
     except:
         await ctx.send("Well, I broke there.")
 
