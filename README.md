@@ -10,4 +10,4 @@ If you are looking for a command list, run the command ``.help`` if you want a c
 
 *** 
 
-The official documentation for the bot can be found at [https://dragonfire.me/robtheboat/info.html](https://dragonfire.me/robtheboat/info.html) (Careful, as this page might change over the days)
+The official documentation for the bot can be found at [https://dragonfire.me/robtheboat/info.html](https://dragonfire.me/robtheboat/info.html) (As of July 2017, this website is now outdated)
