@@ -5,7 +5,7 @@ python:
   - "3.6"
 script: "nosetests && pylint -E -j 6 bot.py commands/configuration.py commands/nsfw.py commands/weather.py commands/music.py commands/information.py commands/moderation.py commands/fuckery.py utils/buildinfo.py"
 before_install:
-  - git clone https://github.com/Rapptz/discord.py/tree/rewrite
+  - git clone -b rewrite https://github.com/Rapptz/discord.py.git
   - cd discord.py
   - python -m pip install -U .[voice]
   - cd ..
