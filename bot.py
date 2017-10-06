@@ -46,20 +46,22 @@ change_log = [
     "you'll never see shit"
 ]
 
-
 async def _restart_bot():
+    try:
+      aiosession.close()
+      await bot.cogs["Music"].disconnect_all_voice_clients()
+    except:
+       pass
     await bot.logout()
     subprocess.call([sys.executable, "bot.py"])
 
-
 async def _shutdown_bot():
     try:
-        aiosession.close()
-        await bot.cogs["Music"].disconnect_all_voice_clients()
+      aiosession.close()
+      await bot.cogs["Music"].disconnect_all_voice_clients()
     except:
-        pass
+       pass
     await bot.logout()
-
 
 async def set_default_status():
     if not config.enable_default_status:
@@ -77,7 +79,7 @@ async def set_default_status():
                 os._exit(1)
             game = discord.Game(name=game, url="http://twitch.tv/robingall2910", type=1)
         else:
-            game = discord.Game(name="uhhhhh... nothing.")
+            game = discord.Game(name="distributing porno since 2016")
         await bot.change_presence(status=type, game=game)
     else:
         await bot.change_presence(status=type)
@@ -232,7 +234,7 @@ async def rename(ctx, *, name: str):
 @checks.is_dev()
 async def shutdown(ctx):
     """Shuts down the bot"""
-    await ctx.send("I'm leaving you, it's over. See me in magistrate court tomorrow for our divorce.")
+    await ctx.send("bye xd")
     log.warning("{} has shut down the bot!".format(ctx.message.author))
     await _shutdown_bot()
 
@@ -241,7 +243,7 @@ async def shutdown(ctx):
 @checks.is_dev()
 async def restart(ctx):
     """Restarts the bot"""
-    await ctx.send("I'm gonna leave because I'm mad at you, and then I'll come back. See you.")
+    await ctx.send("i'm gonna come back to hit u thx")
     log.warning("{} has restarted the bot!".format(ctx.message.author))
     await _restart_bot()
 
