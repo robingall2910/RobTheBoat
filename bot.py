@@ -128,7 +128,7 @@ async def on_ready():
             log.error("Woah, unauthorized?")
     if os.path.isdir("data/music"):
         try:
-            bot.cogs["Music"].clear_cache()
+            bot.cogs["Music"].clear_data()
             log.info("The music cache has been cleared!")
         except:
             log.warning("Failed to clear the music cache!")
