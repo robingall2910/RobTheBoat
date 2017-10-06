@@ -57,13 +57,18 @@ class Queue():
     def toggle_next(self):
         self.bot.loop.call_soon_threadsafe(self.play_next_song.set())
 
-    async def audio_change_task(self):
+    async def audio_change_task(self, ctx):
         while True:
             log.debug("Change task ran (music)")
             self.play_next_song.clear()
             log.debug("clear af xd")
             if self.current and not self.current.path in [song.path for song in self.song_list]:
-                os.remove(self.current.path)
+                try:
+                    os.remove(self.current.path)
+                except Exception:
+                    #hacky as hell but eh
+                    log.debug("got an exception on trying to delete music directory, using rmtree")
+                    shutil.rmtree("data/music/{}".format(ctx.guild.id))
             self.current = await self.songs.get()
             self.song_list.remove(str(self.current))
             self.skip_votes.clear()
