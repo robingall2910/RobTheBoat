@@ -130,6 +130,17 @@ class Music:
         song = Song(entry, path, title, duration, ctx.author)
         return song
 
+
+    async def disconnect_all_voice_clients(self, ctx):
+        queues = self.queues
+        for id in queues:
+            try:
+                await self.queues[id].voice_client.disconnect()
+                self.clear_data(id)
+                del self.queues[id]
+            except:
+                pass
+
     @commands.command()
     async def connect(self, ctx):
         await ctx.send("Use .play to connect automatically instead, this is now defunct.")

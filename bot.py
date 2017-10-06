@@ -59,7 +59,7 @@ async def _restart_bot():
     except:
        pass
     await bot.logout()
-    subprocess.call(["python", "bot.py"])
+    subprocess.call([sys.executable, "bot.py"])
 
 async def _shutdown_bot():
     try:
