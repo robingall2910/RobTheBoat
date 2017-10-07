@@ -3,6 +3,7 @@ import os
 import geocoder
 import json
 import discord
+import datetime
 
 from forecastiopy import *
 from pprint import pprint
@@ -28,6 +29,7 @@ class Weather():
                 fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1], units=ForecastIO.ForecastIO.UNITS_US)
                 current = FIOCurrently.FIOCurrently(fio)
                 alerts = FIOAlerts.FIOAlerts(fio)
+                print(alerts)
                 loc = g.address
                 ds = forecast(api_key, results[0], results[1])
                 #you forgot literally all of the location resolving
@@ -55,12 +57,13 @@ class Weather():
                 if ctx.me.color == None:
                 	maybe = None
                 else:
-                	maybe = ctx.me.color
+                    maybe = ctx.me.color
                 try:
-                    counties = ', '.join(ds.alerts[0].regions)
-                    alertresult = "{} in {}. More info [at NWS]({} 'National Weather Service')".format(ds.alerts[0].title, counties, ds.alerts[0].uri)
+                    expiretime = datetime.datetime.fromtimestamp(int(ds.alerts[1].time)).strftime('%A %B %d, %Y %I:%M %Z')
+                    county = ', '.join(ds.alerts[0].regions)
+                    alertresult = "{} in {}, expiring at {}. More info [at NWS]({} 'National Weather Service')".format(ds.alerts[0].title, county, expiretime, ds.alerts[0].uri)
                 except AttributeError:
-                    alertresult = "Not available."
+                    alertresult = "Simple description is not available, click [here]({} 'National Weather Service Link') for more information.".format(ds.alerts[0].uri)
                 em.set_thumbnail(url="https://dragonfire.me/474be77b-23bc-42e4-a779-6eb7b3b9a892.jpg")
                 em.color = maybe
                 em.add_field(name='Temperature', value="{}°F".format(current.temperature), inline=True)

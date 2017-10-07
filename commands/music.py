@@ -57,7 +57,7 @@ class Queue():
     def toggle_next(self):
         self.bot.loop.call_soon_threadsafe(self.play_next_song.set())
 
-    async def audio_change_task(self, ctx):
+    async def audio_change_task(self):
         while True:
             log.debug("Change task ran (music)")
             self.play_next_song.clear()
