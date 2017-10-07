@@ -34,7 +34,7 @@ class Weather():
                 em = discord.Embed(description="This information is displayed in Farenheit.")
                 em.title = "{}'s Current Weather".format(loc)
                 if current.uvIndex == 0:
-                    uvresult = "There probably isn't any sun right now."
+                    uvresult = "It's night, fool."
                     uvint = "0"
                 elif current.uvIndex == range(1, 5):
                     uvresult = "Few sun rays are hitting."
