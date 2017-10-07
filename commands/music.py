@@ -54,29 +54,25 @@ class Queue():
         self.audio_player = self.bot.loop.create_task(self.audio_change_task())
         self.skip_votes = []
 
-    def toggle_next(self):
-        self.bot.loop.call_soon_threadsafe(self.play_next_song.set())
 
     async def audio_change_task(self):
         while True:
-            log.debug("Change task ran (music)")
+            log.debug("Change task ran")
             self.play_next_song.clear()
-            log.debug("clear af xd")
+            log.debug("clear af")
             if self.current and not self.current.path in [song.path for song in self.song_list]:
-                try:
-                    os.remove(self.current.path)
-                except Exception:
-                    #hacky as hell but eh
-                    log.debug("got an exception on trying to delete music directory, using rmtree")
-                    shutil.rmtree("data/music/{}".format(ctx.guild.id))
+                os.remove(self.current.path)
             self.current = await self.songs.get()
             self.song_list.remove(str(self.current))
             self.skip_votes.clear()
-            await self.text_channel.send("Now started playing {}".format(self.current.title_with_requester()))
+            await self.text_channel.send("Now playing {}".format(self.current.title_with_requester()))
             self.voice_client.play(self.current.entry, after=lambda e: self.play_next_song.set())
             log.debug("k")
             await self.play_next_song.wait()
             log.debug("it pass")
+
+    def toggle_next(self):
+        self.bot.loop.call_soon_threadsafe(self.play_next_song.set())
 
 class Music:
     def __init__(self, bot):
@@ -129,7 +125,6 @@ class Music:
         entry.volume = 0.4
         song = Song(entry, path, title, duration, ctx.author)
         return song
-
 
     async def disconnect_all_voice_clients(self, ctx):
         queues = self.queues
