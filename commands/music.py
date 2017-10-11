@@ -142,14 +142,14 @@ class Music:
         try:
             song = self.download_video(ctx, url)
         except youtube_dl.utils.DownloadError as error:
-            await ctx.send("YoutubeDL broke. Error entry: {}").format(str(error.exc_info[1]).strip("[youtube] ")))
+            await ctx.send("YoutubeDL broke. Error entry: {}".format(str(error.exc_info[1]).strip("[youtube] ")))
             return
         except:
             await ctx.send(traceback.format_exc())
             return
         await queue.songs.put(song)
         queue.song_list.append(str(song))
-        await ctx.send("Added the song to the queue!"))
+        await ctx.send("Added the song to the queue!")
 
     @commands.command()
     async def disconnect(self, ctx):
@@ -195,7 +195,7 @@ class Music:
                 queue.voice_client.stop()
                 await ctx.send("Song has been skipped by popular vote")
             else:
-                await ctx.send("Alright, I've added your vote. There's {} votes to skip, I must have {} more.").format(len(queue.skip_votes), needed))
+                await ctx.send("Alright, I've added your vote. There's {} votes to skip, I must have {} more.".format(len(queue.skip_votes), needed))
 
     @commands.command()
     async def queue(self, ctx):
@@ -227,7 +227,7 @@ class Music:
     @commands.command()
     async def np(self, ctx):
         """Shows the song that is currently playing"""
-        await ctx.send("Now playing: {0} (Requested by {1}").format(self.get_queue(ctx).current.title_with_requester))
+        await ctx.send("Now playing: {0} (Requested by {1}".format(self.get_queue(ctx).current.title_with_requester))
 
 def setup(bot):
     bot.add_cog(Music(bot))
