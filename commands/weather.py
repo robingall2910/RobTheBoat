@@ -3,6 +3,7 @@ import os
 #import forecastiopy
 import geocoder
 import json
+import datetime
 import discord
 
 from forecastiopy import *
@@ -80,7 +81,7 @@ class Weather():
                 try:
                     expiretime = datetime.datetime.fromtimestamp(int(ds.alerts[1].time)).strftime('%A %B %d, %Y %I:%M %Z')
                     counties = ', '.join(ds.alerts[0].regions)
-                    alertresult = "{} in {}, expiring at {}. More info [at NWS]({} 'National Weather Service')".format(ds.alerts[0].title, counties, expiretime, ds.alerts[0].uri)
+                    alertresult = "{} in {}, expiring at {}. More info [at NWS]({} 'National Weather Service')".format(ds.alerts[0].title, counties[:1000], expiretime, ds.alerts[0].uri)
                 except Exception as e:
                     alertresult = e
                 em.set_thumbnail(url="https://dragonfire.me/474be77b-23bc-42e4-a779-6eb7b3b9a892.jpg")
