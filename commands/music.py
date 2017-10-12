@@ -2,13 +2,14 @@ import asyncio
 import traceback
 import os
 import shutil
+import discord
 import youtube_dl
 
 from discord.ext import commands
 from utils.mysql import *
 from utils.logger import log
 from utils.opus_loader import load_opus_lib
-from utils.config import Config;
+from utils.config import Config
 
 load_opus_lib()
 config = Config()
@@ -62,7 +63,7 @@ class Queue():
             self.song_list.remove(str(self.current))
             self.skip_votes.clear()
             log.debug("sending msg")
-            await self.text_channel.send(Language.get("music.now_playing", self.text_channel).format(self.current.title_with_requester()))
+            await self.text_channel.send("Now playing {}".format(self.current.title_with_requester()))
             self.voice_client.play(self.current.entry, after=lambda e: self.play_next_song.set())
             log.debug("waiting...")
             await self.play_next_song.wait()
@@ -149,7 +150,7 @@ class Music:
             return
         await queue.songs.put(song)
         queue.song_list.append(str(song))
-        await ctx.send("Added the song to the queue!")
+        await ctx.send("Added {} to the queue".format(song))
 
     @commands.command()
     async def disconnect(self, ctx):
@@ -182,7 +183,7 @@ class Music:
             queue.voice_client.stop()
             await ctx.send("The person who wanted to skip in the first place skipped it.")
         else:
-            needed = config.skip_votes_needed
+            needed = "4"
             channel_members = len([member for member in queue.voice_client.channel.members if not member.bot])
             if channel_members <= needed:
                 needed = channel_members - 1
@@ -227,7 +228,7 @@ class Music:
     @commands.command()
     async def np(self, ctx):
         """Shows the song that is currently playing"""
-        await ctx.send("Now playing: {0} (Requested by {1}".format(self.get_queue(ctx).current.title_with_requester))
+        await ctx.send("Now playing: {}".format(self.get_queue(ctx).current.title_with_requester))
 
 def setup(bot):
     bot.add_cog(Music(bot))
