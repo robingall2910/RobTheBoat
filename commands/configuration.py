@@ -26,7 +26,7 @@ class Configuration():
     @commands.command(pass_context=True)
     async def cfgbypass(self, ctx, type:str, *, value:str):
         """Modifies the server's local config (bot owner bypass)"""
-        if ctx.message.author.id != config.owner_id:
+        if ctx.message.author.id != int(config.owner_id):
             await ctx.send("Back off. Only my masters can use this.")
             return
         await self.bot.send_typing(ctx.channel)
