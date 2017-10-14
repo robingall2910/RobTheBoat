@@ -4,6 +4,7 @@ from discord.ext import commands
 from datetime import *
 from utils.tools import *
 from utils.logger import log
+from utils.unicode import *
 from utils.config import Config
 config = Config()
 
