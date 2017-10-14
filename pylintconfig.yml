@@ -21,7 +21,7 @@ disable=E0602, E0603,
  no-self-argument,
  no-name-in-module,
  bad-str-strip-call, #???
- assinging-non-slot,
+ assigning-non-slot,
 # "W" Warnings for stylistic problems or minor programming issues
  abstract-method,
  arguments-differ,
