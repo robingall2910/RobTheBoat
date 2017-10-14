@@ -6,7 +6,6 @@ python:
 script: "nosetests && pylint -E -j 6 bot.py commands/configuration.py commands/nsfw.py commands/weather.py commands/music.py commands/information.py commands/moderation.py commands/fuckery.py utils/buildinfo.py"
 before_install:
   - git clone -b rewrite https://github.com/Rapptz/discord.py.git
-  - cd discord.py
-  - python -m pip install -U .[voice]
+  - python setup.py install
   - cd ..
   - pip install wikipedia darkskylib geocoder pyping youtube_dl forecastiopy postgres asyncqlio colorlog
