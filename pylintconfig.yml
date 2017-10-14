@@ -12,8 +12,6 @@ ignore=.git,tools, etc
 disable=E0602, E0603,
 # "F" Fatal errors that prevent further processing
  import-error,
- no-name-in-module,
- undefined-variable,
 # "I" Informational noise
  locally-disabled,
 # "E" Error for important programming issues (likely bugs)
@@ -21,11 +19,13 @@ disable=E0602, E0603,
  no-member,
  no-method-argument,
  no-self-argument,
+ no-name-in-module,
 # "W" Warnings for stylistic problems or minor programming issues
  abstract-method,
  arguments-differ,
  attribute-defined-outside-init,
  bad-builtin,
+ bare-except,
  bad-indentation,
  broad-except,
  dangerous-default-value,
@@ -48,12 +48,19 @@ disable=E0602, E0603,
  unpacking-non-sequence,
  unused-argument,
  unused-import,
+ unused-wildcard-import,
+ unused-variable
+ wildcard-import,
+ using-constant-test,
 # "C" Coding convention violations
  invalid-name,
  missing-docstring,
  superfluous-parens,
  bad-continuation,
  Undefined variable,
+ line-too-long,
+ bad-whitespace,
+ missing-final-newline,
 # "R" Refactor recommendations
  abstract-class-little-used,
  abstract-class-not-used,
