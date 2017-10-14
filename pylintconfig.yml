@@ -20,6 +20,8 @@ disable=E0602, E0603,
  no-method-argument,
  no-self-argument,
  no-name-in-module,
+ bad-str-strip-call, #???
+ assinging-non-slot,
 # "W" Warnings for stylistic problems or minor programming issues
  abstract-method,
  arguments-differ,
@@ -34,6 +36,7 @@ disable=E0602, E0603,
  deprecated-module,
  duplicate-key,
  expression-not-assigned,
+ eval-used, #debug cmd
  fixme,
  global-statement,
  no-init,

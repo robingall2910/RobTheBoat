@@ -6,8 +6,8 @@ import os
 import wikipedia
 import time
 
-from cleverwrap import CleverWrap
-from utils.config import Config
+#from cleverwrap import CleverWrap
+#from utils.config import Config #for cleverwrap's key
 from discord.ext import commands
 from utils.tools import *
 from utils.unicode import *
@@ -221,7 +221,6 @@ class Fuckery():
         Search the infinite pages of wikipedia!
         """
         #Holy fucking shit, how long has that mistake been here?
-        cont2 = query
         cont = re.sub(r"\s+", '_', query)
         q = wikipedia.page(cont)
         await ctx.channel.trigger_typing()

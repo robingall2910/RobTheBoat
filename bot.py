@@ -541,7 +541,6 @@ async def invite(ctx):
 @bot.command()
 async def ping(ctx):
     """Pings the bot"""
-    pingtime = time.time()
     memes = random.choice(
         ["pinging server...", "hmu on snapchat", "is \"meming\" a thing?", "sometimes I'm scared of furries myself.",
          "You might not understand, but this is gross.", "***0.0 secs***", "hi", "u h h h h h h h h h h h h h",
@@ -559,7 +558,6 @@ async def ping(ctx):
          "google blobs are the best", "lets keep advertising viralbot more!", "napstabot isn't good :^)"])
     topkek = memes
     pingms = await ctx.send(topkek)
-    ping = time.time() - pingtime
     r = pyping.ping('dragonfire.me')
     # await bot.edit_message(pingms, topkek + " // ***{} ms***".format(str(ping)[3:][:3]))
     await pingms.edit(content=topkek + " // ***{} ms***".format(r.avg_rtt))
@@ -610,11 +608,9 @@ async def editmessage(ctx, id:int, *, newmsg:str):
 async def stats(ctx):
     """Grabs bot statistics."""
     if ctx.message.guild is None:
-        SID = bot.shard_id
         musage = psutil.Process().memory_full_info().uss / 1024 ** 2
         uniqueonline = str(sum(1 for m in bot.get_all_members() if m.status != discord.Status.offline))
         sethsfollowers = str(sum(len(s.members) for s in bot.guilds))
-        sumitup = str(int(len(bot.guilds)) * int(bot.shard_count))
         sumupmembers = str(int(str(sethsfollowers)) * int(bot.shard_count))
         sumupuni = str(int(str(uniqueonline)) * int(bot.shard_count))
         em = discord.Embed(description="\u200b", color=ctx.message.guild.me.color)

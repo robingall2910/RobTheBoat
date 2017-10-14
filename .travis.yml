@@ -3,7 +3,7 @@ install: "pip install nose pylint"
 python:
   - "3.5"
   - "3.6"
-script: "nosetests && pylint --rcfile=pylintconfig.yml bot.py commands/configuration.py commands/nsfw.py commands/weather.py commands/music.py commands/information.py commands/moderation.py commands/fuckery.py utils/buildinfo.py"
+script: "nosetests && pylint --rcfile=pylintconfig.yml bot.py commands/configuration.py commands/weather.py commands/music.py commands/information.py commands/moderation.py commands/fuckery.py utils/buildinfo.py"
 before_install:
   - git clone -b rewrite https://github.com/Rapptz/discord.py.git
   - cd discord.py

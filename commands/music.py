@@ -1,6 +1,5 @@
 import asyncio
 import traceback
-import os
 import shutil
 import discord
 import youtube_dl

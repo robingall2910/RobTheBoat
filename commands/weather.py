@@ -1,5 +1,3 @@
-
-import os
 #import forecastiopy
 import geocoder
 import json
@@ -7,7 +5,6 @@ import datetime
 import discord
 
 from forecastiopy import *
-from pprint import pprint
 from darksky import forecast
 from discord.ext import commands
 from utils.sharding import darkskyapi
@@ -46,7 +43,7 @@ class Weather():
                     print("Passing with an automatic unit")
                     fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1])
                 current = FIOCurrently.FIOCurrently(fio)
-                alerts = FIOAlerts.FIOAlerts(fio)
+                #alerts = FIOAlerts.FIOAlerts(fio)
                 ds = forecast(api_key, results[0], results[1])
                 if thedisplay == True:
                     print("The display passed")
