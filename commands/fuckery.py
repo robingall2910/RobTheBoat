@@ -187,7 +187,7 @@ class Fuckery():
         api_key = config.cb_api_key
         cw = CleverWrap(api_key)
         themessage = cw.say(pussy)
-        result = themessage.encode(encoding='UTF-8')
+        result = themessage
         try:
             await ctx.send(str(ctx.author) + " >> " + cw.say(result))
         except UnicodeDecodeError:
