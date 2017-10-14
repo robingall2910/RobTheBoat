@@ -12,6 +12,8 @@ ignore=.git,tools, etc
 disable=E0602, E0603,
 # "F" Fatal errors that prevent further processing
  import-error,
+ no-name-in-module,
+ undefined-variable,
 # "I" Informational noise
  locally-disabled,
 # "E" Error for important programming issues (likely bugs)
@@ -67,7 +69,8 @@ disable=E0602, E0603,
  too-many-locals,
  too-many-public-methods,
  too-many-return-statements,
- too-many-statements
+ too-many-statements,
+ too-many-format-args
 
 
 [BASIC]
