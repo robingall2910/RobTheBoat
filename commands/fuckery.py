@@ -90,7 +90,6 @@ class Fuckery():
         """The rules of the internet"""
         await ctx.channel.trigger_typing()
         #this is how you create a memory leak
-        print("attempted to try " + sys.getdefaultencoding())
         gayrule = random.choice(open('assets/InternetRules.txt', encoding="utf8").readlines())
         await ctx.send(gayrule)
 
