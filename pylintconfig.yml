@@ -64,6 +64,8 @@ disable=E0602, E0603,
  singleton-comparison,
  ungrouped-imports,
  len-as-condition,
+ trailing-whitespace,
+ bad-whitespace,
 # "R" Refactor recommendations
  abstract-class-little-used,
  abstract-class-not-used,

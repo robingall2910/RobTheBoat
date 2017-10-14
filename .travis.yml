@@ -9,4 +9,4 @@ before_install:
   - cd discord.py
   - python setup.py install
   - cd ..
-  - pip install wikipedia darkskylib geocoder pyping youtube_dl forecastiopy postgres asyncqlio colorlog
+  - pip install wikipedia darkskylib geocoder pyping youtube_dl forecastiopy postgres asyncqlio colorlog psutil cat

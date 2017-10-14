@@ -3,11 +3,8 @@ import asyncio
 import cat
 import random
 import os
-import json
-import urllib.request
 import wikipedia
 import time
-import sys
 
 from cleverwrap import CleverWrap
 from utils.config import Config
@@ -180,9 +177,9 @@ class Fuckery():
         """I got drunk on halloween in 2016 it was great"""
         await ctx.send(random.choice(drunkaf))
 
-    @commands.command()
+    """@commands.command()
     async def talk(self, ctx, *, pussy:str):
-        """talk to the bot"""
+        #talk to the bot
         config = Config()
         api_key = config.cb_api_key
         cw = CleverWrap(api_key)
@@ -191,7 +188,7 @@ class Fuckery():
         try:
             await ctx.send(str(ctx.author) + " >> " + cw.say(result))
         except UnicodeDecodeError:
-            await ctx.send("Error has occured trying to decode the Cleverbot message.")
+            await ctx.send("Error has occured trying to decode the Cleverbot message.")"""
 
     @commands.command()
     async def ship(self, ctx, user1:discord.User=None, user2:discord.User=None):

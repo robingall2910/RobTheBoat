@@ -33,8 +33,7 @@ config = Config()
 if config.debug:
     log.enableDebugging()  # pls no flame
 
-bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(config.command_prefix), 
-                              description="A multipurposed bot with a theme for the furry fandom. Contains nsfw, info, weather, music and much more.", pm_help=None)
+bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(config.command_prefix), description="A multipurposed bot with a theme for the furry fandom. Contains nsfw, info, weather, music and much more.", pm_help=None)
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status

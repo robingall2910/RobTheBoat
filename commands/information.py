@@ -196,11 +196,9 @@ class Information():
             if e.code == 401:
                 log.critical("An invalid osu! api key was set, please check the config for instructions on how to get a proper api key!")
                 await ctx.send("An invalid osu! api key was set, contact the bot developer!")
-                return
             else:
                 log.critical("An unknown error occured while trying to get an osu! profile.")
                 await ctx.send("An unknown error occured while trying to get that user's osu! profile, contact the bot developer!")
-                return
         try:
             user = user[0]
         except IndexError:
