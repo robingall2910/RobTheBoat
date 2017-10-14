@@ -61,6 +61,7 @@ disable=E0602, E0603,
  line-too-long,
  bad-whitespace,
  missing-final-newline,
+ wrong-import-order,
 # "R" Refactor recommendations
  abstract-class-little-used,
  abstract-class-not-used,
