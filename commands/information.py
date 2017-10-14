@@ -212,7 +212,7 @@ class Information():
         embed.color = 0xFF00FF
         embed.set_thumbnail(url="http://s.ppy.sh/a/{}".format(user.user_id))
         await ctx.send(embed=embed)
-        
+
     @commands.command()
     async def donate(self, ctx):
         """give me money"""
@@ -318,7 +318,7 @@ class Information():
         except ValueError:
             await ctx.send("`{}` is not a valid hex color code".format(hexcode))
             return
-            await ctx.send(file=discord.File("data/color.png", "{}.png".format(hexcode.strip("#"))))
+        await ctx.send(file=discord.File("data/color.png", "{}.png".format(hexcode.strip("#"))))
 
     @commands.command()
     async def getuserbyid(self, ctx, id:int):

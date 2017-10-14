@@ -278,7 +278,7 @@ class Fuckery():
         await ctx.send(file=discord.File( "assets/imgs/lameme.jpg"))
 
     @commands.command()
-    async def quote(self, ctx, id:int):
+    async def msgquote(self, ctx, id:int):
         """Quotes a message with the specified message ID"""
         message = await ctx.channel.get_message(id)
         if message is None:
