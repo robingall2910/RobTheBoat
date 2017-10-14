@@ -24,11 +24,11 @@ class Fuckery():
     async def say(self, ctx, *, message:str):
         """Make the bot say whatever you want it to say"""
         try:
-            await self.bot.delete_message(ctx.message)
+            await ctx.message.delete()
         except:
             pass
         if ctx.author is not ctx.author.bot:
-            await ctx.send(message.replace("@everyone", "everyone"))
+            await ctx.send(ctx.message.clean_content.replace(".say", ""))
         else:
             return
 
@@ -166,13 +166,10 @@ class Fuckery():
         await ctx.send("{}: {}".format(ctx.author.name, random.choice(magic_conch_shell)))
 
     @commands.command()
-    async def insult(self, ctx, *, user:str):
+    async def insult(self, ctx):
         """Insult those ass wipes"""
-        if user is "@everyone" or "@here":
-            result = user.strip('<@>')
-        else:
-            result = user
-        await ctx.send("{} {}".format(result, random.choice(insults)))
+        thememe = ctx.message.clean_content.replace(".insult", "")
+        await ctx.send("{} {}".format(thememe, random.choice(insults)))
 
     @commands.command()
     async def compliment(self, ctx):
