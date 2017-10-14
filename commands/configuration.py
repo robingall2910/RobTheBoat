@@ -14,7 +14,7 @@ class Configuration():
         if ctx.message.author is not ctx.message.server.owner:
             await ctx.send("Only my otp the server owner aka {} can use this command.".format(format_user(ctx.message.server.owner)))
             return
-        await self.bot.send_typing(ctx.channel)
+        await ctx.channel.trigger_typing()
         if type == "mod-role" or type == "nsfw-channel" or type == "mute-role":
             if type == "nsfw-channel":
                 value = value.lower().strip(" ")
@@ -29,7 +29,7 @@ class Configuration():
         if ctx.message.author.id != int(config.owner_id):
             await ctx.send("Back off. Only my masters can use this.")
             return
-        await self.bot.send_typing(ctx.channel)
+        await ctx.channel.trigger_typing()
         if type == "mod-role" or type == "nsfw-channel" or type == "mute-role":
             if type == "nsfw-channel":
                 value = value.lower().strip(" ")
@@ -41,7 +41,7 @@ class Configuration():
     @commands.command(pass_context=True)
     async def showconfig(self, ctx):
         """Shows the server's configuration"""
-        await self.bot.send_typing(ctx.channel)
+        await ctx.channel.trigger_typing()
         mod_role_name = read_data_entry(ctx.guild.id, "mod-role")
         nsfw_channel_name = read_data_entry(ctx.guild.id, "nsfw-channel")
         mute_role_name = read_data_entry(ctx.guild.id, "mute-role")
@@ -59,7 +59,7 @@ class Configuration():
         if ctx.message.author is not ctx.message.server.owner:
             await ctx.send("Only the server owner (`{}`) can use this command.".format(format_user(ctx.message.server.owner)))
             return
-        await self.bot.send_typing(ctx.channel)
+        await ctx.channel.trigger_typing()
         if type == "join-message":
             update_data_entry(ctx.guild.id, type, value)
             await ctx.send("Successfully set the join message to: {}".format(value.replace("%user%", "@{}".format(ctx.message.author.name)).replace("!SERVER!", ctx.message.server.name)))
