@@ -620,7 +620,7 @@ async def stats(ctx):
         sumupuni = str(int(str(uniqueonline)) * int(bot.shard_count))
         em = discord.Embed(description="\u200b", color=ctx.message.guild.me.color)
         em.title = bot.user.name + "'s Help Server"
-        em.url = "https://discord.gg/vvAKvaG"
+        em.url = "https://discord.gg/2F69NdA"
         em.set_thumbnail(url=bot.user.avatar_url)
         em.add_field(name='Creators', value='based robin#0052 and ZeroEpoch1969#0051', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
@@ -640,7 +640,7 @@ async def stats(ctx):
         sumupuni = str(int(str(uniqueonline)) * int(bot.shard_count))
         em = discord.Embed(description="\u200b")
         em.title = bot.user.name + "'s Help Server"
-        em.url = "https://discord.gg/vvAKvaG"
+        em.url = "https://discord.gg/2F69NdA"
         em.set_thumbnail(url=bot.user.avatar_url)
         em.add_field(name='Creators', value='based robin#0052 and ZeroEpoch1969#0051', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
