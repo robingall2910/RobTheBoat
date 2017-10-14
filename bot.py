@@ -665,4 +665,5 @@ async def top10servers(ctx):
     await ctx.send("```{}```".format("\n\n".join(guilds)))
 
 
+print("doot, starting")
 bot.run(config._token)
