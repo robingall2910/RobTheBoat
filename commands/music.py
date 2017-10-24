@@ -138,7 +138,7 @@ class Music:
                 await ctx.send(Language.get())
                 return
         queue = self.get_queue(ctx)
-        url = url.strip("<>")
+        url = url.strip(".play <>")# ?
         try:
             song = self.download_video(ctx, url)
         except youtube_dl.utils.DownloadError as error:
