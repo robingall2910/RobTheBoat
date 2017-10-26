@@ -140,7 +140,7 @@ class Information():
 
     @commands.command()
     async def daystillnewyears(self):
-        """Displays how many days until it's christmas"""
+        """Displays how many days until it's the new year"""
         await ctx.send("Days until new years: `{} days`".format((newyear - date.today()).days))
 
     @commands.command()
