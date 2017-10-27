@@ -153,7 +153,7 @@ class Fuckery():
         
     @commands.command()
     async def psat(self, ctx):
-        """Please."""
+        """You know he had to do it to her. PSAT Memes from Oct 11, 2017."""
         await ctx.send(random.choice(psat_memes))
 
     @commands.command(name="8ball")

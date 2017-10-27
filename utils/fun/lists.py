@@ -1,16 +1,35 @@
 
 psat_memes = [
-    "http://i.imgur.com/5eJ5DbU.jpg",
-    "http://i.imgur.com/HBDnWVc.jpg",
-    "http://i.imgur.com/RzZlq2j.jpg",
-    "http://i.imgur.com/mVRNUIG.jpg",
-    "http://i.imgur.com/OvOmC6g.jpg",
-    "http://i.imgur.com/QqlSxaZ.png",
-    "http://i.imgur.com/finNuzx.jpg",
-    "http://i.imgur.com/XB2nBmz.png",
-    "http://i.imgur.com/7sCwNXl.jpg",
-    "http://i.imgur.com/caw6Pao.png",
-    "http://i.imgur.com/GwV0JYL.png"
+    "https://this.dragonfire.me/website/sucks/fddd6e.png",
+    "https://this.dragonfire.me/website/sucks/43f785.png",
+    "https://this.dragonfire.me/website/sucks/02c8b6.png",
+    "https://this.dragonfire.me/website/sucks/e2a7dc.png",
+    "https://pbs.twimg.com/media/DL-BOiOWAAAllWB.jpg:large",
+    "https://this.dragonfire.me/website/sucks/0f2f92.png",
+    "https://this.dragonfire.me/website/sucks/abe6b5.png",
+    "https://pbs.twimg.com/media/DL83LiwXUAEbJfJ.jpg:large",
+    "https://this.dragonfire.me/website/sucks/303706.png",
+    "https://this.dragonfire.me/website/sucks/01f5c8.png",
+    "https://this.dragonfire.me/website/sucks/c717e3.png",
+    "https://this.dragonfire.me/website/sucks/4c5379.png",
+    "https://this.dragonfire.me/website/sucks/2df267.png",
+    "https://this.dragonfire.me/website/sucks/99764b.png",
+    "https://this.dragonfire.me/website/sucks/37137c.png",
+    "https://this.dragonfire.me/website/sucks/da2a31.png",
+    "https://this.dragonfire.me/website/sucks/03db1f.png",
+    "https://this.dragonfire.me/website/sucks/008943.png",
+    "https://pbs.twimg.com/media/DL6BXltV4AEBulp.jpg:large", # revolutionary
+    "https://this.dragonfire.me/website/sucks/7ea7c2.png",
+    "https://this.dragonfire.me/website/sucks/062647.png",
+    "https://pbs.twimg.com/media/DL57so5UEAINZ1_.jpg:large",
+    "https://this.dragonfire.me/website/sucks/11595c.png",
+    "https://this.dragonfire.me/website/sucks/67ad23.png",
+    "https://this.dragonfire.me/website/sucks/ae8863.png",
+    "https://this.dragonfire.me/website/sucks/292ec9.png",
+    "https://this.dragonfire.me/website/sucks/15e09c.png",
+    "https://this.dragonfire.me/website/sucks/e9e690.png",
+    "https://this.dragonfire.me/website/sucks/97ac3d.png",
+    "https://this.dragonfire.me/website/sucks/99c7de.png"
 ]
 
 # Response for the 8ball command
