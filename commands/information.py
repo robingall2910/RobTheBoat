@@ -225,7 +225,7 @@ class Information():
         msg = "speedtest-cli --share --simple"
         input = os.popen(msg)
         output = input.read()
-        await self.bot.send_message(ctx.message.channel, rb.format(output))
+        await ctx.send(rb.format(output))
         # msg.replace("serverip", "Server IP").replace("\n", "\n").replace("\"", "").replace("b'", "").replace("'",
         #                                                                                                     "")))
 
@@ -247,7 +247,7 @@ class Information():
         msg = "ping -c 4 {0}".format(ip)
         input = os.popen(msg)
         output = input.read()
-        await self.bot.send_message(ctx.message.channel, rb.format(output))
+        await ctx.send(rb.format(output))
 
     @commands.command()
     async def traceroute(self, ctx, *, ip: str):
@@ -257,7 +257,7 @@ class Information():
         msg = "traceroute {0}".format(ip)
         input = os.popen(msg)
         output = input.read()
-        await self.bot.send_message(ctx.message.channel, rb.format(output))
+        await ctx.send(rb.format(output))
 
     @commands.command()
     async def portscan(self, ctx, host:str, ports:str):
