@@ -221,7 +221,7 @@ class Information():
     async def st(self, ctx):
         """Speedtest.net results"""
         rb = "```rb\n{0}\n```"
-        await self.bot.send_typing(ctx.message.channel)
+        await ctx.channel.trigger_typing()
         msg = "speedtest-cli --share --simple"
         input = os.popen(msg)
         output = input.read()
@@ -243,7 +243,7 @@ class Information():
     async def ipping(self, ctx, *, ip: str):
         """Pings to an ip address or domain"""
         rb = "```rb\n{0}\n```"
-        await self.bot.send_typing(ctx.message.channel)
+        await ctx.channel.trigger_typing()
         msg = "ping -c 4 {0}".format(ip)
         input = os.popen(msg)
         output = input.read()
@@ -253,7 +253,7 @@ class Information():
     async def traceroute(self, ctx, *, ip: str):
         """Traces the route to the connection of a website or IP"""
         rb = "```rb\n{0}\n```"
-        await self.bot.send_typing(ctx.message.channel)
+        await ctx.channel.trigger_typing()
         msg = "traceroute {0}".format(ip)
         input = os.popen(msg)
         output = input.read()
