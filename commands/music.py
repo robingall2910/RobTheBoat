@@ -135,7 +135,7 @@ class Music:
                     await ctx.send("I can't connect to this channel if I don't have any permissions for it first.")
                     return
             else:
-                await ctx.send(Language.get())
+                await ctx.send("You're not in a music channel, fool.")
                 return
         queue = self.get_queue(ctx)
         url = url.strip(".play <>")# ?
