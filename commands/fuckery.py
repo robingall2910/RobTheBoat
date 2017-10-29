@@ -240,7 +240,7 @@ class Fuckery():
         """Tells the current time from the server"""
         d = time.strftime("%A, %B %d, %Y")
         t = time.strftime("%I:%M:%S %p %Z")
-        linemedaddy = "```ruby\n Current Date: " + d + '\n Current Time: ' + t + "\n" + "```"
+        linemedaddy = "```ruby\nCurrent Date: " + d + '\nCurrent Time: ' + t + "\n" + "```"
         await ctx.send(linemedaddy)
 
     @commands.command()

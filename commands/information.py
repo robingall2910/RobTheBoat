@@ -129,17 +129,17 @@ class Information():
         await ctx.send(members)
 
     @commands.command()
-    async def daystillhalloween(self):
+    async def daystillhalloween(self, ctx):
         """Displays how many days until it's halloween"""
         await ctx.send("Days until halloween: `{} days`".format((halloween - date.today()).days))
 
     @commands.command()
-    async def daystillchristmas(self):
+    async def daystillchristmas(self, ctx):
         """Displays how many days until it's christmas"""
         await ctx.send("Days until christmas: `{} days`".format((christmas - date.today()).days))
 
     @commands.command()
-    async def daystillnewyears(self):
+    async def daystillnewyears(self, ctx):
         """Displays how many days until it's the new year"""
         await ctx.send("Days until new years: `{} days`".format((newyear - date.today()).days))
 
