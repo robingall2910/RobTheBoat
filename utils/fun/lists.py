@@ -148,7 +148,6 @@ tweetsthatareokhand = [
     "http://i.imgur.com/hYzNxVR.png",
     "http://i.imgur.com/JuVsIMg.png",
     "http://i.imgur.com/2NYwUcj.png",
-    "https://cdn.discordapp.com/attachments/173887966031118336/177222734961442817/uh_semen.PNG",
     "https://cdn.discordapp.com/attachments/173887966031118336/177222732260442113/train_of_horses.PNG",
     "https://cdn.discordapp.com/attachments/173887966031118336/177222728338636802/they_wshiper.PNG",
     "https://cdn.discordapp.com/attachments/173887966031118336/177222725977243650/thats_my_boyfriend.PNG",
@@ -156,7 +155,6 @@ tweetsthatareokhand = [
     "https://cdn.discordapp.com/attachments/173887966031118336/177222720667385858/list.PNG",
     "https://cdn.discordapp.com/attachments/173887966031118336/177222717743824907/idea_of_music.PNG",
     "https://cdn.discordapp.com/attachments/173887966031118336/177222715147550721/goals.PNG",
-    "https://cdn.discordapp.com/attachments/173887966031118336/177222711867604993/disturbing_fetish.PNG",
 #    "here's a message from the coder of this: I FUCKING RAN OUT NEEDS MORE CHEESE",
 # not anymore, its like what 21 links
    "​https://cdn.discordapp.com/attachments/173886531080159234/176425292426903553/f20e683862a17ef49633eed742fc2b22eb17220eef5a1d607cda2e7a7758720b_1.jpg",
