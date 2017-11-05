@@ -207,7 +207,7 @@ class Information():
             return
         fields = {"ID":user.user_id, "Country":user.country, "Level":int(user.level), "Hits":user.total_hits, "Score":user.total_score, "Accuracy":"{0:.2f}%".format(user.accuracy), "Play Count":user.playcount, "Ranked Score":user.ranked_score, "A rank":user.count_rank_a, "S rank":user.count_rank_s, "SS rank":user.count_rank_ss}
         embed = make_list_embed(fields)
-        embed.title = "{}'s Osu! Stats".format(user.username)
+        embed.title = "{}'s osu! Stats".format(user.username)
         embed.color = 0xFF00FF
         embed.set_thumbnail(url="http://s.ppy.sh/a/{}".format(user.user_id))
         await ctx.send(embed=embed)
