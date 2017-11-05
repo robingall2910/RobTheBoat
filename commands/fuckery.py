@@ -274,6 +274,10 @@ class Fuckery():
         await ctx.send(file=discord.File( "assets/imgs/lameme.jpg"))
 
     @commands.command()
+    async def yiffvember(self, ctx):
+        await ctx.send("It's YIFFvember 🐺🎃 u know what that means 👀👅 furry fucking awareness month 🐔🐥🏼👅 send this to 12 of ur closest furries 🐾😈 that love that fur 🐶🐶🐶💦💦💦 🎃🎃🎃🎃🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃🎃 🎃🎃🎃🎃🎃 🎃 🎃 🎃 🎃 🎃 🎃 PAW-O-WEEN 🎃is upon us !! If you get this message ✉️ you are monarch🐱🏿 of the furries!!! Forward this to 7⃣ of the 🐶YiFfIeSt🐶 furries 🐰🏿 that you know will get some 🐺🏿🐯🏿 soon !!! If you don't, be prepared 🐴🏿 for 4⃣2⃣0⃣ days of bad luck ⚠️ 🍀")
+
+    @commands.command()
     async def msgquote(self, ctx, id:int):
         """Quotes a message with the specified message ID"""
         message = await ctx.channel.get_message(id)
