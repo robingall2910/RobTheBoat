@@ -369,6 +369,7 @@ async def stream(ctx, *, name: str):
         return
     await bot.change_presence(game=discord.Game(name=name, type=1, url="https://www.twitch.tv/robingall2910"))
     await ctx.send("Streaming `{}`".format(name))
+    await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a `streaming` status type".format(ctx.message.author.id, ctx.message.author, name))
 
 
 @bot.command()
@@ -394,12 +395,10 @@ async def changestatus(ctx, status: str, *, name: str = None):
     await bot.change_presence(game=game, status=statustype)
     if name is not None:
         await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name, status))
-        # await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n)
-        # `{}` status type".format(ctx.message.author.id, ctx.message.author, name, status))
+        await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name, status))
     else:
         await ctx.send("Changed status type to `{}`".format(status))
-        # await channel_logger.log_to_channel(":information_source: `{}`/`{}` has changed the status type to
-        # `{}`".format(ctx.message.author.id, ctx.message.author, status))
+        await channel_logger.log_to_channel(":information_source: `{}`/`{}` has changed the status type to `{}`".format(ctx.message.author.id, ctx.message.author, status))
 
 
 @bot.command(hidden=True)
