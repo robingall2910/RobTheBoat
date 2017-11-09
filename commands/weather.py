@@ -43,7 +43,7 @@ class Weather():
                     print("Passing with an automatic unit")
                     fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1])
                 current = FIOCurrently.FIOCurrently(fio)
-                ds = forecast(api_key, int(results[0]), int(results[1])
+                ds = forecast(api_key, int(results[0]), int(results[1]))
                 if thedisplay == True:
                     print("The display passed")
                     em = discord.Embed(description="This information is displayed in Farenheit.")
