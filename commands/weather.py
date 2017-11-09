@@ -1,5 +1,3 @@
-
-import os
 #import forecastiopy
 import geocoder
 import json
@@ -7,7 +5,6 @@ import discord
 import datetime
 
 from forecastiopy import *
-from pprint import pprint
 from darksky import forecast
 from discord.ext import commands
 from utils.sharding import darkskyapi
@@ -46,8 +43,7 @@ class Weather():
                     print("Passing with an automatic unit")
                     fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1])
                 current = FIOCurrently.FIOCurrently(fio)
-                afio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1])
-                ds = forecast(api_key, results[0], results[1])
+                ds = forecast(api_key, int(results[0]), int(results[1])
                 if thedisplay == True:
                     print("The display passed")
                     em = discord.Embed(description="This information is displayed in Farenheit.")
@@ -79,7 +75,6 @@ class Weather():
                 else:
                     maybe = ctx.me.color
                 try:
-                    
                     expiretime = datetime.datetime.fromtimestamp(int(ds['alerts']['0']['expires'])).strftime('%A %B %d, %Y %I:%M %Z')
                     print("expire time passed")
                     counties = ', '.join(ds['alerts']['0']['regions'])
