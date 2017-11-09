@@ -77,7 +77,7 @@ class Weather():
                 try:
                     expiretime = datetime.datetime.fromtimestamp(int(ds.alerts[0].expires)).strftime('%A %B %d, %Y %I:%M %Z')
                     print("expire time passed")
-                    counties = ', '.join(ds['alerts']['0']['regions'])
+                    counties = ', '.join(ds.alerts[0].regions)
                     print("joining counties passed")
                     alertresult = "{} in {}, expiring at {}. More info [at NWS]({} 'National Weather Service')".format(ds.alerts[0].title, counties, expiretime, ds.alerts[0].uri)
                     print("alert setup complete")
