@@ -18,6 +18,10 @@ class NSFW():
     @checks.is_nsfw_channel()
     @commands.command()
     async def rule34(self, ctx, *, tags:str):
+        try:
+            await ctx.message.delete()
+        except:
+            pass
         await ctx.channel.trigger_typing()
         try:
             data = json.loads(requests.get("http://rule34.xxx/index.php?page=dapi&s=post&q=index&json=1&limit={}&tags={}".format(limit, tags)).text)
@@ -42,6 +46,10 @@ class NSFW():
     @commands.command()
     async def e621(self, ctx, *, tags:str):
         """Searches e621.net for the specified tagged images"""
+        try:
+            await ctx.message.delete()
+        except:
+            pass
         await ctx.channel.trigger_typing()
         try:
             data = json.loads(requests.get("https://e621.net/post/index.json?limit={}&tags={}".format(limit, tags)).text)
@@ -64,6 +72,10 @@ class NSFW():
     @commands.command()
     async def yandere(self, ctx, *, tags:str):
         """Searches yande.re for the specified tagged images"""
+        try:
+            await ctx.message.delete()
+        except:
+            pass
         await ctx.channel.trigger_typing()
         try:
             data = json.loads(requests.get("https://yande.re/post/index.json?limit={}&tags={}".format(limit, tags)).text)
@@ -86,6 +98,10 @@ class NSFW():
     @commands.command()
     async def danbooru(self, ctx, *, tags:str):
         """Searches danbooru.donmai.us for the specified tagged images"""
+        try:
+            await ctx.message.delete()
+        except:
+            pass
         await ctx.channel.trigger_typing()
         try:
             data = json.loads(requests.get("https://danbooru.donmai.us/post/index.json?limit={}&tags={}".format(limit, tags)).text)
@@ -112,6 +128,10 @@ class NSFW():
     @commands.command()
     async def gelbooru(self, ctx, *, tags:str):
         """Searches gelbooru.com for the specified tagged images"""
+        try:
+            await ctx.message.delete()
+        except:
+            pass
         await ctx.channel.trigger_typing()
         try:
             data = json.loads(requests.get("https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit={}&tags={}".format(limit, tags)).text)
@@ -138,6 +158,10 @@ class NSFW():
     @commands.command()
     async def xbooru(self, ctx, *, tags: str):
         """Searches xbooru.com for the specified tagged images"""
+        try:
+            await ctx.message.delete()
+        except:
+            pass
         await ctx.channel.trigger_typing()
         try:
             data = json.loads(requests.get("https://xbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit={}&tags={}".format(limit, tags)).text)
