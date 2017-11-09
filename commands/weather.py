@@ -1,10 +1,13 @@
+
+import os
 #import forecastiopy
 import geocoder
 import json
-import datetime
 import discord
+import datetime
 
 from forecastiopy import *
+from pprint import pprint
 from darksky import forecast
 from discord.ext import commands
 from utils.sharding import darkskyapi
@@ -43,7 +46,7 @@ class Weather():
                     print("Passing with an automatic unit")
                     fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1])
                 current = FIOCurrently.FIOCurrently(fio)
-                #alerts = FIOAlerts.FIOAlerts(fio)
+                afio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1])
                 ds = forecast(api_key, results[0], results[1])
                 if thedisplay == True:
                     print("The display passed")
@@ -76,9 +79,13 @@ class Weather():
                 else:
                     maybe = ctx.me.color
                 try:
-                    expiretime = datetime.datetime.fromtimestamp(int(ds.alerts[1].time)).strftime('%A %B %d, %Y %I:%M %Z')
-                    counties = ', '.join(ds.alerts[0].regions)
-                    alertresult = "{} in {}, expiring at {}. More info [at NWS]({} 'National Weather Service')".format(ds.alerts[0].title, counties[:1000], expiretime, ds.alerts[0].uri)
+                    
+                    expiretime = datetime.datetime.fromtimestamp(int(ds['alerts']['0']['expires'])).strftime('%A %B %d, %Y %I:%M %Z')
+                    print("expire time passed")
+                    counties = ', '.join(ds['alerts']['0']['regions'])
+                    print("joining counties passed")
+                    alertresult = "{} in {}, expiring at {}. More info [at NWS]({} 'National Weather Service')".format(ds['alerts']['0']['title'], counties, expiretime, ds['alerts']['0']['uri'])
+                    print("alert setup complete")
                 except Exception as e:
                     alertresult = e
                 em.set_thumbnail(url="https://dragonfire.me/474be77b-23bc-42e4-a779-6eb7b3b9a892.jpg")

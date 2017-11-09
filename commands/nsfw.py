@@ -26,8 +26,6 @@ class NSFW():
             return
 
         count = len(data)
-        if IndexError:
-            await ctx.send("No results found.")
         if count == 0:
             await ctx.send("No results found for `{}`".format(tags))
             return
@@ -51,8 +49,6 @@ class NSFW():
             await ctx.send("No results found for `{}`".format(tags))
             return
         count = len(data)
-        if IndexError:
-            await ctx.send("No results found.")
         if count == 0:
             await ctx.send("No results found for `{}`".format(tags))
             return
@@ -75,8 +71,6 @@ class NSFW():
             await ctx.send("No results found for `{}`".format(tags))
             return
         count = len(data)
-        if IndexError:
-            await ctx.send("No results found.")
         if count == 0:
             await ctx.send("No results found for `{}`".format(tags))
             return
@@ -99,8 +93,6 @@ class NSFW():
             await ctx.send("No results found for `{}`".format(tags))
             return
         count = len(data)
-        if IndexError:
-            await ctx.send("No results found.")
         if count == 0:
             await ctx.send("No results found for `{}`".format(tags))
             return
@@ -127,8 +119,6 @@ class NSFW():
             await ctx.send("No results found for `{}`".format(tags))
             return
         count = len(data)
-        if IndexError:
-            await ctx.send("No results found.")
         if count == 0:
             await ctx.send("No results found for `{}`".format(tags))
             return
@@ -155,8 +145,6 @@ class NSFW():
             await ctx.send("No results found for `{}`".format(tags))
             return
         count = len(data)
-        if IndexError:
-            await ctx.send("No results found.")
         if count == 0:
             await ctx.send("No results found for `{}`".format(tags))
             return
