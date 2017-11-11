@@ -192,6 +192,8 @@ class Music:
                 await ctx.send("You already voted, fool. Can't vote again.")
                 return
             if len(queue.skip_votes) >= int(needed):
+                queue.voice_client.stop()
+                await ctx.send("Song has been skipped by popular vote")
             else:
                 await ctx.send("Alright, I've added your vote. There's {} votes to skip, I must have {} more.".format(len(queue.skip_votes), needed))
 
