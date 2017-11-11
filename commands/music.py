@@ -182,7 +182,7 @@ class Music:
             queue.voice_client.stop()
             await ctx.send("The person who wanted to skip in the first place skipped it.")
         else:
-            needed = "4"
+            needed = int(4)
             channel_members = len([member for member in queue.voice_client.channel.members if not member.bot])
             if channel_members <= needed:
                 needed = channel_members - 1
@@ -192,8 +192,6 @@ class Music:
                 await ctx.send("You already voted, fool. Can't vote again.")
                 return
             if len(queue.skip_votes) >= int(needed):
-                queue.voice_client.stop()
-                await ctx.send("Song has been skipped by popular vote")
             else:
                 await ctx.send("Alright, I've added your vote. There's {} votes to skip, I must have {} more.".format(len(queue.skip_votes), needed))
 
