@@ -224,16 +224,19 @@ class Fuckery():
         cont = re.sub(r"\s+", '_', query)
         q = wikipedia.page(cont)
         await ctx.channel.trigger_typing()
-        await ctx.send("{}:\n```\n{}\n```\nFor more information, visit <{}>".format(q.title,
-                                                                                                              wikipedia.summary(
-                                                                                                                  query,
-                                                                                                                  sentences=5),
-                                                                                                              q.url))
-        await ctx.send(cont)
-        if wikipedia.exceptions.PageError == True:
-            await ctx.send("Error 404. Try another.")
-        elif wikipedia.exceptions.DisambiguationError == True:
-            await ctx.send("Too many alike searches, please narrow it down more...")
+        em = discord.Embed(description="")
+        try:
+            em.title = "Wikipedia"
+            em.description = q.url
+            em.add_field(name=q.title, value=wikipedia.summary(query, sentences=6))
+        except wikipedia.exceptions.PageError:
+            em.title = "Error"
+            em.add_field(name=cont, value="The phrase you have inputted does not resolve any pages.")
+        except wikipedia.exceptions.DisambiguationError:
+            em.title = "Error"
+            em.add_field(name=cont, value="The phrase you have inputted doesn't resolve one page.")
+            em.add_field(name="This may refer to:", value=wikipedia.exceptions.DisambiguationError.may_refer_to)
+        await ctx.send(em)
 
     @commands.command()
     async def time(self, ctx):
