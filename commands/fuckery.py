@@ -226,7 +226,12 @@ class Fuckery():
         await ctx.channel.trigger_typing()
         em = discord.Embed(description="")
         try:
+            if ctx.me.color == None:
+                maybe = None
+            else:
+                maybe = ctx.me.color
             em.title = "Wikipedia"
+            em.color = maybe
             em.description = q.url
             em.add_field(name=q.title, value=wikipedia.summary(query, sentences=6))
         except wikipedia.exceptions.PageError:
@@ -236,7 +241,7 @@ class Fuckery():
             em.title = "Error"
             em.add_field(name=cont, value="The phrase you have inputted doesn't resolve one page.")
             em.add_field(name="This may refer to:", value=wikipedia.exceptions.DisambiguationError.may_refer_to)
-        await ctx.send(em)
+        await ctx.send(embed=em)
 
     @commands.command()
     async def time(self, ctx):
