@@ -120,13 +120,24 @@ class Music:
         return song
 
     @commands.command()
-    async def summon(self, ctx):
+    async def connect(self, ctx):
         await ctx.send("Summon is now defunct. Please use the .play command so I can join.")
 
     @commands.command()
     async def play(self, ctx, *, url:str):
         """Enqueues a song to be played"""
         await ctx.channel.trigger_typing()
+        if ctx.voice_client is not None and queue is None:
+            if ctx.author.voice.channel:
+                try:
+                    await ctx.voice_client.disconnect()
+                    await ctx.author.voice.channel.connect()
+                except:
+                    await ctx.send("oop make sure to report this with .notifydev")
+                    await ctx.send(traceback.format_exc())
+                    return
+            else:
+                await ctx.send("You're not in a music channel, fool.")
         if ctx.voice_client is None:
             if ctx.author.voice.channel:
                 try:
@@ -154,10 +165,16 @@ class Music:
     @commands.command()
     async def disconnect(self, ctx):
         """Disconnects the bot from the voice channel"""
-        await self.get_queue(ctx).voice_client.disconnect()
-        self.clear_data(ctx.guild.id)
-        del self.queues[ctx.guild.id]
-        await ctx.send("Alright, see ya.")
+        try:
+            await ctx.voice_client.disconnect()
+            self.clear_data(ctx.guild.id)
+            try:
+                del self.queues[ctx.guild.id]
+            except KeyError:
+                pass
+            await ctx.send("Alright, see ya.")
+        except:
+            await ctx.send(traceback.format_exc())
 
     @commands.command()
     async def pause(self, ctx):

@@ -131,6 +131,8 @@ async def on_ready():
             log.info("The music cache has been cleared!")
         except:
             log.warning("Failed to clear the music cache!")
+    await bot.cogs["Music"].disconnect_all_voice_clients()
+    log.info("Disconnected all voice clients!")
     load_opus_lib()
 
 

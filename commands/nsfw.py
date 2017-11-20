@@ -55,6 +55,7 @@ class NSFW():
             data = json.loads(requests.get("https://e621.net/post/index.json?limit={}&tags={}".format(limit, tags)).text)
         except json.JSONDecodeError:
             await ctx.send("No results found for `{}`".format(tags))
+            print("e621 json decode error")
             return
         count = len(data)
         if count == 0:
