@@ -246,7 +246,7 @@ class Music:
     @commands.command()
     async def np(self, ctx):
         """Shows the song that is currently playing"""
-        await ctx.send("Now playing: {}".format(self.get_queue(ctx).current.title_with_requester))
+        await ctx.send("Now playing: {}".format(self.get_queue(ctx).current.title_with_requester()))
 
 def setup(bot):
     bot.add_cog(Music(bot))
