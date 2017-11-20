@@ -126,6 +126,7 @@ class Music:
     @commands.command()
     async def play(self, ctx, *, url:str):
         """Enqueues a song to be played"""
+        queue = self.get_queue(ctx)
         await ctx.channel.trigger_typing()
         if ctx.voice_client is not None and queue is None:
             if ctx.author.voice.channel:
@@ -148,7 +149,6 @@ class Music:
             else:
                 await ctx.send("You're not in a music channel, fool.")
                 return
-        queue = self.get_queue(ctx)
         url = url.strip(".play <>")# ?
         try:
             song = self.download_video(ctx, url)
