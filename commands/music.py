@@ -86,7 +86,8 @@ class Music:
             try:
                 await self.queues[id].voice_client.disconnect()
                 self.clear_data(id)
-                del self.queues[id]
+                #del self.queues[id]
+                self.queues.pop(id, None)
             except:
                 pass
 
@@ -126,8 +127,18 @@ class Music:
     @commands.command()
     async def play(self, ctx, *, url:str):
         """Enqueues a song to be played"""
-        queue = self.get_queue(ctx)
         await ctx.channel.trigger_typing()
+        if ctx.voice_client is None:
+            if ctx.author.voice.channel:
+                try:
+                    await ctx.author.voice.channel.connect()
+                except discord.errors.Forbidden:
+                    await ctx.send("I can't connect to this channel if I don't have any permissions for it first.")
+                    return
+            else:
+                await ctx.send("You're not in a music channel, fool.")
+                return
+        queue = self.get_queue(ctx)
         if ctx.voice_client is not None and queue is None:
             if ctx.author.voice.channel:
                 try:
@@ -139,16 +150,6 @@ class Music:
                     return
             else:
                 await ctx.send("You're not in a music channel, fool.")
-        if ctx.voice_client is None:
-            if ctx.author.voice.channel:
-                try:
-                    await ctx.author.voice.channel.connect()
-                except discord.errors.Forbidden:
-                    await ctx.send("I can't connect to this channel if I don't have any permissions for it first.")
-                    return
-            else:
-                await ctx.send("You're not in a music channel, fool.")
-                return
         url = url.strip(".play <>")# ?
         try:
             song = self.download_video(ctx, url)
@@ -169,7 +170,8 @@ class Music:
             await ctx.voice_client.disconnect()
             self.clear_data(ctx.guild.id)
             try:
-                del self.queues[ctx.guild.id]
+                #del self.queues[ctx.guild.id]
+                self.queues.pop[ctx.guild.id, None]
             except KeyError:
                 pass
             await ctx.send("Alright, see ya.")
