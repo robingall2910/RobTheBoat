@@ -171,7 +171,7 @@ class Music:
             self.clear_data(ctx.guild.id)
             try:
                 #del self.queues[ctx.guild.id]
-                self.queues.pop[ctx.guild.id, None]
+                self.queues.pop(ctx.guild.id, None)
             except KeyError:
                 pass
             await ctx.send("Alright, see ya.")
