@@ -51,21 +51,6 @@ class Weather():
                     print("The display didn't pass")
                     em = discord.Embed(description="This information is displayed in Celcius.")
                 em.title = "{}'s Current Weather".format(loc)
-                if current.uvIndex == 0:
-                    uvresult = "There probably isn't any sun right now."
-                    uvint = "0"
-                elif current.uvIndex == range(1, 5):
-                    uvresult = "Few sun rays are hitting."
-                    uvint = current.uvIndex
-                elif current.uvIndex == range(5, 8):
-                    uvresult = "Hm.. The sun might be a bit stronk. Wear sunscreen if you're going out."
-                    uvint = current.uvIndex
-                elif current.uvIndex == range(8, 15):
-                    uvresult = "Damn, the sun rays are hitting good here! Wear sunscreen definitely!"
-                    uvint = current.uvIndex
-                else:
-                    uvresult = "Not available."
-                    uvint = "N/A"
                 try:
                     visib = current.visibility
                 except AttributeError:
@@ -113,7 +98,6 @@ class Weather():
                 else:
                     print("visibility in Metric (automatic)")
                     em.add_field(name='Visibility', value="{} kilometers".format(visib), inline=True)
-                em.add_field(name='UV Index', value="{} Current index is **{}**.".format(uvresult, uvint), inline=True)
                 if fio.has_alerts() is True:
                     em.add_field(name='Weather Alert', value=alertresult, inline=True)
                 await ctx.send(embed=em)
