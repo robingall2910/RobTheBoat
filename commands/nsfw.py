@@ -1,5 +1,6 @@
 import random
 import json
+import urllib.request
 
 from discord.ext import commands
 from utils.tools import *
@@ -47,14 +48,18 @@ class NSFW():
     async def e621(self, ctx, *, tags:str):
         """Searches e621.net for the specified tagged images"""
         #needed for searching
-        header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, Like Gecko) Chrome/62.0.3202.94 Safari/537.36'}
+        header = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'}
+        url = "https://e621.net/post/index.json?limit={}&tags={}".format(limit, tags)
         try:
             await ctx.message.delete()
         except:
             pass
         await ctx.channel.trigger_typing()
         try:
-            data = json.loads(requests.get("https://e621.net/post/index.json?limit={}&tags={}".format(limit, tags)).text, headers=header)
+            p = urllib.request.Request(url, None, header)
+            q = urllib.request.urlopen(p).read()
+            data = json.loads(q.decode())
+            #data = json.loads(str(requests.get(url, headers=header)))
         except json.JSONDecodeError:
             await ctx.send("No results found for `{}`".format(tags))
             print("e621 json decode error")
