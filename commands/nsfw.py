@@ -47,7 +47,7 @@ class NSFW():
     async def e621(self, ctx, *, tags:str):
         """Searches e621.net for the specified tagged images"""
         #needed for searching
-        header = 'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, Like Gecko) Chrome/62.0.3202.94 Safari/537.36'
+        header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, Like Gecko) Chrome/62.0.3202.94 Safari/537.36'}
         try:
             await ctx.message.delete()
         except:
