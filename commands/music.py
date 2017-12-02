@@ -150,7 +150,7 @@ class Music:
                     return
             else:
                 await ctx.send("You're not in a music channel, fool.")
-        url = url.strip(".play <>")# ?
+        url = url.strip(".play </>")# ?
         try:
             song = self.download_video(ctx, url)
         except youtube_dl.utils.DownloadError as error:
