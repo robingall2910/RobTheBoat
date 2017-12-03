@@ -45,10 +45,11 @@ class NSFW():
 
     @checks.is_nsfw_channel()
     @commands.command()
-    async def e621(self, ctx, *, tags:str):
+    async def e621(self, ctx, *, t:str):
         """Searches e621.net for the specified tagged images"""
         #needed for searching
-        header = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'}
+        header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0'}
+        tags = t.replace(" ", "%20")
         url = "https://e621.net/post/index.json?limit={}&tags={}".format(limit, tags)
         try:
             await ctx.message.delete()
@@ -74,7 +75,8 @@ class NSFW():
         images = []
         for i in range(image_count):
             images.append(data[random.randint(0, count)]["file_url"])
-        await ctx.send("Showing {} out of {} results for `{}`\n{}".format(image_count, count, tags, "\n".join(images)))
+        pornres = tags.replace("%20", " ")
+        await ctx.send("Showing `{}` out of `{}` results for `{}`\n{}".format(image_count, count, pornres, "\n".join(images)))
 
     @checks.is_nsfw_channel()
     @commands.command()
