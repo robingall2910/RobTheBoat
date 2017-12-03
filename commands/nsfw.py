@@ -65,12 +65,14 @@ class NSFW():
             data = json.loads(q.decode())
             #data = json.loads(str(requests.get(url, headers=header)))
         except json.JSONDecodeError:
-            await ctx.send("No results found for `{}`".format(pornres))
+            await ctx.send("JSON Decode Error! Please report this with .notifydev.")
             print("e621 json decode error")
             return
+        except IndexError:
+            await ctx.send("Nothing was found with `{}`. Either see if your tags are correctly spelt, or adjust it.".format(pornres))
         count = len(data)
         if count == 0:
-            await ctx.send("No results found for `{}`".format(pornres))
+            await ctx.send("Nothing was found with `{}`. Either see if your tags are correctly spelt, or adjust it.".format(pornres))
             return
         image_count = 4
         if count < 4:
