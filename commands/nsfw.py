@@ -49,7 +49,10 @@ class NSFW():
         """Searches e621.net for the specified tagged images"""
         #needed for searching
         header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0'}
+        #for json
         tags = t.replace(" ", "%20")
+        #for human readable tags
+        pornres = tags.replace("%20", " ")
         url = "https://e621.net/post/index.json?limit={}&tags={}".format(limit, tags)
         try:
             await ctx.message.delete()
@@ -62,12 +65,12 @@ class NSFW():
             data = json.loads(q.decode())
             #data = json.loads(str(requests.get(url, headers=header)))
         except json.JSONDecodeError:
-            await ctx.send("No results found for `{}`".format(tags))
+            await ctx.send("No results found for `{}`".format(pornres))
             print("e621 json decode error")
             return
         count = len(data)
         if count == 0:
-            await ctx.send("No results found for `{}`".format(tags))
+            await ctx.send("No results found for `{}`".format(pornres))
             return
         image_count = 4
         if count < 4:
@@ -75,7 +78,6 @@ class NSFW():
         images = []
         for i in range(image_count):
             images.append(data[random.randint(0, count)]["file_url"])
-        pornres = tags.replace("%20", " ")
         await ctx.send("Showing `{}` out of `{}` results for `{}`\n{}".format(image_count, count, pornres, "\n".join(images)))
 
     @checks.is_nsfw_channel()
