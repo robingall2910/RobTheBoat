@@ -49,7 +49,7 @@ class NSFW():
     async def e621(self, ctx, *, t:str):
         """Searches e621.net for the specified tagged images"""
         #needed for searching
-        header = {'User-Agent': 'Some Dragon v{} by robingall2910'.format(BUILD_VERSION)}
+        header = {'Content-Type': 'application/json', 'User-Agent': 'Some Dragon v{} by robingall2910'.format(BUILD_VERSION)}
         #for json
         tags = t.replace(" ", "%20")
         #for human readable tags
