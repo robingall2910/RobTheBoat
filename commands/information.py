@@ -8,7 +8,7 @@ from utils.unicode import *
 from utils.config import Config
 config = Config()
 
-halloween = date(2017, 10, 31)
+halloween = date(2018, 10, 31)
 christmas = date(2017, 12, 25)
 newyear = date(2018, 1, 1)
 
