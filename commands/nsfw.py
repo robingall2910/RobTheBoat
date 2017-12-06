@@ -7,6 +7,7 @@ from utils.tools import *
 from utils.mysql import *
 from utils.config import Config
 from utils import checks
+from utils.buildinfo import BUILD_VERSION
 config = Config()
 
 # This is the limit to how many posts are selected
@@ -48,11 +49,10 @@ class NSFW():
     async def e621(self, ctx, *, t:str):
         """Searches e621.net for the specified tagged images"""
         #needed for searching
-        header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0'}
+        header = {'User-Agent': 'Some Dragon v{} by robingall2910'.format(BUILD_VERSION)}
         #for json
         tags = t.replace(" ", "%20")
         #for human readable tags
-        pornres = tags.replace("%20", " ")
         url = "https://e621.net/post/index.json?limit={}&tags={}".format(limit, tags)
         try:
             await ctx.message.delete()
@@ -69,10 +69,10 @@ class NSFW():
             print("e621 json decode error")
             return
         except IndexError:
-            await ctx.send("Nothing was found with `{}`. Either see if your tags are correctly spelt, or adjust it.".format(pornres))
+            await ctx.send("Nothing was found with `{}`. Either see if your tags are correctly spelt, or adjust it.".format(t))
         count = len(data)
         if count == 0:
-            await ctx.send("Nothing was found with `{}`. Either see if your tags are correctly spelt, or adjust it.".format(pornres))
+            await ctx.send("Nothing was found with `{}`. Either see if your tags are correctly spelt, or adjust it.".format(t ))
             return
         image_count = 4
         if count < 4:
@@ -80,7 +80,7 @@ class NSFW():
         images = []
         for i in range(image_count):
             images.append(data[random.randint(0, count)]["file_url"])
-        await ctx.send("Showing `{}` out of `{}` results for `{}`\n{}".format(image_count, count, pornres, "\n".join(images)))
+        await ctx.send("Showing `{}` out of `{}` results for `{}`\n{}".format(image_count, count, t, "\n".join(images)))
 
     @checks.is_nsfw_channel()
     @commands.command()
