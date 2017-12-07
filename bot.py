@@ -556,7 +556,7 @@ async def ping(ctx):
          "marmalade.. yes.. porridge is nice, any cereal.. I like all cereals..",
          "so, how's was trumps bullshit on executive orders?", "don't sign the I-407 in the airport", "hi",
          "hi can i get a  uh h hh h h h ", "stop pinging me", "go away nerd", "i secretly love you", "owo", "uwu",
-         "google blobs are the best", "lets keep advertising viralbot more!", "napstabot isn't good :^)"])
+         "google blobs are the best", "lets keep advertising viralbot more!", "napstabot isn't good :^)", "haha net neutrality is dead right? xd"])
     topkek = memes
     pingms = await ctx.send(topkek)
     r = pyping.ping('dragonfire.me')
