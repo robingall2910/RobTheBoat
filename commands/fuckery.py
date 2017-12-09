@@ -240,7 +240,8 @@ class Fuckery():
         except wikipedia.exceptions.DisambiguationError:
             em.title = "Error"
             em.add_field(name=cont, value="The phrase you have inputted doesn't resolve one page.")
-            em.add_field(name="This may refer to:", value=wikipedia.exceptions.DisambiguationError.may_refer_to)
+            em.add_field(name="This may refer to:", value=wikipedia.exceptions.DisambiguationError.may_refer_to[:1000])
+            em.add_field(name="", value=wikipedia.exceptions.DisambiguationError.may_refer_to[1000:])
         await ctx.send(embed=em)
 
     @commands.command()
