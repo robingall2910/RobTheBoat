@@ -233,15 +233,14 @@ class Fuckery():
             em.title = "Wikipedia"
             em.color = maybe
             em.description = q.url
-            em.add_field(name=q.title, value=wikipedia.summary(query, sentences=6))
+            print(wikipedia.summary(query, sentences=4))
+            em.add_field(name=q.title, value=wikipedia.summary(query, sentences=4))
         except wikipedia.exceptions.PageError:
             em.title = "Error"
             em.add_field(name=cont, value="The phrase you have inputted does not resolve any pages.")
         except wikipedia.exceptions.DisambiguationError:
             em.title = "Error"
-            em.add_field(name=cont, value="The phrase you have inputted doesn't resolve one page.")
-            em.add_field(name="This may refer to:", value=wikipedia.exceptions.DisambiguationError.may_refer_to[:1000])
-            em.add_field(name="", value=wikipedia.exceptions.DisambiguationError.may_refer_to[1000:])
+            await ctx.send("Looks like there's more than one result. This may refer to the below: \n{}".format(wikipedia.exceptions.DisambiguationError.may_refer_to[:1985]))
         await ctx.send(embed=em)
 
     @commands.command()
@@ -281,10 +280,6 @@ class Fuckery():
         await ctx.channel.trigger_typing()
         await ctx.send("la meme xd xd")
         await ctx.send(file=discord.File( "assets/imgs/lameme.jpg"))
-
-    @commands.command()
-    async def yiffvember(self, ctx):
-        await ctx.send("It's YIFFvember 🐺🎃 u know what that means 👀👅 furry fucking awareness month 🐔🐥🏼👅 send this to 12 of ur closest furries 🐾😈 that love that fur 🐶🐶🐶💦💦💦 🎃🎃🎃🎃🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃 🎃🎃 🎃🎃🎃🎃🎃 🎃 🎃 🎃 🎃 🎃 🎃 PAW-O-WEEN 🎃is upon us !! If you get this message ✉️ you are monarch🐱🏿 of the furries!!! Forward this to 7⃣ of the 🐶YiFfIeSt🐶 furries 🐰🏿 that you know will get some 🐺🏿🐯🏿 soon !!! If you don't, be prepared 🐴🏿 for 4⃣2⃣0⃣ days of bad luck ⚠️ 🍀")
 
     @commands.command()
     async def msgquote(self, ctx, id:int):
