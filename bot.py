@@ -464,14 +464,11 @@ async def dm(ctx, somethingelse: int, *, message: str):
     except Exception as e:
         await ctx.send("Error: " + str(e))
 
-"""
 @bot.command(hidden=True)
 @checks.is_dev()
-async def wt(ctx, id: str, *, message: str):
+async def wt(ctx, id:int, *, message: str):
     await ctx.send("Sent the message to ID " + id + ".")
-    await bot.send_message(discord.Object(id=id), message) # There's no good rw replacement
-"""
-
+    await bot.get_user(id).send(message)
 
 @bot.command()
 async def uptime(ctx):

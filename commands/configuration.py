@@ -46,8 +46,8 @@ class Configuration():
         nsfw_channel_name = read_data_entry(ctx.guild.id, "nsfw-channel")
         mute_role_name = read_data_entry(ctx.guild.id, "mute-role")
         em = discord.Embed(description="\u200b")
-        em.color = ctx.message.server.me.color
-        em.title = "Server Configuration for " + ctx.guild.server.name
+        em.color = ctx.guild.me.color
+        em.title = "Server Configuration for " + ctx.guild.name
         em.add_field(name='Mod Role Name', value=mod_role_name)
         em.add_field(name='NSFW Channel Name', value=nsfw_channel_name)
         em.add_field(name='Mute Role Name', value=mute_role_name)
