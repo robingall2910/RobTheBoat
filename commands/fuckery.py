@@ -233,7 +233,6 @@ class Fuckery():
             em.title = "Wikipedia"
             em.color = maybe
             em.description = q.url
-            print(wikipedia.summary(query, sentences=4))
             em.add_field(name=q.title, value=wikipedia.summary(query, sentences=4))
         except wikipedia.exceptions.PageError:
             em.title = "Error"
