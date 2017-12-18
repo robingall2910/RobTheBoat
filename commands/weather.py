@@ -70,11 +70,11 @@ async def weather(self, ctx, *, addr: str):
         if farenheit is True:
             em.add_field(name='Currently', value='{}°F {}.'.format(c.temperature, d.summary))
             em.add_field(name='Wind Speed/Gust', value="{} mph/{} mph".format(c.windSpeed, c.windGust))
-            em.add_field(name='Visibility', value="{} miles".format(c.visibility))
+            em.add_field(name='Visibility', value="{} miles".format(visib))
         else:
             em.add_field(name='Currently', value='{}°C {}.'.format(c.temperature, d.summary))
             em.add_field(name='Wind Speed/Gust', value="{} kph/{} kph".format(c.windSpeed, c.windGust))
-            em.add_field(name='Visibility', value="{} kilometers".format(c.visibility))
+            em.add_field(name='Visibility', value="{} kilometers".format(visib))
         em.color = maybe
         em.add_field(name='Humidity', value="{:.0%}".format(c.humidity))
         em.add_field(name='UV Index', value=whatever)
@@ -85,21 +85,21 @@ async def weather(self, ctx, *, addr: str):
     except Exception as e:
         await ctx.send("```py\n{}\n```".format(e))
 
-    @commands.command()
-    async def locate(self, ctx, *, address: str):
-        """Go fucking stalk someone"""
-        try:
-            g = geocoder.google(address)
-            loc = g.json
-            var = json.dumps(loc)
-            k = json.loads(var)
-            if k['status'] == 'OK':
-                yes = k['address']
-            elif k['status'] == 'ZERO_RESULTS':
-                yes = "There's no results found for this location."
-            await ctx.send(yes)
-        except Exception as e:
-            await ctx.send("```py\n{}\n```".format(e))
+@commands.command()
+async def locate(self, ctx, *, address: str):
+    """Go fucking stalk someone"""
+    try:
+        g = geocoder.google(address)
+        loc = g.json
+        var = json.dumps(loc)
+        k = json.loads(var)
+        if k['status'] == 'OK':
+            yes = k['address']
+        elif k['status'] == 'ZERO_RESULTS':
+            yes = "There's no results found for this location."
+        await ctx.send(yes)
+    except Exception as e:
+        await ctx.send("```py\n{}\n```".format(e))
 
 def setup(bot):
     bot.add_cog(Weather(bot))
