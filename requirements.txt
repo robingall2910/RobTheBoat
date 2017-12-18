@@ -8,3 +8,4 @@ youtube_dl
 python-forecastio
 postgres
 asyncqlio
+random-cat
