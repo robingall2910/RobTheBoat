@@ -1,11 +1,10 @@
-#import forecastiopy
 import geocoder
 import json
 import discord
 import datetime
+import forecastio
+import time
 
-from forecastiopy import *
-from darksky import forecast
 from discord.ext import commands
 from utils.sharding import darkskyapi
 
@@ -15,96 +14,76 @@ class Weather():
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    async def weather(self, ctx, *, address: str):
-        """Dark Sky Weather Results"""
-        if ctx.message.author == ctx.message.author: #filler
-            try:
-                g = geocoder.google(address)
-                results = g.latlng
-                loc = g.address
-                #if any(sin in address for sin in the_sin):
-                #    theresult = True
-                #else:
-                #    theresult = False
-                if ", USA" in loc:
-                    thedisplay = True
-                    thevariable = True
-                elif ", USA" not in loc:
-                    thedisplay = False
-                    thevariable = False
-                if ", UK" in loc:
-                    print("Passing as United Kingdom")
-                    fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1], units=ForecastIO.ForecastIO.UNITS_UK)
-                if ", Canada" in loc:
-                    print("Passing as Canada")
-                    fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1], units=ForecastIO.ForecastIO.UNITS_CA)
-                else:
-                    print("Passing with an automatic unit")
-                    fio = ForecastIO.ForecastIO(api_key, latitude=results[0], longitude=results[1])
-                current = FIOCurrently.FIOCurrently(fio)
-                ds = forecast(api_key, int(results[0]), int(results[1]))
-                if thedisplay == True:
-                    print("The display passed")
-                    em = discord.Embed(description="This information is displayed in Farenheit.")
-                elif thedisplay == False:
-                    print("The display didn't pass")
-                    em = discord.Embed(description="This information is displayed in Celcius.")
-                em.title = "{}'s Current Weather".format(loc)
-                try:
-                    visib = current.visibility
-                except AttributeError:
-                    visib = "N/A"
-                if ctx.me.color == None:
-                    maybe = None
-                else:
-                    maybe = ctx.me.color
-                try:
-                    expiretime = datetime.datetime.fromtimestamp(int(ds.alerts[0].expires)).strftime('%A %B %d, %Y %I:%M %Z')
-                    print("expire time passed")
-                    counties = ', '.join(ds.alerts[0].regions)
-                    print("joining counties passed")
-                    alertresult = "{} in {}, expiring at {}. More info [at NWS]({} 'National Weather Service')".format(ds.alerts[0].title, counties, expiretime, ds.alerts[0].uri)
-                    print("alert setup complete")
-                except Exception as e:
-                    alertresult = e
-                em.set_thumbnail(url="https://dragonfire.me/474be77b-23bc-42e4-a779-6eb7b3b9a892.jpg")
-                em.color = maybe
-                if thevariable == True:
-                    print("The variable passed")
-                    em.add_field(name='Temperature', value="{}°F".format(current.temperature), inline=True)
-                elif thevariable == False:
-                    print("The variable didn't pass")
-                    em.add_field(name='Temperature', value="{}°C".format(current.temperature), inline=True)
-                em.add_field(name='Currently', value="{}".format(current.summary), inline=True)
-                em.add_field(name='Humidity', value="{:.0%}".format(current.humidity), inline=True)
-                #this is a bit tricky when it comes to some countries so i'll leave it as is
-                if ", UK" in loc:
-                    print("speeds as UK")
-                    em.add_field(name='Wind Speed/Gust (imperial)', value="{} mph/{} mph".format(current.windSpeed, current.windGust), inline=True)
-                if ", USA" in loc:
-                    print("speeds as America")
-                    em.add_field(name='Wind Speed/Wind Gust', value="{} mph/{} mph".format(current.windSpeed, current.windGust), inline=True)
-                else:
-                    print("speeds in Metric (automatic)")
-                    em.add_field(name='Wind Speed/Gust', value="{} km/h/{} km/h".format(current.windSpeed, current.windGust), inline=True)
-                #same for this
-                if ", UK" in loc:
-                    print("visibilty as UK")
-                    em.add_field(name='Visibility (imperial)', value="{} miles".format(visib), inline=True)
-                if ", USA" in loc:
-                    print("visibility as America")
-                    em.add_field(name='Visibility', value="{} miles".format(visib), inline=True)
-                else:
-                    print("visibility in Metric (automatic)")
-                    em.add_field(name='Visibility', value="{} kilometers".format(visib), inline=True)
-                if fio.has_alerts() is True:
-                    em.add_field(name='Weather Alert', value=alertresult, inline=True)
-                await ctx.send(embed=em)
-            except Exception as fucking_hell:
-                await ctx.send("```py\n{}\n```".format(fucking_hell))
+@commands.command()
+async def weather(self, ctx, *, addr: str):
+    """Go check the weather out :^)"""
+    try:
+        # variable setup
+        g = geocoder.google(addr)
+        results = g.latlng
+        loc = g.address
+        forecast = forecastio.load_forecast(api_key, results[0], results[1])
+        c = forecast.currently()
+        d = forecast.daily()
+        a = forecast.alerts()
+        em = discord.Embed(description="")
+        #localization
+        if ", USA" in loc:
+            farenheit = True
+        elif ", USA" not in loc:
+            farenheit = False
+        em.title = "Current Weather for {}".format(loc)
+        # visibility
+        try:
+            visib = c.visibility
+        except Exception:
+            visib = "N/A"
+        #color the sidebar
+        if ctx.me.color == None:
+            maybe = None
         else:
-            await ctx.send("Location isn't found or the given zip code or address is too short. Try again.")
+            maybe = ctx.me.color
+        #weather alerts
+        try:
+            a1 = a[0]
+            expiretime = datetime.datetime.fromtimestamp(int(a1.expires)).strftime('%A %B %d, %Y %I:%M %p')
+            areas = ', '.join(a1.regions)
+            alertresult = "{} in {}. Expires {}. Click [here]({} 'National Weather Service/MET Office')".format(a1.title, areas, expiretime, a1.uri)
+        except Exception as e:
+            print("weather alert broke")
+            print(e)
+            weatheralert = False
+        #uv index
+        if c.uvIndex == 0:
+            whatever = "**{}**. There's no light. Darkness is great.".format(c.uvIndex)
+        if c.uvIndex in (1, 2):
+            whatever = "**{}**. There's light, but it's eh.".format(c.uvIndex)
+        if c.uvIndex in (3, 4, 5):
+            whatever = "**{}**. Pretty sunny... Have fun outside.".format(c.uvIndex)
+        if c.uvIndex in (6, 7):
+            whatever = "**{}**. Plenty of sun! Wear sunscreen!.".format(c.uvIndex)
+        if c.uvIndex in (8, 9, 10):
+            whatever = "**{}**. I think it's starting get a bit too much. Get some shade from time to time.".format(c.uvIndex)
+        if c.uvIndex in (11, 12, 13): #fuck going higher
+            whatever = "**{}**. Definitely try to avoid the sunlight at the peak of day, unless you want to burn in hell.".format(c.uvIndex)
+        #here it begins
+        if farenheit is True:
+            em.add_field(name='Currently', value='{}°F {}.'.format(c.temperature, d.summary))
+            em.add_field(name='Wind Speed/Gust', value="{} mph/{} mph".format(c.windSpeed, c.windGust))
+            em.add_field(name='Visibility', value="{} miles".format(c.visibility))
+        else:
+            em.add_field(name='Currently', value='{}°C {}.'.format(c.temperature, d.summary))
+            em.add_field(name='Wind Speed/Gust', value="{} kph/{} kph".format(c.windSpeed, c.windGust))
+            em.add_field(name='Visibility', value="{} kilometers".format(c.visibility))
+        em.color = maybe
+        em.add_field(name='Humidity', value="{:.0%}".format(c.humidity))
+        em.add_field(name='UV Index', value=whatever)
+        if weatheralert is True:
+            em.add_field(name='Weather Alert', value=alertresult)
+        em.set_footer(text="Powered by Dark Sky / Last updated: {}".format(time.strftime("%I:%M:%S %p %Z")), icon_url='https://darksky.net/images/darkskylogo.png')
+    #if anything breaks
+    except Exception as e:
+        await ctx.send("```py\n{}\n```".format(e))
 
     @commands.command()
     async def locate(self, ctx, *, address: str):

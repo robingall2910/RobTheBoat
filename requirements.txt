@@ -5,6 +5,6 @@ pyping
 discord[voice]
 urllib
 youtube_dl
-forecastiopy
+python-forecastio
 postgres
 asyncqlio
