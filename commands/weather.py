@@ -26,7 +26,7 @@ class Weather():
             c = forecast.currently()
             d = forecast.daily()
             a = forecast.alerts()
-            em = discord.Embed(description="{}\n".format(d.summary))
+            em = discord.Embed(description="{}".format(d.summary))
             #localization
             if ", USA" in loc:
                 farenheit = True
@@ -93,18 +93,18 @@ class Weather():
                 em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Hail.svg')
             #here it begins
             if farenheit is True:
-                em.add_field(name='Currently', value='{}°F'.format(c.temperature))
-                em.add_field(name='Wind Speed/Gust', value="{} mph/{} mph".format(c.windSpeed, c.windGust))
-                em.add_field(name='Visibility', value="{} miles".format(visib))
+                em.add_field(name='Currently', value='{}°F'.format(c.temperature), inline=True)
+                em.add_field(name='Wind Speed/Gust', value="{} mph/{} mph".format(c.windSpeed, c.windGust), inline=True)
+                em.add_field(name='Visibility', value="{} miles".format(visib), inline=True)
             else:
-                em.add_field(name='Currently', value='{}°C'.format(c.temperature))
-                em.add_field(name='Wind Speed/Gust', value="{} kph/{} kph".format(c.windSpeed, c.windGust))
-                em.add_field(name='Visibility', value="{} kilometers".format(visib))
+                em.add_field(name='Currently', value='{}°C'.format(c.temperature), inline=True)
+                em.add_field(name='Wind Speed/Gust', value="{} kph/{} kph".format(c.windSpeed, c.windGust), inline=True)
+                em.add_field(name='Visibility', value="{} kilometers".format(visib), inline=True)
             em.color = maybe
-            em.add_field(name='Humidity', value="{:.0%}".format(c.humidity))
-            em.add_field(name='UV Index', value=whatever)
+            em.add_field(name='Humidity', value="{:.0%}".format(c.humidity), inline=True)
+            em.add_field(name='UV Index', value=whatever, inline=True)
             if weatheralert is True:
-                em.add_field(name='Weather Alert', value=alertresult)
+                em.add_field(name='Weather Alert', value=alertresult, inline=True)
             em.set_footer(text="Powered by Dark Sky / Last updated: {}".format(time.strftime("%I:%M:%S %p %Z")), icon_url='https://darksky.net/images/darkskylogo.png')
             await ctx.send(embed=em)
         #if anything breaks
