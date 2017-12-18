@@ -33,7 +33,6 @@ class Weather():
             elif ", USA" not in loc:
                 farenheit = False
             em.title = "Current Weather for {}".format(loc)
-            em.url = 'http://darksky.net/poweredby/'
             # visibility
             try:
                 visib = c.visibility
