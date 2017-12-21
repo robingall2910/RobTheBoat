@@ -193,10 +193,11 @@ async def on_message(message):
         return
     if getblacklistentry(message.author.id) is not None:
         return
-    if ctx.message.guild.id == 142361999538520065:
-        if ctx.message.channel.id == 201370629738463233:
-            if "<@!169597963507728384>" in ctx.message.content:
-                await ctx.send("no mention seth pls kthx")
+    if bot.user.id == 163698730866966528:
+        if ctx.message.guild.id == 142361999538520065:
+            if ctx.message.channel.id == 201370629738463233:
+                if "<@!169597963507728384>" in ctx.message.content:
+                    await ctx.send("no mention seth pls kthx")
     await bot.process_commands(message)
 
 @bot.command(hidden=True)
