@@ -197,7 +197,7 @@ async def on_message(message):
         if message.guild.id == 142361999538520065:
             if message.channel.id == 201370629738463233:
                 if "<@!169597963507728384>" in message.content:
-                    await ctx.send("no mention seth pls kthx")
+                    await message.channel.send("no mention seth pls kthx")
     await bot.process_commands(message)
 
 @bot.command(hidden=True)
@@ -470,9 +470,16 @@ async def dm(ctx, somethingelse: int, *, message: str):
 
 @bot.command(hidden=True)
 @checks.is_dev()
-async def wt(ctx, id:int, *, message: str):
-    await ctx.send("Sent the message to ID " + id + ".")
-    await bot.get_user(id).send(message)
+async def wt(ctx, meme, id:int, *, message: str):
+    if meme is "user":
+        await ctx.send("Sent the message to ID " + str(id) + ".")
+        await bot.get_user(id).send(message)
+    if meme is "channel":
+        await ctx.send("Send the message to ID " + str(id) + ".")
+        await bot.get_channel(id).send(message)
+    else:
+        await ctx.send("hey, that isn't a proper type kiddo. either `user` or `channel`. you choose.")
+
 
 @bot.command()
 async def uptime(ctx):
