@@ -86,7 +86,7 @@ class Weather():
             if c.icon == 'partly-cloudy-day':
                 em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Sun.svg')
             if c.icon == 'partly-cloudy-night':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Mood.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Moon.svg')
             if c.icon == 'thunderstorm':
                 em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Lightning.svg')
             if c.icon == 'hail':
