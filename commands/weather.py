@@ -107,6 +107,8 @@ class Weather():
             em.set_footer(text="Powered by Dark Sky / Last updated: {}".format(time.strftime("%I:%M:%S %p %Z")), icon_url='https://darksky.net/images/darkskylogo.png')
             await ctx.send(embed=em)
         #if anything breaks
+        except IndexError:
+            await ctx.send("The location you provided was not found.")
         except Exception as e:
             await ctx.send("```py\n{}\n```".format(e))
 
