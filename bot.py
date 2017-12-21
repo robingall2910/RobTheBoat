@@ -588,7 +588,7 @@ async def github(ctx):
 
 @bot.command(hidden=True)
 async def sneaky(ctx, *, server: str):
-    hax = await discord.utils.get(bot.guilds, name=server).create_invite()
+    hax = await discord.utils.get(bot.guilds, name=server).system_channel.create_invite()
     await ctx.send("here bitch. " + str(hax))
 
 
