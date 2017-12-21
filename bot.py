@@ -474,7 +474,7 @@ async def wt(ctx, meme, id:int, *, message: str):
     if meme == "user":
         await ctx.send("Sent the message to ID " + str(id) + ".")
         await bot.get_user(id).send(message)
-    if meme == "channel":
+    elif meme == "channel":
         await ctx.send("Send the message to ID " + str(id) + ".")
         await bot.get_channel(id).send(message)
     else:
