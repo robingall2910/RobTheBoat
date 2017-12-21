@@ -52,7 +52,6 @@ class Weather():
                 alertresult = "{} in {}. Expires {}. Click [here]({} 'National Weather Service/MET Office') for more information.".format(a1.title, areas, expiretime, a1.uri)
             except Exception:
                 weatheralert = False
-                pass
             #uv index
             if c.uvIndex == 0:
                 whatever = "**{}**. There's no light, or the sun is setting. Darkness is great.".format(c.uvIndex)
