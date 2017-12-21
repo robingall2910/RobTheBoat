@@ -67,29 +67,29 @@ class Weather():
                 whatever = "**{}**. Definitely try to avoid the sunlight at the peak of day, unless you want to burn in hell.".format(c.uvIndex)
             #icon setup :)
             if c.icon == 'clear-day':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Sun.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Sun.png')
             if c.icon == 'clear-night':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Moon.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Moon.png')
             if c.icon == 'rain':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Rain.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Rain.png')
             if c.icon == 'snow':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Snow.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Snow.png')
             if c.icon == 'sleet':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Drizzle.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Drizzle.png')
             if c.icon == 'wind':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Wind.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Wind.png')
             if c.icon == 'fog':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Fog.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Fog.png')
             if c.icon == 'cloudy':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud.png')
             if c.icon == 'partly-cloudy-day':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Sun.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Sun.png')
             if c.icon == 'partly-cloudy-night':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Moon.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Moon.png')
             if c.icon == 'thunderstorm':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Lightning.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Lightning.png')
             if c.icon == 'hail':
-                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Hail.svg')
+                em.set_thumbnail(url='https://dragonfire.me/climacons/Cloud-Hail.png')
             #here it begins
             if farenheit is True:
                 em.add_field(name='Currently', value='{}°F'.format(c.temperature), inline=True)
