@@ -84,7 +84,8 @@ async def set_default_status():
                 os._exit(1)
             game = discord.Game(name=game, url="http://twitch.tv/robingall2910", type=1)
         else:
-            game = discord.Game(name="distributing porno since 2016")
+            game = discord.Game(
+                name="want to say hi? wanna meme? wanna bitch at me? join the official server! http://discord.gg/fY6JSDf")
         await bot.change_presence(status=type, game=game)
     else:
         await bot.change_presence(status=type)
@@ -193,11 +194,6 @@ async def on_message(message):
         return
     if getblacklistentry(message.author.id) is not None:
         return
-    if bot.user.id == 163698730866966528:
-        if message.guild.id == 142361999538520065:
-            if message.channel.id == 201370629738463233:
-                if "<@!169597963507728384>" in message.content:
-                    await message.channel.send("no mention seth pls kthx")
     await bot.process_commands(message)
 
 @bot.command(hidden=True)
@@ -542,9 +538,8 @@ async def joinserver(ctx):
 @bot.command()
 async def invite(ctx):
     """Sends an invite link to the bot's server"""
-    await ctx.author.send("Here's the invite for some bot help: `https://discord.gg/vvAKvaG` "
-                          "Report with {}notifydev if there's an issue with the link.".format(
-                              bot.command_prefix))
+    await ctx.author.send("Here's the invite for some bot help: `http://discord.gg/fY6JSDf` "
+                          "Report with .notifydev if there's an issue with the link.")
 
 
 @bot.command()
