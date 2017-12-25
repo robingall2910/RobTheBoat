@@ -448,7 +448,7 @@ async def version(ctx):
 async def dm(ctx, somethingelse: int, *, message: str):
     """DMs a user"""
     user = bot.get_user(somethingelse)
-    owner = bot.get_user(config.owner_id)
+    owner = bot.get_user(int(config.owner_id))
     msg = make_message_embed(ctx.message.author, 0xE19203, message, formatUser=True)
     try:
         await user.send("You have a new message from the devs!", embed=msg)
@@ -457,10 +457,13 @@ async def dm(ctx, somethingelse: int, *, message: str):
                                    ctx.message.author, user.name, user.discriminator, somethingelse, str(bot.shard_id)),
                                embed=make_message_embed(ctx.message.author, 0xCC0000, message))
         for fuck in config.dev_ids:
-            xd = bot.get_user(fuck)
-            await xd.send("`{}` has replied to a recent DM with `{}#{}` an ID of `{}`, and Shard ID `{}`.".format(
-                          ctx.message.author, user.name, user.discriminator, somethingelse, str(bot.shard_id)),
-                          embed=make_message_embed(ctx.message.author, 0xCC0000, message))
+            try:
+                xd = bot.get_user(fuck)
+                await xd.send("`{}` has replied to a recent DM with `{}#{}` an ID of `{}`, and Shard ID `{}`.".format(
+                              ctx.message.author, user.name, user.discriminator, somethingelse, str(bot.shard_id)),
+                              embed=make_message_embed(ctx.message.author, 0xCC0000, message))
+            except:
+                pass # Don't throw an error when you can't find a dev
     except Exception as e:
         await ctx.send("Error: " + str(e))
 
