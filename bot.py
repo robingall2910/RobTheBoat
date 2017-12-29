@@ -16,7 +16,7 @@ from utils import checks
 from utils.bootstrap import Bootstrap
 from utils.buildinfo import *
 from utils.channel_logger import Channel_Logger
-from utils.config import Config
+from utils.config import Config 
 from utils.logger import log
 from utils.mysql import *
 from utils.opus_loader import load_opus_lib
@@ -33,7 +33,7 @@ config = Config()
 if config.debug:
     log.enableDebugging()  # pls no flame
 
-bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(config.command_prefix), description="A multipurposed bot with a theme for the furry fandom. Contains nsfw, info, weather, music and much more.", pm_help=None)
+bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(config.command_prefix), description="A bot with several purposes, like music, memes, weather, but based off of the furry fandom.", pm_help=None)
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
@@ -210,25 +210,6 @@ async def debug(ctx, *, shit: str):
     except Exception as damnit:
         await ctx.send(py.format("{}: {}".format(type(damnit).__name__, damnit)))
 
-
-"""@bot.command(hidden=True, pass_context=True)
-@checks.is_dev()
-async def eval(ctx, self):
-    await bot.say("Eval enabled. Insert the code you want to evaluate. If you don't want to, type `quit` to exit.")
-    if death = await bot.wait_for_message(author=ctx.message.author, content=quit):
-        return
-    else:
-        to_the_death = await bot.wait_for_message(author=ctx.message.author)
-        try:
-            ethan_makes_me_suffer = eval(to_the_death)
-            if asyncio.iscoroutine(ethan_makes_me_suffer):
-                ethan_makes_me_suffer = await ethan_makes_me_suffer
-            await bot.say(py.format(ethan_makes_me_suffer))
-        except Exception as why_do_you_do_this_to_me:
-            await bot.say(py.format("{}: {}".format(type(why_do_you_do_this_to_me).__name__, why_do_you_do_this_to_me)))
-            """
-
-
 @bot.command(hidden=True)
 @checks.is_owner()
 async def rename(ctx, *, name: str):
@@ -274,7 +255,7 @@ async def setavatar(ctx, *, url: str = None):
 
 @bot.command()
 async def notifydev(ctx, *, message:str):
-    """Sends a message to the developers"""
+    """Use this if you have bug issues, sends a message to devs"""
     if isinstance(ctx.channel, discord.DMChannel):
         guild = "`Sent via Direct Messages`"
     else:
@@ -288,8 +269,24 @@ async def notifydev(ctx, *, message:str):
         if dev:
             await dev.send("You have received a new message! The user's ID is `{}` Server: {}".format(ctx.author.id, guild), embed=msg)
     await ctx.author.send("You've sent in a message to the developers. Your message was: `{}`".format(message))
+    await ctx.author.send("Only use this for bug reports. Any other things, like suggestions, you may use .suggestions")
     await ctx.send("Completed the quest.")
 
+@bot.command()
+async def suggest(ctx, *, message:str):
+    """Sends a suggestion to the main developers"""
+    if isinstance(ctx.channel, discord.DMChannel):
+        guild = "`Sent via Direct Messages`"
+    else:
+        guild = "`{}` / `{}`".format(ctx.guild.id, ctx.guild.name)
+    msg = make_message_embed(ctx.author, 0xFF0000, message, formatUser=True)
+    owner = bot.get_user(config.owner_id)
+    if owner:
+        await owner.send("You've received a new suggestion! The user's ID is `{}` Server: {}".format(ctx.author.id, guild), embed=msg)
+    seth = 169597963507728384
+    if seth:
+        await seth.send("You've received a new suggestion! The user's ID is `{}` Server: {}".format(ctx.author.id, guild), embed=msg)
+        await ctx.author.send("You've successfully sent the suggestion in.")
 
 @bot.command(hidden=True)
 @checks.is_dev()
@@ -306,13 +303,9 @@ async def blacklist(ctx, id: int, *, reason: str):
     blacklistuser(id, user.name, user.discriminator, reason)
     await ctx.send("Ok, blacklisted `{}` Reason: `{}`".format(user, reason))
     try:
-        await user.send("You've been blacklisted. We aren't supposed to talk. Sorry. `{}` Reason: `{}`".format(
-                                   ctx.message.author, reason))
+        await user.send("You've been blacklisted. We aren't supposed to talk. Sorry. `{}` Reason: `{}`".format(ctx.message.author, reason))
     except:
         log.debug("Couldn't send a message to a user with an ID of \"{}\"".format(id))
-        # await channel_logger.log_to_channel(":warning: `{}` blacklisted `{}`/`{}` Reason: `{}`".format
-        # (ctx.message.author, id, user, reason))
-
 
 @bot.command(hidden=True)
 @checks.is_dev()
@@ -334,8 +327,6 @@ async def unblacklist(ctx, id: int):
                                    ctx.message.author))
     except:
         log.debug("Can't send msg to \"{}\"".format(id))
-        # await channel_logger.log_to_channel(":warning: `{}` unblacklisted `{}`/`{}#{}`".format(ctx.message.author,
-        # id, entry.get("name"), entry.get("discrim")))
 
 
 @bot.command()

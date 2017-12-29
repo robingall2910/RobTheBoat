@@ -9,7 +9,8 @@ from utils.config import Config
 config = Config()
 
 halloween = date(2018, 10, 31)
-christmas = date(2017, 12, 25)
+christmas = date(2018, 12, 25)
+#reminder: change this January 2nd
 newyear = date(2018, 1, 1)
 
 class Information():

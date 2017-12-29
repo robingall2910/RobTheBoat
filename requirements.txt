@@ -3,9 +3,9 @@ darkskylib
 geocoder
 pyping
 discord[voice]
-urllib
 youtube_dl
 python-forecastio
 postgres
 asyncqlio
 random-cat
+aiohttp
