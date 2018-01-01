@@ -235,7 +235,7 @@ class Music:
 
     @commands.command()
     async def volume(self, ctx, amount:float=None):
-        """changes bot volume for music""" #if they fuck up, this can be gone asf
+        """changes bot volume for music"""
         queue = self.get_queue(ctx)
         if not amount:
             await ctx.send("The current volume is `{:.0%}`".format(queue.voice_client.source.volume))

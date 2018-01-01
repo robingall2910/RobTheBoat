@@ -10,8 +10,7 @@ config = Config()
 
 halloween = date(2018, 10, 31)
 christmas = date(2018, 12, 25)
-#reminder: change this January 2nd
-newyear = date(2018, 1, 1)
+newyear = date(2019, 1, 1)
 
 class Information():
     def __init__(self, bot):
