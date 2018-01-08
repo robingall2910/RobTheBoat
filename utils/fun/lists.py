@@ -255,7 +255,12 @@ jake = [
     "I'd rather eat food and get fat then having a chance of stds :shrug:",
     "the queen is cool",
     "boi im gonna beat your ass how dare u disrepesct the queen",
-    "britains cooler then australia though"
+    "britains cooler then australia though",
+    "eat my ass",
+    "eat my ass",
+    "eat my ass",
+    "eat my ass",
+    "eat my ass"
 ]
     
 
