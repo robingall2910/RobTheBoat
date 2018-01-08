@@ -268,7 +268,8 @@ jake = [
     "pepsi over coke",
     "fuck coke",
     "i love pepsi",
-    "i dont go to a private school and i'm not rich"
+    "i dont go to a private school and i'm not rich",
+    "I can relate to everything the bot says about me\nprobably because I said it"
 ]
     
 
@@ -287,9 +288,10 @@ zekurt = [
     "fuckboi indeed",
     "damn",
     "ah shit",
+    #these following 3 are together
     "hah get fucked my 2018 will last longer than yours",
-    "also I'd like to say that I fulfilled my wish",
-    "to nut exactly at 12",
+    "\nalso I'd like to say that I fulfilled my wish"
+    "\nto nut exactly at 12"
     "shit",
     "thought we killed galahad",
     "we fucked",
@@ -311,4 +313,31 @@ zekurt = [
     "fuck you",
     "true",
     "https://i.redd.it/mf4rnsbonx501.jpg"
+    "@ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut @ZeroEpoch1969#0051 nut",
+    "i typed tree into cmd",
+    "that's not gay because some of those men probably kissed women",
+    "***can fat girls get away with murder if they accidentally crush their man while on top***  :thinking:",
+    "P U P P E T  O W N E R",
+    "cumwhore do you ever just open your mouth and then realize no one fucking cares",
+    "MEGA BRITANNIA",
+    "man i just fucking realized the Scandinavian flags are just crosses",
+    "CASCADIA SHALL BE FREE",
+    "VIVA LA CASCADIA",
+    "get fucked",
+    "discount austria",
+    "not terrible",
+    ";;;;;;;;;;;;;;;;;;;;;;;;;",
+    "i can't believe the jar jar binks theory was true",
+    ":eyes:",
+    "***no nasty drama allowed on this christian server***",
+    ":thinking:",
+    "huh",
+    "get reported",
+    "god infamas pisses me off",
+    "I'd probably get fucked",
+    "i am so goddamn disappointed",
+    "nut",
+    "mecha trump",
+    "that's my boy",
+    "good job"
 ]
