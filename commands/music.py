@@ -129,7 +129,7 @@ class Music:
         """Enqueues a song to be played"""
         await ctx.channel.trigger_typing()
         if ctx.voice_client is None:
-            if ctx.author.voice.channel:
+            if ctx.author.voice:
                 try:
                     await ctx.author.voice.channel.connect()
                 except discord.errors.Forbidden:
@@ -194,7 +194,7 @@ class Music:
     async def skip(self, ctx):
         """Skips a song"""
         queue = self.get_queue(ctx)
-        if ctx.author.id in config.dev_ids or ctx.author.id == config.owner_id:
+        if ctx.author.id in config.dev_ids or ctx.author.id == int(config.owner_id):
             queue.voice_client.stop()
             await ctx.send("One of my owners skipped the song.")
         elif ctx.author == queue.current.requester:
