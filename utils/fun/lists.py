@@ -260,7 +260,15 @@ jake = [
     "eat my ass",
     "eat my ass",
     "eat my ass",
-    "eat my ass"
+    "eat my ass",
+    "you're an Egg",
+    "Fuck",
+    "If I'm destined to work at tesco my whole life I'm gonna eat M&Ms on the job",
+    "water is wet",
+    "pepsi over coke",
+    "fuck coke",
+    "i love pepsi",
+    "i dont go to a private school and i'm not rich"
 ]
     
 
@@ -291,7 +299,7 @@ zekurt = [
     "lmao all good",
     "rip kash :broken_heart:",
     "fuck cumwhore",
-    ":eyes: confirmed"
+    ":eyes: confirmed",
     "remember boys and girls god isn't real",
     "death is nothingness for eternity",
     "connor is a disappointment",
