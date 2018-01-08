@@ -99,49 +99,24 @@ class Fuckery():
     @commands.command()
     async def santropez(self, ctx):
         """:~)"""
-        yes = [
-        ":~)",
-        ":~)",
-        ":-)",
-        ":^)",
-        ":)",
-        ":'~)",
-        "**:)**",
-        "**(:**",
-        ":racehorse:",
-        ":horse",
-        "(:",
-        "pppppppppppppbbbbbbbbbbbbbbbbbbbbbbbbbbbbhhhhhhhhhhhhhhhhhhhhhhtttttttttttttttttttt",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhtttttttttttttttttttt",
-        "I SPIT ON YOU.",
-        "Nine nine nine",
-        ":drum: :racehorse:",
-        ":french_bread:",
-        ":duck:",
-        "spt",
-        "spt2",
-        "***blacklist commodore***",
-        "***women\nbe\nshopping***",
-        "bukbot's funny body movement makes me have anything",
-        ":thinking:",
-        "i love building pyramids",
-        "dævid bjøwie",
-        "Davidt Gilmourt",
-        "GILMOUR & PINK FLOYD",
-        "THE WATERS FUNNY MOVEMENT MAKES ME HAVE ANYTHING",
-        "YOU CHOICE",
-        "THE WATERS",
-        "SDFNJKSNJEQWERQKEQQ2LQNRL23OHR23HRNERADFSBBWDJLQBLQWDQDNWDFJEWPABDSKJBCF23HNQROU32U0JNLASBFLDBDLNBAJLSLFEQWR K23RBFDNASNJJSJDDFHDDISDFSDFI999999999999999999999999999999999",
-        "ƒ˙˙ƒ∂ßƒ∑ø¥ƒ£¢º£•¥˙ˆß¬˜¬∂ßff",
-        "PLELEDSE STOP",
-        "ssssssssssssssssssssspppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppptttttttttttttttttttttttttt"
-        ]
-        sppt = random.choice(yes)
+        sppt = random.choice(santropez)
         if sppt == "spt":
             await ctx.send(file=discord.File("assets/imgs/spt.png"))
         if sppt == "spt2":
             await ctx.send(file=discord.File("assets/imgs/spt2.png"))
-        await ctx.send(random.choice(yes))
+        await ctx.send(sppt)
+
+    @commands.command()
+    async def zekurt(self, ctx):
+        """viva la poutine"""
+        poutine = random.choice(zekurt)
+        await ctx.send(poutine)
+
+    @commands.command()
+    async def jake(self, ctx):
+        """gimme dosh"""
+        chav = random.choice(jake)
+        await ctx.send(chav)
 
     @commands.command()
     async def quote(self, ctx):

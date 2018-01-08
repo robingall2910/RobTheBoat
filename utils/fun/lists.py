@@ -255,8 +255,47 @@ jake = [
     "I'd rather eat food and get fat then having a chance of stds :shrug:",
     "the queen is cool",
     "boi im gonna beat your ass how dare u disrepesct the queen",
-    "britains cooler then australia though",
+    "britains cooler then australia though"
+]
     
 
 #kurt
-zekurt = []
+zekurt = [
+    "viva la poutine",
+    "viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine viva la poutine",
+    "you fucking wot mate",
+    "*torenaments*",
+    "i was told canada was cold",
+    "viva la tim hortons",
+    "https://cdn.discordapp.com/attachments/352132036552556554/398373970673532928/8V013MC.png",
+    "fuck you guys and your snow day",
+    "haha xd",
+    "viva la milk bags",
+    "fuckboi indeed",
+    "damn",
+    "ah shit",
+    "hah get fucked my 2018 will last longer than yours",
+    "also I'd like to say that I fulfilled my wish",
+    "to nut exactly at 12",
+    "shit",
+    "thought we killed galahad",
+    "we fucked",
+    "yeah i hate that guy",
+    "yall are allowed into the club",
+    "if Kash the Pure does then I'm sure everyone does",
+    "lmao all good",
+    "rip kash :broken_heart:",
+    "fuck cumwhore",
+    ":eyes: confirmed"
+    "remember boys and girls god isn't real",
+    "death is nothingness for eternity",
+    "connor is a disappointment",
+    "connor ***DROPS DICK ON TABLE*** I AM AN EXECUTIVE OBEY",
+    "connor: hey guys just wanted to remind everyone that i am technically an executive",
+    "everyone is death",
+    "i am out i can't join",
+    "Lil dick",
+    "fuck you",
+    "true",
+    "https://i.redd.it/mf4rnsbonx501.jpg"
+]
