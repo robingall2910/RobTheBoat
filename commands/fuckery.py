@@ -119,6 +119,12 @@ class Fuckery():
         await ctx.send(chav)
 
     @commands.command()
+    async def nero(self, ctx):
+        """learn from a NYer"""
+        hoe = random.choice(nero)
+        await ctx.send(hoe)
+
+    @commands.command()
     async def quote(self, ctx):
         """Don't quote me on that"""
         await ctx.channel.trigger_typing()
