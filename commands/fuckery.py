@@ -125,6 +125,7 @@ class Fuckery():
         await ctx.send(hoe)
 
     @commands.command()
+    async def seth(self, ctx):
         """wannabe thug"""
         weeb = random.choice(seth)
         await ctx.send(weeb)
