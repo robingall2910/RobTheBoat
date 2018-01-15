@@ -303,7 +303,13 @@ jake = [
     "bitch what",
     "whats this bot trying to say",
     "you wanna fight",
-    "ah."
+    "ah.",
+    "Yeah well your mom is Gay",
+    "How dare the bot think I can't restart it",
+    "Yeah do it",
+    "Unless im drunk which I never am", #you are right now
+    "Guys Seth is now addicted to Harry's mod",
+    "Fuck off autocorrect"
 
 ]
     
@@ -475,6 +481,10 @@ nero = [
     "robin hates me", #we'll see about that
     "waste it",
     "Hm",
-    "dumbies"
+    "dumbies",
+    "Im alive my phone died",
+    "Ideas",
+    "Pussy pussy pussy marijuana I wanna smoke weed everyday that I'm gonna eat that pussy period wanna",
+    "Volevo un gatto nero"
 ]
 
