@@ -4,6 +4,7 @@ import discord
 import datetime
 import forecastio
 import time
+import asyncio
 
 from discord.ext import commands
 from utils.sharding import darkskyapi
@@ -124,6 +125,7 @@ class Weather():
                 yes = k['address']
             elif k['status'] == 'ZERO_RESULTS':
                 yes = "There's no results found for this location."
+            asyncio.sleep(15)
             await ctx.send(yes)
         except Exception as e:
             await ctx.send("```py\n{}\n```".format(e))
