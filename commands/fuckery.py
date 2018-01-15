@@ -125,6 +125,11 @@ class Fuckery():
         await ctx.send(hoe)
 
     @commands.command()
+        """wannabe thug"""
+        weeb = random.choice(seth)
+        await ctx.send(weeb)
+
+    @commands.command()
     async def quote(self, ctx):
         """Don't quote me on that"""
         await ctx.channel.trigger_typing()
