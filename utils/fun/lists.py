@@ -420,6 +420,7 @@ zekurt = [
 
 ]
 
+#penis
 nero = [
     ":(",
     "ME FIRST :(",
@@ -488,3 +489,47 @@ nero = [
     "Volevo un gatto nero"
 ]
 
+#faggot
+seth = [
+    "h",
+    "FUCK",
+    "@Nerris this is god looking down at you while you commit your sins https://seth.doesnt-have-a.life/nvvfyjl.png",
+    "me",
+    "smh",
+    "do you have an e-cig charger?",
+    "si",
+    "nvm",
+    "rpbom\ncan i put a bomb threat on a texas instrument calc\nthey wont know its me",
+    "bih google exists",
+    "if i were the lead dev marco and commodore's expulsion will be my first action",
+    "is fix",
+    "i dont get it",
+    "since when do we allow kykes on the forums",
+    "what hoe",
+    "https://seth.doesnt-have-a.life/nbjjl2y.png SELF FRIENDSHIP RIGHT VIOLATIONS",
+    "Knigge we got to go move a dick I woke up",
+    "Robert we got to go move a dick I woke up",
+    "Correction Mark Shamrock Shamrock Shamrock Shamrock Shamrock Shamrock Shamrock Shamrock Shamrock Shamrock",
+    "Andre please don't don't fucking mean me",
+    "Never never never never never never never never never never never never never never NIBNIBBA is what I'm trying to fucking say what he comes out as nearby",
+    "And I DBA and I BBANIBBA backspace delete all of this text fucking hell there's no commands to get rid of fucking shit in this fucking text box thing fucking hell you fucking their Bob telling you right now never I will fuck you up",
+    "https://seth.doesnt-have-a.life/848aora.png",
+    "\"woa seth chill the fuck out hoe]\"\n\"FUCKING JEWISH NIGGER SHUT THE FUCK UP CUNT FUCK GO RECIEVE ANAL FROM A FUCKING DRAGON WITH A BIG COCK YOU CLOSET FURRY LOOKING ASS BITCH\"",
+    "fucking",
+    "fuck iphones",
+    "jake is gonna make a furred humanoid\nif he doesnt stop fucking dogs\nHuman spines don’t support bipedal movement which may be an explanation on why babies are such idiots and can’t walk",
+    "lets find hood niggas in saginaw",
+    "ok nigga",
+    "bitch i",
+    "fuck that",
+    "no you fucking goober",
+    "fuck it",
+    "@big kfc bucket supreme wake the fuck up",
+    "I said \"I wanna fucking die\" in the hallway and the spanish teacher/pe teacher floyd thought I said \"You're all gonna die\" so he told the principal mr. ballfuck on me\nso i fought that old fucker for like 10 mins and now I have ISS until wednesday",
+    "o",
+    "U AMD FUCK",
+    "kms",
+    ".play intent to kill",
+    "ok fine fuck a piece of paper and get a paper cut on ur dick\nand get a papery std",
+	"idk"
+]
