@@ -3,6 +3,7 @@ import traceback
 import shutil
 import discord
 import youtube_dl
+import subprocess
 
 from discord.ext import commands
 from utils.mysql import *
@@ -13,12 +14,13 @@ from utils.config import Config
 load_opus_lib()
 config = Config()
 
-ytdl_format_options = {"format": "bestaudio/best", "extractaudio": True, "audioformat": "mp3", "noplaylist": True, "nocheckcertificate": True, "ignoreerrors": False, "logtostderr": False, "quiet": True, "no_warnings": True, "default_search": "auto", "source_address": "0.0.0.0", "preferredcodec": "libmp3lame"}
+ytdl_options = {"default_search":"auto", "quiet":True}
+ytdl_download_options = ["--format", "bestaudio/best", "--extract-audio", "--audio-format", "mp3", "--default-search", "auto", "--quiet"]  
 
 def get_ytdl(id):
-    format = ytdl_format_options
-    format["outtmpl"] = "data/music/{}/%(id)s.mp3".format(id)
-    return youtube_dl.YoutubeDL(format)
+    options = ytdl_options
+    options["outtmpl"] = "data/music/{}/%(id)s.mp3".format(id)
+    return youtube_dl.YoutubeDL(options)
 
 class Song():
     def __init__(self, entry, path, title, duration, requester):
@@ -86,8 +88,7 @@ class Music:
             try:
                 await self.queues[id].voice_client.disconnect()
                 self.clear_data(id)
-                #del self.queues[id]
-                self.queues.pop(id, None)
+                del self.queues[id]
             except:
                 pass
 
@@ -101,7 +102,7 @@ class Music:
     @staticmethod
     def download_video(ctx, url):
         ytdl = get_ytdl(ctx.guild.id)
-        data = ytdl.extract_info(url, download=True)
+        data = ytdl.extract_info(url, download=False)
         if "entries" in data:
             data = data["entries"][0]
         title = data["title"]
@@ -112,6 +113,14 @@ class Music:
             duration = data["duration"]
         except KeyError:
             pass
+        # Looks shit but it works, running it normally gets fucked over by buffering and the buffer-size wont fucking work
+        options = ytdl_download_options
+        options.append("--output")
+        options.append("data/music/{}/%(id)s.mp3".format(ctx.guild.id))
+        options.append("https://youtube.com/watch?v={}".format(id))
+        command = ["/usr/local/bin/youtube-dl"]
+        command.extend(options)
+        subprocess.call(command)
         path = "data/music/{}".format(ctx.guild.id)
         filepath = "{}/{}.mp3".format(path, id)
         entry = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(filepath))
@@ -133,51 +142,37 @@ class Music:
                 try:
                     await ctx.author.voice.channel.connect()
                 except discord.errors.Forbidden:
-                    await ctx.send("I can't connect to this channel if I don't have any permissions for it first.")
+                    #await ctx.send(Language.get("music.no_connect_perms", ctx).format(ctx.author.voice.channel))
+                    await ctx.send("How can I connect to your channel without having any permissions to do so?")
                     return
             else:
-                await ctx.send("You're not in a music channel, fool.")
+                await ctx.send("I can't connect to a voice channel if you're not in it.")
                 return
         queue = self.get_queue(ctx)
-        if ctx.voice_client is not None and queue is None:
-            if ctx.author.voice.channel:
-                try:
-                    await ctx.voice_client.disconnect()
-                    await ctx.author.voice.channel.connect()
-                except:
-                    await ctx.send("oop make sure to report this with .notifydev")
-                    await ctx.send(traceback.format_exc())
-                    return
-            else:
-                await ctx.send("You're not in a music channel, fool.")
-        url = url.strip(".play </>")# ?
+        url = url.strip("<>")
         try:
             song = self.download_video(ctx, url)
         except youtube_dl.utils.DownloadError as error:
-            await ctx.send("YoutubeDL broke. Error entry: {}".format(str(error.exc_info[1]).strip("[youtube] ")))
+            await ctx.send("Oh noes! YoutubeDL broke! Info: {}".format(str(error.exc_info[1]).strip("[youtube] ")))
             return
         except:
             await ctx.send(traceback.format_exc())
             return
         await queue.songs.put(song)
         queue.song_list.append(str(song))
-        await ctx.send("Added {} to the queue".format(song))
+        await ctx.send("Added {} to the queue list".format(song))
 
     @commands.command()
     async def disconnect(self, ctx):
         """Disconnects the bot from the voice channel"""
+        await ctx.voice_client.disconnect()
         try:
-            await ctx.voice_client.disconnect()
             self.clear_data(ctx.guild.id)
-            try:
-                #del self.queues[ctx.guild.id]
-                self.queues.pop(ctx.guild.id, None)
-            except KeyError:
-                pass
-            await ctx.send("Alright, see ya.")
+            del self.queues[ctx.guild.id]
         except:
-            await ctx.send(traceback.format_exc())
-
+            pass
+        await ctx.send("Alright, see ya.")
+        
     @commands.command()
     async def pause(self, ctx):
         """Pauses the current song"""
