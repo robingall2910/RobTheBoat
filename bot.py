@@ -44,7 +44,8 @@ extensions = ["commands.fuckery",
               "commands.configuration",
               "commands.nsfw", 
               "commands.music", 
-              "commands.weather"]
+              "commands.weather",
+              "commands.steam"]
 
 # Thy changelog
 change_log = [
@@ -85,7 +86,7 @@ async def set_default_status():
             game = discord.Game(name=game, url="http://twitch.tv/robingall2910", type=1)
         else:
             game = discord.Game(
-                name="want to say hi? wanna meme? wanna bitch at me? join the official server! http://discord.gg/fY6JSDf")
+                name="hi seth")
         await bot.change_presence(status=type, game=game)
     else:
         await bot.change_presence(status=type)
@@ -98,9 +99,9 @@ async def on_resumed():
 
 @bot.event
 async def on_ready():
-    print("\n")
-    print("Logged in as:\n{}/{}#{}\n----------".format(bot.user.id, bot.user.name, bot.user.discriminator))
-    print("Bot version: {}\nAuthor(s): {}\nCode name: {}\nBuild date: {}".format(BUILD_VERSION, BUILD_AUTHORS,
+    log.info("\n")
+    log.info("Logged in as:\n{}/{}#{}\n----------".format(bot.user.id, bot.user.name, bot.user.discriminator))
+    log.info("Bot version: {}\nAuthor(s): {}\nCode name: {}\nBuild date: {}".format(BUILD_VERSION, BUILD_AUTHORS,
                                                                                  BUILD_CODENAME, BUILD_DATE))
     log.debug("Debugging enabled!")
     await set_default_status()
@@ -119,13 +120,16 @@ async def on_ready():
         log.info("The osu! module has been enabled in the config!")
     if config._dbots_token:
         log.info("Updating DBots Statistics...")
-        r = requests.post("https://bots.discord.pw/api/bots/{}/stats".format(bot.user.id),
-                          json={"server_count": len(bot.guilds)},
-                          headers={"Authorization": config._dbots_token})
-        if r.status_code == 200:
-            log.info("Discord Bots Server count updated.")
-        elif r.status_code == 401:
-            log.error("Woah, unauthorized?")
+        try:
+            r = requests.post("https://bots.discord.pw/api/bots/{}/stats".format(bot.user.id),
+            	              json={"server_count": len(bot.guilds)},
+                	          headers={"Authorization": config._dbots_token}, timeout=3)
+            if r.status_code == 200:
+                log.info("Discord Bots Server count updated.")
+            elif r.status_code == 401:
+                log.error("Woah, unauthorized?")
+        except requests.exceptions.Timeout:
+            log.error("The server failed to respond in time. Unable to update the bot statistics.")
     if os.path.isdir("data/music"):
         try:
             bot.cogs["Music"].clear_data()
@@ -261,7 +265,7 @@ async def notifydev(ctx, *, message:str):
     else:
         guild = "`{}` / `{}`".format(ctx.guild.id, ctx.guild.name)
     msg = make_message_embed(ctx.author, 0xFF0000, message, formatUser=True)
-    owner = bot.get_user(config.owner_id)
+    owner = config.owner_id
     if owner:
         await owner.send("You have received a new message! The user's ID is `{}` Server: {}".format(ctx.author.id, guild), embed=msg)
     for id in config.dev_ids:
