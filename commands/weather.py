@@ -50,6 +50,8 @@ class Weather():
                 a1 = a[0]
                 expiretime = datetime.datetime.fromtimestamp(int(a1.expires)).strftime('%A %B %d, %Y at %I:%M %p')
                 areas = ', '.join(a1.regions)
+                if len(areas) > 1024:
+                    areas = areas[:1021] + "..."
                 alertresult = "{} in {}. Expires {}. Click [here]({} 'National Weather Service/MET Office') for more information.".format(a1.title, areas, expiretime, a1.uri)
             except Exception:
                 weatheralert = False
