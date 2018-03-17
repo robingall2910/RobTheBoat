@@ -83,10 +83,10 @@ async def set_default_status():
             if config.default_status_name is None:
                 log.critical("If the status type is set to \"stream\" then the default status game must be specified")
                 os._exit(1)
-            game = discord.Game(name=game, url="http://twitch.tv/robingall2910", type=1)
+            game = discord.Activity(name=game, url="http://twitch.tv/robingall2910", type=discord.ActivityType.streaming)
         else:
-            game = discord.Game(
-                name="hi seth")
+            game = discord.Activity(
+                name="Seth show off his vaping techniques", type=discord.ActivityType.watching)
         await bot.change_presence(status=type, game=game)
     else:
         await bot.change_presence(status=type)
@@ -216,10 +216,10 @@ async def debug(ctx, *, shit: str):
 
 @bot.command(hidden=True)
 @checks.is_owner()
-async def rename(ctx, *, name: str):
+async def rename(ctx, *, username: str):
     """Renames the bot"""
-    await bot.edit_profile(username=name)
-    await ctx.send("fuck you i changed it to {}".format(name))
+    await bot.user.edit(name=username)
+    await ctx.send("fuck you i changed it to {}".format(username))
 
 
 @bot.command(hidden=True)

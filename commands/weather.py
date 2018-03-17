@@ -18,6 +18,7 @@ class Weather():
     @commands.command()
     async def weather(self, ctx, *, addr: str):
         """Go check the weather out :^)"""
+        global whatever
         try:
             # variable setup
             g = geocoder.google(addr)
@@ -118,6 +119,7 @@ class Weather():
     @commands.command()
     async def locate(self, ctx, *, address: str):
         """Go fucking stalk someone"""
+        global yes
         try:
             g = geocoder.google(address)
             loc = g.json

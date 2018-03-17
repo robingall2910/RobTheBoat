@@ -116,7 +116,7 @@ class Information():
         await ctx.send("https://discordapp.com/api/emojis/{}.png".format(emote_id))
 
     @commands.command()
-    async def discr(self, *, discriminator:str):
+    async def discr(self, ctx, *, discriminator:str):
         """Gets a username#discriminator list of all users that the bot can see with the specified discriminator"""
         members = []
         for member in list(self.bot.get_all_members()):
