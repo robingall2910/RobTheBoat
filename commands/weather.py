@@ -124,9 +124,10 @@ class Weather():
             loc = g.json
             var = json.dumps(loc)
             k = json.loads(var)
-            if k['status'] == 'OK':
+            global yes
+            if k['ok'] is True:
                 yes = k['address']
-            elif k['status'] == 'ZERO_RESULTS':
+            elif k['ok'] is False:
                 yes = "There's no results found for this location."
             asyncio.sleep(15)
             await ctx.send(yes)
