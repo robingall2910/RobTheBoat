@@ -7,9 +7,10 @@ import time
 import asyncio
 
 from discord.ext import commands
-from utils.sharding import darkskyapi
+from utils.config import Config
+config = Config()
 
-api_key = darkskyapi
+api_key = config._darksky_key
 
 class Weather():
     def __init__(self, bot):

@@ -58,7 +58,7 @@ Temporary Items
 *.ini
 
 #Sharding/Keys
-utils/sharding\.py
+utils/sharding.py
 
 #Sublime Text Workspace
 *.sublime-workspace

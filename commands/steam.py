@@ -8,7 +8,10 @@ from utils.tools import *
 
 from discord.ext import commands
 from utils.logger import log
-from utils.sharding import steamapikey
+from utils.config import Config
+config = Config()
+
+steamapikey = config._steam_key
 
 try:
     api = WebAPI(key=steamapikey)
