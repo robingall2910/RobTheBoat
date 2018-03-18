@@ -6,8 +6,6 @@ import youtube_dl
 import subprocess
 
 from discord.ext import commands
-from utils.mysql import *
-from utils.logger import log
 from utils.opus_loader import load_opus_lib
 from utils.config import Config
 
@@ -60,15 +58,11 @@ class Queue():
         while True:
             self.play_next_song.clear()
             self.current = await self.songs.get()
-            log.debug("got next song")
             self.song_list.remove(str(self.current))
             self.skip_votes.clear()
-            log.debug("sending msg")
             await self.text_channel.send("Now playing {}".format(self.current.title_with_requester()))
             self.voice_client.play(self.current.entry, after=lambda e: self.play_next_song.set())
-            log.debug("waiting...")
             await self.play_next_song.wait()
-            log.debug("passed")
 
 class Music:
     def __init__(self, bot):
@@ -196,7 +190,7 @@ class Music:
             queue.voice_client.stop()
             await ctx.send("The person who wanted to skip in the first place skipped it.")
         else:
-            needed = int(4)
+            needed = config.skip_votes_needed
             channel_members = len([member for member in queue.voice_client.channel.members if not member.bot])
             if channel_members <= needed:
                 needed = channel_members - 1

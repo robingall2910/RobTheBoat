@@ -19,14 +19,13 @@ class Defaults:
     enable_default_status = False
     default_status_name = None
     default_status_type = "online"
-    cb_api_key = None
-    cb_user_key = None
     enableMal = False
     malUsername = None
     malPassword = None
     enableOsu = False
     osuKey = None
     max_nsfw_count = 500
+    skip_votes_needed = 1
 
 class Config:
     def __init__(self):
@@ -56,6 +55,7 @@ class Config:
         self.owner_id = config.get("Bot", "Owner_ID", fallback=Defaults.owner_id)
         self.command_prefix = config.get("Bot", "Command_Prefix", fallback=Defaults.command_prefix)
         self.max_nsfw_count = config.getint("Bot", "Max_NSFW_Count", fallback=Defaults.max_nsfw_count)
+        self.skip_votes_needed = config.getint("Bot", "Skip_Votes_Needed", fallback=Defaults.skip_votes_needed)
         self.dev_ids = config.get("Bot", "Developer_IDs", fallback=Defaults.dev_ids)
         self.lock_status = config.getboolean("Status", "Lock_Status", fallback=Defaults.lock_status)
         self.enable_default_status = config.getboolean("Status", "Enable_Default_Status", fallback=Defaults.enable_default_status)
@@ -64,8 +64,6 @@ class Config:
         self.debug = config.getboolean("Logging", "Debug", fallback=Defaults.debug)
         self.channel_logger_id = config.get("Logging", "Channel_Logger_ID", fallback=Defaults.channel_logger_id)
         self.log_timeformat = config.get("Logging", "Time_Format", fallback=Defaults.log_timeformat)
-        self.cb_user_key = config.get("Cleverbot", "User_Key", fallback=Defaults.cb_api_key)
-        self.cb_api_key = config.get("Cleverbot", "API_Key", fallback=Defaults.cb_user_key)
         self.enableMal = config.getboolean("MyAnimeList", "enable", fallback=Defaults.enableMal)
         self._malUsername = config.get("MyAnimeList", "username", fallback=Defaults.malUsername)
         self._malPassword = config.get("MyAnimeList", "password", fallback=Defaults.malPassword)
@@ -91,6 +89,9 @@ class Config:
 
         if not self._darksky_key:
             log.warning("No key was specified Dark Sky, the weather extension will not work until it is specified")
+
+        if not self.skip_votes_needed:
+            log.info("No amount of skip votes needed to skip a song has been set. Falling back to only one vote needed.")
 
         if len(self.dev_ids) is not 0:
             try:
