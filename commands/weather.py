@@ -124,7 +124,6 @@ class Weather():
             loc = g.json
             var = json.dumps(loc)
             k = json.loads(var)
-            global yes
             if k['ok'] is True:
                 yes = k['address']
             elif k['ok'] is False:
