@@ -1,7 +1,11 @@
 import os
+import socket
+import nmap
+import pythonwhois
 
 from discord.ext import commands
 from datetime import *
+from tkinter import Image
 from utils.tools import *
 from utils.logger import log
 from utils.unicode import *
@@ -313,7 +317,7 @@ class Information():
         if not hexcode.startswith("#"):
             hexcode = "#{}".format(hex)
         try:
-            Image.new("RGBA", (50, 50), hexcode).save("data/color.png")
+            Image.new("RGBA", (20, 20), hexcode).save("data/color.png")
         except ValueError:
             await ctx.send("`{}` is not a valid hex color code".format(hexcode))
             return
