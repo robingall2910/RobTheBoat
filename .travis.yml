@@ -9,4 +9,4 @@ before_install:
   - cd discord.py
   - python setup.py install
   - cd ..
-  - pip install wikipedia python-forecastio geocoder pyping youtube_dl postgres asyncqlio colorlog psutil random-cat
+  - pip install -r requirements.txt
