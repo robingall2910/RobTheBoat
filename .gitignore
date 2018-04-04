@@ -4,8 +4,7 @@
 ~*/
 
 # Bot files
-data/
-config/config.ini
+data/*
 utils/mysql.py
 
 # Windows nonsense

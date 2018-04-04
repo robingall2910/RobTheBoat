@@ -86,7 +86,7 @@ async def set_default_status():
             game = discord.Activity(name=game, url="http://twitch.tv/robingall2910", type=discord.ActivityType.streaming)
         else:
             game = discord.Activity(
-                name="Seth show off his vaping techniques", type=discord.ActivityType.watching)
+                name="shit on e621", type=discord.ActivityType.watching)
             # pyrawanpmjadbapanwmjamtsatltsadw
         await bot.change_presence(status=type, activity=game)
     else:

@@ -1,3 +1,4 @@
+import traceback
 import geocoder
 import json
 import discord
@@ -30,8 +31,7 @@ class Weather():
             @kms
             def getloc(this, addr):
                 g = geocoder.google(addr)
-                meme = retry_call(g.latlng, exceptions=TypeError, tries=2)
-                this.results = meme
+                this.results = g.latlng
                 this.loc = g.address
             # variable setup
             getloc(addr)
@@ -78,7 +78,7 @@ class Weather():
                 whatever = "**{}**. Plenty of sun! Wear sunscreen!.".format(c.uvIndex)
             if c.uvIndex in (8, 9, 10):
                 whatever = "**{}**. I think it's starting get a bit too much. Get some shade from time to time.".format(c.uvIndex)
-            if c.uvIndex in (11, 12, 13): #fuck going higher
+            if c.uvIndex in (11, 12, 13, 14): #fuck going higher
                 whatever = "**{}**. Definitely try to avoid the sunlight at the peak of day, unless you want to burn in hell.".format(c.uvIndex)
             #icon setup :)
             if c.icon == 'clear-day':
@@ -122,16 +122,19 @@ class Weather():
             em.set_footer(text="Powered by Dark Sky / Last updated: {}".format(time.strftime("%I:%M:%S %p %Z")), icon_url='https://darksky.net/images/darkskylogo.png')
             await ctx.send(embed=em)
         #if anything breaks
-        except IndexError:
-            await ctx.send("The location you provided was not found.")
+        except:
+            ctx.send(traceback.format_exc())
 
     @commands.command()
     async def locate(self, ctx, *, address: str):
         """Go fucking stalk someone"""
         try:
-            g = geocoder.google(address)
-            loc = g.json
-            var = json.dumps(loc)
+            @kms
+            def getloc(this, address):
+                g = geocoder.google(address)
+                this.loc = g.json
+            getloc(address)
+            var = json.dumps(getloc.loc)
             k = json.loads(var)
             if k['ok'] is True:
                 yes = k['address']
@@ -139,9 +142,8 @@ class Weather():
                 yes = "There's no results found for this location."
             asyncio.sleep(15)
             await ctx.send(yes)
-        except Exception as e:
-            #pycharm lost my shit
-            await ctx.send("```py\n{}\n```".format(e))
+        except:
+            ctx.send(traceback.format_exc())
 
 def setup(bot):
     bot.add_cog(Weather(bot))
