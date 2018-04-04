@@ -87,6 +87,7 @@ async def set_default_status():
         else:
             game = discord.Activity(
                 name="Seth show off his vaping techniques", type=discord.ActivityType.watching)
+            # pyrawanpmjadbapanwmjamtsatltsadw
         await bot.change_presence(status=type, activity=game)
     else:
         await bot.change_presence(status=type)

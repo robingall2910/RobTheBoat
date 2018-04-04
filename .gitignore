@@ -6,6 +6,7 @@
 # Bot files
 data/
 config/config.ini
+utils/mysql.py
 
 # Windows nonsense
 ## Windows image file caches
@@ -56,9 +57,6 @@ Temporary Items
 
 #Config files
 *.ini
-
-#Sharding/Keys
-utils/sharding.py
 
 #Sublime Text Workspace
 *.sublime-workspace

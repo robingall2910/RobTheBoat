@@ -21,7 +21,7 @@ ENDLOCAL
 
 
 IF EXIST %SYSTEMROOT%\py.exe (
-    CMD /k py.exe -3.5 bot.py
+    CMD /k py.exe -3.6 bot.py
     EXIT
 )
 

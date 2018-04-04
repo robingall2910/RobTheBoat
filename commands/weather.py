@@ -8,9 +8,15 @@ import asyncio
 
 from discord.ext import commands
 from utils.config import Config
+from retry.api import retry_call
 config = Config()
 
 api_key = config._darksky_key
+
+def kms(func):
+    def wrapped(*args, **kwargs):
+        return func(wrapped, *args, **kwargs)
+    return wrapped
 
 class Weather():
     def __init__(self, bot):
@@ -20,21 +26,26 @@ class Weather():
     async def weather(self, ctx, *, addr: str):
         """Go check the weather out :^)"""
         try:
+            #attempt to create a method
+            @kms
+            def getloc(this, addr):
+                g = geocoder.google(addr)
+                meme = retry_call(g.latlng, exceptions=TypeError, tries=2)
+                this.results = meme
+                this.loc = g.address
             # variable setup
-            g = geocoder.google(addr)
-            results = g.latlng
-            loc = g.address
-            forecast = forecastio.load_forecast(api_key, results[0], results[1])
+            getloc(addr)
+            forecast = forecastio.load_forecast(api_key, getloc.results[0], getloc.results[1])
             c = forecast.currently()
             d = forecast.daily()
             a = forecast.alerts()
             em = discord.Embed(description="{}".format(d.summary))
             #localization
-            if ", USA" in loc:
+            if ", USA" in getloc.loc:
                 farenheit = True
-            elif ", USA" not in loc:
+            elif ", USA" not in getloc.loc:
                 farenheit = False
-            em.title = "Current Weather for {}".format(loc)
+            em.title = "Current Weather for {}".format(getloc.loc)
             # visibility
             try:
                 visib = c.visibility
@@ -113,8 +124,6 @@ class Weather():
         #if anything breaks
         except IndexError:
             await ctx.send("The location you provided was not found.")
-        except Exception as e:
-            await ctx.send("```py\n{}\n```".format(e))
 
     @commands.command()
     async def locate(self, ctx, *, address: str):
@@ -131,6 +140,7 @@ class Weather():
             asyncio.sleep(15)
             await ctx.send(yes)
         except Exception as e:
+            #pycharm lost my shit
             await ctx.send("```py\n{}\n```".format(e))
 
 def setup(bot):
