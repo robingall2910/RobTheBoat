@@ -139,6 +139,8 @@ class Weather():
                 yes = k['address']
             elif k['ok'] is False:
                 yes = "There's no results found for this location."
+            else:
+                raise OSError #fuck you lol
             asyncio.sleep(15)
             await ctx.send(yes)
         except:
