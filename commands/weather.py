@@ -9,7 +9,6 @@ import asyncio
 
 from discord.ext import commands
 from utils.config import Config
-from retry.api import retry_call
 config = Config()
 
 api_key = config._darksky_key

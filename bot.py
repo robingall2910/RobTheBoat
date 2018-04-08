@@ -122,7 +122,7 @@ async def on_ready():
     if config._dbots_token:
         log.info("Updating DBots Statistics...")
         try:
-            r = requests.post("https://bots.discord.pw/api/bots/{}/stats".format(bot.user.id),
+            r = requests.post("https://bots.discord.pw/api/bots/:{}/stats".format(bot.user.id),
             	              json={"server_count": len(bot.guilds)},
                 	          headers={"Authorization": config._dbots_token}, timeout=3)
             if r.status_code == 200:

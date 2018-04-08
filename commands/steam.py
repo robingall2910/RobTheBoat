@@ -11,7 +11,7 @@ from utils.tools import *
 from utils import checks
 config = Config()
 
-steamAPI = WebAPI(config._steamAPIKey)
+steamAPI = WebAPI(config._steam_key)
 
 steamapikey = config._steam_key
 
@@ -54,7 +54,7 @@ class Steam():
             await ctx.send(embed=embed)
             return
         groupCount = len(steamAPI.ISteamUser.GetUserGroupList_v1(steamid=steamID)["response"]["groups"])
-        games = requests.get("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={}&steamid={}&include_played_free_games=1%format=json".format(config._steamAPIKey, steamID)).json()["response"]
+        games = requests.get("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={}&steamid={}&include_played_free_games=1%format=json".format(config._steam_key, steamID)).json()["response"]
         gamesPlayed = games["game_count"]
         state = EPersonaState(steamUser["personastate"]).name
         gameName = None
