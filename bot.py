@@ -389,7 +389,7 @@ async def changestatus(ctx, status: str, *, name: str = None):
                 status))
         return
     if name != "":
-        game = discord.Game(name=name)
+        game = discord.Activity(name=name)
     await bot.change_presence(game=game, status=statustype)
     if name is not None:
         await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name, status))

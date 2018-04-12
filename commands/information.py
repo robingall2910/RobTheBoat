@@ -5,7 +5,6 @@ import pythonwhois
 
 from discord.ext import commands
 from datetime import *
-from tkinter import Image
 from utils.tools import *
 from utils.logger import log
 from utils.unicode import *
@@ -309,19 +308,6 @@ class Information():
         embed.title = "Domain Unavailable"
         embed.color = 0xFF0000
         await ctx.send(embed=embed)
-
-    @commands.command()
-    async def color(self, ctx, *, hexcode:str):
-        """Displays the given hex color"""
-        await ctx.channel.trigger_typing()
-        if not hexcode.startswith("#"):
-            hexcode = "#{}".format(hex)
-        try:
-            Image.new("RGBA", (20, 20), hexcode).save("data/color.png")
-        except ValueError:
-            await ctx.send("`{}` is not a valid hex color code".format(hexcode))
-            return
-        await ctx.send(file=discord.File("data/color.png", "{}.png".format(hexcode.strip("#"))))
 
     @commands.command()
     async def getuserbyid(self, ctx, id:int):

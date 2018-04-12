@@ -18,6 +18,9 @@ def kms(func):
         return func(wrapped, *args, **kwargs)
     return wrapped
 
+class ówò(Exception):
+    pass
+
 class Weather():
     def __init__(self, bot):
         self.bot = bot
@@ -122,7 +125,7 @@ class Weather():
             await ctx.send(embed=em)
         #if anything breaks
         except:
-            ctx.send(traceback.format_exc())
+            raise ówò("OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!")
 
     @commands.command()
     async def locate(self, ctx, *, address: str):
@@ -144,7 +147,7 @@ class Weather():
             asyncio.sleep(15)
             await ctx.send(yes)
         except:
-            ctx.send(traceback.format_exc())
+            raise ówò("OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!")
 
 def setup(bot):
     bot.add_cog(Weather(bot))
