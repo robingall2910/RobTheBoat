@@ -12,7 +12,7 @@ class Configuration():
     async def config(self, ctx, type:str, *, value:str):
         """Modifies the server's local config"""
         if ctx.author is not ctx.guild.owner:
-            await ctx.send("Only my otp the server owner aka {} can use this command.".format(format_user(ctx.guild.server.owner)))
+            await ctx.send("Only the server owner aka {} can use this command.".format(format_user(ctx.guild.server.owner)))
             return
         await ctx.channel.trigger_typing()
         if type == "mod-role" or type == "nsfw-channel" or type == "mute-role":

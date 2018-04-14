@@ -124,7 +124,7 @@ class Weather():
             em.set_footer(text="Powered by Dark Sky / Last updated: {}".format(time.strftime("%I:%M:%S %p %Z")), icon_url='https://darksky.net/images/darkskylogo.png')
             await ctx.send(embed=em)
         #if anything breaks
-        except:
+        except Exception:
             raise ówò("OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!")
 
     @commands.command()
@@ -146,7 +146,7 @@ class Weather():
                 raise OSError #fuck you lol
             asyncio.sleep(15)
             await ctx.send(yes)
-        except:
+        except Exception:
             raise ówò("OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!")
 
 def setup(bot):
