@@ -11,7 +11,7 @@ class Configuration():
     @commands.command(pass_context=True)
     async def config(self, ctx, type:str, *, value:str):
         """Modifies the server's local config"""
-        if ctx.guild.author is not ctx.guild.server.owner:
+        if ctx.author is not ctx.guild.owner:
             await ctx.send("Only my otp the server owner aka {} can use this command.".format(format_user(ctx.guild.server.owner)))
             return
         await ctx.channel.trigger_typing()
@@ -26,7 +26,7 @@ class Configuration():
     @commands.command(pass_context=True)
     async def cfgbypass(self, ctx, type:str, *, value:str):
         """Modifies the server's local config (bot owner bypass)"""
-        if ctx.guild.author.id != int(config.owner_id):
+        if ctx.author.id != int(config.owner_id):
             await ctx.send("Back off. Only my masters can use this.")
             return
         await ctx.channel.trigger_typing()
@@ -56,7 +56,7 @@ class Configuration():
     @commands.command(pass_context=True)
     async def joinleave(self, ctx, type:str, *, value:str):
         """Configures on user join and leave settings"""
-        if ctx.guild.author is not ctx.guild.server.owner:
+        if ctx.author is not ctx.guild.owner:
             await ctx.send("Only the server owner (`{}`) can use this command.".format(format_user(ctx.guild.server.owner)))
             return
         await ctx.channel.trigger_typing()
