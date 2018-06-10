@@ -295,7 +295,7 @@ async def suggest(ctx, *, message:str):
 
 @bot.command(hidden=True)
 @checks.is_dev()
-async def blacklist(ctx, id: int, *, reason: str):
+async def blacklist(ctx, id: str, *, reason: str):
     """Blacklists a user, BOT OWNER ONLY."""
     await ctx.channel.trigger_typing()
     user = bot.get_user(id)
@@ -314,7 +314,7 @@ async def blacklist(ctx, id: int, *, reason: str):
 
 @bot.command(hidden=True)
 @checks.is_dev()
-async def unblacklist(ctx, id: int):
+async def unblacklist(ctx, id: str):
     """Unblacklists a user"""
     entry = getblacklistentry(id)
     user = bot.get_user(id)
