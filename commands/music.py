@@ -13,7 +13,7 @@ load_opus_lib()
 config = Config()
 
 ytdl_options = {"default_search":"auto", "quiet":True}
-ytdl_download_options = ["--format", "bestaudio/best", "--extract-audio", "--audio-format", "mp3", "--default-search", "auto", "--quiet"]  
+ytdl_download_options = ["--external-downloader", "aria2c", "--format", "bestaudio/best", "--extract-audio", "--audio-format", "mp3", "--default-search", "auto", "--buffer-size", "16K"]
 
 def get_ytdl(id):
     options = ytdl_options
@@ -108,6 +108,7 @@ class Music:
         except KeyError:
             pass
         # Looks shit but it works, running it normally gets fucked over by buffering and the buffer-size wont fucking work
+        #i stuffed buffer-size in there yoot
         options = ytdl_download_options
         options.append("--output")
         options.append("data/music/{}/%(id)s.mp3".format(ctx.guild.id))
@@ -122,10 +123,6 @@ class Music:
         entry.volume = 0.4
         song = Song(entry, path, title, duration, ctx.author)
         return song
-
-    @commands.command()
-    async def connect(self, ctx):
-        await ctx.send("Summon is now defunct. Please use the .play command so I can join.")
 
     @commands.command()
     async def play(self, ctx, *, url:str):
@@ -163,7 +160,8 @@ class Music:
         try:
             self.clear_data(ctx.guild.id)
             del self.queues[ctx.guild.id]
-        except:
+        except Exception as e:
+            print("fuck music broke again: " + e)
             pass
         await ctx.send("Alright, see ya.")
         

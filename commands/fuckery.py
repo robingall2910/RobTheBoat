@@ -5,6 +5,7 @@ import random
 import os
 import wikipedia
 import time
+import sqlite3
 
 #from cleverwrap import CleverWrap
 #from utils.config import Config #for cleverwrap's key
@@ -107,7 +108,7 @@ class Fuckery():
         await ctx.send(sppt)
 
     @commands.command()
-    async def zekurt(self, ctx):
+    async def kurt(self, ctx):
         """viva la poutine"""
         poutine = random.choice(zekurt)
         await ctx.send(poutine)
@@ -129,6 +130,12 @@ class Fuckery():
         """wannabe thug"""
         weeb = random.choice(seth)
         await ctx.send(weeb)
+
+    @commands.command()
+    async def ryan(self, ctx):
+        """actually sand"""
+        sand = random.choice(ryan)
+        await ctx.send(sand)
 
     @commands.command()
     async def quote(self, ctx):
@@ -174,6 +181,21 @@ class Fuckery():
     async def compliment(self, ctx):
         """I love you."""
         await ctx.send("{}".format(random.choice(compliments)))
+
+    @commands.command()
+    async def fish(self, ctx):
+        """bird"""
+        await ctx.send(":bird:")
+
+    @commands.command()
+    async def bird(self, ctx):
+        """fish"""
+        await ctx.send(":fish:")
+
+    @commands.command()
+    async def trico(self, ctx):
+        """KREYGASM absolute KREYGASM"""
+        await ctx.send("trico... <:hyperkreygasm:460417913837322271>")
 
     @commands.command()
     async def actdrunk(self, ctx):
@@ -292,6 +314,6 @@ class Fuckery():
             return
         embed = make_message_embed(message.author, message.author.color, message.content, formatUser=True)
         await ctx.send(None, embed=embed)
-
+        
 def setup(bot):
     bot.add_cog(Fuckery(bot))

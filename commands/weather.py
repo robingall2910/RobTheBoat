@@ -126,8 +126,6 @@ class Weather():
         #if anything breaks
         except IndexError:
             ctx.send("The location was not found, please try again.")
-        except Exception:
-            raise ówò("OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!")
 
     @commands.command()
     async def locate(self, ctx, *, address: str):
@@ -150,8 +148,7 @@ class Weather():
             await ctx.send(yes)
         except IndexError:
             ctx.send("The location was not found, please try again.")
-        except Exception:
-            raise ówò("OOPSIE WOOPSIE!! Uwu We made a fucky wucky!! A wittle fucko boingo! The code monkeys at our headquarters are working VEWY HAWD to fix this!")
+     
 
 def setup(bot):
     bot.add_cog(Weather(bot))

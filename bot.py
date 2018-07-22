@@ -86,7 +86,7 @@ async def set_default_status():
             game = discord.Activity(name=game, url="http://twitch.tv/robingall2910", type=discord.ActivityType.streaming)
         else:
             game = discord.Activity(
-                name="shit on e621", type=discord.ActivityType.watching)
+                name="how many times i restart", type=discord.ActivityType.watching)
             # pyrawanpmjadbapanwmjamtsatltsadw
         await bot.change_presence(status=type, activity=game)
     else:
@@ -199,6 +199,8 @@ async def on_message(message):
         return
     if getblacklistentry(message.author.id) is not None:
         return
+    if message.guild.id == 400012212791541760 and message.clean_content == "doki doki isn't weeb":
+    	await bot.send_message("doki doki is weeb")
     await bot.process_commands(message)
 
 @bot.command(hidden=True)
@@ -382,7 +384,7 @@ async def changestatus(ctx, status: str, *, name: str = None):
         await ctx.send("You can not use the status type `{}`".format(status))
         return
     try:
-        statustype = discord.Status(status)
+        statustype = "discord.Status." + status
     except ValueError:
         await ctx.send(
             "`{}` is not a valid status type, valid status types are `online`, `idle`, `do_not_disurb`, and `dnd`".format(
@@ -390,7 +392,7 @@ async def changestatus(ctx, status: str, *, name: str = None):
         return
     if name != "":
         game = discord.Activity(name=name)
-    await bot.change_presence(game=game, status=statustype)
+    await bot.change_presence(status=game, activity=statustype)
     if name is not None:
         await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name, status))
         await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name, status))

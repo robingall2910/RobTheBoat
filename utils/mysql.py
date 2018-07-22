@@ -1,7 +1,7 @@
 import sqlite3
 
 #change this if you're running it from somewhere else
-conn = sqlite3.connect("D:\stuff that has to be saved\RobTheBoat\RTB Blacklist.db")
+conn = sqlite3.connect("RTB Blacklist.db")
 conn.row_factory = sqlite3.Row
 cur = conn.cursor()
 
