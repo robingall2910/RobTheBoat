@@ -199,8 +199,6 @@ async def on_message(message):
         return
     if getblacklistentry(message.author.id) is not None:
         return
-    if message.guild.id == 400012212791541760 and message.clean_content == "doki doki isn't weeb":
-    	await bot.send_message("doki doki is weeb")
     await bot.process_commands(message)
 
 @bot.command(hidden=True)
