@@ -5,7 +5,6 @@ import random
 import os
 import wikipedia
 import time
-import sqlite3
 
 #from cleverwrap import CleverWrap
 #from utils.config import Config #for cleverwrap's key
@@ -19,7 +18,7 @@ class Fuckery():
         self.bot = bot
 
     @commands.command()
-    async def say(self, ctx, *, message:str):
+    async def say(self, ctx):
         """Make the bot say whatever you want it to say"""
         try:
             await ctx.message.delete()
@@ -92,7 +91,7 @@ class Fuckery():
         await ctx.send(gayrule)
 
     @commands.command()
-    async def perf(self):
+    async def perf(self, ctx):
         """the return of the furry bullshit"""
         rt = random.choice(tweetsthatareokhand)
         ctx.send(rt)

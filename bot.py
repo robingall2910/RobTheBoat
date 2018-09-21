@@ -45,7 +45,8 @@ extensions = ["commands.fuckery",
               "commands.nsfw", 
               "commands.music", 
               "commands.weather",
-              "commands.steam"]
+              "commands.steam",
+              "commands.gw2"]
 
 # Thy changelog
 change_log = [
@@ -58,8 +59,8 @@ async def _restart_bot():
       await bot.cogs["Music"].disconnect_all_voice_clients()
     except:
        pass
-    await bot.logout()
     subprocess.call([sys.executable, "bot.py"])
+    await bot.logout()
 
 async def _shutdown_bot():
     try:
@@ -199,8 +200,10 @@ async def on_message(message):
         return
     if getblacklistentry(message.author.id) is not None:
         return
-    if message.guild.id == 400012212791541760 and message.clean_content == "doki doki isn't weeb":
-    	await bot.send_message("doki doki is weeb")
+    if message.guild.id == 400012212791541760 and "doki doki isn't weeb" in message.content:
+        await message.channel.send("doki doki is weeb")
+    #if message.guild.id == 142361999538520065 and message.author
+    #i forgot what to type, expiremental spam protector™
     await bot.process_commands(message)
 
 @bot.command(hidden=True)
@@ -392,7 +395,7 @@ async def changestatus(ctx, status: str, *, name: str = None):
         return
     if name != "":
         game = discord.Activity(name=name)
-    await bot.change_presence(status=game, activity=statustype)
+    await bot.change_presence(name=game, activity=statustype)
     if name is not None:
         await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name, status))
         await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name, status))
@@ -557,29 +560,22 @@ async def ping(ctx):
          "Damn it seth, why does your internet have to be slow?", "EJ pls.", "Go check out ViralBot today! It's lit.",
          "pink floyd", "how do u feel, how do u feel now, aaaaaaaaaaaaa?", "alan's psychadelic breakfast",
          "Oh.. er.. me flakes.. scrambled eggs.. bacon.. sausages.. tomatoes.. toast.. coffee.. marmalade. I like "
-         "marmalade.. yes.. porridge is nice, any cereal.. I like all cereals..",
-         "so, how's was trumps bullshit on executive orders?", "don't sign the I-407 in the airport", "hi",
+         "marmalade.. yes.. porridge is nice, any cereal.. I like all cereals..", "hi",
          "hi can i get a  uh h hh h h h ", "stop pinging me", "go away nerd", "i secretly love you", "owo", "uwu",
-         "google blobs are the best", "lets keep advertising viralbot more!", "napstabot isn't good :^)", "haha net neutrality is dead right? xd"])
+         "google blobs are the best", "lets keep advertising viralbot more!", "napstabot isn't good :^)", "haha net neutrality is dead right? xd",
+         "seth be gay sometimes", "no no u", "stop pinging me", "tu eres un gay grande", "xdxdxd", "owu", "do r!neko on Ruby Rose, you'll regret it",
+         "404 my ass", "hey! look! i'm not dead!", "quick doctow (・`ω´・)  hand me the defibwiwwatow"])
     topkek = memes
     pingms = await ctx.send(topkek)
     r = pyping.ping('dragonfire.me')
     # await bot.edit_message(pingms, topkek + " // ***{} ms***".format(str(ping)[3:][:3]))
     await pingms.edit(content=topkek + " // ***{} ms***".format(r.avg_rtt))
 
-
-@bot.command()
-async def website(ctx):
-    """Gives the link to the bot docs"""
-    await ctx.send(
-        "My official website can be found here: https://dragonfire.me/robtheboat/info.html - Please be aware its outdated.")
-
-
 @bot.command()
 async def github(ctx):
     """Gives the link to the github repo"""
     await ctx.send(
-        "My official github repo can be found here: https://github.com/robingall2910/RobTheBoat - This is running the ***dragon*** branch.")
+        "My official github repo can be found here: https://github.com/robingall2910/RobTheBoat")
 
 
 @bot.command(hidden=True)
@@ -622,7 +618,7 @@ async def stats(ctx):
         em.title = bot.user.name + "'s Help Server"
         em.url = "https://discord.gg/2F69NdA"
         em.set_thumbnail(url=bot.user.avatar_url)
-        em.add_field(name='Creators', value='based robin#0052 and ZeroEpoch1969#0051', inline=True)
+        em.add_field(name='Creators', value='based robin#0052\nZeroEpoch1969#0051', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
@@ -642,7 +638,7 @@ async def stats(ctx):
         em.title = bot.user.name + "'s Help Server"
         em.url = "https://discord.gg/2F69NdA"
         em.set_thumbnail(url=bot.user.avatar_url)
-        em.add_field(name='Creators', value='based robin#0052 and ZeroEpoch1969#0051', inline=True)
+        em.add_field(name='Creators', value='based robin#0052\nZeroEpoch1969#0051', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)

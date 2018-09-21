@@ -9,9 +9,11 @@ import asyncio
 
 from discord.ext import commands
 from utils.config import Config
+from ipwhois import IPWhois
 config = Config()
 
 api_key = config._darksky_key
+apikey = config._lociqKey
 
 def kms(func):
     def wrapped(*args, **kwargs):
@@ -32,7 +34,7 @@ class Weather():
             #attempt to create a method
             @kms
             def getloc(this, addr):
-                g = geocoder.google(addr)
+                g = geocoder.locationiq(addr, key=apikey)
                 this.results = g.latlng
                 this.loc = g.address
             # variable setup
@@ -65,7 +67,7 @@ class Weather():
                 expiretime = datetime.datetime.fromtimestamp(int(a1.expires)).strftime('%A %B %d, %Y at %I:%M %p')
                 areas = ', '.join(a1.regions)
                 if len(areas) > 1024:
-                    areas = areas[:1021] + "..."
+                    areas = areas[:1019] + "..."
                 alertresult = "{} in {}. Expires {}. Click [here]({} 'National Weather Service/MET Office') for more information.".format(a1.title, areas, expiretime, a1.uri)
             except Exception:
                 weatheralert = False
@@ -121,11 +123,12 @@ class Weather():
             em.add_field(name='UV Index', value=whatever, inline=True)
             if weatheralert is True:
                 em.add_field(name='Weather Alert', value=alertresult, inline=True)
-            em.set_footer(text="Powered by Dark Sky / Last updated: {}".format(time.strftime("%I:%M:%S %p %Z")), icon_url='https://darksky.net/images/darkskylogo.png')
+            em.set_footer(text="Requested by: {}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+            em.set_author(name="Powered by Dark Sky / Last updated: {}".format(time.strftime("%I:%M:%S %p %Z")), icon_url='https://darksky.net/images/darkskylogo.png')
             await ctx.send(embed=em)
         #if anything breaks
         except IndexError:
-            ctx.send("The location was not found, please try again.")
+            await ctx.send("The location was not found, please try again.")
 
     @commands.command()
     async def locate(self, ctx, *, address: str):
@@ -133,13 +136,14 @@ class Weather():
         try:
             @kms
             def getloc(this, address):
-                g = geocoder.google(address)
+                g = geocoder.locationiq(address, key=apikey)
                 this.loc = g.json
             getloc(address)
             var = json.dumps(getloc.loc)
             k = json.loads(var)
             if k['ok'] is True:
                 yes = k['address']
+
             elif k['ok'] is False:
                 yes = "There's no results found for this location."
             else:
@@ -147,8 +151,34 @@ class Weather():
             asyncio.sleep(15)
             await ctx.send(yes)
         except IndexError:
-            ctx.send("The location was not found, please try again.")
-     
+            await ctx.send("The location was not found, please try again.")
+
+    @commands.command()
+    async def iplocate(self, ctx, *, ip: str):
+        """Go stalk someone, but in IP"""
+        try:
+            obj = IPWhois(ip)
+            res = obj.lookup_rdap()
+            asn = res['asn_description']
+            realip = res['query']
+            g = geocoder.maxmind(ip)
+            addr = g.address
+            em = discord.Embed(description="Stalking someone™")
+            em.title = "IP Lookup"
+            em.add_field(name="IP", value=realip)
+            em.add_field(name="Location", value=addr)
+            em.add_field(name="Company/ASN Number", value=asn)
+            em.set_footer(text="Requested by: {}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+            #color the sidebar
+            if ctx.me.color == None:
+                maybe = None
+            else:
+                maybe = ctx.me.color
+            em.color = maybe
+            await ctx.send(embed=em)
+        except IndexError:
+            await ctx.send("The IP didn't resolve anything, please try again.")
+
 
 def setup(bot):
     bot.add_cog(Weather(bot))

@@ -26,7 +26,8 @@ class Defaults:
     osuKey = None
     max_nsfw_count = 500
     skip_votes_needed = 1
-
+    gw2Key = None
+    lociqKey = None
 class Config:
     def __init__(self):
 
@@ -44,7 +45,7 @@ class Config:
         config = configparser.ConfigParser(interpolation=None)
         config.read(self.config_file, encoding="utf-8")
 
-        sections = {"Credentials", "Bot", "Status", "Logging", "Cleverbot", "MyAnimeList", "Osu"}.difference(config.sections())
+        sections = {"Credentials", "Bot", "Status", "Logging", "Cleverbot", "MyAnimeList", "Osu","Guild Wars 2"}.difference(config.sections())
         if sections:
             log.critical("Could not load a section in the config file, please obtain a new config file from the github repo if regenerating the config doesn't work!")
             os._exit(1)
@@ -69,6 +70,9 @@ class Config:
         self._malPassword = config.get("MyAnimeList", "password", fallback=Defaults.malPassword)
         self.enableOsu = config.getboolean("Osu", "enable", fallback=Defaults.enableOsu)
         self._osuKey = config.get("Osu", "key", fallback=Defaults.osuKey)
+        self._gw2Key = config.get("Guild Wars 2", "key", fallback=Defaults.gw2Key)
+        self._lociqKey = config.get("LocationIQ", "key", fallback=Defaults.lociqKey)
+
 
         self.check()
 
@@ -119,3 +123,12 @@ class Config:
             if not self._osuKey:
                 log.critical("The osu! module was enabled but no osu! api key was specified!")
                 os._exit(1)
+
+        if not self._gw2Key:
+            log.critical("There's no Guild Wars 2 key! Going in without one...")
+
+        if not self._lociqKey:
+            log.critical("There's no LocationIQ key! Location services for weather and IP tracking services will not work!")
+
+        if not self._darksky_key:
+            log.critical("The weather cog will not work without a Dark Sky key set!")
