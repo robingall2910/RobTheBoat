@@ -18,16 +18,14 @@ class Fuckery():
         self.bot = bot
 
     @commands.command()
-    async def say(self, ctx):
+    async def say(self, ctx, *, message:str):
         """Make the bot say whatever you want it to say"""
         try:
             await ctx.message.delete()
         except:
             pass
-        if ctx.author is not ctx.author.bot:
-            await ctx.send(ctx.message.clean_content.replace(".say", ""))
-        else:
-            return
+        message = strip_global_mentions(message, ctx)
+        await ctx.send(message)
 
     @commands.command()
     async def test(self, ctx):
@@ -168,6 +166,7 @@ class Fuckery():
     @commands.command(name="8ball")
     async def ball(self, ctx, *, question:str):
         """It's just python random don't take it seriously kthx"""
+        question = strip_global_mentions(question, ctx)
         await ctx.send("{}: {}".format(ctx.author.name, random.choice(magic_conch_shell)))
 
     @commands.command()
@@ -217,6 +216,8 @@ class Fuckery():
     @commands.command()
     async def ship(self, ctx, user1:discord.User=None, user2:discord.User=None):
         """Treat yourself to shipping to FedEx, DHL, UPS, USPS, and more. Nah not really. Ship yourself with someone if you could."""
+        user1 = strip_global_mentions(user1, ctx)
+        user2 = strip_global_mentions(user2, ctx)
         if user2 is None:
             await ctx.send("I see you haven't shipped yourself with anyone. Sad.")
         else:
@@ -225,6 +226,7 @@ class Fuckery():
     @commands.command()
     async def rate(self, ctx, *, user):
         """Have the bot rate yourself or another user"""
+        user = strip_global_mentions(user, ctx)
         if user is None:
             await ctx.send("I rate you a `{}`/`10`".format(random.randint(0, 10)))
         else:
