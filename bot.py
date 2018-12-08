@@ -21,7 +21,12 @@ from utils.logger import log
 from utils.mysql import *
 from utils.opus_loader import load_opus_lib
 from utils.tools import *
-
+#reset
+os.sched_getaffinity(0)
+x = {i for i in range(10)}
+os.sched_setaffinity(0, x)
+os.sched_getaffinity(0)
+os.system("taskset -p 0xff %d" % os.getpid())
 start_time = time.time()
 
 # Initialize the logger first so the colors and shit are setup
@@ -33,7 +38,9 @@ config = Config()
 if config.debug:
     log.enableDebugging()  # pls no flame
 
-bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(config.command_prefix), description="A bot with several purposes, like music, memes, weather, but based off of the furry fandom.", pm_help=None)
+bot_triggers = [config.command_prefix, "r.", "hey dragon, ", "hey derg, ", "hey batzz, "]
+
+bot = commands.AutoShardedBot(command_prefix=bot_triggers, description="A bot with several purposes, like music, memes, weather, but based off of the furry fandom.", pm_help=None)
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
@@ -46,7 +53,8 @@ extensions = ["commands.fuckery",
               "commands.music", 
               "commands.weather",
               "commands.steam",
-              "commands.gw2"]
+              "commands.gw2",
+              "commands.imdb"]
 
 # Thy changelog
 change_log = [
@@ -59,7 +67,7 @@ async def _restart_bot():
       await bot.cogs["Music"].disconnect_all_voice_clients()
     except:
        pass
-    subprocess.call([sys.executable, "bot.py"])
+    await subprocess.call([sys.executable, "bot.py"])
     await bot.logout()
 
 async def _shutdown_bot():
@@ -87,7 +95,7 @@ async def set_default_status():
             game = discord.Activity(name=game, url="http://twitch.tv/robingall2910", type=discord.ActivityType.streaming)
         else:
             game = discord.Activity(
-                name="how many times i restart", type=discord.ActivityType.watching)
+                name="New command invokes are now available!\n\"hey derg\", \"hey dragon\", \"hey batzz\", and \"r.\"! \n\n#BetoSanders2020 #AbramsForGovernor", type=discord.ActivityType.playing)
             # pyrawanpmjadbapanwmjamtsatltsadw
         await bot.change_presence(status=type, activity=game)
     else:
@@ -193,17 +201,37 @@ async def on_command_preprocess(ctx):
 
 @bot.event
 async def on_message(message):
+    ids = [149688910220361728, 112747894435491840, 188153050471333888]
+    serverids = [400012212791541760, 510897834581557251, 142361999538520065, 502979046993559553]
     if isinstance(message.author, discord.Member):
         if discord.utils.get(message.author.roles, name="Dragon Ignorance"):
             return
     if message.author.bot:
         return
-    if getblacklistentry(message.author.id) is not None:
+    if getblacklistentry(message.author.id) is not None and message.clean_content.startswith(config.command_prefix):
+        em = discord.Embed(description=None)
+        em.title = "Whoops!"
+        em.description = "You're blacklisted."
+        em.color = 0xFF3346
+        em.set_footer(text='if you wish to be removed, find a way to message the bot developers.')
+        await message.channel.send(embed=em)
         return
-    if message.guild.id == 400012212791541760 and "doki doki isn't weeb" in message.content:
-        await message.channel.send("doki doki is weeb")
-    #if message.guild.id == 142361999538520065 and message.author
-    #i forgot what to type, expiremental spam protector™
+    if message.guild.id in serverids:
+        if re.match("(<:monika:451965787045888019>\s*<:Kreygasm:433677270264184833>|<:monika:451965787045888019>\s*<:hyperkreygasm:460417913837322271>)+", message.clean_content):
+            await message.channel.send("<:monika:451965787045888019> :gay_pride_flag:")
+        if re.match("(?=\s*wyoming\s*|\s*kenya\s*)\w+", message.clean_content) is not None:
+            await message.channel.send("isn't real")
+        if message.author.id in ids:
+            if re.match("(?=warm|hot|burning)\w+", message.clean_content) is not None:
+                await message.channel.send("actually cold")
+        if "doki doki isn't weeb" in message.content:
+            await message.channel.send("doki doki is weeb")
+        if re.match("(?=\s*colour)+", message.clean_content) is not None:
+            await message.channel.send("color")
+        if re.match("(?=matt)+", message.clean_content) is not None:
+        	await message.channel.send("<@263702320846471178> shut up\n\nremove matt")
+        if re.match("(?=troy)+", message.clean_content) is not None:
+        	await message.channel.send("b-baka desu chan nani uwu")
     await bot.process_commands(message)
 
 @bot.command(hidden=True)
@@ -395,7 +423,7 @@ async def changestatus(ctx, status: str, *, name: str = None):
         return
     if name != "":
         game = discord.Activity(name=name)
-    await bot.change_presence(name=game, activity=statustype)
+    await bot.change_presence(status=name, activity=statustype)
     if name is not None:
         await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name, status))
         await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name, status))

@@ -55,7 +55,10 @@ class Steam():
             return
         groupCount = len(steamAPI.ISteamUser.GetUserGroupList_v1(steamid=steamID)["response"]["groups"])
         games = requests.get("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={}&steamid={}&include_played_free_games=1%format=json".format(config._steam_key, steamID)).json()["response"]
-        gamesPlayed = games["game_count"]
+        try:
+            gamesPlayed = games["game_count"]
+        except KeyError:
+        	gamesPlayed = "Games are private."
         state = EPersonaState(steamUser["personastate"]).name
         gameName = None
         if "gameid" in steamUser.keys():
@@ -74,7 +77,10 @@ class Steam():
         fields.update(ban_info)
         embed = make_list_embed(fields)
         embed.title = steamUser["personaname"]
-        embed.description = steamUser['realname']
+        try:
+            embed.description = steamUser['realname']
+        except KeyError:
+        	embed.description = "No real name in profile"
         embed.colour = ctx.me.colour
         embed.url = steamUser["profileurl"]
         embed.set_thumbnail(url=steamUser["avatarfull"])
