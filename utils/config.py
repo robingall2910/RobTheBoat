@@ -27,7 +27,7 @@ class Defaults:
     max_nsfw_count = 500
     skip_votes_needed = 1
     gw2Key = None
-    lociqKey = None
+    googleKey = None
 class Config:
     def __init__(self):
 
@@ -71,7 +71,7 @@ class Config:
         self.enableOsu = config.getboolean("Osu", "enable", fallback=Defaults.enableOsu)
         self._osuKey = config.get("Osu", "key", fallback=Defaults.osuKey)
         self._gw2Key = config.get("Guild Wars 2", "key", fallback=Defaults.gw2Key)
-        self._lociqKey = config.get("LocationIQ", "key", fallback=Defaults.lociqKey)
+        self._googleKey = config.get("Google", "key", fallback=Defaults.googleKey)
 
 
         self.check()
@@ -127,7 +127,7 @@ class Config:
         if not self._gw2Key:
             log.critical("There's no Guild Wars 2 key! Going in without one...")
 
-        if not self._lociqKey:
+        if not self._googleKey:
             log.critical("There's no LocationIQ key! Location services for weather and IP tracking services will not work!")
 
         if not self._darksky_key:

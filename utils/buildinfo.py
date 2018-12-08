@@ -1,7 +1,7 @@
-BUILD_VERSION = "7.5.2"
+BUILD_VERSION = "7.7.3"
 BUILD_AUTHORS = "based robin#0052 and ZeroEpoch1969#0051"
-BUILD_CODENAME = "bot be broke still"
-BUILD_DATE = "September 20th, 2018 @ 10:59 PM EDT"
+BUILD_CODENAME = "mick"
+BUILD_DATE = "December 8th, 2018 @ 2:38 PM EST"
 #how the build version goes:
 #a.b.c
 #a = major rewrites counted

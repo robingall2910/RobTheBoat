@@ -6,8 +6,8 @@ conn.row_factory = sqlite3.Row
 cur = conn.cursor()
 
 def create_tables():
-    cur.execute("""CREATE TABLE IF NOT EXISTS guilds(id INT, type TEXT, value TEXT)""")
-    cur.execute("""CREATE TABLE IF NOT EXISTS blacklist(id INT, name TEXT, discrim TEXT, reason TEXT)""")
+    cur.execute("""CREATE TABLE IF NOT EXISTS guilds(id TEXT, type TEXT, value TEXT)""")
+    cur.execute("""CREATE TABLE IF NOT EXISTS blacklist(id TEXT, name TEXT, discrim TEXT, reason TEXT)""")
 
 def format_user(insertnerovar):
     return insertnerovar.name + "#" + insertnerovar.discriminator

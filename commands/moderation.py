@@ -17,6 +17,7 @@ class Moderation():
         """Kicks the specified user from the server"""
         try:
             await ctx.guild.kick(user)
+            await ctx.send("Finally kicked `{}`.".format(user))
         except discord.errors.Forbidden:
             if user.top_role.position == ctx.me.top_role.position:
                 await ctx.send("Did you ever know that I can't really kick that user just simply because it's on the same role level as me?")
@@ -24,7 +25,6 @@ class Moderation():
                 await ctx.send("HEEEEEEEEEEEYYYYYYYY, I can't kick them! They're higher than me.")
             else:
                 await ctx.send("I don't have the `Kick Members` permission...")
-        await ctx.send("Finally kicked `{}`.".format(user))
 
     @checks.server_mod_or_perms(ban_members=True)
     @commands.command()
@@ -142,7 +142,7 @@ class Moderation():
             await ctx.send("I could not find any role named `{}`".format(mute_role_name))
             return
         try:
-            await user.remove_roles(user, mute_role, reason="Unmuted by {}".format(ctx.author))
+            await user.remove_roles(mute_role, reason="Unmuted by {}".format(ctx.author))
             await ctx.send("Successfully unmuted `{}`".format(user))
         except discord.errors.Forbidden:
             if mute_role.position == ctx.me.top_role.position:

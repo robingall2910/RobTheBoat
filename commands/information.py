@@ -2,18 +2,19 @@ import os
 import socket
 import nmap
 import pythonwhois
+import datetime
+import time
 
 from discord.ext import commands
-from datetime import *
 from utils.tools import *
 from utils.logger import log
 from utils.unicode import *
 from utils.config import Config
 config = Config()
 
-halloween = date(2018, 10, 31)
-christmas = date(2018, 12, 25)
-newyear = date(2019, 1, 1)
+halloween = datetime(2019, 10, 31)
+christmas = datetime(2018, 12, 25)
+newyear = datetime(2019, 1, 1)
 
 class Information():
     def __init__(self, bot):
@@ -38,7 +39,10 @@ class Information():
         fields = {"ID":guild.id, "Created on":format_time(guild.created_at), "Region":guild.region, "Member Count ({} total)".format(len(guild.members)):"{} humans, {} bots".format(human_count, bot_count), "Channel Count ({} total)".format(len(guild.channels)):"{} text, {} voice".format(len(guild.text_channels), len(guild.voice_channels)), "Role Count":len(guild.roles), "Owner":guild.owner, "Owner ID":guild.owner_id, "AFK Channel":guild.afk_channel, "AFK Timeout":timeout_times[guild.afk_timeout], "Verification Level":str(ctx.guild.verification_level).capitalize().replace("High", tableflip).replace("Extreme", doubleflip), "2FA Enabled":convert_to_bool(guild.mfa_level)}
         embed = make_list_embed(fields)
         embed.title = guild.name
-        embed.color = 0xFF0000
+        if ctx.me.color is not None:
+            embed.color = ctx.me.color
+        else:
+            embed.color = 0xff0000
         if guild.icon_url:
             embed.set_thumbnail(url=guild.icon_url)
         await ctx.send(embed=embed)
@@ -50,8 +54,8 @@ class Information():
         if user is None:
             user = ctx.author
         game = None
-        if user.game:
-            game = user.game.name
+        if user.activity:
+            game = user.activity.name
         voice_channel = None
         self_mute = False
         self_deaf = False
@@ -65,9 +69,65 @@ class Information():
             server_deaf = user.voice.deaf
         fields = {"ID":user.id, "Bot Account":user.bot, "Created on":format_time(user.created_at), "Game":game, "Status":user.status, "Role Count":len(user.roles), "Joined on":format_time(user.joined_at), "Nickname":user.nick, "Voice Channel":voice_channel, "Self Muted":self_mute, "Self Deafened":self_deaf, "Server Muted":server_mute, "Server Deafened":server_deaf}
         embed = make_list_embed(fields)
+        embed.set_footer(text="Requested by {}".format(ctx.author), icon_url=ctx.author.avatar_url)
         embed.title = str(user)
         embed.color = user.color
         embed.set_thumbnail(url=get_avatar(user))
+        requester = ctx.author
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def roleinfo(self, ctx, *, name:str):
+        """Gets information on a role, warning, it might take up the entire screen"""
+        role = discord.utils.get(ctx.guild.roles, name=name)
+        if role is None:
+            await ctx.send("`{}` isn't real. Or is it?".format(name))
+            return
+        color = role.color
+        if color == discord.Color(value=0x000000):
+            color = "None"
+        count = len([member for member in ctx.guild.members if discord.utils.get(member.roles, name=role.name)])
+        perms = role.permissions
+        fields = {
+            "Position":role.position,
+            "User count":count,
+            "Mentionable":role.mentionable,
+            "Display seperately":role.hoist,"Add reactions":perms.add_reactions,
+            "Administrator":perms.administrator,
+            "Attach files":perms.attach_files,
+            "Ban members":perms.ban_members,
+            "Change nickname":perms.change_nickname,
+            "Connect":perms.connect,
+            "Create instant invites":perms.create_instant_invite,
+            "Deafen members":perms.deafen_members,
+            "Embed links":perms.embed_links,
+            "External emojis":perms.external_emojis,
+            "Kick members":perms.kick_members,
+            "Manage channels":perms.manage_channels,
+            "Manage emojis":perms.manage_emojis,
+            "Manage guild":perms.manage_guild,
+            "Manage messages":perms.manage_messages,
+            "Manage nicknames":perms.manage_nicknames,
+            "Manage roles":perms.manage_roles,
+            "Manage webhooks":perms.manage_webhooks,
+            "Mention everyone":perms.mention_everyone,
+            "Move members":perms.move_members,
+            "Mute members":perms.mute_members,
+            "Read message history":perms.read_message_history,
+            "Read messages":perms.read_messages,
+            "Send messages":perms.send_messages,
+            "Send TTS messages":perms.send_tts_messages,
+            "Speak":perms.speak,
+            "Use voice activation":perms.use_voice_activation,
+            "View audit logs":perms.view_audit_log
+        }
+        embed = make_list_embed(fields)
+        embed.set_footer(text="Requested by {}".format(ctx.author), icon_url=ctx.author.avatar_url)
+        embed.title = "{} - {}".format(role.name, role.id)
+        if color is None:
+            embed.color = None
+        else:
+            embed.color = color
         await ctx.send(embed=embed)
 
     @commands.command()
@@ -87,22 +147,6 @@ class Information():
         if user is None:
             user = ctx.message.author
         await ctx.send("{}'s default avatar url is: {}".format(user.mention, user.default_avatar_url))
-
-    @commands.command()
-    async def roleinfo(self, ctx, *, name:str):
-        """Gets information on a role, warning, it might take up the entire screen"""
-        role = discord.utils.get(ctx.message.server.roles, name=name)
-        if role is None:
-            await ctx.send("`{}` isn't real. Or is it?".format(name))
-            return
-        color = role.color
-        if color == discord.Color(value=0x000000):
-            color = "None"
-        count = len([member for member in ctx.message.server.members if discord.utils.get(member.roles, name=role.name)])
-        perms = role.permissions
-        permlist = "Can ban members: {}\nCan change nickname: {}\nCan connect to voice channels: {}\nCan create instant invites: {}\nCan deafen members: {}\nCan embed links: {}\nCan use external emojis: {}\nCan manage channel: {}\nCan manage emojis: {}\nCan manage messages: {}\nCan manage nicknames: {}\nCan manage roles: {}\nCan manage server: {}\nCan mention everyone: {}\nCan move members: {}\nCan mute members: {}\nCan read message history: {}\nCan send messages: {}\nCan speak: {}\nCan use voice activity: {}\nCan manage webbooks: {}\nCan add reactions: {}".format(perms.ban_members, perms.change_nickname, perms.connect, perms.create_instant_invite, perms.deafen_members, perms.embed_links, perms.external_emojis, perms.manage_channels, perms.manage_emojis, perms.manage_messages, perms.manage_nicknames, perms.manage_roles, perms.manage_server, perms.mention_everyone, perms.move_members, perms.mute_members, perms.read_message_history, perms.send_messages, perms.speak,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               perms.use_voice_activation, perms.manage_webhooks, perms.add_reactions)
-        await ctx.send(py.format("Name: \"{}\"\nID: {}\nColor: {}\nPosition: {}\nUser count: {}\nMentionable: {}\nDisplay separately: {}\n".format(role.name, role.id, color, role.position, count, role.mentionable, role.hoist) + permlist))
-
     #/s
     @commands.command()
     async def emoteurl(self, ctx, *, emote:str):
@@ -134,17 +178,17 @@ class Information():
     @commands.command()
     async def daystillhalloween(self, ctx):
         """Displays how many days until it's halloween"""
-        await ctx.send("Days until halloween: `{} days`".format((halloween - date.today()).days))
+        await ctx.send("Days until halloween: `{} days`".format((halloween - datetime.today()).days))
 
     @commands.command()
     async def daystillchristmas(self, ctx):
         """Displays how many days until it's christmas"""
-        await ctx.send("Days until christmas: `{} days`".format((christmas - date.today()).days))
+        await ctx.send("Days until christmas: `{} days`".format((christmas - datetime.today()).days))
 
     @commands.command()
     async def daystillnewyears(self, ctx):
         """Displays how many days until it's the new year"""
-        await ctx.send("Days until new years: `{} days`".format((newyear - date.today()).days))
+        await ctx.send("Days until new years: `{} days`".format((newyear - datetime.today()).days))
 
     @commands.command()
     async def getserverinfo(self, ctx, *, name:str):
@@ -167,8 +211,9 @@ class Information():
             requests.get(url, timeout=3)
             ping = "%.01f seconds" % (time.time() - starttime)
             await ctx.send("`{}` is online. Ping time is `{}`".format(url, ping))
-        except:
+        except Exception as e:
             await ctx.send("`{}` is offline.".format(url))
+            await ctx.send("Error {}".format(e))
 
     @commands.command()
     async def getemotes(self, ctx):
@@ -266,13 +311,12 @@ class Information():
     async def portscan(self, ctx, host:str, ports:str):
         """Uses nmap to scan the specified ports from the specified host"""
         await ctx.channel.trigger_typing()
-        scanner = nmap.PortScanner()
+        ports = nmap.nmap(host, ports)["scan"][host]["tcp"]
         try:
             host = socket.gethostbyname(host)
         except socket.gaierror:
             await ctx.send("`{}` is not a valid address".format(host))
             return
-        ports = scanner.scan(host, ports)["scan"][host]["tcp"]
         results = []
         for port, data in ports.items():
             service = data["name"]
@@ -316,8 +360,10 @@ class Information():
         if not user:
             await ctx.send("Could not find any user in my mutual servers with an ID of `{}`".format(id))
             return
-        if user.game:
-            game = user.game.name
+        if user.activity:
+            game = user.activity.name
+        else:
+            game = None
         fields = {"Name":user.name, "Discriminator":user.discriminator, "ID":user.id, "Status":str(user.status).replace("dnd", "do not disturb"), "Game":game, "Bot":user.bot}
         embed = make_list_embed(fields)
         embed.title = str(user)
