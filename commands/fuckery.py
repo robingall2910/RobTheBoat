@@ -18,16 +18,14 @@ class Fuckery():
         self.bot = bot
 
     @commands.command()
-    async def say(self, ctx):
+    async def say(self, ctx, *, message:str):
         """Make the bot say whatever you want it to say"""
         try:
             await ctx.message.delete()
         except:
             pass
-        if ctx.author is not ctx.author.bot:
-            await ctx.send(ctx.message.clean_content.replace(".say", ""))
-        else:
-            return
+        message = strip_global_mentions(message, ctx)
+        await ctx.send(message)
 
     @commands.command()
     async def test(self, ctx):
@@ -137,42 +135,6 @@ class Fuckery():
         await ctx.send(sand)
 
     @commands.command()
-    async def troy(self, ctx):
-    	"""boy troy who used to live in detroit who's also a weeb"""
-    	nani = random.choice(troy)
-    	await ctx.send(nani)
-
-    @commands.command()
-    async def speed(self, ctx):
-        """ m """
-        m = random.choice(speed)
-        await ctx.send(m)
-
-    @commands.command()
-    async def super(self, ctx):
-        """lion co"""
-        lioncompany = random.choice(soopor)
-        await ctx.send(lioncompany)
-
-    @commands.command()
-    async def rhymix(self, ctx):
-        """and that's the tea"""
-        tea = random.choice(rhyfomos)
-        await ctx.send(tea)
-
-    @commands.command()
-    async def square(self, ctx):
-        """remove emo european"""
-        emo = random.choice(square)
-        await ctx.send(emo)
-
-    @commands.command()
-    async def chaotix(self, ctx):
-        """british tf2 meme yeah"""
-        tf2 = random.choice(chaotix)
-        await ctx.send(tf2)
-
-    @commands.command()
     async def quote(self, ctx):
         """Don't quote me on that"""
         await ctx.channel.trigger_typing()
@@ -204,6 +166,7 @@ class Fuckery():
     @commands.command(name="8ball")
     async def ball(self, ctx, *, question:str):
         """It's just python random don't take it seriously kthx"""
+        question = strip_global_mentions(question, ctx)
         await ctx.send("{}: {}".format(ctx.author.name, random.choice(magic_conch_shell)))
 
     @commands.command()
@@ -253,6 +216,8 @@ class Fuckery():
     @commands.command()
     async def ship(self, ctx, user1:discord.User=None, user2:discord.User=None):
         """Treat yourself to shipping to FedEx, DHL, UPS, USPS, and more. Nah not really. Ship yourself with someone if you could."""
+        user1 = strip_global_mentions(user1, ctx)
+        user2 = strip_global_mentions(user2, ctx)
         if user2 is None:
             await ctx.send("I see you haven't shipped yourself with anyone. Sad.")
         else:
@@ -261,6 +226,7 @@ class Fuckery():
     @commands.command()
     async def rate(self, ctx, *, user):
         """Have the bot rate yourself or another user"""
+        user = strip_global_mentions(user, ctx)
         if user is None:
             await ctx.send("I rate you a `{}`/`10`".format(random.randint(0, 10)))
         else:
@@ -281,10 +247,6 @@ class Fuckery():
         Search the infinite pages of wikipedia!
         """
         #Holy fucking shit, how long has that mistake been here?
-        if ("kenya" or "Kenya") in query:
-        	return await ctx.send("not real sorry")
-        else:
-        	pass
         cont = re.sub(r"\s+", '_', query)
         q = wikipedia.page(cont)
         await ctx.channel.trigger_typing()

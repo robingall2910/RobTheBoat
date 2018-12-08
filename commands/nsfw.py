@@ -132,7 +132,7 @@ class NSFW():
         images = []
         for i in range(image_count):
             try:
-                images.append("{}".format(data[random.randint(0, count)]["file_url"]))
+                images.append("http://danbooru.donmai.us{}".format(data[random.randint(0, count)]["file_url"]))
             except KeyError:
                 await ctx.send(data["message"])
                 return
