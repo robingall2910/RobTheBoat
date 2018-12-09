@@ -28,6 +28,9 @@ class Defaults:
     skip_votes_needed = 1
     gw2Key = None
     googleKey = None
+    lastfmapiKey = None
+    lastfmSecret = None
+
 class Config:
     def __init__(self):
 
@@ -72,7 +75,8 @@ class Config:
         self._osuKey = config.get("Osu", "key", fallback=Defaults.osuKey)
         self._gw2Key = config.get("Guild Wars 2", "key", fallback=Defaults.gw2Key)
         self._googleKey = config.get("Google", "key", fallback=Defaults.googleKey)
-
+        self._lastfmapiKey = config.get("Last.fm", "api", fallback=Defaults.lastfmapiKey)
+        self._lastfmSecret = config.get("Last.fm", "secret", fallback=Defaults.lastfmSecret)
 
         self.check()
 
@@ -132,3 +136,6 @@ class Config:
 
         if not self._darksky_key:
             log.critical("The weather cog will not work without a Dark Sky key set!")
+
+        if not self._lastfmapiKey:
+            log.critical("The last.fm cog will not work without the api key at least set.")

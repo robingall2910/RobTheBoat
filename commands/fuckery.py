@@ -282,10 +282,10 @@ class Fuckery():
         """
         #Holy fucking shit, how long has that mistake been here?
         if ("kenya" or "Kenya") in query:
-        	return await ctx.send("not real sorry")
+            return await ctx.send("not real sorry")
         else:
-        	pass
-        cont = re.sub(r"\s+", '_', query)
+            pass
+        cont = re.sub("\s+", '_', query)
         q = wikipedia.page(cont)
         await ctx.channel.trigger_typing()
         em = discord.Embed(description="")
