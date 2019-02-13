@@ -60,7 +60,6 @@ magic_conch_shell = [
 # Insults for the insult command
 insults = [
     "is a fucking pedophile",
-    "is a nigger",
     "is so insecure about his penis size because it is smaller than a babies",
     "is just a fucking sterotypical 12 year old saying shit like \"I fucked your mom\" and other shit",
     "is a fucking disguisting, disgraceful, ignorant, pathetic, and discriminative weeaboo!",
@@ -208,7 +207,7 @@ santropez = [
 ]
 
 #jake
-jake = [
+jakedis = [
     "Shut up you colonial your opinion is invalid",
     "hey we're mr worldwide",
     "yeah he's a pleb init",

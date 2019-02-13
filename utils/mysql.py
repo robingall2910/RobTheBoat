@@ -8,6 +8,7 @@ cur = conn.cursor()
 def create_tables():
     cur.execute("""CREATE TABLE IF NOT EXISTS guilds(id TEXT, type TEXT, value TEXT)""")
     cur.execute("""CREATE TABLE IF NOT EXISTS blacklist(id TEXT, name TEXT, discrim TEXT, reason TEXT)""")
+    cur.execute("""CREATE TABLE IF NOT EXISTS lockdown(id TEXT, servername TEXT, channame TEXT)""")
 
 def format_user(insertnerovar):
     return insertnerovar.name + "#" + insertnerovar.discriminator
@@ -80,6 +81,31 @@ def getblacklistentry(id):
     reason = cur.fetchone()[0]
     blacklistentry = {"id":id, "name":name, "discrim":discrim, "reason":reason}
     return blacklistentry
+
+def lockdownchannel(id, servername, channame):
+    cur.execute('INSERT INTO lockdown(id, servername, channame) VALUES (?, ?, ?)', (id, servername, channame))
+    conn.commit()
+
+def removelockdownchannel(id):
+    cur.execute("""DELETE FROM lockdown WHERE id=""" + str(id))
+
+def getlockdowninfo():
+    cur.execute('SELECT id, servername, channame FROM lockdown')
+    entries = []
+    rows = cur.fetchall()
+    for row in rows:
+        entry = "ID: \"" + row["id"] + "\" Server Name: \"" + row["servername"] + "\" Channel Name: \"" + row["channame"] + "\""
+        entries.append(entry)
+    return entries
+
+def getquicklockdownstatus():
+    cur.execute('SELECT id FROM lockdown')
+    entries = []
+    meme = cur.fetchall()
+    for row in meme:
+        entry = row['id']
+        entries.append(entry)
+    return entries
 
 def getblacklist():
     cur.execute("""SELECT id, name, discrim, reason FROM blacklist""")

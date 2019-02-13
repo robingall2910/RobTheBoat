@@ -30,6 +30,7 @@ class Defaults:
     googleKey = None
     lastfmapiKey = None
     lastfmSecret = None
+    scalewayKey = None
 
 class Config:
     def __init__(self):
@@ -48,7 +49,7 @@ class Config:
         config = configparser.ConfigParser(interpolation=None)
         config.read(self.config_file, encoding="utf-8")
 
-        sections = {"Credentials", "Bot", "Status", "Logging", "Cleverbot", "MyAnimeList", "Osu","Guild Wars 2"}.difference(config.sections())
+        sections = {"Credentials", "Bot", "Status", "Logging", "Cleverbot", "MyAnimeList", "Osu", "Guild Wars 2", "Scaleway"}.difference(config.sections())
         if sections:
             log.critical("Could not load a section in the config file, please obtain a new config file from the github repo if regenerating the config doesn't work!")
             os._exit(1)
@@ -77,6 +78,7 @@ class Config:
         self._googleKey = config.get("Google", "key", fallback=Defaults.googleKey)
         self._lastfmapiKey = config.get("Last.fm", "api", fallback=Defaults.lastfmapiKey)
         self._lastfmSecret = config.get("Last.fm", "secret", fallback=Defaults.lastfmSecret)
+        self._scalewayKey = config.get("Scaleway", "api", fallback=Defaults.scalewayKey)
 
         self.check()
 

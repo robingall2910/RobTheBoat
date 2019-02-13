@@ -1,5 +1,10 @@
 # encoding=utf8
 import asyncio
+import threading
+from threading import Timer
+from multiprocessing import Process, Queue
+
+
 import cat
 import random
 import os
@@ -9,6 +14,8 @@ import time
 #from cleverwrap import CleverWrap
 #from utils.config import Config #for cleverwrap's key
 from discord.ext import commands
+
+from utils.logger import log
 from utils.tools import *
 from utils.unicode import *
 from utils.fun.lists import *
@@ -354,5 +361,12 @@ class Fuckery():
         embed = make_message_embed(message.author, message.author.color, message.content, formatUser=True)
         await ctx.send(None, embed=embed)
         
+    @commands.command()
+    async def timer(self, ctx, timer: float, *, message: str):
+        await ctx.send("Timer has been set.")
+        log.info(str(ctx.author) + " has set the timer for " + str(timer) + " seconds")
+        await asyncio.sleep(timer)
+        await ctx.send("m its ready\nmessage that came with it {}".format(message.replace("@everyone", "at everyone fuckers ")))
+
 def setup(bot):
     bot.add_cog(Fuckery(bot))

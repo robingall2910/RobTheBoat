@@ -1,7 +1,5 @@
 import os
 import socket
-import nmap
-import pythonwhois
 import datetime
 import time
 
@@ -13,7 +11,7 @@ from utils.config import Config
 config = Config()
 
 halloween = datetime(2019, 10, 31)
-christmas = datetime(2018, 12, 25)
+christmas = datetime(2019, 12, 25)
 newyear = datetime(2019, 1, 1)
 
 class Information():
@@ -308,50 +306,12 @@ class Information():
         await ctx.send(rb.format(output))
 
     @commands.command()
-    async def portscan(self, ctx, host:str, ports:str):
-        """Uses nmap to scan the specified ports from the specified host"""
-        await ctx.channel.trigger_typing()
-        ports = nmap.nmap(host, ports)["scan"][host]["tcp"]
-        try:
-            host = socket.gethostbyname(host)
-        except socket.gaierror:
-            await ctx.send("`{}` is not a valid address".format(host))
-            return
-        results = []
-        for port, data in ports.items():
-            service = data["name"]
-            if service == "":
-                service = "unknown"
-            results.append("Port {}({}): {}".format(port, service, data["state"]))
-        await ctx.send(xl.format("\n".join(results)))
-
-    @commands.command()
     async def getnumericip(self, ctx, address:str):
         """Resolves the numeric ip of a domain"""
         try:
             await ctx.send(socket.gethostbyname(address))
         except socket.gaierror:
             await ctx.send("`{}` is not a valid address".format(address))
-
-    @commands.command()
-    async def whois(self, ctx, domain:str):
-        """Gets whois information on a domain"""
-        try:
-            info = pythonwhois.get_whois(domain)
-        except pythonwhois.shared.WhoisException:
-            await ctx.send("Could not find the root server for that TLD")
-            return
-        except KeyError:
-            await ctx.send("Failed to lookup domain")
-            return
-        if info["contacts"]["registrant"] is None:
-            await ctx.send(embed=discord.Embed(title="Domain Available", description="`{}` is available for registration".format(domain), color=0x00FF00))
-            return
-        fields = {"Registrar":info["registrar"][0], "Registered on":format_time(info["creation_date"][0]), "Expires on":format_time(info["expiration_date"][0]), "Last updated":format_time(info["updated_date"][0]), "Name Servers":", ".join(info["nameservers"])}
-        embed = make_list_embed(fields)
-        embed.title = "Domain Unavailable"
-        embed.color = 0xFF0000
-        await ctx.send(embed=embed)
 
     @commands.command()
     async def getuserbyid(self, ctx, id:int):

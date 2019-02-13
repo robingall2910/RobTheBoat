@@ -6,10 +6,10 @@ import random
 import subprocess
 import sys
 import time
+import traceback
 
 import aiohttp
 import psutil
-import pyping
 from discord.ext import commands
 
 from utils import checks
@@ -22,6 +22,12 @@ from utils.mysql import *
 from utils.opus_loader import load_opus_lib
 from utils.tools import *
 
+#reset
+os.sched_getaffinity(0)
+x = {i for i in range(10)}
+os.sched_setaffinity(0, x)
+os.sched_getaffinity(0)
+os.system("taskset -p 0xff %d" % os.getpid())
 start_time = time.time()
 
 # Initialize the logger first so the colors and shit are setup
@@ -33,20 +39,26 @@ config = Config()
 if config.debug:
     log.enableDebugging()  # pls no flame
 
-bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(config.command_prefix), description="A bot with several purposes, like music, memes, weather, but based off of the furry fandom.", pm_help=None)
+bot_triggers = [config.command_prefix, "r.", "hey dragon, ", "hey derg, ", "hey batzz, "]
+
+bot = commands.AutoShardedBot(command_prefix=bot_triggers, description="A bot with several purposes, like music, memes, weather, but based off of the furry fandom.", pm_help=None)
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
 
-extensions = ["commands.fuckery", 
-              "commands.information", 
-              "commands.moderation", 
-              "commands.configuration",
-              "commands.nsfw", 
-              "commands.music", 
-              "commands.weather",
-              "commands.steam",
-              "commands.gw2"]
+extensions = [
+    "commands.fuckery",
+    "commands.moderation",
+    "commands.configuration",
+    "commands.nsfw",
+    "commands.music",
+    "commands.weather",
+    "commands.steam",
+    "commands.gw2",
+    "commands.lastfm",
+    "commands.information",
+    "commands.scaleway"
+]
 
 # Thy changelog
 change_log = [
@@ -55,16 +67,16 @@ change_log = [
 
 async def _restart_bot():
     try:
-      aiosession.close()
+      await aiosession.close()
       await bot.cogs["Music"].disconnect_all_voice_clients()
     except:
        pass
-    subprocess.call([sys.executable, "bot.py"])
+    await subprocess.call([sys.executable, "bot.py"])
     await bot.logout()
 
 async def _shutdown_bot():
     try:
-      aiosession.close()
+      await aiosession.close()
       await bot.cogs["Music"].disconnect_all_voice_clients()
     except:
        pass
@@ -87,7 +99,8 @@ async def set_default_status():
             game = discord.Activity(name=game, url="http://twitch.tv/robingall2910", type=discord.ActivityType.streaming)
         else:
             game = discord.Activity(
-                name="how many times i restart", type=discord.ActivityType.watching)
+                #name="New command invokes are now available!\n\"hey derg\", \"hey dragon\", \"hey batzz\", and \"r.\"! \n\n#BetoSanders2020 #AbramsForGovernor", type=discord.ActivityType.playing)
+                name="gay rights and trans rights!", type=discord.ActivityType.playing, status=discord.Status.dnd)
             # pyrawanpmjadbapanwmjamtsatltsadw
         await bot.change_presence(status=type, activity=game)
     else:
@@ -123,7 +136,7 @@ async def on_ready():
     if config._dbots_token:
         log.info("Updating DBots Statistics...")
         try:
-            r = requests.post("https://bots.discord.pw/api/bots/:{}/stats".format(bot.user.id),
+            r = requests.post("https://discord.bots.gg/api/v1/bots/:{}/stats".format(bot.user.id),
             	              json={"server_count": len(bot.guilds)},
                 	          headers={"Authorization": config._dbots_token}, timeout=3)
             if r.status_code == 200:
@@ -190,20 +203,60 @@ async def on_command_preprocess(ctx):
                                                          server, ctx.message.author.id, ctx.message.author,
                                                          ctx.message.content))
 
-
 @bot.event
 async def on_message(message):
+    ids = [149688910220361728, 112747894435491840, 188153050471333888]
+    serverids = [400012212791541760, 510897834581557251, 142361999538520065, 502979046993559553]
+    bypassids = [169597963507728384, 117678528220233731, 365274392680333329, 372078453236957185]
     if isinstance(message.author, discord.Member):
         if discord.utils.get(message.author.roles, name="Dragon Ignorance"):
             return
     if message.author.bot:
         return
-    if getblacklistentry(message.author.id) is not None:
+    if getblacklistentry(message.author.id) is not None and message.clean_content.startswith(config.command_prefix):
+        em = discord.Embed(description=None)
+        em.title = "Whoops!"
+        em.description = "You're blacklisted."
+        em.color = 0xFF3346
+        em.set_footer(text='if you wish to be removed, find a way to message the bot developers.')
+        await message.channel.send(embed=em)
         return
-    if message.guild.id == 400012212791541760 and "doki doki isn't weeb" in message.content:
-        await message.channel.send("doki doki is weeb")
-    #if message.guild.id == 142361999538520065 and message.author
-    #i forgot what to type, expiremental spam protector™
+    if message.guild.id in serverids:
+        if re.match(r"(<:monika:451965787045888019>\s*<:Kreygasm:433677270264184833>|<:monika:451965787045888019>\s*<:hyperkreygasm:460417913837322271>)+", message.clean_content):
+            await message.channel.send("<:monika:451965787045888019> :gay_pride_flag:")
+        if re.match(r"(?=\s*wyoming\s*|\s*kenya\s*)\w+", message.clean_content) is not None:
+            await message.channel.send("isn't real")
+        if message.author.id in ids:
+            if re.match(r"(?=warm|hot|burning)\w+", message.clean_content) is not None:
+                await message.channel.send("actually cold")
+        if "doki doki isn't weeb" in message.content:
+            await message.channel.send("doki doki is weeb")
+        if re.match(r"(?=\s*colour)+", message.clean_content) is not None or ("colour" or "Colour") in message.clean_content:
+            await message.channel.send("color")
+        if re.match(r"(?=matt)+", message.clean_content) is not None:
+            await message.channel.send("<@263702320846471178> shut up\n\nremove matt")
+        if re.match(r"(?=troy)+", message.clean_content) is not None:
+            await message.channel.send("b-baka desu chan nani uwu")
+    if str(message.channel.id) in getquicklockdownstatus():
+        def mod_or_perms(message, **permissions):
+            if not message.guild:
+                return True
+            mod_role_name = read_data_entry(message.guild.id, "mod-role")
+            mod = discord.utils.get(message.author.roles, name=mod_role_name)
+            if mod or permissions and all(
+                    getattr(message.channel.permissions_for(message.author), name, None) == value for name, value in
+                    permissions.items()):
+                return True
+            else:
+                return False
+        if message.author.id in bypassids:
+            pass
+        if mod_or_perms(message, manage_messages=True):
+            pass
+        else:
+            await message.delete()
+            log.info(f"Deleted a message due to lockdown from {message.author} in {message.channel}")
+            return
     await bot.process_commands(message)
 
 @bot.command(hidden=True)
@@ -256,9 +309,9 @@ async def setavatar(ctx, *, url: str = None):
         await ctx.send("u didn't fuken include a url or a picture retardese")
         return
     try:
-        with aiohttp.Timeout(10):
-            async with aiosession.get(url.strip("<>")) as image:
-                await bot.user.edit(avatar=await image.read())
+        timeout = aiohttp.ClientTimeout(total=10)
+        async with aiosession.get(url.strip("<>"), timeout=timeout) as image:
+            await bot.user.edit(avatar=await image.read())
     except Exception as e:
         await ctx.send("Unable to change avatar: {}".format(e))
     await ctx.send(":eyes:")
@@ -298,10 +351,47 @@ async def suggest(ctx, *, message:str):
         await seth.send("You've received a new suggestion! The user's ID is `{}` Server: {}".format(ctx.author.id, guild), embed=msg)
         await ctx.author.send("You've successfully sent the suggestion in.")
 
+@bot.command()
+@checks.server_mod_or_perms(manage_messages=True)
+async def lockdown(ctx, *, mode: str):
+    enable = ['true', 'on']
+    disable = ['false', 'off']
+    if mode in enable:
+        try:
+            if ctx.channel.id in getquicklockdownstatus():
+                await ctx.send("That channel is already locked down!")
+            else:
+                lockdownchannel(ctx.channel.id, ctx.guild.name, ctx.channel.name)
+                await ctx.send("Lockdown is now enabled.")
+        except Exception as e:
+            await ctx.send("Make sure to check .lockdownstatus, as this may be on!")
+            await ctx.send(traceback.format_exc(e))
+    elif mode in disable:
+        try:
+            removelockdownchannel(ctx.channel.id)
+            await ctx.send("Lockdown is now disabled.")
+        except Exception as e:
+            await ctx.send("Make sure to check .lockdownstatus, as this may be on!")
+            await ctx.send(traceback.format_exc(e))
+
+@bot.command()
+async def lockdownstatus(ctx):
+    ls = getlockdowninfo()
+    count = len(ls)
+    if ls == []:
+        ls = "No one is on a lockdown, yay?"
+    else:
+        ls = "\n".join(ls)
+    await ctx.send(xl.format("Total blacklisted users: {}\n\n{}".format(count, ls)))
+
 @bot.command(hidden=True)
 @checks.is_dev()
-async def blacklist(ctx, id: int, *, reason: str):
+async def blacklist(ctx, id1, *, reason: str):
     """Blacklists a user, BOT OWNER ONLY."""
+    if id1 is not int:
+        id = int(id1.strip("<@!>"))
+    else:
+        id = int(id1)
     await ctx.channel.trigger_typing()
     user = bot.get_user(id)
     if user is None:
@@ -313,14 +403,18 @@ async def blacklist(ctx, id: int, *, reason: str):
     blacklistuser(id, user.name, user.discriminator, reason)
     await ctx.send("Ok, blacklisted `{}` Reason: `{}`".format(user, reason))
     try:
-        await user.send("You've been blacklisted. We aren't supposed to talk. Sorry. `{}` Reason: `{}`".format(ctx.message.author, reason))
+        await user.send("You've been blacklisted. `{}` Reason: `{}`".format(ctx.message.author, reason))
     except:
         log.debug("Couldn't send a message to a user with an ID of \"{}\"".format(id))
 
 @bot.command(hidden=True)
 @checks.is_dev()
-async def unblacklist(ctx, id: int):
+async def unblacklist(ctx, id1):
     """Unblacklists a user"""
+    if id1 is not int:
+        id = int(id1.strip("<@!>"))
+    else:
+        id = int(id1)
     entry = getblacklistentry(id)
     user = bot.get_user(id)
     if entry is None:
@@ -333,7 +427,7 @@ async def unblacklist(ctx, id: int):
         return
     await ctx.send("Gave freedom once more to `{}#{}`".format(entry.get("name"), entry.get("discrim")))
     try:
-        await user.send("You're unblacklisted you titty. You were unblacklisted by `{}`".format(
+        await user.send("You're unblacklisted. You were unblacklisted by `{}`".format(
                                    ctx.message.author))
     except:
         log.debug("Can't send msg to \"{}\"".format(id))
@@ -395,7 +489,7 @@ async def changestatus(ctx, status: str, *, name: str = None):
         return
     if name != "":
         game = discord.Activity(name=name)
-    await bot.change_presence(name=game, activity=statustype)
+    await bot.change_presence(status=name, activity=statustype)
     if name is not None:
         await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name, status))
         await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name, status))
@@ -566,10 +660,17 @@ async def ping(ctx):
          "seth be gay sometimes", "no no u", "stop pinging me", "tu eres un gay grande", "xdxdxd", "owu", "do r!neko on Ruby Rose, you'll regret it",
          "404 my ass", "hey! look! i'm not dead!", "quick doctow (・`ω´・)  hand me the defibwiwwatow"])
     topkek = memes
+    topkek = memes
     pingms = await ctx.send(topkek)
-    r = pyping.ping('dragonfire.me')
-    # await bot.edit_message(pingms, topkek + " // ***{} ms***".format(str(ping)[3:][:3]))
-    await pingms.edit(content=topkek + " // ***{} ms***".format(r.avg_rtt))
+    ms2 = str(bot.latency)
+    if ms2.startswith("0.0"):
+        await pingms.edit(content=topkek + " // ***{} ms***".format(ms2[3:][:2]))
+    elif ms2.startswith("0."): #for triple digit ping
+        await pingms.edit(content=topkek + " // ***{} ms***".format(ms2[2:][:2]))
+    elif ms2.startswith("0.00"): #for SINGLE digit ping (thanks google fiber)
+        await pingms.edit(content=topkek + " // ***{} ms***".format(ms2[3:][:3]))
+    else:
+        await pingms.edit(content=topkek + " // ***{} secs***".format(ms2[:3]))
 
 @bot.command()
 async def github(ctx):
