@@ -206,6 +206,28 @@ santropez = [
     "ssssssssssssssssssssspppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppptttttttttttttttttttttttttt"
 ]
 
+#fionn
+fionn = [
+    "that's not very cash money of you",
+    "SOH",
+    "epic",
+    "unepic...",
+    ".fionn \n :pensive:",
+    "if i was a woman i would become a prostitute",
+    "halla hakbr",
+    "gayn't",
+    "m",
+    "seig",
+    "xd",
+    "connor mcgregor etc",
+    "MUP I SAID",
+    "gyup ar da",
+    "heck",
+    "slut",
+    "these really arent funny i should stop"
+]
+    
+
 #kurt
 zekurt = [
     "viva la poutine",
@@ -587,23 +609,22 @@ troy = [
     "*these emotes must be perfect"
 ]
 
-#remove bronx
+#mick
 speed = [
+    "no anime",
     "brooklyn supreme",
     "hi seth",
     "Rhyfomos",
     "remove robin",
     "i love being a mom but it's tough when my kids come home filthy from radical islamic terrorism",
     ":^)",
-    "irrelevant emo <@372078453236957185>",
+    "ah yes",
     "square emo european",
     "wholesome ops",
     "<:okretard:517885620048363523>",
     "Bored? Eat your cum",
     "remove bronx",
-    "seth is still sucking his mic",
-    "re tard",
-    "ok, mod"
+    "seth is still sucking his mic"
 ]
 
 #smh
