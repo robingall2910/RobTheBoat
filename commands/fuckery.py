@@ -233,6 +233,11 @@ class Fuckery(commands.Cog):
     async def fish(self, ctx):
         """bird"""
         await ctx.send(":bird:")
+        
+    @commands.command()
+    async def epicman(self, ctx):
+        """EPICMAN"""
+        await ctx.send("i,m epicman")
 
     @commands.command()
     async def bird(self, ctx):
