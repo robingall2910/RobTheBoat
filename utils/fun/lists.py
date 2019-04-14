@@ -224,6 +224,7 @@ fionn = [
     "gyup ar da",
     "heck",
     "slut",
+    "heck stains",
     "these really arent funny i should stop"
 ]
     
@@ -609,22 +610,25 @@ troy = [
     "*these emotes must be perfect"
 ]
 
-#mick
+#remove bronx
 speed = [
-    "no anime",
-    "brooklyn supreme",
+    "brooklyn superior",
     "hi seth",
     "Rhyfomos",
     "remove robin",
     "i love being a mom but it's tough when my kids come home filthy from radical islamic terrorism",
     ":^)",
-    "ah yes",
+    "irrelevant emo <@372078453236957185>",
     "square emo european",
-    "wholesome ops",
+    "wholesome ops :pray:",
     "<:okretard:517885620048363523>",
     "Bored? Eat your cum",
     "remove bronx",
-    "seth is still sucking his mic"
+    "seth is still sucking his mic",
+    "retard",
+    "ok, mod",
+    ".ahegao @@@@every@@one",
+    "shut up square"
 ]
 
 #smh
