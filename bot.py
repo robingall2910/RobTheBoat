@@ -41,7 +41,7 @@ if config.debug:
 
 bot_triggers = [config.command_prefix, "r.", "hey dragon, ", "hey derg, ", "hey batzz, "]
 
-bot = commands.AutoShardedBot(command_prefix=bot_triggers, description="A bot with several purposes, like music, memes, weather, but based off of the furry fandom.", pm_help=True)
+bot = commands.AutoShardedBot(command_prefix=commands.when_mentioned_or(bot_triggers), description="A bot with several purposes, like music, memes, weather, but based off of the furry fandom.")
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
