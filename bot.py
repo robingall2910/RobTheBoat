@@ -261,6 +261,7 @@ async def debug(ctx, *, shit: str):
     """This is the part where I make 20,000 typos before I get it right"""
     # "what the fuck is with your variable naming" - EJH2
     # seth seriously what the fuck - Robin
+    nword = False
     try:
         rebug = eval(shit)
         if asyncio.iscoroutine(rebug):
