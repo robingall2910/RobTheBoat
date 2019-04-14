@@ -7,7 +7,7 @@ class Terminal(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command
+    @commands.command()
     async def pensive(self, ctx):
         """pensivr"""
         await ctx.send("<@117678528220233731> <@372078453236957185> terminal is dead :crab:")
