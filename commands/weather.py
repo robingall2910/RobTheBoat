@@ -213,9 +213,6 @@ class Weather(commands.Cog):
     async def locate(self, ctx, *, address: str):
         """Go fucking stalk someone"""
         try:
-            if address is None:
-                await ctx.send("The location was not found, please try again.")
-                return
             @kms
             def getloc(this, address):
                 g = geocoder.google(address, key=apikey)
