@@ -1,3 +1,3 @@
-# Some Dragon [![Build Status](https://travis-ci.org/robingall2910/RobTheBoat.svg?branch=3.0.6)](https://travis-ci.org/robingall2910/RobTheBoat)
+# Some Dragon [![Build Status](https://travis-ci.org/robingall2910/RobTheBoat.svg?branch=dragon-rewrite)](https://travis-ci.org/robingall2910/RobTheBoat)
 
-###### This is the `rewrite` branch. Please only use this if you're running/using `discord-py alpha1`
+###### This is the `rewrite` branch. 
