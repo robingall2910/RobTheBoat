@@ -1,2 +1,3 @@
 RTB Blacklist.db
 config/
+*.pyc
