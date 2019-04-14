@@ -12,8 +12,8 @@ config = Config()
 
 gw2 = GuildWars2Client(api_key=config._gw2Key)
 
-log.info("Getting Guild Wars 2 info...")
-log.info(gw2)
+log.info("[Guild Wars 2] Getting Guild Wars 2 info...")
+log.info(f"{gw2}")
 
 class GuildWars2(commands.Cog):
     def __init__(self, bot):
