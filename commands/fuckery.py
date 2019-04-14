@@ -258,10 +258,6 @@ class Fuckery(commands.Cog):
         """KREYGASM absolute KREYGASM"""
         await ctx.send("trico... <:hyperkreygasm:460417913837322271>")
 
-    @commands.command(aliases=[':regional_indicator_NWORD:'])
-    async def n(self, ctx):
-        await ctx.send("<:whatgorilla:553035221474476053> NO N WORD.....")
-
     @commands.command()
     async def actdrunk(self, ctx):
         """I got drunk on halloween in 2016 it was great"""
