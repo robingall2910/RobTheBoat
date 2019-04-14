@@ -20,16 +20,16 @@ class not_guild_owner(commands.CommandError):
 class no_permission(commands.CommandError):
     pass
 
-class terminal_dead(commands.CommandError):
+class terminal_dead(commands.CheckFailure):
     pass
 
 #the terminal bridge, to work with squeed's terminal bot
 def is_terminal_existent():
     def predicate(ctx):
-        if ['521023036812558356'] in ctx.guild.members:
+        if ctx.guild.get_member(521023036812558356) is not None:
             return True
         else:
-            raise terminal_dead
+            raise terminal_dead("Terminal isn't in this discord guild! This command will refuse to work unless Terminal is added.")
     return commands.check(predicate)
 
 def is_owner():
