@@ -225,6 +225,7 @@ fionn = [
     "heck",
     "slut",
     "heck stains",
+    "WE HARD WE BIG",
     "these really arent funny i should stop"
 ]
     
