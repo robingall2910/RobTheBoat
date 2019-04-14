@@ -12,7 +12,8 @@ class Terminal(commands.Cog):
     async def pensive(self, ctx):
         """pensivr"""
         await ctx.send("<@117678528220233731> <@372078453236957185> terminal is dead :crab:")
-        
+    
+    @checks.is_terminal_existent()
     @commands.command()
     async def epic(self, ctx):
         """bruh"""
