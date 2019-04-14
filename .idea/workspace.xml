@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1dc175d4-8b12-4fe9-aaea-5d1dc983d7d2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/terminal.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/terminal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/checks.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/checks.py" afterDir="false" />
     </list>
     <ignored path="RTB Blacklist.db" />
@@ -30,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/utils/checks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+            <state relative-caret-position="437">
+              <caret line="43" column="79" selection-start-line="43" selection-start-column="79" selection-end-line="43" selection-end-column="79" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -54,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="211" column="59" selection-start-line="211" selection-start-column="59" selection-end-line="211" selection-end-column="59" />
+            <state relative-caret-position="750">
+              <caret line="210" column="95" selection-start-line="210" selection-start-column="95" selection-end-line="210" selection-end-column="95" />
               <folding>
                 <element signature="e#17#31#0" expanded="true" />
               </folding>
@@ -154,9 +154,9 @@
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/commands/weather.py" />
-        <option value="$PROJECT_DIR$/bot.py" />
         <option value="$PROJECT_DIR$/commands/terminal.py" />
         <option value="$PROJECT_DIR$/commands/information.py" />
+        <option value="$PROJECT_DIR$/bot.py" />
         <option value="$PROJECT_DIR$/utils/checks.py" />
       </list>
     </option>
@@ -236,7 +236,7 @@
       <workItem from="1555206934648" duration="477000" />
       <workItem from="1555207977282" duration="151000" />
       <workItem from="1555208291658" duration="5333000" />
-      <workItem from="1555269963706" duration="3514000" />
+      <workItem from="1555269963706" duration="3821000" />
     </task>
     <task id="LOCAL-00001" summary="no n word">
       <created>1555211756710</created>
@@ -308,11 +308,18 @@
       <option name="project" value="LOCAL" />
       <updated>1555272433588</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fix that">
+      <created>1555274572437</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1555274572437</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9579000" />
+    <option name="totallyTimeSpent" value="9886000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -378,7 +385,8 @@
     <MESSAGE value="fix travis so it starts passing again" />
     <MESSAGE value="w" />
     <MESSAGE value="oh no im supporting terminal&#10;&#10;@jsinitx4 @squareGITHUB" />
-    <option name="LAST_COMMIT_MESSAGE" value="oh no im supporting terminal&#10;&#10;@jsinitx4 @squareGITHUB" />
+    <MESSAGE value="fix that" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix that" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/commands/imdb.py" />
@@ -466,16 +474,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="211" column="59" selection-start-line="211" selection-start-column="59" selection-end-line="211" selection-end-column="59" />
-          <folding>
-            <element signature="e#17#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/commands/weather.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -490,16 +488,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/commands/terminal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/commands/information.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="874">
@@ -510,10 +498,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="210" column="95" selection-start-line="210" selection-start-column="95" selection-end-line="210" selection-end-column="95" />
+          <folding>
+            <element signature="e#17#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/commands/terminal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/utils/checks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+        <state relative-caret-position="437">
+          <caret line="43" column="79" selection-start-line="43" selection-start-column="79" selection-end-line="43" selection-end-column="79" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
