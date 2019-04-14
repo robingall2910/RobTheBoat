@@ -119,6 +119,12 @@ class Fuckery(commands.Cog):
         """viva la poutine"""
         poutine = random.choice(zekurt)
         await ctx.send(poutine)
+    
+    @commands.command()
+    async def fionn(self, ctx):
+        """rawr xd nuzzles u"""
+        m35 = random.choice(fionn)
+        await ctx.send(m35)
 
     @commands.command()
     async def nero(self, ctx):
