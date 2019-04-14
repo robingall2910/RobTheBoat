@@ -15,3 +15,8 @@ random-cat
 nmap
 pythonwhois
 retry
+scaleway-sdk
+steam
+pylast
+GuildWars2-API-Client
+ipwhois
