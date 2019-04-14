@@ -53,7 +53,7 @@ class Config:
         config = configparser.ConfigParser(interpolation=None)
         config.read(self.config_file, encoding="utf-8")
 
-        sections = {"Credentials", "Bot", "Status", "Logging", "Cleverbot", "MyAnimeList", "Osu", "Guild Wars 2", "Scaleway"}.difference(config.sections())
+        sections = {"Credentials", "Bot", "Status", "Logging", "Cleverbot", "MyAnimeList", "Osu", "Guild Wars 2", "Scaleway", "Twitter"}.difference(config.sections())
         if sections:
             log.critical("Could not load a section in the config file, please obtain a new config file from the github repo if regenerating the config doesn't work!")
             os._exit(1)
@@ -152,4 +152,12 @@ class Config:
             log.critical("The last.fm cog will not work without the api key at least set.")
 
         if not self._twitterConsumerKey or self._twitterConsumerSecret or self._twitterAccessToken or self._twitterAccessTokenSecret:
+            if not self._twitterAccessTokenSecret:
+                log.critical("Access Token Secret wasn't set.")
+            if not self._twitterAccessToken:
+                log.critical("Access Token wasn't set.")
+            if not self._twitterConsumerKey:
+                log.critical("Consumer Key wasn't set.")
+            if not self._twitterConsumerSecret:
+                log.critical("Consumer Secret wasn't set.")
             log.critical("One or more Twitter API keys were not set! The twitter cog will not function as usual.")
