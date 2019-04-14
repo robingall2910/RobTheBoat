@@ -1,4 +1,3 @@
-import discord
 import tweepy
 
 
@@ -18,9 +17,11 @@ user = api.get_user('robinsmeme')
 
 log.info(f"[Twitter] Logged in as {user.screen_name}")
 
+
 class Twitter(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
 
 def setup(bot):
     bot.add_cog(Twitter(bot))
