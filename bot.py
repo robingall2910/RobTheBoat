@@ -57,7 +57,8 @@ extensions = [
     "commands.gw2",
     "commands.lastfm",
     "commands.information",
-    "commands.scaleway"
+    "commands.scaleway",
+    "commands.terminal"
 ]
 
 # Thy changelog
@@ -208,6 +209,7 @@ async def on_message(message):
     ids = [149688910220361728, 112747894435491840, 188153050471333888]
     serverids = [400012212791541760, 510897834581557251, 142361999538520065, 502979046993559553]
     bypassids = [169597963507728384, 117678528220233731, 365274392680333329, 372078453236957185]
+    terminaldevs = [365274392680333329, 372078453236957185, 147765181903011840]
     if isinstance(message.author, discord.Member):
         if discord.utils.get(message.author.roles, name="Dragon Ignorance"):
             return

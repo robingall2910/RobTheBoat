@@ -20,6 +20,18 @@ class not_guild_owner(commands.CommandError):
 class no_permission(commands.CommandError):
     pass
 
+class terminal_dead(commands.CommandError):
+    pass
+
+#the terminal bridge, to work with squeed's terminal bot
+def is_terminal_existent():
+    def predicate(ctx):
+        if ['521023036812558356'] in ctx.guild.members:
+            return True
+        else:
+            raise terminal_dead
+    return commands.check(predicate)
+
 def is_owner():
     def predicate(ctx):
         if ctx.author.id == int(config.owner_id):
