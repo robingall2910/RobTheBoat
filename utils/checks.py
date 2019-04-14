@@ -29,7 +29,7 @@ def is_terminal_existent():
         if ctx.guild.get_member(521023036812558356) is not None:
             return True
         else:
-            raise terminal_dead("Terminal isn't in this discord guild! This command will refuse to work unless Terminal is added.")
+            raise terminal_dead("terminal isn't in this discord guild! This command will refuse to work unless terminal is added.")
     return commands.check(predicate)
 
 def is_owner():
