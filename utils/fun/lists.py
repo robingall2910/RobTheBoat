@@ -587,22 +587,23 @@ troy = [
     "*these emotes must be perfect"
 ]
 
-#mick
+#remove bronx
 speed = [
-    "no anime",
     "brooklyn supreme",
     "hi seth",
     "Rhyfomos",
     "remove robin",
     "i love being a mom but it's tough when my kids come home filthy from radical islamic terrorism",
     ":^)",
-    "ah yes",
+    "irrelevant emo <@372078453236957185>",
     "square emo european",
     "wholesome ops",
     "<:okretard:517885620048363523>",
     "Bored? Eat your cum",
     "remove bronx",
-    "seth is still sucking his mic"
+    "seth is still sucking his mic",
+    "re tard",
+    "ok, mod"
 ]
 
 #smh
