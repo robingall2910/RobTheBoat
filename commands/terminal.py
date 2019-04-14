@@ -7,6 +7,7 @@ class Terminal(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @checks.is_terminal_existent()
     @commands.command()
     async def pensive(self, ctx):
         """pensivr"""
