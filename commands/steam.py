@@ -21,7 +21,7 @@ try:
 except Exception as e:
     log.error("Error!\n" + e)
 
-class Steam():
+class Steam(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

@@ -22,9 +22,9 @@ def kms(func):
     return wrapped
 
 class ówò(Exception):
-    pass #i love you kurtis
+    pass #i love you kirtus
 
-class Weather():
+class Weather(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

@@ -10,7 +10,7 @@ from utils.config import Config
 config = Config()
 api = ComputeAPI(auth_token=config._scalewayKey, region='ams1')
 
-class Scaleway():
+class Scaleway(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

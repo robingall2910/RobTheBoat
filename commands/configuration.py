@@ -4,7 +4,8 @@ from utils.tools import *
 from utils.config import Config
 config = Config()
 
-class Configuration():
+
+class Configuration(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

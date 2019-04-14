@@ -1,7 +1,7 @@
-BUILD_VERSION = "7.8.0"
+BUILD_VERSION = "7.8.1"
 BUILD_AUTHORS = "based robin#0052 and ZeroEpoch1969#0051"
 BUILD_CODENAME = "G"
-BUILD_DATE = "February 13th, 2018 @ 3:14 PM EST"
+BUILD_DATE = "April 13th, 2019 @ 10:02 PM EDT"
 #how the build version goes:
 #a.b.c
 #a = major rewrites counted

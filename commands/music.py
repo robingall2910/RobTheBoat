@@ -64,7 +64,7 @@ class Queue():
             self.voice_client.play(self.current.entry, after=lambda e: self.play_next_song.set())
             await self.play_next_song.wait()
 
-class Music:
+class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.queues = {}

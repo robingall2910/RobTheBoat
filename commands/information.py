@@ -12,9 +12,9 @@ config = Config()
 
 halloween = datetime(2019, 10, 31)
 christmas = datetime(2019, 12, 25)
-newyear = datetime(2019, 1, 1)
+newyear = datetime(2020, 1, 1)
 
-class Information():
+class Information(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

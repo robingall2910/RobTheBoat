@@ -1,5 +1,5 @@
 darkskylib
-discord[voice]
+discord.py[voice]
 youtube_dl
 aiohttp
 wikipedia

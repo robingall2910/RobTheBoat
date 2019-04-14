@@ -20,7 +20,7 @@ from utils.tools import *
 from utils.unicode import *
 from utils.fun.lists import *
 
-class Fuckery():
+class Fuckery(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -161,13 +161,13 @@ class Fuckery():
         lioncompany = random.choice(soopor)
         await ctx.send(lioncompany)
 
-    @commands.command()
+    @commands.command(aliases=['ahegao', 'ron'])
     async def rhymix(self, ctx):
         """and that's the tea"""
         tea = random.choice(rhyfomos)
         await ctx.send(tea)
 
-    @commands.command()
+    @commands.command(aliases=['bruh'])
     async def square(self, ctx):
         """remove emo european"""
         emo = random.choice(square)
@@ -178,6 +178,10 @@ class Fuckery():
         """british tf2 meme yeah"""
         tf2 = random.choice(chaotix)
         await ctx.send(tf2)
+
+    @commands.command(aliases=[':regional_indicator_NWORD:'])
+    async def n(self, ctx):
+        await ctx.send("<:whatgorilla:553035221474476053> NO N WORD.....")
 
     @commands.command()
     async def quote(self, ctx):

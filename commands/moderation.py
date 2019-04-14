@@ -6,7 +6,7 @@ from utils.channel_logger import Channel_Logger
 from utils.tools import *
 from utils import checks
 
-class Moderation():
+class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.logger = Channel_Logger(bot)
@@ -153,7 +153,7 @@ class Moderation():
                 await ctx.send("I'm missing that one permission to actually remove and add roles. Oh wait, it's the `Manage Roles` permission.")
 
     @checks.server_mod_or_perms(manage_messages=True)
-    @commands.command()
+    @commands.command(aliases=['p', 'purge', '🇵', '🅿'])
     async def prune(self, ctx, amount:int):
         """Mass deletes a specified amount of messages"""
         try:

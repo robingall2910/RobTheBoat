@@ -13,7 +13,7 @@ config = Config()
 # This is the limit to how many posts are selected
 limit = config.max_nsfw_count
 
-class NSFW():
+class NSFW(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

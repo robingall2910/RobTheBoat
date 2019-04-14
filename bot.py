@@ -100,7 +100,7 @@ async def set_default_status():
         else:
             game = discord.Activity(
                 #name="New command invokes are now available!\n\"hey derg\", \"hey dragon\", \"hey batzz\", and \"r.\"! \n\n#BetoSanders2020 #AbramsForGovernor", type=discord.ActivityType.playing)
-                name="gay rights and trans rights!", type=discord.ActivityType.playing, status=discord.Status.dnd)
+                name="trans rights are HUMAN RIGHTS!", type=discord.ActivityType.playing)
             # pyrawanpmjadbapanwmjamtsatltsadw
         await bot.change_presence(status=type, activity=game)
     else:
@@ -233,10 +233,6 @@ async def on_message(message):
             await message.channel.send("doki doki is weeb")
         if re.match(r"(?=\s*colour)+", message.clean_content) is not None or ("colour" or "Colour") in message.clean_content:
             await message.channel.send("color")
-        if re.match(r"(?=matt)+", message.clean_content) is not None:
-            await message.channel.send("<@263702320846471178> shut up\n\nremove matt")
-        if re.match(r"(?=troy)+", message.clean_content) is not None:
-            await message.channel.send("b-baka desu chan nani uwu")
     if str(message.channel.id) in getquicklockdownstatus():
         def mod_or_perms(message, **permissions):
             if not message.guild:
@@ -464,7 +460,7 @@ async def stream(ctx, *, name: str):
     if lock_status:
         await ctx.send("The status is currently locked.")
         return
-    await bot.change_presence(game=discord.Game(name=name, type=1, url="https://www.twitch.tv/robingall2910"))
+    await bot.change_presence(activity=discord.Activity(name=name, type=discord.ActivityType.streaming, url="https://www.twitch.tv/robingall2910"))
     await ctx.send("Streaming `{}`".format(name))
     await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a `streaming` status type".format(ctx.message.author.id, ctx.message.author, name))
 
@@ -484,12 +480,12 @@ async def changestatus(ctx, status: str, *, name: str = None):
         statustype = "discord.Status." + status
     except ValueError:
         await ctx.send(
-            "`{}` is not a valid status type, valid status types are `online`, `idle`, `do_not_disurb`, and `dnd`".format(
+            "`{}` is not a valid status type, valid status types are `online`, `idle`, `do_not_disturb`, and `dnd`".format(
                 status))
         return
     if name != "":
-        game = discord.Activity(name=name)
-    await bot.change_presence(status=name, activity=statustype)
+        game = discord.Activity(name=name, type=discord.ActivityType.playing, status=statustype)
+    await bot.change_presence(activity=game)
     if name is not None:
         await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name, status))
         await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name, status))
