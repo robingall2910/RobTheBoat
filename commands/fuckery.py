@@ -19,6 +19,7 @@ from utils.logger import log
 from utils.tools import *
 from utils.unicode import *
 from utils.fun.lists import *
+from utils import checks
 
 class Fuckery(commands.Cog):
     def __init__(self, bot):
@@ -113,17 +114,11 @@ class Fuckery(commands.Cog):
             await ctx.send(file=discord.File("assets/imgs/spt2.png"))
         await ctx.send(sppt)
 
-    @commands.command()
+    @commands.command(aliases=['zekurt'])
     async def kurt(self, ctx):
         """viva la poutine"""
         poutine = random.choice(zekurt)
         await ctx.send(poutine)
-
-    @commands.command()
-    async def jake(self, ctx):
-        """gimme dosh"""
-        chav = random.choice(jake)
-        await ctx.send(chav)
 
     @commands.command()
     async def nero(self, ctx):
@@ -238,10 +233,23 @@ class Fuckery(commands.Cog):
         """fish"""
         await ctx.send(":fish:")
 
+    @commands.command(aliases=['mentionseth', '<@!169597963507728384>', 'nigato'])
+    @checks.is_dev()
+    async def ms(self, ctx):
+        """@nigato @nigato @nigato"""
+        for i in range(5):
+            #await ctx.channel.trigger_typing
+            await ctx.send(f"<@169597963507728384> {ctx.author} needs you thanks")
+            await asyncio.sleep(2)
+
     @commands.command()
     async def trico(self, ctx):
         """KREYGASM absolute KREYGASM"""
         await ctx.send("trico... <:hyperkreygasm:460417913837322271>")
+
+    @commands.command(aliases=[':regional_indicator_NWORD:'])
+    async def n(self, ctx):
+        await ctx.send("<:whatgorilla:553035221474476053> NO N WORD.....")
 
     @commands.command()
     async def actdrunk(self, ctx):
