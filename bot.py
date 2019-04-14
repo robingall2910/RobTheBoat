@@ -58,7 +58,8 @@ extensions = [
     "commands.lastfm",
     "commands.information",
     "commands.scaleway",
-    "commands.terminal"
+    "commands.terminal",
+    "commands.twitter"
 ]
 
 # Thy changelog
