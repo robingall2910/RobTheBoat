@@ -226,6 +226,8 @@ fionn = [
     "slut",
     "heck stains",
     "WE HARD WE BIG",
+    "cancer..................",
+    "i will extract you \nsexually.......",
     "these really arent funny i should stop"
 ]
     
@@ -765,4 +767,7 @@ chaotix = [
     "\*confused screaming*",
     "xd",
     "**Upload Failed** Click here to retry the upload",
+]
+
+epicman = [ "i,m epicman"
 ]
