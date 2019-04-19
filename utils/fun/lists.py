@@ -768,6 +768,3 @@ chaotix = [
     "xd",
     "**Upload Failed** Click here to retry the upload",
 ]
-
-epicman = [ "i,m epicman"
-]
