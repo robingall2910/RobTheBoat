@@ -10,8 +10,7 @@ ignore=.git,tools, etc
 # should be re-enabled once the offending code is fixed (or marked
 # with a local disable)
 #e0401 disabled due to it can't import steam for somewhat reason
-#e1120 disabled because it's really fuckin bipolar
-disable=E0602, E0603, E0401, E1120
+disable=E0602, E0603, E0401
 # "F" Fatal errors that prevent further processing
  #import-error,
 # "I" Informational noise
@@ -24,6 +23,7 @@ disable=E0602, E0603, E0401, E1120
  no-name-in-module,
  bad-str-strip-call, #???
  assigning-non-slot,
+ no-value-for-parameter, #smh
 # "W" Warnings for stylistic problems or minor programming issues
  abstract-method,
  arguments-differ,
