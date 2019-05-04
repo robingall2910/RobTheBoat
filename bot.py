@@ -57,9 +57,7 @@ extensions = [
     "commands.gw2",
     "commands.lastfm",
     "commands.information",
-    "commands.scaleway",
-    "commands.terminal",
-    "commands.twitter"
+    "commands.terminal"
 ]
 
 # Thy changelog

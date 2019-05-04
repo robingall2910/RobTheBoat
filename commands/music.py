@@ -156,6 +156,7 @@ class Music(commands.Cog):
     @commands.command()
     async def disconnect(self, ctx):
         """Disconnects the bot from the voice channel"""
+        self.get_queue(ctx).voice_client.stop()
         await ctx.voice_client.disconnect()
         try:
             self.clear_data(ctx.guild.id)

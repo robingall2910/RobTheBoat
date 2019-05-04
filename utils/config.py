@@ -30,11 +30,6 @@ class Defaults:
     googleKey = None
     lastfmapiKey = None
     lastfmSecret = None
-    scalewayKey = None
-    twitterConsumerKey = None
-    twitterConsumerSecret = None
-    twitterAccessToken = None
-    twitterAccessTokenSecret = None
 
 class Config:
     def __init__(self):
@@ -82,11 +77,6 @@ class Config:
         self._googleKey = config.get("Google", "key", fallback=Defaults.googleKey)
         self._lastfmapiKey = config.get("Last.fm", "api", fallback=Defaults.lastfmapiKey)
         self._lastfmSecret = config.get("Last.fm", "secret", fallback=Defaults.lastfmSecret)
-        self._scalewayKey = config.get("Scaleway", "api", fallback=Defaults.scalewayKey)
-        self._twitterConsumerKey = config.get("Twitter", "consumer_key", fallback=Defaults.twitterConsumerKey)
-        self._twitterConsumerSecret = config.get("Twitter", "consumer_secret", fallback=Defaults.twitterConsumerSecret)
-        self._twitterAccessToken = config.get("Twitter", "access_token", fallback=Defaults.twitterAccessToken)
-        self._twitterAccessTokenSecret = config.get("Twitter", "access_token_secret", fallback=Defaults.twitterAccessTokenSecret)
 
         self.check()
 
@@ -149,13 +139,3 @@ class Config:
 
         if not self._lastfmapiKey:
             log.critical("The last.fm cog will not work without the api key at least set.")
-
-        if not self._twitterConsumerKey or self._twitterConsumerSecret or self._twitterAccessToken or self._twitterAccessTokenSecret:
-            if not self._twitterAccessTokenSecret:
-                log.critical("Access Token Secret wasn't set.")
-            if not self._twitterAccessToken:
-                log.critical("Access Token wasn't set.")
-            if not self._twitterConsumerKey:
-                log.critical("Consumer Key wasn't set.")
-            if not self._twitterConsumerSecret:
-                log.critical("Consumer Secret wasn't set.")
