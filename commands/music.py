@@ -13,7 +13,7 @@ load_opus_lib()
 config = Config()
 
 ytdl_options = {"default_search":"auto", "quiet":True}
-ytdl_download_options = ["--external-downloader", "aria2c", "--format", "bestaudio/best", "--extract-audio", "--audio-format", "mp3", "--default-search", "auto", "--buffer-size", "16K"]
+ytdl_download_options = ["--format", "bestaudio/best", "--extract-audio", "--audio-format", "mp3", "--default-search", "auto", "--buffer-size", "128K"] #"--external-downloader", "aria2c",
 
 def get_ytdl(id):
     options = ytdl_options

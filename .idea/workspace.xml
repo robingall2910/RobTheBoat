@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="sorry but i don't love u anymore">
-      <change beforePath="$PROJECT_DIR$/.whitesource" beforeDir="false" />
+    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/fuckery.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fuckery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/music.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/music.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/weather.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/weather.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/buildinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/buildinfo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/channel_logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/channel_logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/checks.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/checks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/fun/lists.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/fun/lists.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/music/notice.txt" beforeDir="false" afterPath="$PROJECT_DIR$/utils/music/notice.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/unicode.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/unicode.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -246,7 +257,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573180616534</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="sorry but i don't love u anymore">
+      <created>1573180806943</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1573180806943</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -301,6 +319,7 @@
     <MESSAGE value="game SUCKS i go to BED" />
     <MESSAGE value="ok" />
     <MESSAGE value=" i already ruined this stop fuckin with me" />
-    <option name="LAST_COMMIT_MESSAGE" value=" i already ruined this stop fuckin with me" />
+    <MESSAGE value="sorry but i don't love u anymore" />
+    <option name="LAST_COMMIT_MESSAGE" value="sorry but i don't love u anymore" />
   </component>
 </project>

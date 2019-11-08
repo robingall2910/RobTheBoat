@@ -48,7 +48,7 @@ class Config:
         config = configparser.ConfigParser(interpolation=None)
         config.read(self.config_file, encoding="utf-8")
 
-        sections = {"Credentials", "Bot", "Status", "Logging", "Cleverbot", "MyAnimeList", "Osu", "Guild Wars 2", "Google", "Last.fm", "Scaleway", "Twitter"}.difference(config.sections())
+        sections = {"Credentials", "Bot", "Status", "Logging", "MyAnimeList", "Osu", "Guild Wars 2", "Google", "Last.fm"}.difference(config.sections())
         if sections:
             log.critical("Could not load a section in the config file, please obtain a new config file from the github repo if regenerating the config doesn't work!")
             os._exit(1)

@@ -98,11 +98,11 @@ class Fuckery(commands.Cog):
         gayrule = random.choice(open('assets/InternetRules.txt', encoding="utf8").readlines())
         await ctx.send(gayrule)
 
-    @commands.command()
-    async def perf(self, ctx):
-        """the return of the furry bullshit"""
-        rt = random.choice(tweetsthatareokhand)
-        ctx.send(rt)
+#    @commands.command()
+#    async def perf(self, ctx):
+#        """the return of the furry bullshit"""
+#        rt = random.choice(tweetsthatareokhand)
+#        ctx.send(rt)
 
     @commands.command()
     async def santropez(self, ctx):
@@ -243,6 +243,13 @@ class Fuckery(commands.Cog):
     async def bird(self, ctx):
         """fish"""
         await ctx.send(":fish:")
+
+    @commands.command()
+    async def wattpad(self, ctx):
+        """Hello hello 👋 fellow viewers!!! First I want to apologize to some of my grammatical error.. I'm not perfect lolz, aaaaand this story is still in progressed soooo you can judge freeeely. And I'm so excited for this series because..! . . . . . . [ERR..."""
+        await ctx.send(random.choice(wattpad))
+
+#TODO: make wattpad embedded as a story
 
     @commands.command(aliases=['mentionseth', '<@!169597963507728384>', 'nigato'])
     @checks.is_dev()

@@ -23,11 +23,6 @@ from utils.opus_loader import load_opus_lib
 from utils.tools import *
 
 #reset
-os.sched_getaffinity(0)
-x = {i for i in range(10)}
-os.sched_setaffinity(0, x)
-os.sched_getaffinity(0)
-os.system("taskset -p 0xff %d" % os.getpid())
 start_time = time.time()
 
 # Initialize the logger first so the colors and shit are setup
@@ -57,7 +52,8 @@ extensions = [
     "commands.gw2",
     "commands.lastfm",
     "commands.information",
-    "commands.terminal"
+    "commands.terminal",
+    "commands.totalfreedom"
 ]
 
 # Thy changelog
@@ -207,7 +203,7 @@ async def on_command_preprocess(ctx):
 async def on_message(message):
     ids = [149688910220361728, 112747894435491840, 188153050471333888]
     serverids = [400012212791541760, 510897834581557251, 142361999538520065, 502979046993559553]
-    bypassids = [169597963507728384, 117678528220233731, 365274392680333329, 372078453236957185]
+    #bypassids = [169597963507728384, 117678528220233731, 365274392680333329, 372078453236957185]
     if isinstance(message.author, discord.Member):
         if discord.utils.get(message.author.roles, name="Dragon Ignorance"):
             return
@@ -235,18 +231,18 @@ async def on_message(message):
             await message.channel.send("color")
     if str(message.channel.id) in getquicklockdownstatus():
         def mod_or_perms(message, **permissions):
-            if not message.guild:
-                return True
             mod_role_name = read_data_entry(message.guild.id, "mod-role")
             mod = discord.utils.get(message.author.roles, name=mod_role_name)
             if mod or permissions and all(
                     getattr(message.channel.permissions_for(message.author), name, None) == value for name, value in
                     permissions.items()):
                 return True
+            if not message.guild:
+                return True
             else:
                 return False
-        if message.author.id in bypassids:
-            pass
+        #if message.author.id in bypassids:
+        #    pass
         if mod_or_perms(message, manage_messages=True):
             pass
         else:
