@@ -249,8 +249,6 @@ class Fuckery(commands.Cog):
         """Hello hello 👋 fellow viewers!!! First I want to apologize to some of my grammatical error.. I'm not perfect lolz, aaaaand this story is still in progressed soooo you can judge freeeely. And I'm so excited for this series because..! . . . . . . [ERR..."""
         await ctx.send(random.choice(wattpad))
 
-#TODO: make wattpad embedded as a story
-
     @commands.command(aliases=['mentionseth', '<@!169597963507728384>', 'nigato'])
     @checks.is_dev()
     async def ms(self, ctx):
