@@ -96,7 +96,7 @@ async def set_default_status():
         else:
             game = discord.Activity(
                 #name="New command invokes are now available!\n\"hey derg\", \"hey dragon\", \"hey batzz\", and \"r.\"! \n\n#BetoSanders2020 #AbramsForGovernor", type=discord.ActivityType.playing)
-                name="trans rights are HUMAN RIGHTS!", type=discord.ActivityType.playing)
+                name="oboomerang", type=discord.ActivityType.playing)
             # pyrawanpmjadbapanwmjamtsatltsadw
         await bot.change_presence(status=type, activity=game)
     else:

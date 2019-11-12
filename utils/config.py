@@ -139,3 +139,7 @@ class Config:
 
         if not self._lastfmapiKey:
             log.critical("The last.fm cog will not work without the api key at least set.")
+
+    @property
+    def osuKey(self):
+        return self._osuKey

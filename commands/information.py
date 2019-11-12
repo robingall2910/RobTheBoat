@@ -236,7 +236,7 @@ class Information(commands.Cog):
             await ctx.send("Couldn't import the osu! api module, contact the bot developer!")
             return
         await ctx.channel.trigger_typing()
-        api = osuapi.OsuApi(config._osuKey, connector=osuapi.AHConnector())
+        api = osuapi.OsuApi(config.osuKey, connector=osuapi.AHConnector())
         try:
             user = await api.get_user(username)
         except osuapi.HTTPError as e:

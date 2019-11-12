@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fuckery.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fuckery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/music.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/music.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/weather.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/weather.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/buildinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/buildinfo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/channel_logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/channel_logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/checks.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/checks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/fun/lists.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/fun/lists.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/music/notice.txt" beforeDir="false" afterPath="$PROJECT_DIR$/utils/music/notice.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/unicode.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/unicode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,6 +40,7 @@
     <option name="width" value="1164" />
     <option name="height" value="847" />
   </component>
+  <component name="ProjectId" id="1TUmgqh6phhfDyRxvZCQktrNEDH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -83,7 +73,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1dc175d4-8b12-4fe9-aaea-5d1dc983d7d2" name="Default Changelist" comment="" />
+      <changelist id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="" />
       <created>1555206925678</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -95,6 +85,7 @@
       <workItem from="1555281582501" duration="3440000" />
       <workItem from="1556336696101" duration="2913000" />
       <workItem from="1556994343961" duration="2018000" />
+      <workItem from="1573523163584" duration="7000" />
     </task>
     <task id="LOCAL-00001" summary="no n word">
       <created>1555211756710</created>
@@ -264,7 +255,21 @@
       <option name="project" value="LOCAL" />
       <updated>1573180806943</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="several things that haven't been committed yet">
+      <created>1573181304128</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1573181304128</updated>
+    </task>
+    <task id="LOCAL-00026" summary="nah">
+      <created>1573181320833</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1573181320833</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,6 +325,8 @@
     <MESSAGE value="ok" />
     <MESSAGE value=" i already ruined this stop fuckin with me" />
     <MESSAGE value="sorry but i don't love u anymore" />
-    <option name="LAST_COMMIT_MESSAGE" value="sorry but i don't love u anymore" />
+    <MESSAGE value="several things that haven't been committed yet" />
+    <MESSAGE value="nah" />
+    <option name="LAST_COMMIT_MESSAGE" value="nah" />
   </component>
 </project>

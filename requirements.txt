@@ -1,3 +1,4 @@
+osuapi
 darkskylib
 discord.py[voice]
 youtube_dl
