@@ -472,7 +472,7 @@ async def changestatus(ctx, status: str, *, name: str = None):
         await ctx.send("Status is locked. Don't try.")
         return
     game = None
-    if status == "invisible" or status == "offline":
+    if status in ("invisible", "offline"):
         await ctx.send("You can not use the status type `{}`".format(status))
         return
     try:
