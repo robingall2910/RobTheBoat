@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="" />
+    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/commands/fuckery.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fuckery.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +83,7 @@
       <workItem from="1574612261781" duration="390000" />
       <workItem from="1574614336481" duration="248000" />
       <workItem from="1574799972887" duration="95000" />
+      <workItem from="1574801130320" duration="245000" />
     </task>
     <task id="LOCAL-00001" summary="no n word">
       <created>1555211756710</created>
@@ -292,7 +295,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574800058775</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="shut up travis">
+      <created>1574801243071</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1574801243071</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,7 +336,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="in this house we only use 3.7" />
     <MESSAGE value="no n word" />
     <MESSAGE value="oops" />
     <MESSAGE value="work" />
@@ -351,6 +360,7 @@
     <MESSAGE value="the shit i get mentioned for at 6am oh my god" />
     <MESSAGE value="this is what i fucking meant to do" />
     <MESSAGE value="is this even possible? lol" />
-    <option name="LAST_COMMIT_MESSAGE" value="is this even possible? lol" />
+    <MESSAGE value="shut up travis" />
+    <option name="LAST_COMMIT_MESSAGE" value="shut up travis" />
   </component>
 </project>

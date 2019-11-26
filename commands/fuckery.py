@@ -1,9 +1,5 @@
 # encoding=utf8
 import asyncio
-import threading
-from threading import Timer
-from multiprocessing import Process, Queue
-
 
 import cat
 import random
@@ -314,8 +310,6 @@ class Fuckery(commands.Cog):
         #Holy fucking shit, how long has that mistake been here?
         if ("kenya" or "Kenya") in query:
             return await ctx.send("not real sorry")
-        else:
-            pass
         cont = re.sub("\s+", '_', query)
         q = wikipedia.page(cont)
         await ctx.channel.trigger_typing()
