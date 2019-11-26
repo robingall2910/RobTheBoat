@@ -163,7 +163,6 @@ class Music(commands.Cog):
             del self.queues[ctx.guild.id]
         except Exception as e:
             print("fuck music broke again: " + e)
-            pass
         await ctx.send("Alright, see ya.")
         
     @commands.command()
@@ -212,8 +211,9 @@ class Music(commands.Cog):
             if not queue.voice_client.is_paused() and not queue.voice_client.is_playing():
                 await ctx.send("Hmm... There's nothing in the list.")
                 return
-            else:
-                song_list = "Now playing: {}".format(queue.current)
+            #pylint: not needed
+            #else:
+            #    song_list = "Now playing: {}".format(queue.current)
         else:
             await ctx.send(":thinking:... Nothing's in the queue.")
             return

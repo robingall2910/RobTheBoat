@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="we're on that now">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/configuration.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/configuration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pylintconfig.yml" beforeDir="false" afterPath="$PROJECT_DIR$/pylintconfig.yml" afterDir="false" />
-    </list>
+    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +75,7 @@
       <workItem from="1574612261781" duration="390000" />
       <workItem from="1574614336481" duration="248000" />
       <workItem from="1574799972887" duration="95000" />
-      <workItem from="1574801130320" duration="1555000" />
+      <workItem from="1574801130320" duration="1635000" />
     </task>
     <task id="LOCAL-00001" summary="no n word">
       <created>1555211756710</created>
@@ -362,7 +357,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574802260778</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="pass pylint now builds should be passing">
+      <created>1574802759904</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1574802759904</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -396,7 +398,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Oh God, Oh Fuck" />
     <MESSAGE value="@jsinitx4" />
     <MESSAGE value="lowercase t" />
     <MESSAGE value="twitter bot????????????" />
@@ -421,6 +422,7 @@
     <MESSAGE value="...oops?" />
     <MESSAGE value="ok." />
     <MESSAGE value="we're on that now" />
-    <option name="LAST_COMMIT_MESSAGE" value="we're on that now" />
+    <MESSAGE value="pass pylint now builds should be passing" />
+    <option name="LAST_COMMIT_MESSAGE" value="pass pylint now builds should be passing" />
   </component>
 </project>

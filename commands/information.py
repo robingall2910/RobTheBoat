@@ -71,7 +71,7 @@ class Information(commands.Cog):
         embed.title = str(user)
         embed.color = user.color
         embed.set_thumbnail(url=get_avatar(user))
-        requester = ctx.author
+        embed.requester = ctx.author
         await ctx.send(embed=embed)
 
     @commands.command()

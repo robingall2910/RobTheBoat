@@ -4,7 +4,6 @@ import json
 import discord
 import datetime
 import forecastio
-import time
 import asyncio
 import re
 
