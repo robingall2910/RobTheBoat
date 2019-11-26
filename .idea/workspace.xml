@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/commands/fuckery.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fuckery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +83,7 @@
       <workItem from="1574612261781" duration="390000" />
       <workItem from="1574614336481" duration="248000" />
       <workItem from="1574799972887" duration="95000" />
-      <workItem from="1574801130320" duration="245000" />
+      <workItem from="1574801130320" duration="487000" />
     </task>
     <task id="LOCAL-00001" summary="no n word">
       <created>1555211756710</created>
@@ -302,7 +302,28 @@
       <option name="project" value="LOCAL" />
       <updated>1574801243071</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="unused imports">
+      <created>1574801433713</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1574801433713</updated>
+    </task>
+    <task id="LOCAL-00033" summary="pylint shit">
+      <created>1574801531028</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1574801531028</updated>
+    </task>
+    <task id="LOCAL-00034" summary="pylint recommendation">
+      <created>1574801575698</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1574801575698</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -336,9 +357,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="no n word" />
-    <MESSAGE value="oops" />
-    <MESSAGE value="work" />
     <MESSAGE value="fix travis so it starts passing again" />
     <MESSAGE value="oh no im supporting terminal&#10;&#10;@jsinitx4 @squareGITHUB" />
     <MESSAGE value="fix that" />
@@ -361,6 +379,9 @@
     <MESSAGE value="this is what i fucking meant to do" />
     <MESSAGE value="is this even possible? lol" />
     <MESSAGE value="shut up travis" />
-    <option name="LAST_COMMIT_MESSAGE" value="shut up travis" />
+    <MESSAGE value="unused imports" />
+    <MESSAGE value="pylint shit" />
+    <MESSAGE value="pylint recommendation" />
+    <option name="LAST_COMMIT_MESSAGE" value="pylint recommendation" />
   </component>
 </project>
