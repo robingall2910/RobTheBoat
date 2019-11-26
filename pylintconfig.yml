@@ -4,7 +4,7 @@
 # path. You may set this option multiple times.
 #
 # dirname, then we'll need to expand the ignore features in pylint :/
-ignore=.git,tools, etc
+# ignore=.git,tools, etc
 [MESSAGES CONTROL]
 # NOTE(gus): This is a long list.  A number of these are important and
 # should be re-enabled once the offending code is fixed (or marked
