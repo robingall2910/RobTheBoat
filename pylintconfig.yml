@@ -94,8 +94,9 @@ disable=E0602, E0603, E0401,
  too-many-public-methods,
  too-many-return-statements,
  too-many-statements,
- too-many-format-args
-
+ too-many-format-args,
+ comparison-with-itself, # it isn't, it's just how cog toggles work
+ unnecessary-comprehension #shut up.
 
 [BASIC]
 # Variable names can be 1 to 31 characters long, with lowercase and underscores

@@ -239,8 +239,6 @@ async def on_message(message):
                 return True
             if not message.guild:
                 return True
-            else:
-                return False
         #if message.author.id in bypassids:
         #    pass
         if mod_or_perms(message, manage_messages=True):

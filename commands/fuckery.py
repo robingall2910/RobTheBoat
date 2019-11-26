@@ -253,6 +253,7 @@ class Fuckery(commands.Cog):
             #await ctx.channel.trigger_typing
             await ctx.send(f"<@169597963507728384> {ctx.author} needs you thanks")
             await asyncio.sleep(2)
+            print(i) # you want to be used? ill use u alright
 
     @commands.command()
     async def trico(self, ctx):

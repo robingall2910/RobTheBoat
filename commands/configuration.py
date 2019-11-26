@@ -16,7 +16,7 @@ class Configuration(commands.Cog):
             await ctx.send("Only the server owner aka {} can use this command.".format(format_user(ctx.guild.server.owner)))
             return
         await ctx.channel.trigger_typing()
-        if type == "mod-role" or type == "nsfw-channel" or type == "mute-role":
+        if type in ("mod-role", "nsfw-channel", "mute-role"):
             if type == "nsfw-channel":
                 value = value.lower().strip(" ")
             update_data_entry(ctx.guild.id, type, value)
@@ -31,7 +31,7 @@ class Configuration(commands.Cog):
             await ctx.send("Back off. Only my masters can use this.")
             return
         await ctx.channel.trigger_typing()
-        if type == "mod-role" or type == "nsfw-channel" or type == "mute-role":
+        if type in ("mod-role", "nsfw-channel", "mute-role"):
             if type == "nsfw-channel":
                 value = value.lower().strip(" ")
             update_data_entry(ctx.guild.id, type, value)
