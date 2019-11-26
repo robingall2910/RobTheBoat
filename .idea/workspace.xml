@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pylintconfig.yml" beforeDir="false" afterPath="$PROJECT_DIR$/pylintconfig.yml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,12 +26,6 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="169" />
-    <option name="y" value="175" />
-    <option name="width" value="1164" />
-    <option name="height" value="847" />
   </component>
   <component name="ProjectId" id="1TUmgqh6phhfDyRxvZCQktrNEDH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -83,7 +78,7 @@
       <workItem from="1574612261781" duration="390000" />
       <workItem from="1574614336481" duration="248000" />
       <workItem from="1574799972887" duration="95000" />
-      <workItem from="1574801130320" duration="487000" />
+      <workItem from="1574801130320" duration="1034000" />
     </task>
     <task id="LOCAL-00001" summary="no n word">
       <created>1555211756710</created>
@@ -323,7 +318,35 @@
       <option name="project" value="LOCAL" />
       <updated>1574801575698</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="more of this">
+      <created>1574801662506</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1574801662506</updated>
+    </task>
+    <task id="LOCAL-00036" summary="and some of this">
+      <created>1574801680030</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1574801680030</updated>
+    </task>
+    <task id="LOCAL-00037" summary="ok">
+      <created>1574801714617</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1574801714617</updated>
+    </task>
+    <task id="LOCAL-00038" summary="...oops?">
+      <created>1574801851803</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1574801851803</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,9 +380,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix travis so it starts passing again" />
-    <MESSAGE value="oh no im supporting terminal&#10;&#10;@jsinitx4 @squareGITHUB" />
-    <MESSAGE value="fix that" />
     <MESSAGE value="terminal devs now have full normie dev powers" />
     <MESSAGE value="pensivr" />
     <MESSAGE value="Oh God, Oh Fuck" />
@@ -369,7 +389,6 @@
     <MESSAGE value="more twitter stuff" />
     <MESSAGE value="ok i fucked up so this might as well be the last commit for today" />
     <MESSAGE value="game SUCKS i go to BED" />
-    <MESSAGE value="ok" />
     <MESSAGE value=" i already ruined this stop fuckin with me" />
     <MESSAGE value="sorry but i don't love u anymore" />
     <MESSAGE value="several things that haven't been committed yet" />
@@ -382,6 +401,10 @@
     <MESSAGE value="unused imports" />
     <MESSAGE value="pylint shit" />
     <MESSAGE value="pylint recommendation" />
-    <option name="LAST_COMMIT_MESSAGE" value="pylint recommendation" />
+    <MESSAGE value="more of this" />
+    <MESSAGE value="and some of this" />
+    <MESSAGE value="ok" />
+    <MESSAGE value="...oops?" />
+    <option name="LAST_COMMIT_MESSAGE" value="...oops?" />
   </component>
 </project>

@@ -59,6 +59,11 @@ disable=E0602, E0603, E0401,
  unused-wildcard-import,
  wildcard-import,
  using-constant-test,
+ mixed-indentation,
+ global-variable-undefined, #because discord api
+ anomalous-backslash-in-string, #regex
+ import-outside-toplevel, #do NOT lie to me
+ import-self, #it actually isn't it's just conveniently named the same as the actual api module
 # "C" Coding convention violations
  invalid-name,
  missing-docstring,
