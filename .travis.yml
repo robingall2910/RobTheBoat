@@ -2,7 +2,7 @@ language: python
 install: "pip install nose pylint"
 python:
   - "3.7"
-script: "nosetests && pylint --rcfile=pylintconfig.yml bot.py commands/configuration.py commands/weather.py commands/music.py commands/information.py commands/moderation.py commands/fuckery.py utils/buildinfo.py commands/gw2.py commands/lastfm.py commands/steam.py"
+script: "nosetests && pylint --rcfile=pylintconfig.yml bot.py commands/configuration.py commands/weather.py commands/music.py commands/information.py commands/moderation.py commands/fuckery.py utils/buildinfo.py commands/lastfm.py commands/steam.py"
 before_install:
   - pip install -r requirements.txt
 matrix:
