@@ -457,7 +457,7 @@ async def stream(ctx, *, name: str):
     if lock_status:
         await ctx.send("The status is currently locked.")
         return
-    name2 = name.replace("@everyone", "")
+    name2 = name.replace("@everyone", "").replace("@", "")
     await bot.change_presence(activity=discord.Activity(name=name2.replace("@here", ""), type=discord.ActivityType.streaming, url="https://www.twitch.tv/robingall2910"))
     await ctx.send("Streaming `{}`".format(name2.replace("@here", "")))
     await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a `streaming` status type".format(ctx.message.author.id, ctx.message.author, name2.replace("@here", "")))
@@ -467,7 +467,7 @@ async def stream(ctx, *, name: str):
 async def changestatus(ctx, status: str, *, name: str = None):
     """Changes the bot status to a certain status type and game/name/your shitty advertisement/seth's
     life story/your favorite beyonce lyrics and so on"""
-    name2 = name.replace("@everyone", "")
+    name2 = name.replace("@everyone", "").replace("@", "")
     if lock_status:
         await ctx.send("Status is locked. Don't try.")
         return

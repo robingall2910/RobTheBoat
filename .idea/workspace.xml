@@ -79,6 +79,7 @@
       <workItem from="1573523184457" duration="323000" />
       <workItem from="1574121903601" duration="550000" />
       <workItem from="1574612261781" duration="390000" />
+      <workItem from="1574614336481" duration="248000" />
     </task>
     <task id="LOCAL-00001" summary="no n word">
       <created>1555211756710</created>
@@ -276,7 +277,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574612642333</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="this is what i fucking meant to do">
+      <created>1574614442524</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1574614442524</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,7 +318,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="&quot;update&quot; to the latest d.py version" />
     <MESSAGE value=":)" />
     <MESSAGE value="in this house we only use 3.7" />
     <MESSAGE value="no n word" />
@@ -335,6 +342,7 @@
     <MESSAGE value="nah" />
     <MESSAGE value="w" />
     <MESSAGE value="the shit i get mentioned for at 6am oh my god" />
-    <option name="LAST_COMMIT_MESSAGE" value="the shit i get mentioned for at 6am oh my god" />
+    <MESSAGE value="this is what i fucking meant to do" />
+    <option name="LAST_COMMIT_MESSAGE" value="this is what i fucking meant to do" />
   </component>
 </project>
