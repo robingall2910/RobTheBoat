@@ -18,15 +18,20 @@ ytdl_format_options = {
     'source_address': '0.0.0.0'
 }
 
+ffmpeg_options_earrape = {
+    'options': '-vn -filter:a \"volume=120dB\"'
+}
+
 ffmpeg_options = {
     'options': '-vn'
 }
 
 ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 
+earrape = False
 
 class YTDLSource(discord.PCMVolumeTransformer):
-    def __init__(self, source, *, data, volume=300):
+    def __init__(self, source, *, data, volume=0.5):
         super().__init__(source, volume)
         self.data = data
         self.title = data.get('title')
@@ -41,12 +46,27 @@ class YTDLSource(discord.PCMVolumeTransformer):
             data = data['entries'][0]
 
         filename = data['url'] if stream else ytdl.prepare_filename(data)
-        return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
+        if earrape is True:
+            return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options_earrape), data=data)
+        else:
+            return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
 
 
 class Music(commands.Cog):
     def __init__(self, client):
         self.bot = client
+
+    @commands.command()
+    async def earrape(self, ctx):
+        """enable earrape"""
+        global earrape
+        if earrape is False:
+            earrape = True
+            return await ctx.send("enabled earrape mode on next track")
+        if earrape is True:
+            earrape = False
+            return await ctx.send("disabled earrape mode on next track")
+
 
     @commands.command(aliases=['summon', 'connect'])
     async def join(self, ctx):

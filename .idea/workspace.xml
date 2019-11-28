@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="ok now">
+    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="steal from @jsinitx4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/commands/music.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/music.py" afterDir="false" />
     </list>
@@ -86,7 +86,7 @@
       <workItem from="1574799972887" duration="95000" />
       <workItem from="1574801130320" duration="1635000" />
       <workItem from="1574802884290" duration="454000" />
-      <workItem from="1574910368470" duration="2537000" />
+      <workItem from="1574910368470" duration="5796000" />
     </task>
     <task id="LOCAL-00001" summary="no n word">
       <created>1555211756710</created>
@@ -382,7 +382,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574803112825</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="steal from @jsinitx4">
+      <created>1574913032130</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1574913032130</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -416,7 +423,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="lowercase t" />
     <MESSAGE value="twitter bot????????????" />
     <MESSAGE value="more twitter stuff" />
     <MESSAGE value="ok i fucked up so this might as well be the last commit for today" />
@@ -441,6 +447,7 @@
     <MESSAGE value="we're on that now" />
     <MESSAGE value="pass pylint now builds should be passing" />
     <MESSAGE value="ok now" />
-    <option name="LAST_COMMIT_MESSAGE" value="ok now" />
+    <MESSAGE value="steal from @jsinitx4" />
+    <option name="LAST_COMMIT_MESSAGE" value="steal from @jsinitx4" />
   </component>
 </project>
