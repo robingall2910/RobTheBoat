@@ -221,7 +221,7 @@ class Music(commands.Cog):
             song_list += "\n\n{}".format("\n".join(queue.song_list))
         await ctx.send(song_list)
 
-    @commands.command()
+    @commands.command(aliases=['vol', 'v'])
     async def volume(self, ctx, amount:float=None):
         """changes bot volume for music"""
         queue = self.get_queue(ctx)
