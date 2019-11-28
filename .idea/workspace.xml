@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="" />
+    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="ok now">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/music.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/music.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +34,12 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -76,6 +85,8 @@
       <workItem from="1574614336481" duration="248000" />
       <workItem from="1574799972887" duration="95000" />
       <workItem from="1574801130320" duration="1635000" />
+      <workItem from="1574802884290" duration="454000" />
+      <workItem from="1574910368470" duration="2537000" />
     </task>
     <task id="LOCAL-00001" summary="no n word">
       <created>1555211756710</created>
@@ -364,7 +375,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574802759904</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="ok now">
+      <created>1574803112825</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1574803112825</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -398,7 +416,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="@jsinitx4" />
     <MESSAGE value="lowercase t" />
     <MESSAGE value="twitter bot????????????" />
     <MESSAGE value="more twitter stuff" />
@@ -423,6 +440,7 @@
     <MESSAGE value="ok." />
     <MESSAGE value="we're on that now" />
     <MESSAGE value="pass pylint now builds should be passing" />
-    <option name="LAST_COMMIT_MESSAGE" value="pass pylint now builds should be passing" />
+    <MESSAGE value="ok now" />
+    <option name="LAST_COMMIT_MESSAGE" value="ok now" />
   </component>
 </project>
