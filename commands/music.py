@@ -47,9 +47,9 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
         filename = data['url'] if stream else ytdl.prepare_filename(data)
         if earrape is True:
-            return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options_earrape), data=data)
+            cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options_earrape), data=data)
         else:
-            return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
+            cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
 
 
 class Music(commands.Cog):

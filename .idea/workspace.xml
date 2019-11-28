@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/buildinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/buildinfo.py" afterDir="false" />
-    </list>
+    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +83,7 @@
       <workItem from="1574799972887" duration="95000" />
       <workItem from="1574801130320" duration="1635000" />
       <workItem from="1574802884290" duration="454000" />
-      <workItem from="1574910368470" duration="5945000" />
+      <workItem from="1574910368470" duration="6426000" />
     </task>
     <task id="LOCAL-00001" summary="no n word">
       <created>1555211756710</created>
@@ -396,7 +393,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574916248111</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="earrape mode only took 2000 years">
+      <created>1574916342401</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1574916342401</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
