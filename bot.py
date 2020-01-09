@@ -523,7 +523,7 @@ async def update(ctx):
             await ctx.send("Okay, it's done! Do you want to restart? (Y/N)")
             def check(m):
                 return m.content == "y" or "n" or "Y" or "N" or "cancel" and m.channel == ctx.channel
-            msg = await ctx.wait_for('message', check=check)
+            msg = await bot.wait_for('message', check=check)
             print(msg)
             if msg == "y" or "Y":
                 await ctx.send("Restarting!")
