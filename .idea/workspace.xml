@@ -4,7 +4,6 @@
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/lastfm.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/lastfm.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,21 +96,7 @@
       <workItem from="1575417082883" duration="159000" />
       <workItem from="1575502041244" duration="1285000" />
       <workItem from="1578606881523" duration="406000" />
-      <workItem from="1578607369580" duration="5491000" />
-    </task>
-    <task id="LOCAL-00010" summary="oh no im supporting terminal&#10;&#10;@jsinitx4 @squareGITHUB">
-      <created>1555272433588</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1555272433588</updated>
-    </task>
-    <task id="LOCAL-00011" summary="fix that">
-      <created>1555274572437</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1555274572437</updated>
+      <workItem from="1578607369580" duration="5745000" />
     </task>
     <task id="LOCAL-00012" summary="terminal devs now have full normie dev powers">
       <created>1555274808328</created>
@@ -442,7 +427,21 @@
       <option name="project" value="LOCAL" />
       <updated>1578611860123</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="this is the fattest strech of the century">
+      <created>1578612881612</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1578612881612</updated>
+    </task>
+    <task id="LOCAL-00060" summary="ok one more try">
+      <created>1578612990545</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1578612990545</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -476,8 +475,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="shut up travis" />
-    <MESSAGE value="unused imports" />
     <MESSAGE value="pylint shit" />
     <MESSAGE value="pylint recommendation" />
     <MESSAGE value="more of this" />
@@ -501,25 +498,27 @@
     <MESSAGE value="g" />
     <MESSAGE value="upgrade" />
     <MESSAGE value="ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="ok" />
+    <MESSAGE value="this is the fattest strech of the century" />
+    <MESSAGE value="ok one more try" />
+    <option name="LAST_COMMIT_MESSAGE" value="ok one more try" />
   </component>
   <component name="WindowStateProjectService">
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578612689738" />
-    <state x="583" y="15" key="CommitChangelistDialog2" timestamp="1578612880660">
+    <state x="583" y="15" key="CommitChangelistDialog2" timestamp="1578612990138">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="15" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578612880660" />
+    <state x="583" y="15" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578612990138" />
     <state x="461" y="161" key="SettingsEditor" timestamp="1575417063234">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1575417063234" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1578612883150">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1578612991597">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578612883150" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578612991597" />
     <state x="646" y="241" width="758" height="638" key="find.popup" timestamp="1578611040340">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

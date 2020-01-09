@@ -514,7 +514,9 @@ async def update(ctx):
     await ctx.channel.trigger_typing()
     try:
         g = subprocess.Popen("git pull".split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0].decode('utf-8')
-        if "Updating " or "Fast-forward" in g:
+        if "Already up to date." in g:
+            await ctx.send("The bot is up to date!")
+        elif "Updating" or "Fast-forward" in g:
             await ctx.send("Update found! Updating, give me a sec...")
             await ctx.channel.trigger_typing()
             await asyncio.sleep(2)
@@ -522,17 +524,16 @@ async def update(ctx):
             def check(m):
                 return m.content == "y" or "n" or "Y" or "N" or "cancel" and m.channel == ctx.channel
             msg = await ctx.wait_for('message', check=check)
-            if check == "y" or "Y":
+            print(msg)
+            if msg == "y" or "Y":
                 await ctx.send("Restarting!")
                 _restart_bot()
-            if check == "n" or "N":
+            if msg == "n" or "N":
                 await ctx.send("Okay, not going to restart.")
                 return
             else:
                 await ctx.send("Wrong answer! Canceling operation.")
                 return
-        else:
-            await ctx.send("The bot is up to date!")
     except Exception as e:
         await ctx.send(traceback.print_exc())
 
