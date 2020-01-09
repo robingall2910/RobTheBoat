@@ -530,7 +530,6 @@ async def update(ctx):
                 _restart_bot()
             if msg == "n" or "N":
                 await ctx.send("Okay, not going to restart.")
-                return
             else:
                 await ctx.send("Wrong answer! Canceling operation.")
     except:
