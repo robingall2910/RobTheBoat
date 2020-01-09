@@ -121,7 +121,7 @@ async def on_ready():
             bot.load_extension(extension)
         except Exception as e:
             log.error("Failed to load extension {}\n{}: {}".format(extension, type(e).__name__, e))
-            log.error(traceback.print_exc())
+            traceback.print_exc()
     if config.enableMal:
         try:
             bot.load_extension("commands.myanimelist")
@@ -502,10 +502,39 @@ async def terminal(ctx, *, command:str):
     try:
         await ctx.channel.trigger_typing()
         await ctx.send(xl.format(subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate(
-        )[0].decode("ascii")))
+        )[0].decode("utf-8")))
     except:
         await ctx.send("Well, I broke there.")
 
+@bot.command(hidden=True)
+@checks.is_dev()
+async def update(ctx):
+    """Checks for updates with Git"""
+    await ctx.send("Checking for updates...")
+    await ctx.channel.trigger_typing()
+    try:
+        g = subprocess.Popen("git pull", stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0].decode('utf-8')
+        if "Updating " or "Fast-forward" in g:
+            await ctx.send("Update found! Updating, give me a sec...")
+            await ctx.channel.trigger_typing()
+            await asyncio.sleep(2)
+            await ctx.send("Okay, it's done! Do you want to restart? (Y/N)")
+            def check(m):
+                return m.content == "y" or "n" or "Y" or "N" or "cancel" and m.channel == ctx.channel
+            msg = await ctx.wait_for('message', check=check)
+            if check == "y" or "Y":
+                await ctx.send("Restarting!")
+                _restart_bot()
+            if check == "n" or "N":
+                await ctx.send("Okay, not going to restart.")
+                return
+            else:
+                await ctx.send("Wrong answer! Canceling operation.")
+                return
+        else:
+            await ctx.send("The bot is up to date!")
+    except Exception as e:
+        await ctx.send(traceback.print_exc())
 
 
 @bot.command(hidden=True)
@@ -618,7 +647,10 @@ async def enable(ctx, *, extension: str):
     extension = "commands.{}".format(extension)
     if extension in extension:
         await ctx.send("Loading {}...".format(extension))
-        bot.load_extension(extension)
+        try:
+            bot.load_extension(extension)
+        except:
+            await ctx.send(traceback.print_exc())
         await ctx.send("Enabled {}.".format(extension))
     else:
         await ctx.send("Extension isn't available.")

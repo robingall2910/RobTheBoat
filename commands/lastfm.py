@@ -152,7 +152,7 @@ class Lastfm(commands.Cog):
                      value=resp['toptracks']['track'][11]['name'])
         await ctx.send(embed=em)
 
-    @commands.command(['utal'])
+    @commands.command(aliases=['utal'])
     async def fmusertopalbums(self, ctx, *, user: str):
         url = "http://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user={}&api_key={}&format=json&limit=12".format(user, api)
         req = urllib.request.Request(url, data=None)
