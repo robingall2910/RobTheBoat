@@ -159,10 +159,11 @@ class Lastfm(commands.Cog):
         except:
             location = None
         country2 = country.replace("_", "%20") #it be like that
+        country3 = country2.replace(" ", "%20")
         try:
-            url = "http://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country={}&location={}&api_key={}&format=json&limit=12".format(country2, location, api)
+            url = "http://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country={}&location={}&api_key={}&format=json&limit=12".format(country3, location, api)
         except UnboundLocalError:
-            url = "http://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country={}&api_key={}&format=json&limit=12".format(country2, api)
+            url = "http://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country={}&api_key={}&format=json&limit=12".format(country3, api)
         req = urllib.request.Request(url, data=None)
         response = urllib.request.urlopen(req)
         resp = json.loads(response.read().decode('utf-8'))
