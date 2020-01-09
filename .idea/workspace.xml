@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/lastfm.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/lastfm.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,14 +96,7 @@
       <workItem from="1575417082883" duration="159000" />
       <workItem from="1575502041244" duration="1285000" />
       <workItem from="1578606881523" duration="406000" />
-      <workItem from="1578607369580" duration="1642000" />
-    </task>
-    <task id="LOCAL-00005" summary="oops">
-      <created>1555212818838</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1555212818838</updated>
+      <workItem from="1578607369580" duration="3817000" />
     </task>
     <task id="LOCAL-00006" summary="ok">
       <created>1555212936963</created>
@@ -440,7 +434,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578608928280</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary=":)">
+      <created>1578609077388</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1578609077388</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -474,7 +475,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="the shit i get mentioned for at 6am oh my god" />
     <MESSAGE value="this is what i fucking meant to do" />
     <MESSAGE value="is this even possible? lol" />
     <MESSAGE value="shut up travis" />
@@ -499,24 +499,25 @@
     <MESSAGE value="w" />
     <MESSAGE value="fuck that's how you do it&#10;&#10;i forgot how to code" />
     <MESSAGE value="ok nice bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="ok nice bug" />
+    <MESSAGE value=":)" />
+    <option name="LAST_COMMIT_MESSAGE" value=":)" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="583" y="15" key="CommitChangelistDialog2" timestamp="1578608927851">
+    <state x="583" y="15" key="CommitChangelistDialog2" timestamp="1578609076969">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="15" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578608927851" />
+    <state x="583" y="15" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578609076969" />
     <state x="461" y="161" key="SettingsEditor" timestamp="1575417063234">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1575417063234" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1578608930771">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1578609078548">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578608930771" />
-    <state x="646" y="241" width="627" height="558" key="find.popup" timestamp="1575502266236">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578609078548" />
+    <state x="646" y="241" width="758" height="638" key="find.popup" timestamp="1578611040340">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="646" y="241" width="627" height="558" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1575502266236" />
+    <state x="646" y="241" width="758" height="638" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1578611040340" />
   </component>
 </project>

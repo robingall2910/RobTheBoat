@@ -74,7 +74,7 @@ class Lastfm(commands.Cog):
         em.add_field(name="Top tags", value=tags)
         await ctx.send(embed=em)
 
-    @commands.command()
+    @commands.command(aliases=['ur'])
     async def fmuserrecent(self, ctx, *, user: str):
         url = "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user={}&api_key={}&format=json&limit=12".format(user, api)
         req = urllib.request.Request(url, data=None)
@@ -113,9 +113,119 @@ class Lastfm(commands.Cog):
                      value=resp['recenttracks']['track'][11]['name'])
         await ctx.send(embed=em)
 
+    @commands.command(aliases=['utt'])
+    async def fmusertoptracks(self, ctx, *, user: str):
+        url = "http://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user={}&api_key={}&format=json&limit=12".format(user, api)
+        req = urllib.request.Request(url, data=None)
+        response = urllib.request.urlopen(req)
+        resp = json.loads(response.read().decode('utf-8'))
+        em = discord.Embed(description=None)
+        user = resp['toptracks']['@attr']['user']
+        em.title = "{}'s Most Played Tracks".format(user)
+        try:
+            em.color = ctx.me.color
+        except:
+            pass
+        em.add_field(name=resp['toptracks']['track'][0]['artist']['#text'],
+                     value=resp['toptracks']['track'][0]['name'])
+        em.add_field(name=resp['toptracks']['track'][1]['artist']['#text'],
+                     value=resp['toptracks']['track'][1]['name'])
+        em.add_field(name=resp['toptracks']['track'][2]['artist']['#text'],
+                     value=resp['toptracks']['track'][2]['name'])
+        em.add_field(name=resp['toptracks']['track'][3]['artist']['#text'],
+                     value=resp['toptracks']['track'][3]['name'])
+        em.add_field(name=resp['toptracks']['track'][4]['artist']['#text'],
+                     value=resp['toptracks']['track'][4]['name'])
+        em.add_field(name=resp['toptracks']['track'][5]['artist']['#text'],
+                     value=resp['toptracks']['track'][5]['name'])
+        em.add_field(name=resp['toptracks']['track'][6]['artist']['#text'],
+                     value=resp['toptracks']['track'][6]['name'])
+        em.add_field(name=resp['toptracks']['track'][7]['artist']['#text'],
+                     value=resp['toptracks']['track'][7]['name'])
+        em.add_field(name=resp['toptracks']['track'][8]['artist']['#text'],
+                     value=resp['toptracks']['track'][8]['name'])
+        em.add_field(name=resp['toptracks']['track'][9]['artist']['#text'],
+                     value=resp['toptracks']['track'][9]['name'])
+        em.add_field(name=resp['toptracks']['track'][10]['artist']['#text'],
+                     value=resp['toptracks']['track'][10]['name'])
+        em.add_field(name=resp['toptracks']['track'][11]['artist']['#text'],
+                     value=resp['toptracks']['track'][11]['name'])
+        await ctx.send(embed=em)
+
+    @commands.command(['utal'])
+    async def fmusertopalbums(self, ctx, *, user: str):
+        url = "http://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user={}&api_key={}&format=json&limit=12".format(user, api)
+        req = urllib.request.Request(url, data=None)
+        response = urllib.request.urlopen(req)
+        resp = json.loads(response.read().decode('utf-8'))
+        em = discord.Embed(description='Looks like your fav is {}'.format(resp['album'][0]['name']))
+        user = resp['topalbums']['@attr']['user']
+        em.title = "{}'s Top Albums".format(user)
+        try:
+            em.color = ctx.me.color
+        except:
+            pass
+        em.set_image(url=resp['album'][0]['image'][3]['#text'])
+        em.add_field(name=resp['album'][0]['artist']['#text'],
+                     value=resp['album'][0]['name'])
+        em.add_field(name=resp['album'][1]['artist']['#text'],
+                     value=resp['album'][1]['name'])
+        em.add_field(name=resp['album'][2]['artist']['#text'],
+                     value=resp['album'][2]['name'])
+        em.add_field(name=resp['album'][3]['artist']['#text'],
+                     value=resp['album'][3]['name'])
+        em.add_field(name=resp['album'][4]['artist']['#text'],
+                     value=resp['album'][4]['name'])
+        em.add_field(name=resp['album'][5]['artist']['#text'],
+                     value=resp['album'][5]['name'])
+        em.add_field(name=resp['album'][6]['artist']['#text'],
+                     value=resp['album'][6]['name'])
+        em.add_field(name=resp['album'][7]['artist']['#text'],
+                     value=resp['album'][7]['name'])
+        em.add_field(name=resp['album'][8]['artist']['#text'],
+                     value=resp['album'][8]['name'])
+        em.add_field(name=resp['album'][9]['artist']['#text'],
+                     value=resp['album'][9]['name'])
+        em.add_field(name=resp['album'][10]['artist']['#text'],
+                     value=resp['album'][10]['name'])
+        em.add_field(name=resp['album'][11]['artist']['#text'],
+                     value=resp['album'][11]['name'])
+        await ctx.send(embed=em)
+
+    @commands.command(aliases=['uta'])
+    async def fmusertopartists(self, ctx, *, user: str):
+        url = "http://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user={}&api_key={}&format=json&limit=12".format(user, api)
+        req = urllib.request.Request(url, data=None)
+        response = urllib.request.urlopen(req)
+        resp = json.loads(response.read().decode('utf-8'))
+        em = discord.Embed(description=None)
+        try:
+            em.color = ctx.me.color
+        except:
+            pass
+        em.title = f"{resp['topartists']['@attr']['user']}'s Top Artists"
+        em.add_field(name=resp['artist'][0]['name'])
+        em.add_field(name=resp['artist'][1]['name'])
+        em.add_field(name=resp['artist'][2]['name'])
+        em.add_field(name=resp['artist'][3]['name'])
+        em.add_field(name=resp['artist'][4]['name'])
+        em.add_field(name=resp['artist'][5]['name'])
+        em.add_field(name=resp['artist'][6]['name'])
+        em.add_field(name=resp['artist'][7]['name'])
+        em.add_field(name=resp['artist'][8]['name'])
+        em.add_field(name=resp['artist'][9]['name'])
+        em.add_field(name=resp['artist'][10]['name'])
+        em.add_field(name=resp['artist'][11]['name'])
+
     @commands.command()
     async def topartists(self, ctx, *, country: str):
-        url = "http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country={}&api_key={}&format=json&limit=12".format(country, api)
+        country2 = country.replace("_", "%20") #it be like that
+        country3 = country2.replace(" ", "%20")
+        try:
+            url = "http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country={}&api_key={}&format=json&limit=12".format(country3, api)
+        except Exception as e:
+            ctx.send(f"oops: {e}")
+            return
         req = urllib.request.Request(url, data=None)
         response = urllib.request.urlopen(req)
         resp = json.loads(response.read().decode('utf-8'))
@@ -152,7 +262,7 @@ class Lastfm(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command()
-    async def toptracks(self, ctx, *, country: str, **kwargs):
+    async def toptracks(self, ctx, country: str, **kwargs):
         try:
             for locationname in kwargs.items():
                 location = locationname
