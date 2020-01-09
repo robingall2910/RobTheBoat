@@ -513,7 +513,7 @@ async def update(ctx):
     await ctx.send("Checking for updates...")
     await ctx.channel.trigger_typing()
     try:
-        g = subprocess.Popen("git pull", stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0].decode('utf-8')
+        g = subprocess.Popen("git pull".split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0].decode('utf-8')
         if "Updating " or "Fast-forward" in g:
             await ctx.send("Update found! Updating, give me a sec...")
             await ctx.channel.trigger_typing()
