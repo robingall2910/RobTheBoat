@@ -78,7 +78,6 @@ insults = [
     "is a worthless piece of shit",
     "is an 80 year old man",
     "lost his virginity to his grandpa",
-    "supports abortion",
     "is a cuntrag",
     "is on the sex offender list",
     "is a fucking shithead",
