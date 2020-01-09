@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/buildinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/buildinfo.py" afterDir="false" />
-    </list>
+    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,7 +92,7 @@
       <workItem from="1575417045352" duration="18000" />
       <workItem from="1575417082883" duration="159000" />
       <workItem from="1575502041244" duration="1285000" />
-      <workItem from="1578606881523" duration="390000" />
+      <workItem from="1578606881523" duration="406000" />
     </task>
     <task id="LOCAL-00001" summary="no n word">
       <created>1555211756710</created>
@@ -426,7 +423,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578607117475</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="forgot abt that">
+      <created>1578607279398</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1578607279398</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -460,7 +464,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="game SUCKS i go to BED" />
     <MESSAGE value=" i already ruined this stop fuckin with me" />
     <MESSAGE value="sorry but i don't love u anymore" />
     <MESSAGE value="several things that haven't been committed yet" />
@@ -485,21 +488,22 @@
     <MESSAGE value="earrape mode only took 2000 years" />
     <MESSAGE value="ok pylint." />
     <MESSAGE value="tea" />
-    <option name="LAST_COMMIT_MESSAGE" value="tea" />
+    <MESSAGE value="forgot abt that" />
+    <option name="LAST_COMMIT_MESSAGE" value="forgot abt that" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="583" y="28" key="CommitChangelistDialog2" timestamp="1578607116966">
+    <state x="583" y="28" key="CommitChangelistDialog2" timestamp="1578607278955">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="28" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578607116966" />
+    <state x="583" y="28" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578607278955" />
     <state x="461" y="161" key="SettingsEditor" timestamp="1575417063234">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1575417063234" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1578607120904">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1578607280567">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578607120904" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578607280567" />
     <state x="646" y="241" width="627" height="558" key="find.popup" timestamp="1575502266236">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
