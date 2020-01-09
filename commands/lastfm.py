@@ -198,24 +198,25 @@ class Lastfm(commands.Cog):
         req = urllib.request.Request(url, data=None)
         response = urllib.request.urlopen(req)
         resp = json.loads(response.read().decode('utf-8'))
-        em = discord.Embed(description=None)
+        em = discord.Embed(description=f"ur stan is {resp['artist'][0]['name']}")
         try:
             em.color = ctx.me.color
         except:
             pass
         em.title = f"{resp['topartists']['@attr']['user']}'s Top Artists"
-        em.add_field(name=resp['artist'][0]['name'])
-        em.add_field(name=resp['artist'][1]['name'])
-        em.add_field(name=resp['artist'][2]['name'])
-        em.add_field(name=resp['artist'][3]['name'])
-        em.add_field(name=resp['artist'][4]['name'])
-        em.add_field(name=resp['artist'][5]['name'])
-        em.add_field(name=resp['artist'][6]['name'])
-        em.add_field(name=resp['artist'][7]['name'])
-        em.add_field(name=resp['artist'][8]['name'])
-        em.add_field(name=resp['artist'][9]['name'])
-        em.add_field(name=resp['artist'][10]['name'])
-        em.add_field(name=resp['artist'][11]['name'])
+        em.add_field(name=resp['artist'][0]['name'], value=None)
+        em.add_field(name=resp['artist'][1]['name'], value=None)
+        em.add_field(name=resp['artist'][2]['name'], value=None)
+        em.add_field(name=resp['artist'][3]['name'], value=None)
+        em.add_field(name=resp['artist'][4]['name'], value=None)
+        em.add_field(name=resp['artist'][5]['name'], value=None)
+        em.add_field(name=resp['artist'][6]['name'], value=None)
+        em.add_field(name=resp['artist'][7]['name'], value=None)
+        em.add_field(name=resp['artist'][8]['name'], value=None)
+        em.add_field(name=resp['artist'][9]['name'], value=None)
+        em.add_field(name=resp['artist'][10]['name'], value=None)
+        em.add_field(name=resp['artist'][11]['name'], value=None)
+        await ctx.send(embed=em)
 
     @commands.command()
     async def topartists(self, ctx, *, country: str):
