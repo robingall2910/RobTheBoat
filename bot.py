@@ -121,6 +121,7 @@ async def on_ready():
             bot.load_extension(extension)
         except Exception as e:
             log.error("Failed to load extension {}\n{}: {}".format(extension, type(e).__name__, e))
+            log.error(traceback.print_exc())
     if config.enableMal:
         try:
             bot.load_extension("commands.myanimelist")

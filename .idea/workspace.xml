@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="" />
+    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,14 +95,7 @@
       <workItem from="1575417082883" duration="159000" />
       <workItem from="1575502041244" duration="1285000" />
       <workItem from="1578606881523" duration="406000" />
-      <workItem from="1578607369580" duration="4062000" />
-    </task>
-    <task id="LOCAL-00008" summary="fix travis so it starts passing again">
-      <created>1555213722258</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1555213722258</updated>
+      <workItem from="1578607369580" duration="4306000" />
     </task>
     <task id="LOCAL-00009" summary="w">
       <created>1555213910114</created>
@@ -438,7 +433,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578611431483</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="upgrade">
+      <created>1578611502889</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1578611502889</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -472,7 +474,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="is this even possible? lol" />
     <MESSAGE value="shut up travis" />
     <MESSAGE value="unused imports" />
     <MESSAGE value="pylint shit" />
@@ -497,21 +498,22 @@
     <MESSAGE value=":)" />
     <MESSAGE value="finally finish what i was going for" />
     <MESSAGE value="g" />
-    <option name="LAST_COMMIT_MESSAGE" value="g" />
+    <MESSAGE value="upgrade" />
+    <option name="LAST_COMMIT_MESSAGE" value="upgrade" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="583" y="15" key="CommitChangelistDialog2" timestamp="1578611431109">
+    <state x="583" y="15" key="CommitChangelistDialog2" timestamp="1578611502477">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="15" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578611431109" />
+    <state x="583" y="15" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578611502477" />
     <state x="461" y="161" key="SettingsEditor" timestamp="1575417063234">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1575417063234" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1578611432597">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1578611504094">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578611432597" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578611504094" />
     <state x="646" y="241" width="758" height="638" key="find.popup" timestamp="1578611040340">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
