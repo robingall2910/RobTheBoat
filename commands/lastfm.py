@@ -152,13 +152,13 @@ class Lastfm(commands.Cog):
         await ctx.send(embed=em)
 
     @commands.command()
-    async def toptracks(self, ctx, country: str, **kwargs):
+    async def toptracks(self, ctx, *, country: str, **kwargs):
         try:
             for locationname in kwargs.items():
                 location = locationname
         except:
             location = None
-        country2 = country.replace("_", " ")
+        country2 = country.replace("_", "%20") #it be like that
         try:
             url = "http://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country={}&location={}&api_key={}&format=json&limit=12".format(country2, location, api)
         except UnboundLocalError:
