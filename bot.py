@@ -248,7 +248,7 @@ async def on_message(message):
             await message.delete()
             log.info(f"Deleted a message due to lockdown from {message.author} in {message.channel}")
             return
-    if tfserver in message.channel.server.id:
+    if tfserver in message.channel.guild.id:
         if "unban me" in message.content:
             await message.channel.send("shut up fat")
     await bot.process_commands(message)
