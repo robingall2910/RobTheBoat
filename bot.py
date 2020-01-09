@@ -533,8 +533,7 @@ async def update(ctx):
                 return
             else:
                 await ctx.send("Wrong answer! Canceling operation.")
-                return
-    except Exception as e:
+    except:
         await ctx.send(traceback.print_exc())
 
 

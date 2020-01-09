@@ -95,21 +95,7 @@
       <workItem from="1575417082883" duration="159000" />
       <workItem from="1575502041244" duration="1285000" />
       <workItem from="1578606881523" duration="406000" />
-      <workItem from="1578607369580" duration="6004000" />
-    </task>
-    <task id="LOCAL-00013" summary="pensivr">
-      <created>1555274905277</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1555274905277</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Oh God, Oh Fuck">
-      <created>1555275035840</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1555275035840</updated>
+      <workItem from="1578607369580" duration="6267000" />
     </task>
     <task id="LOCAL-00015" summary="@jsinitx4">
       <created>1555275387253</created>
@@ -440,7 +426,21 @@
       <option name="project" value="LOCAL" />
       <updated>1578613234454</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="this one singular insult is not in fact, an insult&#10;&#10;because it's their own body, let them have it&#10;&#10;anyways stan karl marx">
+      <created>1578613450510</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1578613450510</updated>
+    </task>
+    <task id="LOCAL-00063" summary="fix">
+      <created>1578613541195</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1578613541195</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -474,8 +474,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pylint shit" />
-    <MESSAGE value="pylint recommendation" />
     <MESSAGE value="more of this" />
     <MESSAGE value="and some of this" />
     <MESSAGE value="...oops?" />
@@ -499,25 +497,27 @@
     <MESSAGE value="this is the fattest strech of the century" />
     <MESSAGE value="ok one more try" />
     <MESSAGE value="ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="ok" />
+    <MESSAGE value="this one singular insult is not in fact, an insult&#10;&#10;because it's their own body, let them have it&#10;&#10;anyways stan karl marx" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
   <component name="WindowStateProjectService">
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578612689738" />
-    <state x="583" y="15" key="CommitChangelistDialog2" timestamp="1578613450106">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1578613540796">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="15" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578613450106" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578613540796" />
     <state x="461" y="161" key="SettingsEditor" timestamp="1575417063234">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1575417063234" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1578613451689">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1578613545251">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578613451689" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578613545251" />
     <state x="646" y="241" width="758" height="638" key="find.popup" timestamp="1578611040340">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
