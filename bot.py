@@ -220,6 +220,8 @@ async def on_message(message):
         await message.channel.send(embed=em)
         return
     if message.guild.id in serverids:
+        if "<:monika:451965787045888019>" in message.clean_content:
+            await message.channel.send("<:monika:451965787045888019> :gay_pride_flag:")
         if re.match(r"(<:monika:451965787045888019>\s*<:Kreygasm:433677270264184833>|<:monika:451965787045888019>\s*<:hyperkreygasm:460417913837322271>)+", message.clean_content):
             await message.channel.send("<:monika:451965787045888019> :gay_pride_flag:")
         if re.match(r"(?=\s*wyoming\s*|\s*kenya\s*)\w+", message.clean_content) is not None:
