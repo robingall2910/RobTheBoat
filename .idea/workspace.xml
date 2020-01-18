@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +19,7 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="ZeroEpoch1969 &lt;13510767+zeroepoch1969@users.noreply.github.com&gt;" />
         <option value="Robinson Gallego &lt;robinson.leal7@gmail.com&gt;" />
         <option value="speed &lt;jsinitx4@noreply.users.github.com&gt;" />
       </list>
@@ -99,13 +99,7 @@
       <workItem from="1578607369580" duration="6929000" />
       <workItem from="1578861354162" duration="393000" />
       <workItem from="1578971255386" duration="86000" />
-    </task>
-    <task id="LOCAL-00017" summary="twitter bot????????????">
-      <created>1555276364660</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1555276364660</updated>
+      <workItem from="1578971356357" duration="630000" />
     </task>
     <task id="LOCAL-00018" summary="more twitter stuff">
       <created>1555277810854</created>
@@ -443,7 +437,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578614237326</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="ddlc gay">
+      <created>1578971384036</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1578971384036</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -477,7 +478,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="...oops?" />
     <MESSAGE value="ok." />
     <MESSAGE value="we're on that now" />
     <MESSAGE value="pass pylint now builds should be passing" />
@@ -502,25 +502,26 @@
     <MESSAGE value="fix" />
     <MESSAGE value="shut up travis" />
     <MESSAGE value="is this what u were looking for, cuck" />
-    <option name="LAST_COMMIT_MESSAGE" value="is this what u were looking for, cuck" />
+    <MESSAGE value="ddlc gay" />
+    <option name="LAST_COMMIT_MESSAGE" value="ddlc gay" />
   </component>
   <component name="WindowStateProjectService">
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578612689738" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1578614236908">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1578971381445">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578614236908" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578971381445" />
     <state x="461" y="161" key="SettingsEditor" timestamp="1578861391192">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1578861391192" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1578614238123">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1578971386650">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578614238123" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1578971386650" />
     <state x="646" y="241" width="758" height="638" key="find.popup" timestamp="1578611040340">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

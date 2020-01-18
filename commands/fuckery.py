@@ -6,6 +6,7 @@ import random
 import os
 import wikipedia
 import time
+import bot
 
 #from cleverwrap import CleverWrap
 #from utils.config import Config #for cleverwrap's key
@@ -29,7 +30,7 @@ class Fuckery(commands.Cog):
         except:
             pass
         if ctx.author is not ctx.author.bot:
-            await ctx.send(ctx.message.clean_content.replace(".say", ""))
+            await ctx.send(ctx.message.clean_content.replace((bot.bot_triggers + "say"), ""))
         else:
             return
 
