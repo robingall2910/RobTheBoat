@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.py" afterDir="false" />
-    </list>
+    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -103,14 +100,7 @@
       <workItem from="1578971255386" duration="86000" />
       <workItem from="1578971356357" duration="630000" />
       <workItem from="1579387856342" duration="114000" />
-      <workItem from="1579910074312" duration="5874000" />
-    </task>
-    <task id="LOCAL-00029" summary="this is what i fucking meant to do">
-      <created>1574614442524</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1574614442524</updated>
+      <workItem from="1579910074312" duration="6192000" />
     </task>
     <task id="LOCAL-00030" summary="is this even possible? lol">
       <created>1574800058775</created>
@@ -448,7 +438,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579915342471</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="oops">
+      <created>1579927583864</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1579927583864</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,7 +479,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="if this fails lil kim posted this" />
     <MESSAGE value="w" />
     <MESSAGE value="fuck that's how you do it&#10;&#10;i forgot how to code" />
     <MESSAGE value="ok nice bug" />
@@ -507,7 +503,8 @@
     <MESSAGE value="ok heroku" />
     <MESSAGE value="looks like i didn't even need that" />
     <MESSAGE value="remove the rest of that crap" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove the rest of that crap" />
+    <MESSAGE value="oops" />
+    <option name="LAST_COMMIT_MESSAGE" value="oops" />
   </component>
   <component name="WindowStateProjectService">
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
@@ -518,18 +515,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1579915339456">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1579927582377">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579915339456" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579927582377" />
     <state x="461" y="161" key="SettingsEditor" timestamp="1578861391192">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1578861391192" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1579915343772">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1579927588501">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579915343772" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579927588501" />
     <state x="646" y="241" width="758" height="638" key="find.popup" timestamp="1579915325813">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
