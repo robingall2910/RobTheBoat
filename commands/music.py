@@ -74,7 +74,7 @@ class Music(commands.Cog):
         await ctx.author.voice.channel.connect()
         await ctx.send("i'm in")
 
-    @commands.command(aliases=['p'])
+    @commands.command()
     async def play(self, ctx, *, search):
         """plays a song"""
         await ctx.channel.trigger_typing()
