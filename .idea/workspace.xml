@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runtime.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +21,7 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="Seth &lt;13510767+zeroepoch1969@users.noreply.github.com&gt;" />
         <option value="ZeroEpoch1969 &lt;13510767+zeroepoch1969@users.noreply.github.com&gt;" />
         <option value="Robinson Gallego &lt;robinson.leal7@gmail.com&gt;" />
         <option value="speed &lt;jsinitx4@noreply.users.github.com&gt;" />
@@ -103,14 +104,7 @@
       <workItem from="1578971255386" duration="86000" />
       <workItem from="1578971356357" duration="630000" />
       <workItem from="1579387856342" duration="114000" />
-      <workItem from="1579910074312" duration="82000" />
-    </task>
-    <task id="LOCAL-00019" summary="w">
-      <created>1555278754763</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1555278754763</updated>
+      <workItem from="1579910074312" duration="1554000" />
     </task>
     <task id="LOCAL-00020" summary="ok i fucked up so this might as well be the last commit for today">
       <created>1555279280674</created>
@@ -448,7 +442,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579387962231</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="seth kelly is a big fat gay">
+      <created>1579910176919</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1579910176919</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,7 +483,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ok." />
     <MESSAGE value="we're on that now" />
     <MESSAGE value="pass pylint now builds should be passing" />
     <MESSAGE value="ok now" />
@@ -507,29 +507,30 @@
     <MESSAGE value="is this what u were looking for, cuck" />
     <MESSAGE value="ddlc gay" />
     <MESSAGE value="ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="ok" />
+    <MESSAGE value="seth kelly is a big fat gay" />
+    <option name="LAST_COMMIT_MESSAGE" value="seth kelly is a big fat gay" />
   </component>
   <component name="WindowStateProjectService">
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578612689738" />
-    <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1579910095208">
+    <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1579911089402">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579910095208" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1579387961783">
+    <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1579910175368">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579387961783" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579910175368" />
     <state x="461" y="161" key="SettingsEditor" timestamp="1578861391192">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1578861391192" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1579387964848">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1579910180185">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579387964848" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579910180185" />
     <state x="646" y="241" width="758" height="638" key="find.popup" timestamp="1578611040340">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

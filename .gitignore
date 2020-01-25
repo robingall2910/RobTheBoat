@@ -1,5 +1,5 @@
 RTB Blacklist.db
-config/
+
 *.pyc
 .idea/
-*.ini
+config.ini
