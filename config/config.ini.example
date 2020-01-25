@@ -1,0 +1,97 @@
+; READ: IF THIS IS THE "config.ini.example" FILE AND THERE IS NO "config.ini" FILE
+; RUN THE BOT FIRST AND THEN EDIT THE config.ini FILE
+;
+; WARNING: DO NOT OPEN THIS CONFIG FILE IN NOTEPAD, NOTEPAD WILL CORRUPT THE STRUCTURE OF THIS CONFIG!
+; Use Notepad++ or another text editor.
+;
+; Do NOT put quotes around anything!
+;
+; BE SURE TO UNCOMMENT THINGS LIKE ";thing =" BY REMOVING THE ";" IF YOU WANT TO SET THOSE VALUES
+; Commented out variables means they are optional
+;
+; If you're using Environment-based keys, put True, if not, keep it as False. DO NOT LEAVE BLANK.
+[Env_Keys]
+State = True
+
+[Credentials]
+; If you do not know what your token is, you can get it on your bot's control panel page on https://discordapp.com/developers/applications/me
+Token = BOT_TOKEN
+
+; If you have a token for bots.discord.pw then put it here
+Dbots_Token = DBOTS_TOKEN
+
+Steam_Key = STEAM_KEY
+
+DarkSky_Key = DARKSKY_KEY
+
+[Bot]
+; Put your user ID here
+Owner_ID = 117678528220233731
+
+; This is the prefix for the bot
+Command_Prefix = .
+
+; Example: ID1 ID2 ID3
+; Be sure to uncomment if you are entering a developer ID!
+; Do NOT put the owner ID here!
+Developer_IDs = 117053687045685248 169597963507728384
+
+; How many results should the NSFW commands get?
+Max_NSFW_Count = 250
+
+[Status]
+; Should users be able to edit the bot's status with the stream and changestatus command?
+; (The bot owner and the bot developers can always change it regardless of this setting)
+Lock_Status = no
+
+; Should a status message be set on startup?
+Enable_Default_Status = yes
+
+; The "Playing some game here" message
+; If the type is set to stream then you MUST have a status name
+Default_Status_Name = being a faggot
+
+; The dot color
+; online = green, offline or invisible = invisible mode, dnd or do_not_disturb = red, idle = yellow, and stream = purple
+Default_Status_Type = online
+
+[Logging]
+; Debug the bot? Setting this to yes will debug things by logging them with a [DEBUG] prefix.
+Debug = no
+
+; The channel ID to log certain things to a channel
+;Channel_Logger_ID =
+
+; H = Hour, M = Minute, S = Second
+Time_Format = %H:%M:%S
+
+[MyAnimeList]
+; Should the anime and manga command be enabled?
+enable = no
+
+; If you enable the anime and manga commands you MUST have a MyAnimeList account
+; If you do not have one, you can register one at https://myanimelist.net/register.php
+
+; Your MyAnimeList username
+;username =
+
+; Your MyAnimeList password
+;password =
+
+[Osu]
+; Should the osu command be enabled?
+enable = yes
+
+; If you enable the osu! api function, you MUST have an api key.
+; If you don't have an api key, you can get one at https://osu.ppy.sh/p/api
+key = OSU_KEY
+
+[Guild Wars 2]
+key = GW2_KEY
+
+[Google]
+key = GOOGLE_KEY
+
+[Last.fm]
+api = LASTFM_KEY
+secret = LASTFM_SECRET
