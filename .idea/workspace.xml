@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/commands/totalfreedom.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +47,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -103,14 +102,7 @@
       <workItem from="1578971255386" duration="86000" />
       <workItem from="1578971356357" duration="630000" />
       <workItem from="1579387856342" duration="114000" />
-      <workItem from="1579910074312" duration="7564000" />
-    </task>
-    <task id="LOCAL-00032" summary="unused imports">
-      <created>1574801433713</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1574801433713</updated>
+      <workItem from="1579910074312" duration="8162000" />
     </task>
     <task id="LOCAL-00033" summary="pylint shit">
       <created>1574801531028</created>
@@ -448,7 +440,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579929735553</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="i never added this to git??? uhm chile anyways SO">
+      <created>1579931507536</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1579931507536</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,7 +481,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ok nice bug" />
     <MESSAGE value=":)" />
     <MESSAGE value="finally finish what i was going for" />
     <MESSAGE value="g" />
@@ -507,7 +505,8 @@
     <MESSAGE value="oops" />
     <MESSAGE value="ur mom" />
     <MESSAGE value="shut" />
-    <option name="LAST_COMMIT_MESSAGE" value="shut" />
+    <MESSAGE value="i never added this to git??? uhm chile anyways SO" />
+    <option name="LAST_COMMIT_MESSAGE" value="i never added this to git??? uhm chile anyways SO" />
   </component>
   <component name="WindowStateProjectService">
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
@@ -518,18 +517,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1579929734171">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1579931506168">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579929734171" />
-    <state x="461" y="161" key="SettingsEditor" timestamp="1578861391192">
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579931506168" />
+    <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1578861391192" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1579929736664">
+    <state x="607" y="313" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1579932087310" />
+    <state x="461" y="161" key="SettingsEditor" timestamp="1579932093326">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579929736664" />
+    <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579932093326" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1579931508666">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579931508666" />
     <state x="646" y="241" width="758" height="638" key="find.popup" timestamp="1579915325813">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -22,3 +22,4 @@ pylast
 GuildWars2-API-Client
 ipwhois
 tweepy
+nest_asyncio
