@@ -62,19 +62,6 @@ Debug = no
 ; H = Hour, M = Minute, S = Second
 Time_Format = %H:%M:%S
 
-[MyAnimeList]
-; Should the anime and manga command be enabled?
-enable = no
-
-; If you enable the anime and manga commands you MUST have a MyAnimeList account
-; If you do not have one, you can register one at https://myanimelist.net/register.php
-
-; Your MyAnimeList username
-;username =
-
-; Your MyAnimeList password
-;password =
-
 [Osu]
 ; Should the osu command be enabled?
 enable = yes

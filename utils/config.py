@@ -19,9 +19,6 @@ class Defaults:
     enable_default_status = False
     default_status_name = None
     default_status_type = "online"
-    enableMal = False
-    malUsername = None
-    malPassword = None
     enableOsu = False
     osuKey = None
     max_nsfw_count = 500
@@ -91,7 +88,7 @@ class Config:
             self._lastfmapiKey = str(os.environ.get('LASTFM_API'))
             self._lastfmSecret =str(os.environ.get('LASTFM_SECRET'))
         else:
-            sections = {"Credentials", "Bot", "Status", "Logging", "MyAnimeList", "Osu", "Guild Wars 2", "Google", "Last.fm"}.difference(config.sections())
+            sections = {"Credentials", "Bot", "Status", "Logging", "Osu", "Guild Wars 2", "Google", "Last.fm"}.difference(config.sections())
             if sections:
                 log.critical("Could not load a section in the config file, please obtain a new config file from the github repo if regenerating the config doesn't work!")
                 os._exit(1)
@@ -111,9 +108,6 @@ class Config:
             self.debug = config.getboolean("Logging", "Debug", fallback=Defaults.debug)
             self.channel_logger_id = config.get("Logging", "Channel_Logger_ID", fallback=Defaults.channel_logger_id)
             self.log_timeformat = config.get("Logging", "Time_Format", fallback=Defaults.log_timeformat)
-            self.enableMal = config.getboolean("MyAnimeList", "enable", fallback=Defaults.enableMal)
-            self._malUsername = config.get("MyAnimeList", "username", fallback=Defaults.malUsername)
-            self._malPassword = config.get("MyAnimeList", "password", fallback=Defaults.malPassword)
             self.enableOsu = config.getboolean("Osu", "enable", fallback=Defaults.enableOsu)
             self._osuKey = config.get("Osu", "key", fallback=Defaults.osuKey)
             self._gw2Key = config.get("Guild Wars 2", "key", fallback=Defaults.gw2Key)
@@ -153,18 +147,6 @@ class Config:
             except:
                 log.warning("Developer IDs are invalid, all developer IDs have been ignored!")
                 self.dev_ids = Defaults.dev_ids
-
-        if self.enableMal:
-            if not self._malUsername and not self._malPassword:
-                log.critical("The MyAnimeList module was enabled, but no MAL credinals were specified!")
-
-            if not self._malUsername:
-                log.critical("The MyAnimeList module was enabled, but no MAL username was specified!")
-                os._exit(1)
-
-            if not self._malPassword:
-                log.critical("The MyAnimeList module was enabled, but no MAL password was specified!")
-                os._exit(1)
 
         if self.enableOsu:
             if not self._osuKey:

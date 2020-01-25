@@ -122,12 +122,6 @@ async def on_ready():
         except Exception as e:
             log.error("Failed to load extension {}\n{}: {}".format(extension, type(e).__name__, e))
             traceback.print_exc()
-    if config.enableMal:
-        try:
-            bot.load_extension("commands.myanimelist")
-            log.info("The MyAnimeList module has been enabled!")
-        except Exception as e:
-            log.error("Failed to load the MyAnimeList module\n{}: {}".format(type(e).__name__, e))
     if config.enableOsu:
         log.info("The osu! module has been enabled in the config!")
     if config._dbots_token:
