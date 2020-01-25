@@ -35,7 +35,7 @@ class Config:
     def __init__(self):
 
         try:
-            if not os.path.isfile("config/config.ini")
+            if not os.path.isfile("config/config.ini"):
                 shutil.copy("config/config.ini.example", "config/config.ini")
                 log.warning(
                 "Created the \"config.ini\" file in the config folder! Please edit the config and then run the bot again!")
