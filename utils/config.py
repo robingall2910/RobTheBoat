@@ -42,7 +42,7 @@ class Config:
                 else:
                     shutil.copy("/app/config/config.ini.example", "/app/config/config.ini")
                     log.warning("Created the \"config.ini\" file in the config folder! Please edit the config and then run the bot again!")
-                    os._exit(1)
+                    pass
         else:
             if not os.path.isfile("config/config.ini"):
                 if not os.path.isfile("/app/config/config.ini.example"):
@@ -144,7 +144,7 @@ class Config:
         if not self.skip_votes_needed:
             log.info("No amount of skip votes needed to skip a song has been set. Falling back to only one vote needed.")
 
-        if len(self.dev_ids) is not 0:
+        if len(self.dev_ids) != 0:
             try:
                 ids = self.dev_ids.split()
                 self.dev_ids = []
