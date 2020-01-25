@@ -9,9 +9,6 @@
 ; BE SURE TO UNCOMMENT THINGS LIKE ";thing =" BY REMOVING THE ";" IF YOU WANT TO SET THOSE VALUES
 ; Commented out variables means they are optional
 ;
-; If you're using Environment-based keys, put True, if not, keep it as False. DO NOT LEAVE BLANK.
-[Env_Keys]
-State = True
 
 [Credentials]
 ; If you do not know what your token is, you can get it on your bot's control panel page on https://discordapp.com/developers/applications/me

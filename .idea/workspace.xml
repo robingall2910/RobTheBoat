@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,14 +102,7 @@
       <workItem from="1578971255386" duration="86000" />
       <workItem from="1578971356357" duration="630000" />
       <workItem from="1579387856342" duration="114000" />
-      <workItem from="1579910074312" duration="4438000" />
-    </task>
-    <task id="LOCAL-00026" summary="nah">
-      <created>1573181320833</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1573181320833</updated>
+      <workItem from="1579910074312" duration="4804000" />
     </task>
     <task id="LOCAL-00027" summary="w">
       <created>1573523416005</created>
@@ -448,7 +440,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579914078142</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="ok heroku">
+      <created>1579914551910</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1579914551910</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,7 +481,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ok pylint." />
     <MESSAGE value="tea" />
     <MESSAGE value="forgot abt that" />
     <MESSAGE value="if this fails lil kim posted this" />
@@ -507,7 +505,8 @@
     <MESSAGE value="ok how about now" />
     <MESSAGE value="o fuk" />
     <MESSAGE value="ok here we go again" />
-    <option name="LAST_COMMIT_MESSAGE" value="ok here we go again" />
+    <MESSAGE value="ok heroku" />
+    <option name="LAST_COMMIT_MESSAGE" value="ok heroku" />
   </component>
   <component name="WindowStateProjectService">
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
@@ -518,18 +517,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1579914076767">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1579914550434">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579914076767" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579914550434" />
     <state x="461" y="161" key="SettingsEditor" timestamp="1578861391192">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1578861391192" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1579914079038">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1579914552873">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579914079038" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579914552873" />
     <state x="646" y="241" width="758" height="638" key="find.popup" timestamp="1578611040340">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

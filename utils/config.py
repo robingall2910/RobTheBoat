@@ -58,7 +58,7 @@ class Config:
         config = configparser.ConfigParser(interpolation=None)
         config.read(self.config_file, encoding="utf-8")
 
-        if config.get("Env_Keys", "State") is True:
+        if herokudeploy is True:
             sections = {"Credentials", "Bot", "Status", "Logging", "MyAnimeList", "Osu", "Guild Wars 2", "Google",
                         "Last.fm"}.difference(config.sections())
             if sections:
