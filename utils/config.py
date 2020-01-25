@@ -56,7 +56,7 @@ class Config:
         config.read(self.config_file, encoding="utf-8")
 
         if herokudeploy is True:
-            sections = {"Credentials", "Bot", "Status", "Logging", "MyAnimeList", "Osu", "Guild Wars 2", "Google",
+            sections = {"Credentials", "Bot", "Status", "Logging", "Osu", "Guild Wars 2", "Google",
                         "Last.fm"}.difference(config.sections())
             if sections:
                 log.critical(
