@@ -1,7 +1,6 @@
 import os
 import configparser
 import shutil
-import traceback
 
 from utils.logger import log
 
@@ -33,20 +32,26 @@ class Defaults:
     lastfmSecret = None
 
 class Config:
-    def __init__(self):
+    def __init__(self, herokudeploy=True):  # change if you're running on a pc or vps
 
-        try:
+        if herokudeploy is True:
+            if not os.path.isfile("/app/config/config.ini"):
+                if not os.path.isfile("/app/config/config.ini.example"):
+                    log.critical("There is no \"config.ini.example\" file in the \"config\" folder! Please go to the github repo and download it and then put it in the \"config\" folder!")
+                    os._exit(1)
+                else:
+                    shutil.copy("/app/config/config.ini.example", "/app/config/config.ini")
+                    log.warning("Created the \"config.ini\" file in the config folder! Please edit the config and then run the bot again!")
+                    os._exit(1)
+        else:
             if not os.path.isfile("config/config.ini"):
-                shutil.copy("config/config.ini.example", "config/config.ini")
-                log.warning(
-                "Created the \"config.ini\" file in the config folder! Please edit the config and then run the bot again!")
-                os._exit(1)
-        except FileNotFoundError or Exception:
-            traceback.print_exc()
-            log.critical(
-                "There is no \"config.ini.example\" file in the \"config\" folder! Please go to the github repo and download it and then put it in the \"config\" folder!")
-            os._exit(1)
-
+                if not os.path.isfile("/app/config/config.ini.example"):
+                    log.critical("There is no \"config.ini.example\" file in the \"config\" folder! Please go to the github repo and download it and then put it in the \"config\" folder!")
+                    os._exit(1)
+                else:
+                    shutil.copy("config/config.ini.example", "config/config.ini")
+                    log.warning("Created the \"config.ini\" file in the config folder! Please edit the config and then run the bot again!")
+                    os._exit(1)
 
         self.config_file = "config/config.ini"
 
