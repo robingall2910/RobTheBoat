@@ -34,6 +34,18 @@ class Fuckery(commands.Cog):
         else:
             return
 
+    #from codex  pls dont kill
+    @commands.command()
+    async def dadjoke(self, ctx):
+        """!joke - Get random dad joke."""
+        r = requests.get('https://icanhazdadjoke.com/', headers={'Accept': 'text/plain'})
+        try:
+            r.raise_for_status()
+        except requests.exceptions.HTTPError as error:
+            return print(f'[ERROR] {error}')
+
+        await ctx.send(r.text)
+
     @commands.command()
     async def test(self, ctx):
         """No context."""
