@@ -147,6 +147,12 @@ class Fuckery(commands.Cog):
         weeb = random.choice(seth)
         await ctx.send(weeb)
 
+    @commands.command()
+    async def kae(self, ctx):
+        """no friends"""
+        yeehaw = random.choice(kae)
+        await ctx.send(yeehaw)
+
     @commands.command(aliases=['sand'])
     async def ryan(self, ctx):
         """actually sand"""
