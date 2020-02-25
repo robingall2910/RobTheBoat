@@ -54,7 +54,8 @@ extensions = [
     "commands.information",
     "commands.terminal",
     "commands.totalfreedom",
-    "commands.markov"
+    "commands.markov",
+    "commands.chatlog"
 ]
 
 # Thy changelog
