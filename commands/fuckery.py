@@ -148,6 +148,12 @@ class Fuckery(commands.Cog):
         await ctx.send(cse)
 
     @commands.command()
+    async def derek(self, ctx):
+        """japan is my life"""
+        fakeweeb = random.choice(derek)
+        await ctx.send(fakeweeb)
+
+    @commands.command()
     async def troy(self, ctx):
     	"""boy troy who used to live in detroit who's also a weeb"""
     	nani = random.choice(troy)
