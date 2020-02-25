@@ -18,7 +18,7 @@ class MarkovChain(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_message(self, message):
+    async def on_message(self, ctx, message):
         if message.author.bot:
             return
 
@@ -27,8 +27,10 @@ class MarkovChain(commands.Cog):
             self.bot.user.mentioned_in(message)
         ):
             response = self.create_chain()
-
-            embed = discord.Embed(colour=discord.Colour.blue())
+            try:
+                embed = discord.Embed(colour=ctx.me.color)
+            except Exception:
+                embed = discord.Embed(color=discord.Color.blue())
             embed.add_field(name=f'*{self.bot.user.name} 9000*', value=f'**{response}**')
             await message.channel.send(embed=embed)
 
