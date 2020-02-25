@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/commands/chatlog.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/markov.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/markov.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/mysql.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,21 +108,7 @@
       <workItem from="1579910074312" duration="8847000" />
       <workItem from="1579932797464" duration="599000" />
       <workItem from="1579937999035" duration="484000" />
-      <workItem from="1582597773403" duration="1800000" />
-    </task>
-    <task id="LOCAL-00040" summary="we're on that now">
-      <created>1574802260778</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1574802260778</updated>
-    </task>
-    <task id="LOCAL-00041" summary="pass pylint now builds should be passing">
-      <created>1574802759904</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1574802759904</updated>
+      <workItem from="1582597773403" duration="2976000" />
     </task>
     <task id="LOCAL-00042" summary="ok now">
       <created>1574803112825</created>
@@ -450,7 +439,21 @@
       <option name="project" value="LOCAL" />
       <updated>1582599465163</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="ok">
+      <created>1582599637529</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1582599637529</updated>
+    </task>
+    <task id="LOCAL-00090" summary="ok">
+      <created>1582599736076</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1582599736076</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -520,10 +523,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1582599636189">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1582599734715">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582599636189" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582599734715" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932275527" />
     <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -533,10 +536,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579932093326" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1582599640951">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1582599737179">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582599640951" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582599737179" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932278075" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582597961430">
       <screen x="0" y="0" width="1920" height="1040" />

@@ -11,8 +11,7 @@ import string
 import discord
 from discord.ext import commands
 
-from db.dbhelper import Database
-
+from utils.mysql import getmsgs
 
 class MarkovChain(commands.Cog):
     def __init__(self, bot):
@@ -62,8 +61,7 @@ class MarkovChain(commands.Cog):
         word_dict = {}
         flag = 1
         count = 0
-        db = Database()
-        messages = db.get_items()
+        messages = getmsgs()
 
         for item in messages:
             # reformat messages and split the words into lists

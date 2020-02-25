@@ -9,6 +9,7 @@ def create_tables():
     cur.execute("""CREATE TABLE IF NOT EXISTS guilds(id TEXT, type TEXT, value TEXT)""")
     cur.execute("""CREATE TABLE IF NOT EXISTS blacklist(id TEXT, name TEXT, discrim TEXT, reason TEXT)""")
     cur.execute("""CREATE TABLE IF NOT EXISTS lockdown(id TEXT, servername TEXT, channame TEXT)""")
+    cur.execute("""CREATE TABLE IF NOT EXISTS markov(messages TEXT)""")
 
 def format_user(insertnerovar):
     return insertnerovar.name + "#" + insertnerovar.discriminator
@@ -115,5 +116,21 @@ def getblacklist():
         entry = "ID: \"" + row["id"] + "\" Name: \"" + row["name"]  + "\" Discrim: " + row["discrim"] + " Reason: \"" + row["reason"] + "\""
         entries.append(entry)
     return entries
+
+def addword(item_text):
+    msg = 'INSERT INTO markov (messages) VALUES (?)'
+    args = (item_text, )
+    cur.execute(msg, args)
+    conn.commit()
+
+def delword(item_text):
+    msg = 'DELETE FROM markov WHERE messages = (?)'
+    args = (item_text, )
+    cur.execute(msg, args)
+    conn.commit()
+
+def getmsgs():
+    msg = 'SELECT messages FROM markov'
+    return [x[0] for x in cur.execute(msg)]
 
 create_tables()
