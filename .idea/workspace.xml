@@ -19,9 +19,9 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="Robinson Gallego &lt;robinson.leal7@gmail.com&gt;" />
         <option value="Seth &lt;13510767+zeroepoch1969@users.noreply.github.com&gt;" />
         <option value="ZeroEpoch1969 &lt;13510767+zeroepoch1969@users.noreply.github.com&gt;" />
-        <option value="Robinson Gallego &lt;robinson.leal7@gmail.com&gt;" />
         <option value="speed &lt;jsinitx4@noreply.users.github.com&gt;" />
       </list>
     </option>
@@ -519,9 +519,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1579932275527">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1582597811606">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582597811606" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932275527" />
     <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -531,10 +532,15 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579932093326" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1579932278075">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1582597814940">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582597814940" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932278075" />
+    <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582597961430">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582597961430" />
     <state x="646" y="241" width="758" height="638" key="find.popup" timestamp="1579915325813">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -101,7 +101,7 @@ class Fuckery(commands.Cog):
 #        rt = random.choice(tweetsthatareokhand)
 #        ctx.send(rt)
 
-    @commands.command()
+    @commands.command(aliases=['emily'])
     async def santropez(self, ctx):
         """:~)"""
         sppt = random.choice(santropez)
@@ -135,11 +135,17 @@ class Fuckery(commands.Cog):
         weeb = random.choice(seth)
         await ctx.send(weeb)
 
-    @commands.command()
+    @commands.command(aliases=['sand'])
     async def ryan(self, ctx):
         """actually sand"""
         sand = random.choice(ryan)
         await ctx.send(sand)
+
+    @commands.command(aliases=['patrick'])
+    async def mibbzz(self, ctx):
+        """jihadist commentaries"""
+        cse = random.choice(patrick)
+        await ctx.send(cse)
 
     @commands.command()
     async def troy(self, ctx):
