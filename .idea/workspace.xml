@@ -102,14 +102,9 @@
       <workItem from="1578971255386" duration="86000" />
       <workItem from="1578971356357" duration="630000" />
       <workItem from="1579387856342" duration="114000" />
-      <workItem from="1579910074312" duration="8162000" />
-    </task>
-    <task id="LOCAL-00033" summary="pylint shit">
-      <created>1574801531028</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1574801531028</updated>
+      <workItem from="1579910074312" duration="8847000" />
+      <workItem from="1579932797464" duration="599000" />
+      <workItem from="1579937999035" duration="484000" />
     </task>
     <task id="LOCAL-00034" summary="pylint recommendation">
       <created>1574801575698</created>
@@ -447,7 +442,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579931507536</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="oh?">
+      <created>1579932276945</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1579932276945</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,7 +483,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value=":)" />
     <MESSAGE value="finally finish what i was going for" />
     <MESSAGE value="g" />
     <MESSAGE value="upgrade" />
@@ -506,7 +507,8 @@
     <MESSAGE value="ur mom" />
     <MESSAGE value="shut" />
     <MESSAGE value="i never added this to git??? uhm chile anyways SO" />
-    <option name="LAST_COMMIT_MESSAGE" value="i never added this to git??? uhm chile anyways SO" />
+    <MESSAGE value="oh?" />
+    <option name="LAST_COMMIT_MESSAGE" value="oh?" />
   </component>
   <component name="WindowStateProjectService">
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
@@ -517,10 +519,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1579931506168">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1579932275527">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579931506168" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932275527" />
     <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -529,10 +531,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579932093326" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1579931508666">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1579932278075">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579931508666" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932278075" />
     <state x="646" y="241" width="758" height="638" key="find.popup" timestamp="1579915325813">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

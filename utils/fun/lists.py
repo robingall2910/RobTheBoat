@@ -555,7 +555,8 @@ seth = [
 #cant hear him
 ryan = [
     "sand noises",
-    "more sand noises"
+    "more sand noises",
+    "even more sand noises"
 ]
 
 #weeb
