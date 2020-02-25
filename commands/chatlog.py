@@ -12,7 +12,6 @@ from discord.ext import commands
 
 from utils.mysql import addword
 
-
 class ChatLog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -25,7 +24,7 @@ class ChatLog(commands.Cog):
         else:
             record = self.clean_message(message.clean_content)
             if record:
-                self.addword(record)
+                addword(record)
 
     def clean_message(self, message):
         """Cleans the message of unnecessary information.
