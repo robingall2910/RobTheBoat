@@ -53,7 +53,8 @@ extensions = [
     "commands.lastfm",
     "commands.information",
     "commands.terminal",
-    "commands.totalfreedom"
+    "commands.totalfreedom",
+    "commands.markov"
 ]
 
 # Thy changelog

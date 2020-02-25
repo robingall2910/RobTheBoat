@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/commands/markov.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fuckery.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fuckery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,14 +107,7 @@
       <workItem from="1579910074312" duration="8847000" />
       <workItem from="1579932797464" duration="599000" />
       <workItem from="1579937999035" duration="484000" />
-      <workItem from="1582597773403" duration="274000" />
-    </task>
-    <task id="LOCAL-00036" summary="and some of this">
-      <created>1574801680030</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1574801680030</updated>
+      <workItem from="1582597773403" duration="773000" />
     </task>
     <task id="LOCAL-00037" summary="ok">
       <created>1574801714617</created>
@@ -451,7 +445,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582597970441</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="o rite">
+      <created>1582598053329</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1582598053329</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -485,7 +486,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="upgrade" />
     <MESSAGE value="this is the fattest strech of the century" />
     <MESSAGE value="ok one more try" />
     <MESSAGE value="this one singular insult is not in fact, an insult&#10;&#10;because it's their own body, let them have it&#10;&#10;anyways stan karl marx" />
@@ -510,7 +510,8 @@
     <MESSAGE value="oh?" />
     <MESSAGE value="you didn't vote, COWARD" />
     <MESSAGE value="adjust these" />
-    <option name="LAST_COMMIT_MESSAGE" value="adjust these" />
+    <MESSAGE value="o rite" />
+    <option name="LAST_COMMIT_MESSAGE" value="o rite" />
   </component>
   <component name="WindowStateProjectService">
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
@@ -521,10 +522,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1582597968899">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1582598051703">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582597968899" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582598051703" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932275527" />
     <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -534,10 +535,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579932093326" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1582597971873">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1582598055124">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582597971873" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582598055124" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932278075" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582597961430">
       <screen x="0" y="0" width="1920" height="1040" />
