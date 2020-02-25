@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/markov.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/markov.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/fun/lists.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/fun/lists.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,21 +106,8 @@
       <workItem from="1579910074312" duration="8847000" />
       <workItem from="1579932797464" duration="599000" />
       <workItem from="1579937999035" duration="484000" />
-      <workItem from="1582597773403" duration="3722000" />
-    </task>
-    <task id="LOCAL-00048" summary="forgot abt that">
-      <created>1578607279398</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1578607279398</updated>
-    </task>
-    <task id="LOCAL-00049" summary="g">
-      <created>1578607398793</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1578607398793</updated>
+      <workItem from="1582597773403" duration="3819000" />
+      <workItem from="1582601642685" duration="870000" />
     </task>
     <task id="LOCAL-00050" summary="if this fails lil kim posted this">
       <created>1578607470978</created>
@@ -451,7 +438,21 @@
       <option name="project" value="LOCAL" />
       <updated>1582601323788</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="one more thing">
+      <created>1582601508486</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1582601508486</updated>
+    </task>
+    <task id="LOCAL-00098" summary="oops lol">
+      <created>1582601589329</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1582601589329</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -485,8 +486,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="seth kelly is a big fat gay" />
-    <MESSAGE value="more heroku prep" />
     <MESSAGE value="bruh" />
     <MESSAGE value="ok how about now" />
     <MESSAGE value="o fuk" />
@@ -510,7 +509,9 @@
     <MESSAGE value="ok get kae" />
     <MESSAGE value="whoops" />
     <MESSAGE value="g" />
-    <option name="LAST_COMMIT_MESSAGE" value="g" />
+    <MESSAGE value="one more thing" />
+    <MESSAGE value="oops lol" />
+    <option name="LAST_COMMIT_MESSAGE" value="oops lol" />
   </component>
   <component name="WindowStateProjectService">
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
@@ -521,10 +522,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1582601506949">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1582601587985">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582601506949" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582601587985" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932275527" />
     <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -534,18 +535,19 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579932093326" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1582601514452">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1582601590404">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582601514452" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582601590404" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932278075" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582597961430">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582597961430" />
-    <state x="646" y="241" width="758" height="638" key="find.popup" timestamp="1579915325813">
+    <state x="645" y="242" width="758" height="638" key="find.popup" timestamp="1582602076831">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="645" y="242" width="758" height="638" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582602076831" />
     <state x="646" y="241" width="758" height="638" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579915325813" />
   </component>
 </project>

@@ -229,7 +229,73 @@ fionn = [
     "i will extract you \nsexually.......",
     "these really arent funny i should stop"
 ]
-    
+
+#kaemom
+kae = []
+
+#jihad
+patrick = [
+    'I wouldn\'t date me, that\'s hella gay',
+    'I need a women who can grapefruit me',
+    'Ryan is mr hands confirmed',
+    'Ryan is a cuck',
+    'Ryan is gay',
+    'Go tell your friends to vote',
+    'ryan likes to be fucked by a horse',
+    'ryan likes bestiality',
+    'Can\'t be gay if you\'re not sexual :thinking:',
+    'nero is antigay',
+    'I\'m proud of you',
+    'Ah, so it\'s like if Ryan died',
+    'np',
+    'except ryan is the ones that have fallen over',
+    'Just has that vibe',
+    'A less white version of that is how I always picture ryan when he speaks',
+    'best video ever made',
+    'because of Texas',
+    'That video gets me so hyped up',
+    'Rajj is my favourite gay person', #cuck
+    'This is a live representation of kurt rn',
+    ":sweat_drops::eggplant:",
+    ":cowboy:",
+    "Based",
+    "based",
+    "Kae is the nicest person here",
+    "inject the pikachu packets",
+    "I'll be like: Hi texan :wave:",
+    "shut the fuck up with that dumb shit",
+    "and when, not if :wink:",
+    "assuming IS is still a thing by then",
+    "well except with whoever the leader of IS is at that point",
+    "That would be my answer",
+    "I pledge bay’ah to Amirul-Muminin, the Khalifah of the Muslims, the Shaykh Abu Ibrahim al-Hashimi al-Qurayshi",
+    "This is a centrist only space",
+    "Rich people will be strung up in central park",
+    "Poor people will be gulag'd",
+    "Yes",
+    "Factual",
+    "Yeah",
+    "https://cdn.discordapp.com/attachments/400012212791541762/681694136788844544/ddba0c6ca7.png",
+    "If you're in an open relationship, be the hotter one :rofl:",
+    "never forget",
+    "Mia Malkova is a cuck",
+    "You overshare a bit mate",
+    "he's fucking retarded",
+    "if a girl talks to ryan",
+    "honestly just ignore everything ryan says",
+    "ryan is so fucking gay",
+    ":pray:",
+    "yes",
+    "yes",
+    "yes",
+    ":thumbsup:",
+    "butt head will",
+    "Butiegeigieg",
+    "Stop taking your dick up your butt for bus fare, and then walking home"
+]
+
+#korea
+derek = []
 
 #kurt
 zekurt = [
@@ -391,7 +457,41 @@ zekurt = [
     "big sigh",
     "NINJA <:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064><:REEEEE~1:433752311085400064>",
     "<:cringe:455772365679362048><:cringe:455772365679362048><:cringe:455772365679362048><:cringe:455772365679362048><:cringe:455772365679362048><:cringe:455772365679362048><:cringe:455772365679362048><:cringe:455772365679362048><:cringe:455772365679362048>",
-    "you are orb"
+    "you are orb",
+    "that's not me",
+    "it be that way",
+    "robin you should play tft", #team fortress two
+    "I want papa john to sit on my face",
+    "true",
+    "just need the back of his head now",
+    "we have almost every pog angle",
+    "show",
+    "i can't trust this",
+    "i don't believe it",
+    "doubt",
+    "also horse penis",
+    "obviously",
+    "horse penis",
+    "getting a mod like live another life or skyrim unbound and just creating different scenarios",
+    "plus for the rp value",
+    "so I have a good time",
+    "that feels kinda racist but idk",
+    "i saw that michael jordan was alive and I was like wait what",
+    "I thought kobe bryant and michael jordan were the same person",
+    "the best part of little caesars is the cheese bread",
+    "little caesars is decent",
+    ":whatnigga:",
+    ":champ:",
+    "ryan marry me :)",
+    "Ok, marry me",
+    "Then I can vote",
+    "I literally can't",
+    "Pokemon go to the polls",
+    "Klobucharge to the polls",
+    "Pete bootyjudge",
+    "bootyjudge",
+    "Seems like a mistake"
+
 ]
 
 #penis
