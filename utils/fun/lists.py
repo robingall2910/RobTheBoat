@@ -657,7 +657,8 @@ ryan = [
     "sand noises",
     "more sand noises",
     "even more sand noises",
-    "i like men sexually"
+    "i like men sexually",
+    "smol girl ends entire mans career with one sentence"
 ]
 
 #weeb

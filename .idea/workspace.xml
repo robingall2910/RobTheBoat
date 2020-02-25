@@ -107,14 +107,7 @@
       <workItem from="1579932797464" duration="599000" />
       <workItem from="1579937999035" duration="484000" />
       <workItem from="1582597773403" duration="3819000" />
-      <workItem from="1582601642685" duration="870000" />
-    </task>
-    <task id="LOCAL-00050" summary="if this fails lil kim posted this">
-      <created>1578607470978</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1578607470979</updated>
+      <workItem from="1582601642685" duration="1190000" />
     </task>
     <task id="LOCAL-00051" summary="w">
       <created>1578607590611</created>
@@ -452,7 +445,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582601589329</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="add kurt and patrick">
+      <created>1582602718626</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1582602718626</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -486,7 +486,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="bruh" />
     <MESSAGE value="ok how about now" />
     <MESSAGE value="o fuk" />
     <MESSAGE value="ok here we go again" />
@@ -511,7 +510,8 @@
     <MESSAGE value="g" />
     <MESSAGE value="one more thing" />
     <MESSAGE value="oops lol" />
-    <option name="LAST_COMMIT_MESSAGE" value="oops lol" />
+    <MESSAGE value="add kurt and patrick" />
+    <option name="LAST_COMMIT_MESSAGE" value="add kurt and patrick" />
   </component>
   <component name="WindowStateProjectService">
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
@@ -522,10 +522,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1582601587985">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1582602717085">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582601587985" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582602717085" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932275527" />
     <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
       <screen x="0" y="0" width="1920" height="1040" />
