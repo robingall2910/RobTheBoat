@@ -556,7 +556,8 @@ seth = [
 ryan = [
     "sand noises",
     "more sand noises",
-    "even more sand noises"
+    "even more sand noises",
+    "i like men sexually"
 ]
 
 #weeb

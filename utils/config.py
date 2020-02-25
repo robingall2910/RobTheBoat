@@ -29,7 +29,7 @@ class Defaults:
     lastfmSecret = None
 
 class Config:
-    def __init__(self, herokudeploy=True):  # change if you're running on a pc or vps
+    def __init__(self, herokudeploy=False):  # change if you're running on a pc or vps
 
         if herokudeploy is True:
             if not os.path.isfile("/app/config/config.ini"):
