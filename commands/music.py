@@ -30,6 +30,7 @@ ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 
 earrape = False
 
+
 class YTDLSource(discord.PCMVolumeTransformer):
     def __init__(self, source, *, data, volume=0.5):
         super().__init__(source, volume)
@@ -66,7 +67,6 @@ class Music(commands.Cog):
         if earrape is True:
             earrape = False
             return await ctx.send("disabled earrape mode on next track")
-
 
     @commands.command(aliases=['summon', 'connect'])
     async def join(self, ctx):
