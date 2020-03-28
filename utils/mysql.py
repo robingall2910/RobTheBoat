@@ -9,7 +9,7 @@ def create_tables():
     cur.execute("""CREATE TABLE IF NOT EXISTS guilds(id TEXT, type TEXT, value TEXT)""")
     cur.execute("""CREATE TABLE IF NOT EXISTS blacklist(id TEXT, name TEXT, discrim TEXT, reason TEXT)""")
     cur.execute("""CREATE TABLE IF NOT EXISTS lockdown(id TEXT, servername TEXT, channame TEXT)""")
-    cur.execute("""CREATE TABLE IF NOT EXISTS markov(messages TEXT)""")
+    cur.execute("""CREATE TABLE IF NOT EXISTS markov(messages TEXT, serverid INTEGER, userid INTEGER)""")
 
 def format_user(insertnerovar):
     return insertnerovar.name + "#" + insertnerovar.discriminator
@@ -117,9 +117,9 @@ def getblacklist():
         entries.append(entry)
     return entries
 
-def addword(item_text):
-    msg = 'INSERT INTO markov (messages) VALUES (?)'
-    args = (item_text, )
+def addword(item_text, serverid, userid):
+    msg = 'INSERT INTO markov (messages, serverid, userid) VALUES (?, ?, ?)'
+    args = (item_text, serverid, userid)
     cur.execute(msg, args)
     conn.commit()
 

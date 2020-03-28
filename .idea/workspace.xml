@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/music.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/music.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/chatlog.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/chatlog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/information.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/information.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/mysql.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,13 +113,8 @@
       <workItem from="1584479107253" duration="1545000" />
       <workItem from="1585120080614" duration="217000" />
       <workItem from="1585365201481" duration="426000" />
-    </task>
-    <task id="LOCAL-00054" summary=":)">
-      <created>1578609077388</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1578609077388</updated>
+      <workItem from="1585366612378" duration="253000" />
+      <workItem from="1585367495551" duration="1283000" />
     </task>
     <task id="LOCAL-00055" summary="finally finish what i was going for">
       <created>1578611227501</created>
@@ -455,7 +452,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585366361712</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="ok">
+      <created>1585366412571</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1585366412571</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -502,7 +506,6 @@
     <MESSAGE value="o rite" />
     <MESSAGE value="steal a cog from another bot" />
     <MESSAGE value="right piss off" />
-    <MESSAGE value="ok" />
     <MESSAGE value="this should be fine" />
     <MESSAGE value="h" />
     <MESSAGE value="ok get kae" />
@@ -514,9 +517,14 @@
     <MESSAGE value="and ryan" />
     <MESSAGE value="ah." />
     <MESSAGE value="Revert &quot;:)&quot;&#10;&#10;This reverts commit f4ec744b" />
-    <option name="LAST_COMMIT_MESSAGE" value="Revert &quot;:)&quot;&#10;&#10;This reverts commit f4ec744b" />
+    <MESSAGE value="ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="ok" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="178" key="#SQL_Dialects" timestamp="1585367802421">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#SQL_Dialects/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585367802421" />
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -525,10 +533,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1585366359288">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1585366411035">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585366359288" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585366411035" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932275527" />
     <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -538,19 +546,19 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579932093326" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1585366367301">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1585366413789">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585366367301" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585366413789" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932278075" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582597961430">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582597961430" />
-    <state x="645" y="242" width="758" height="638" key="find.popup" timestamp="1582602076831">
+    <state x="645" y="242" width="758" height="638" key="find.popup" timestamp="1585368546054">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="645" y="242" width="758" height="638" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582602076831" />
+    <state x="645" y="242" width="758" height="638" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585368546054" />
     <state x="646" y="241" width="758" height="638" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579915325813" />
   </component>
 </project>
