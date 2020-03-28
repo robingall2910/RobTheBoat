@@ -3,22 +3,25 @@ import traceback
 import shutil
 import discord
 import youtube_dl
+import subprocess
 
 from discord.ext import commands
-from utils.mysql import *
-from utils.logger import log
 from utils.opus_loader import load_opus_lib
 from utils.config import Config
 
 load_opus_lib()
 config = Config()
 
-ytdl_format_options = {"format": "bestaudio/best", "extractaudio": True, "audioformat": "mp3", "noplaylist": True, "nocheckcertificate": True, "ignoreerrors": False, "logtostderr": False, "quiet": True, "no_warnings": True, "default_search": "auto", "source_address": "0.0.0.0", "preferredcodec": "libmp3lame"}
+ytdl_options = {"default_search": "auto", "quiet": True}
+ytdl_download_options = ["--format", "bestaudio/best", "--extract-audio", "--audio-format", "mp3", "--default-search",
+                         "auto", "--buffer-size", "128K"]  # "--external-downloader", "aria2c",
+
 
 def get_ytdl(id):
-    format = ytdl_format_options
-    format["outtmpl"] = "data/music/{}/%(id)s.mp3".format(id)
-    return youtube_dl.YoutubeDL(format)
+    options = ytdl_options
+    options["outtmpl"] = "data/music/{}/%(id)s.mp3".format(id)
+    return youtube_dl.YoutubeDL(options)
+
 
 class Song():
     def __init__(self, entry, path, title, duration, requester):
@@ -58,17 +61,14 @@ class Queue():
         while True:
             self.play_next_song.clear()
             self.current = await self.songs.get()
-            log.debug("got next song")
             self.song_list.remove(str(self.current))
             self.skip_votes.clear()
-            log.debug("sending msg")
             await self.text_channel.send("Now playing {}".format(self.current.title_with_requester()))
             self.voice_client.play(self.current.entry, after=lambda e: self.play_next_song.set())
-            log.debug("waiting...")
             await self.play_next_song.wait()
-            log.debug("passed")
 
-class Music:
+
+class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.queues = {}
@@ -86,8 +86,7 @@ class Music:
             try:
                 await self.queues[id].voice_client.disconnect()
                 self.clear_data(id)
-                #del self.queues[id]
-                self.queues.pop(id, None)
+                del self.queues[id]
             except:
                 pass
 
@@ -101,7 +100,7 @@ class Music:
     @staticmethod
     def download_video(ctx, url):
         ytdl = get_ytdl(ctx.guild.id)
-        data = ytdl.extract_info(url, download=True)
+        data = ytdl.extract_info(url, download=False)
         if "entries" in data:
             data = data["entries"][0]
         title = data["title"]
@@ -112,6 +111,15 @@ class Music:
             duration = data["duration"]
         except KeyError:
             pass
+        # Looks shit but it works, running it normally gets fucked over by buffering and the buffer-size wont fucking work
+        # i stuffed buffer-size in there yoot
+        options = ytdl_download_options
+        options.append("--output")
+        options.append("data/music/{}/%(id)s.mp3".format(ctx.guild.id))
+        options.append("https://youtube.com/watch?v={}".format(id))
+        command = ["/usr/local/bin/youtube-dl"]
+        command.extend(options)
+        subprocess.call(command)
         path = "data/music/{}".format(ctx.guild.id)
         filepath = "{}/{}.mp3".format(path, id)
         entry = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(filepath))
@@ -121,11 +129,7 @@ class Music:
         return song
 
     @commands.command()
-    async def connect(self, ctx):
-        await ctx.send("Summon is now defunct. Please use the .play command so I can join.")
-
-    @commands.command()
-    async def play(self, ctx, *, url:str):
+    async def play(self, ctx, *, url: str):
         """Enqueues a song to be played"""
         await ctx.channel.trigger_typing()
         if ctx.voice_client is None:
@@ -133,50 +137,37 @@ class Music:
                 try:
                     await ctx.author.voice.channel.connect()
                 except discord.errors.Forbidden:
-                    await ctx.send("I can't connect to this channel if I don't have any permissions for it first.")
+                    # await ctx.send(Language.get("music.no_connect_perms", ctx).format(ctx.author.voice.channel))
+                    await ctx.send("How can I connect to your channel without having any permissions to do so?")
                     return
             else:
-                await ctx.send("You're not in a music channel, fool.")
+                await ctx.send("I can't connect to a voice channel if you're not in it.")
                 return
         queue = self.get_queue(ctx)
-        if ctx.voice_client is not None and queue is None:
-            if ctx.author.voice.channel:
-                try:
-                    await ctx.voice_client.disconnect()
-                    await ctx.author.voice.channel.connect()
-                except:
-                    await ctx.send("oop make sure to report this with .notifydev")
-                    await ctx.send(traceback.format_exc())
-                    return
-            else:
-                await ctx.send("You're not in a music channel, fool.")
-        url = url.strip(".play </>")# ?
+        url = url.strip("<>")
         try:
             song = self.download_video(ctx, url)
         except youtube_dl.utils.DownloadError as error:
-            await ctx.send("YoutubeDL broke. Error entry: {}".format(str(error.exc_info[1]).strip("[youtube] ")))
+            await ctx.send("Oh noes! YoutubeDL broke! Info: {}".format(str(error.exc_info[1]).strip("[youtube] ")))
             return
         except:
             await ctx.send(traceback.format_exc())
             return
         await queue.songs.put(song)
         queue.song_list.append(str(song))
-        await ctx.send("Added {} to the queue".format(song))
+        await ctx.send("Added {} to the queue list".format(song))
 
     @commands.command()
     async def disconnect(self, ctx):
         """Disconnects the bot from the voice channel"""
+        self.get_queue(ctx).voice_client.stop()
+        await ctx.voice_client.disconnect()
         try:
-            await ctx.voice_client.disconnect()
             self.clear_data(ctx.guild.id)
-            try:
-                #del self.queues[ctx.guild.id]
-                self.queues.pop(ctx.guild.id, None)
-            except KeyError:
-                pass
-            await ctx.send("Alright, see ya.")
-        except:
-            await ctx.send(traceback.format_exc())
+            del self.queues[ctx.guild.id]
+        except Exception as e:
+            print("fuck music broke again: " + e)
+        await ctx.send("Alright, see ya.")
 
     @commands.command()
     async def pause(self, ctx):
@@ -201,7 +192,7 @@ class Music:
             queue.voice_client.stop()
             await ctx.send("The person who wanted to skip in the first place skipped it.")
         else:
-            needed = int(4)
+            needed = config.skip_votes_needed
             channel_members = len([member for member in queue.voice_client.channel.members if not member.bot])
             if channel_members <= needed:
                 needed = channel_members - 1
@@ -214,7 +205,8 @@ class Music:
                 queue.voice_client.stop()
                 await ctx.send("Song has been skipped by popular vote")
             else:
-                await ctx.send("Alright, I've added your vote. There's {} votes to skip, I must have {} more.".format(len(queue.skip_votes), needed))
+                await ctx.send("Alright, I've added your vote. There's {} votes to skip, I must have {} more.".format(
+                    len(queue.skip_votes), needed))
 
     @commands.command()
     async def queue(self, ctx):
@@ -224,8 +216,9 @@ class Music:
             if not queue.voice_client.is_paused() and not queue.voice_client.is_playing():
                 await ctx.send("Hmm... There's nothing in the list.")
                 return
-            else:
-                song_list = "Now playing: {}".format(queue.current)
+            # pylint: not needed
+            # else:
+            #    song_list = "Now playing: {}".format(queue.current)
         else:
             await ctx.send(":thinking:... Nothing's in the queue.")
             return
@@ -234,7 +227,7 @@ class Music:
         await ctx.send(song_list)
 
     @commands.command()
-    async def volume(self, ctx, amount:float=None):
+    async def volume(self, ctx, amount: float = None):
         """changes bot volume for music"""
         queue = self.get_queue(ctx)
         if not amount:
@@ -247,6 +240,7 @@ class Music:
     async def np(self, ctx):
         """Shows the song that is currently playing"""
         await ctx.send("Now playing: {}".format(self.get_queue(ctx).current.title_with_requester()))
+
 
 def setup(bot):
     bot.add_cog(Music(bot))
