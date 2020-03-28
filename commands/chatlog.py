@@ -24,7 +24,7 @@ class ChatLog(commands.Cog):
         else:
             record = self.clean_message(message.clean_content)
             if record:
-                addword(record, message.author.server.id, message.author.id)
+                addword(record, message.author.guild.id, message.author.id)
 
     def clean_message(self, message):
         """Cleans the message of unnecessary information.
