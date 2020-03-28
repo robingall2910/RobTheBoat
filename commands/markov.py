@@ -132,7 +132,7 @@ class MarkovChain(commands.Cog):
         markov_sentence = self.format_sentence(sentence)
         return markov_sentence
 
-    def create_user_chain(self, userid):
+    def create_user_chain(self, userid: int):
         """Creates Markov chain from messages stored in the sqlite db and generates sentence.
 
         Returns:
