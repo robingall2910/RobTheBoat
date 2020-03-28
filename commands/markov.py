@@ -51,12 +51,12 @@ class MarkovChain(commands.Cog):
             embed = discord.Embed(colour=message.me.color)
         except Exception:
             embed = discord.Embed(color=discord.Color.blue())
-        embed.add_field(name=f'*{self.bot.user.name} 9000* ({message.author.name} Edition)', value=f'**{response}**')
+        embed.add_field(name=f'*{self.bot.user.name} 9000* ({message.author.name} edition)', value=f'**{response}**')
         await message.channel.send(embed=embed)
 
     @commands.command()
     @checks.is_dev()
-    async def wipeentry(self, message):
+    async def wipeentry(self, message: str):
         """League of Legends sucks dick, kurt"""
         if message.author.bot:
             return
