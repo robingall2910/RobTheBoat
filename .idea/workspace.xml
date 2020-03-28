@@ -4,7 +4,6 @@
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/commands/markov.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/markov.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/mysql.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,14 +112,7 @@
       <workItem from="1585120080614" duration="217000" />
       <workItem from="1585365201481" duration="426000" />
       <workItem from="1585366612378" duration="253000" />
-      <workItem from="1585367495551" duration="2380000" />
-    </task>
-    <task id="LOCAL-00059" summary="this is the fattest strech of the century">
-      <created>1578612881612</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1578612881612</updated>
+      <workItem from="1585367495551" duration="2705000" />
     </task>
     <task id="LOCAL-00060" summary="ok one more try">
       <created>1578612990545</created>
@@ -458,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585369420341</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="this might be gay at first">
+      <created>1585370049174</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1585370049174</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -492,7 +491,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="oops" />
     <MESSAGE value="ur mom" />
     <MESSAGE value="shut" />
     <MESSAGE value="i never added this to git??? uhm chile anyways SO" />
@@ -517,7 +515,8 @@
     <MESSAGE value="ok" />
     <MESSAGE value="ok one more" />
     <MESSAGE value="gay" />
-    <option name="LAST_COMMIT_MESSAGE" value="gay" />
+    <MESSAGE value="this might be gay at first" />
+    <option name="LAST_COMMIT_MESSAGE" value="this might be gay at first" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#SQL_Dialects" timestamp="1585367802421">
@@ -532,10 +531,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1585369418863">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1585370047676">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585369418863" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585370047676" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932275527" />
     <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -545,10 +544,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579932093326" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1585369423464">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1585370052479">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585369423464" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585370052479" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932278075" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582597961430">
       <screen x="0" y="0" width="1920" height="1040" />

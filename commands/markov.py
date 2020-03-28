@@ -36,11 +36,16 @@ class MarkovChain(commands.Cog):
             await message.channel.send(embed=embed)
 
     @commands.command()
-    async def markovuser(self, message, *, user: str):
+    async def markovuser(self, message, user:discord.Member):
         if message.author.bot:
             return
 
-        response = self.create_user_chain()
+        if user is None:
+            userid = message.author.id
+        else:
+            userid = user.id
+
+        response = self.create_user_chain(userid)
         try:
             embed = discord.Embed(colour=message.me.color)
         except Exception:
