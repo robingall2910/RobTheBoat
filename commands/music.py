@@ -132,6 +132,8 @@ class Music(commands.Cog):
     async def play(self, ctx, *, url: str):
         """Enqueues a song to be played"""
         await ctx.channel.trigger_typing()
+        if "list" in url:
+            await ctx.send("Sorry, I can't do playlists just yet.")
         if ctx.voice_client is None:
             if ctx.author.voice:
                 try:

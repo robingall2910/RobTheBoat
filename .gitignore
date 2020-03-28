@@ -2,3 +2,4 @@ RTB Blacklist.db
 *.pyc
 .idea/
 config.ini
+/config/meme.ini
