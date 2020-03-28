@@ -51,7 +51,7 @@ class MarkovChain(commands.Cog):
             embed = discord.Embed(colour=message.me.color)
         except Exception:
             embed = discord.Embed(color=discord.Color.blue())
-        embed.add_field(name=f'*{self.bot.user.name} 9000*', value=f'**{response}**')
+        embed.add_field(name=f'*{self.bot.user.name} 9000* ({message.author.name} Edition)', value=f'**{response}**')
         await message.channel.send(embed=embed)
 
     @commands.command()
