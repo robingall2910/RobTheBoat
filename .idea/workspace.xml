@@ -110,14 +110,7 @@
       <workItem from="1582601642685" duration="1960000" />
       <workItem from="1584479107253" duration="1545000" />
       <workItem from="1585120080614" duration="217000" />
-      <workItem from="1585365201481" duration="426000" />
-    </task>
-    <task id="LOCAL-00053" summary="ok nice bug">
-      <created>1578608928280</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1578608928280</updated>
+      <workItem from="1585365201481" duration="876000" />
     </task>
     <task id="LOCAL-00054" summary=":)">
       <created>1578609077388</created>
@@ -455,7 +448,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585120287465</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="https://twitter.com/jaboukie/status/1242624806366912518?s=20">
+      <created>1585365649433</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1585365649433</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -489,7 +489,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ok here we go again" />
     <MESSAGE value="ok heroku" />
     <MESSAGE value="looks like i didn't even need that" />
     <MESSAGE value="remove the rest of that crap" />
@@ -514,7 +513,8 @@
     <MESSAGE value="add kurt and patrick" />
     <MESSAGE value="and ryan" />
     <MESSAGE value="ah." />
-    <option name="LAST_COMMIT_MESSAGE" value="ah." />
+    <MESSAGE value="https://twitter.com/jaboukie/status/1242624806366912518?s=20" />
+    <option name="LAST_COMMIT_MESSAGE" value="https://twitter.com/jaboukie/status/1242624806366912518?s=20" />
   </component>
   <component name="WindowStateProjectService">
     <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
@@ -525,10 +525,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1585120527975">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1585366142248">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585120527975" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585366142248" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932275527" />
     <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -538,10 +538,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579932093326" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1585120530937">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1585365658149">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585120530937" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585365658149" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932278075" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582597961430">
       <screen x="0" y="0" width="1920" height="1040" />
