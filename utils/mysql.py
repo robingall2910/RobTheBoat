@@ -123,7 +123,7 @@ def addword(item_text, serverid, userid):
     cur.execute(msg, args)
     conn.commit()
 
-def delword(item_text):
+def delword(item_text: str):
     msg = 'DELETE FROM markov WHERE messages = (?)'
     args = item_text
     cur.execute(msg, args)
