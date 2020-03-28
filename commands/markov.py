@@ -36,7 +36,7 @@ class MarkovChain(commands.Cog):
             await message.channel.send(embed=embed)
 
     @commands.command()
-    async def markovuser(self, message, user:discord.Member):
+    async def markovuser(self, message, user:discord.Member=None):
         if message.author.bot:
             return
 
