@@ -42,7 +42,7 @@ class MarkovChain(commands.Cog):
             return
 
         if user is None:
-            userid = message.author.id
+            userid = str(message.author.id)
         else:
             userid = str(user.id)
 
