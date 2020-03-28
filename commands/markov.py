@@ -11,7 +11,8 @@ import string
 import discord
 from discord.ext import commands
 
-from utils.mysql import getmsgs, getmsgsuser
+from utils import checks
+from utils.mysql import getmsgs, getmsgsuser, delword
 
 
 class MarkovChain(commands.Cog):
@@ -52,6 +53,16 @@ class MarkovChain(commands.Cog):
             embed = discord.Embed(color=discord.Color.blue())
         embed.add_field(name=f'*{self.bot.user.name} 9000*', value=f'**{response}**')
         await message.channel.send(embed=embed)
+
+    @commands.command()
+    @checks.is_dev
+    async def wipeentry(self, message):
+        """League of Legends sucks dick, kurt"""
+        if message.author.bot:
+            return
+
+        delword(message)
+        await message.channel.send("Deleted.")
 
     def format_sentence(self, unformatted_sentence):
         """Adds formatting to generated sentence.
