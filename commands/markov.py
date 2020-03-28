@@ -45,7 +45,7 @@ class MarkovChain(commands.Cog):
         else:
             userid = user.id
 
-        response = self.create_user_chain(userid)
+        response = self.create_user_chain(int(userid))
         try:
             embed = discord.Embed(colour=message.me.color)
         except Exception:
