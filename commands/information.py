@@ -24,7 +24,7 @@ class Information(commands.Cog):
         if user is None:
             await ctx.send("Your ID is `{}`".format(ctx.message.author.id))
         else:
-            await ctx.send("{}'s ID is `{}`".format(user.mention, user.id))
+            await ctx.send("{}'s ID is `{}`".format(user, user.id))
 
     @commands.guild_only()
     @commands.command()

@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/chatlog.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/chatlog.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/commands/information.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/information.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/mysql.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,14 +112,7 @@
       <workItem from="1585120080614" duration="217000" />
       <workItem from="1585365201481" duration="426000" />
       <workItem from="1585366612378" duration="253000" />
-      <workItem from="1585367495551" duration="1283000" />
-    </task>
-    <task id="LOCAL-00055" summary="finally finish what i was going for">
-      <created>1578611227501</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1578611227501</updated>
+      <workItem from="1585367495551" duration="1421000" />
     </task>
     <task id="LOCAL-00056" summary="g">
       <created>1578611431483</created>
@@ -459,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585366412571</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="c">
+      <created>1585368795540</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1585368795540</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -493,7 +491,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ok heroku" />
     <MESSAGE value="looks like i didn't even need that" />
     <MESSAGE value="remove the rest of that crap" />
     <MESSAGE value="oops" />
@@ -518,7 +515,8 @@
     <MESSAGE value="ah." />
     <MESSAGE value="Revert &quot;:)&quot;&#10;&#10;This reverts commit f4ec744b" />
     <MESSAGE value="ok" />
-    <option name="LAST_COMMIT_MESSAGE" value="ok" />
+    <MESSAGE value="c" />
+    <option name="LAST_COMMIT_MESSAGE" value="c" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#SQL_Dialects" timestamp="1585367802421">
@@ -533,10 +531,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1585366411035">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1585368793922">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585366411035" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585368793922" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932275527" />
     <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
       <screen x="0" y="0" width="1920" height="1040" />
