@@ -43,7 +43,7 @@ class MarkovChain(commands.Cog):
         if user is None:
             userid = message.author.id
         else:
-            userid = user.id
+            userid = str(user.id)
 
         response = self.create_user_chain(userid)
         try:
