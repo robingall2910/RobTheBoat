@@ -45,7 +45,7 @@ class MarkovChain(commands.Cog):
         else:
             userid = user.id
 
-        response = self.create_user_chain(int(userid))
+        response = self.create_user_chain(userid)
         try:
             embed = discord.Embed(colour=message.me.color)
         except Exception:
@@ -132,7 +132,7 @@ class MarkovChain(commands.Cog):
         markov_sentence = self.format_sentence(sentence)
         return markov_sentence
 
-    def create_user_chain(self, userid: int):
+    def create_user_chain(self, userid):
         """Creates Markov chain from messages stored in the sqlite db and generates sentence.
 
         Returns:
