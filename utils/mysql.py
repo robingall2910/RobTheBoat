@@ -133,4 +133,8 @@ def getmsgs():
     msg = 'SELECT messages FROM markov'
     return [x[0] for x in cur.execute(msg)]
 
+def getmsgsuser(userid):
+    msg = 'SELECT userid FROM markov WHERE userid=' + userid
+    return [x[0] for x in cur.execute(msg)]
+
 create_tables()
