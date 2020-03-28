@@ -55,7 +55,7 @@ class MarkovChain(commands.Cog):
         await message.channel.send(embed=embed)
 
     @commands.command()
-    @checks.is_dev
+    @checks.is_dev()
     async def wipeentry(self, message):
         """League of Legends sucks dick, kurt"""
         if message.author.bot:
