@@ -30,7 +30,7 @@ class Fuckery(commands.Cog):
             pass
         if ctx.author is not ctx.author.bot:
             triggers = ['.', "r.", "hey dragon, ", "hey derg, ", "hey batzz, "]
-            await ctx.send(ctx.message.clean_content.replace((triggers + "say"), ""))
+            await ctx.send(ctx.message.clean_content.replace((triggers.pop("say")), ""))
         else:
             return
 
@@ -183,7 +183,7 @@ class Fuckery(commands.Cog):
         m = random.choice(speed)
         await ctx.send(m)
 
-    @commands.command()
+    @commands.command(aliases=['ajax'])
     async def super(self, ctx):
         """lion co"""
         lioncompany = random.choice(soopor)
