@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/markov.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/markov.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/hypixel.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/hypixel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,21 +105,7 @@
       <workItem from="1587949743363" duration="5000" />
       <workItem from="1587950984729" duration="2000" />
       <workItem from="1588798543489" duration="51000" />
-      <workItem from="1588798611457" duration="46000" />
-    </task>
-    <task id="LOCAL-00072" summary="o fuk">
-      <created>1579912871497</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1579912871497</updated>
-    </task>
-    <task id="LOCAL-00073" summary="ok here we go again">
-      <created>1579913571229</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1579913571229</updated>
+      <workItem from="1588798611457" duration="816000" />
     </task>
     <task id="LOCAL-00074" summary="ok here we go again">
       <created>1579914078142</created>
@@ -449,7 +436,21 @@
       <option name="project" value="LOCAL" />
       <updated>1585372591798</updated>
     </task>
-    <option name="localTasksCounter" value="121" />
+    <task id="LOCAL-00121" summary="split the entries on write">
+      <created>1588798786185</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1588798786186</updated>
+    </task>
+    <task id="LOCAL-00122" summary="hypixel cog time :)">
+      <created>1588798949245</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1588798949245</updated>
+    </task>
+    <option name="localTasksCounter" value="123" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -482,8 +483,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ok get kae" />
-    <MESSAGE value="whoops" />
     <MESSAGE value="g" />
     <MESSAGE value="one more thing" />
     <MESSAGE value="oops lol" />
@@ -507,16 +506,19 @@
     <MESSAGE value="E" />
     <MESSAGE value="i will get this through" />
     <MESSAGE value="k" />
-    <option name="LAST_COMMIT_MESSAGE" value="k" />
+    <MESSAGE value="split the entries on write" />
+    <MESSAGE value="hypixel cog time :)" />
+    <option name="LAST_COMMIT_MESSAGE" value="hypixel cog time :)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#SQL_Dialects" timestamp="1585367802421">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#SQL_Dialects/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585367802421" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1585372590272">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1588798948050">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588798948050" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372590272" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1588798656524">
       <screen x="0" y="0" width="1920" height="1040" />
