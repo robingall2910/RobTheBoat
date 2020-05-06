@@ -9,7 +9,7 @@ from utils.tools import *
 
 config = Config()
 
-key = config._hypixelKey
+key = [config._hypixelKey]
 hypixel.setKeys(key)
 
 class Hypixel(commands.Cog):
