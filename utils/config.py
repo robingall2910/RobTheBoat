@@ -87,7 +87,8 @@ class Config:
             self._gw2Key = str(os.environ.get('GW2_KEY'))
             self._googleKey = str(os.environ.get('GOOGLE_KEY'))
             self._lastfmapiKey = str(os.environ.get('LASTFM_API'))
-            self._lastfmSecret =str(os.environ.get('LASTFM_SECRET'))
+            self._lastfmSecret = str(os.environ.get('LASTFM_SECRET'))
+            self._hypixelKey = str(os.environ.get('HYPIXEL_KEY'))
         else:
             sections = {"Credentials", "Bot", "Status", "Logging", "Osu", "Guild Wars 2", "Google", "Last.fm"}.difference(config.sections())
             if sections:
