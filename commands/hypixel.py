@@ -31,9 +31,6 @@ class Hypixel(commands.Cog):
             rebug = eval(shit)
             if asyncio.iscoroutine(rebug):
                 rebug = await rebug
-            if len(rebug) >= 2000:
-                await ctx.send(py.format(rebug[:1984]))
-                await ctx.send(py.format(rebug[1984:]))
             else:
                 await ctx.send(py.format(rebug))
         except Exception as damnit:
