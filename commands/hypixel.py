@@ -19,7 +19,7 @@ class Hypixel(commands.Cog):
     @commands.command()
     async def hypixeltest(self, ctx, username: str):
         player = hypixel.Player(username)
-        ctx.send(f"The player {username} is {player.getRank()}. That's all I have to say.")
+        await ctx.send(f"The player {username} is {player.getRank()}. That's all I have to say.")
 
 def setup(bot):
     bot.add_cog(Hypixel(bot))

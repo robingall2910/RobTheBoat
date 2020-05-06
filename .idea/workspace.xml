@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/utils/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/hypixel.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/hypixel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,21 +103,7 @@
       <workItem from="1587949743363" duration="5000" />
       <workItem from="1587950984729" duration="2000" />
       <workItem from="1588798543489" duration="51000" />
-      <workItem from="1588798611457" duration="1481000" />
-    </task>
-    <task id="LOCAL-00075" summary="ok heroku">
-      <created>1579914551910</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1579914551910</updated>
-    </task>
-    <task id="LOCAL-00076" summary="looks like i didn't even need that">
-      <created>1579914968737</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1579914968737</updated>
+      <workItem from="1588798611457" duration="1964000" />
     </task>
     <task id="LOCAL-00077" summary="remove the rest of that crap">
       <created>1579915342471</created>
@@ -448,7 +434,21 @@
       <option name="project" value="LOCAL" />
       <updated>1588799447567</updated>
     </task>
-    <option name="localTasksCounter" value="124" />
+    <task id="LOCAL-00124" summary="&gt;consistency">
+      <created>1588800114154</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1588800114154</updated>
+    </task>
+    <task id="LOCAL-00125" summary="E">
+      <created>1588800330360</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1588800330360</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,7 +481,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="one more thing" />
     <MESSAGE value="oops lol" />
     <MESSAGE value="add kurt and patrick" />
     <MESSAGE value="and ryan" />
@@ -500,36 +499,38 @@
     <MESSAGE value="a$$" />
     <MESSAGE value="yeah" />
     <MESSAGE value="e" />
-    <MESSAGE value="E" />
     <MESSAGE value="i will get this through" />
     <MESSAGE value="k" />
     <MESSAGE value="split the entries on write" />
     <MESSAGE value="hypixel cog time :)" />
     <MESSAGE value="this is gonna end up like the gw2 cog but&#10;&#10;&#10;i do not care" />
-    <option name="LAST_COMMIT_MESSAGE" value="this is gonna end up like the gw2 cog but&#10;&#10;&#10;i do not care" />
+    <MESSAGE value="&gt;consistency" />
+    <MESSAGE value="E" />
+    <option name="LAST_COMMIT_MESSAGE" value="E" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#SQL_Dialects" timestamp="1585367802421">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#SQL_Dialects/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585367802421" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1588799445715">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1588800329145">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588799445715" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588800329145" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372590272" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1588798656524">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588798656524" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1588799450083">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1588800342234">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588799450083" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588800342234" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372593286" />
-    <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582597961430">
+    <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588800592798">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588800592798" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582597961430" />
     <state x="645" y="242" width="758" height="638" key="find.popup" timestamp="1585368546054">
       <screen x="0" y="0" width="1920" height="1040" />
