@@ -32,7 +32,6 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -48,24 +47,12 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="H:\Desktop\robleboat\robin2\commands" />
     </key>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -112,14 +99,12 @@
       <workItem from="1585120080614" duration="217000" />
       <workItem from="1585365201481" duration="426000" />
       <workItem from="1585366612378" duration="253000" />
-      <workItem from="1585367495551" duration="5086000" />
-    </task>
-    <task id="LOCAL-00071" summary="ok how about now">
-      <created>1579912849571</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1579912849571</updated>
+      <workItem from="1585367495551" duration="5100000" />
+      <workItem from="1587946545634" duration="1605000" />
+      <workItem from="1587949743363" duration="5000" />
+      <workItem from="1587950984729" duration="2000" />
+      <workItem from="1588798543489" duration="51000" />
+      <workItem from="1588798611457" duration="46000" />
     </task>
     <task id="LOCAL-00072" summary="o fuk">
       <created>1579912871497</created>
@@ -457,20 +442,25 @@
       <option name="project" value="LOCAL" />
       <updated>1585372354568</updated>
     </task>
-    <option name="localTasksCounter" value="120" />
+    <task id="LOCAL-00120" summary="k">
+      <created>1585372591798</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1585372591798</updated>
+    </task>
+    <option name="localTasksCounter" value="121" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -489,9 +479,9 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="h" />
     <MESSAGE value="ok get kae" />
     <MESSAGE value="whoops" />
     <MESSAGE value="g" />
@@ -516,39 +506,26 @@
     <MESSAGE value="e" />
     <MESSAGE value="E" />
     <MESSAGE value="i will get this through" />
-    <option name="LAST_COMMIT_MESSAGE" value="i will get this through" />
+    <MESSAGE value="k" />
+    <option name="LAST_COMMIT_MESSAGE" value="k" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#SQL_Dialects" timestamp="1585367802421">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#SQL_Dialects/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585367802421" />
-    <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1585372590272">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578612689738" />
-    <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1579911089402">
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372590272" />
+    <state x="461" y="164" key="SettingsEditor" timestamp="1588798656524">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1585372353097">
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588798656524" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1585372593286">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372353097" />
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932275527" />
-    <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="607" y="313" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1579932087310" />
-    <state x="461" y="161" key="SettingsEditor" timestamp="1579932093326">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579932093326" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1585372356177">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372356177" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932278075" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372593286" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582597961430">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -557,6 +534,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="645" y="242" width="758" height="638" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585368546054" />
-    <state x="646" y="241" width="758" height="638" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579915325813" />
   </component>
 </project>
