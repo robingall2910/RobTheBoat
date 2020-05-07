@@ -271,11 +271,6 @@ class Hypixel(commands.Cog):
         except Exception:
             await ctx.send(traceback.print_exc())
 
-
-
-    #TODO: Check skywars command
-    #TODO: Duels/Bridge command
-
     @commands.command()
     @checks.is_dev()
     async def hdebug(self, ctx, *, shit: str):
