@@ -254,8 +254,8 @@ class Hypixel(commands.Cog):
             await ctx.send(embed=embed)
         except hypixel.PlayerNotFoundException:
             await ctx.send("Player not found! Try another UUID or username.")
-        except KeyError:
-            await ctx.send("This user has never played Duels (of any kind) before.")
+        #except KeyError:
+        #    await ctx.send("This user has never played Duels (of any kind) before.")
         except Exception:
             await ctx.send(traceback.print_exc())
 
