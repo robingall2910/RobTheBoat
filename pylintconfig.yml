@@ -98,7 +98,9 @@ disable=E0602, E0603, E0401,
  comparison-with-itself, # it isn't, it's just how cog toggles work
  unnecessary-comprehension, #shut up.
  R1710,
- R1703
+ R1703,
+ C0144,
+ E0011
 
 [BASIC]
 # Variable names can be 1 to 31 characters long, with lowercase and underscores

@@ -94,14 +94,51 @@ class Hypixel(commands.Cog):
             awdr = '{:,.2f}'.format(wdr)
             akdr = '{:,.2f}'.format(kdr)
             afkdr = '{:,.2f}'.format(fkdr)
-            embed.add_field(name='Wins/Loss Ratio', value=f"{awdr}")
+            embed.add_field(name='Win/Loss Ratio', value=f"{awdr}")
             embed.add_field(name='Kill/Death Ratio', value=f"{akdr}")
             embed.add_field(name='Final Kill/Final Death Ratio', value=f"{afkdr}")
             await ctx.send(embed=embed)
         except Exception:
             traceback.print_exc()
 
-    #TODO: Skywars command
+    @commands.command(aliases=['skywars', 'sinfo', 'swinfo'])
+    async def hskywars(self, ctx, username: str):
+        try:
+            player = hypixel.Player(username)
+            embed = discord.Embed(description=None)
+            embed.title = f"{player.getName()}'s Skywars Stats"
+            embed.set_thumbnail(url=f"https://crafatar.com/avatars/{player.UUID}?size=64")
+            if ctx.me.color is not None:
+                embed.color = ctx.me.color
+            embed.add_field(name="Coins",
+                            value=f"{player.JSON['stats']['SkyWars']['coins']}")
+            embed.add_field(name="Kills (Solo)", value=f"{player.JSON['stats']['achievements']['skywars_kills_solo']}")
+            embed.add_field(name="Kills (Teams)",
+                            value=f"{player.JSON['achievements']['skywars_kills_team']}")
+            embed.add_field(name="Wins (Solo)",
+                            value=f"{player.JSON['achievements']['skywars_wins_solo']}")
+            embed.add_field(name="Wins (Teams)",
+                            value=f"{player.JSON['achievements']['skywars_wins_team']}")
+            embed.add_field(name="Kills (Solo)",
+                            value=f"{player.JSON['achievements']['skywars_kills_solo']}")
+            embed.add_field(name="Deaths",
+                            value=f"{player.JSON['stats']['SkyWars']['deaths']}")
+            embed.add_field(name="Quits (Left the game)",
+                            value=f"{player.JSON['stats']['SkyWars']['quits']}")
+            embed.add_field(name="Games Played",
+                            value=f"{player.JSON['stats']['SkyWars']['games']}")
+            embed.add_field(name="Lucky Blocks Wins", value=f"{player.JSON['stats']['SkyWars']['lab_win_lucky_blocks_lab']}")
+            wdr = (int(player.JSON['achievements']['skywars_wins_solo'])+int(player.JSON['stats']['SkyWars']['skywars_wins_team']))/(int(player.JSON['stats']['SkyWars']['deaths'])+(int(player.JSON['stats']['SkyWars']['quits'])))
+            kdr = (int(player.JSON['achievements']['skywars_kills_solo'])+int(player.JSON['stats']['SkyWars']['skywars_kills_team']))/(int(player.JSON['stats']['SkyWars']['deaths'])+(int(player.JSON['stats']['SkyWars']['quits'])))
+            awdr = '{:,.2f}'.format(wdr)
+            akdr = '{:,.2f}'.format(kdr)
+            embed.add_field(name='Win/Loss Ratio (Overall)', value=f"{awdr}")
+            embed.add_field(name='Kill/Death Ratio (Overall)', value=f"{akdr}")
+            await ctx.send(embed=embed)
+        except Exception:
+            traceback.print_exc()
+
+    #TODO: Check skywars command
     #TODO: Duels/Bridge command
 
     @commands.command()
