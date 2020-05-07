@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/commands/hypixel.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/hypixel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/weather.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/weather.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,20 +107,6 @@
       <workItem from="1588798543489" duration="51000" />
       <workItem from="1588798611457" duration="13387000" />
       <workItem from="1588819159017" duration="2677000" />
-    </task>
-    <task id="LOCAL-00093" summary="ok get kae">
-      <created>1582601059140</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1582601059140</updated>
-    </task>
-    <task id="LOCAL-00094" summary="ok get kae">
-      <created>1582601125477</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1582601125477</updated>
     </task>
     <task id="LOCAL-00095" summary="whoops">
       <created>1582601245315</created>
@@ -451,7 +437,21 @@
       <option name="project" value="LOCAL" />
       <updated>1588887618613</updated>
     </task>
-    <option name="localTasksCounter" value="142" />
+    <task id="LOCAL-00142" summary="E">
+      <created>1588887959959</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1588887959959</updated>
+    </task>
+    <task id="LOCAL-00143" summary="i'm tard">
+      <created>1588888052462</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1588888052462</updated>
+    </task>
+    <option name="localTasksCounter" value="144" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -484,7 +484,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="int int int int int int int int int int int int int int int int int int" />
     <MESSAGE value="no more forced int" />
     <MESSAGE value="w" />
     <MESSAGE value="a$$" />
@@ -495,7 +494,6 @@
     <MESSAGE value="hypixel cog time :)" />
     <MESSAGE value="this is gonna end up like the gw2 cog but&#10;&#10;&#10;i do not care" />
     <MESSAGE value="&gt;consistency" />
-    <MESSAGE value="E" />
     <MESSAGE value="i hate it here" />
     <MESSAGE value="fffffffffffffffffffffffffff" />
     <MESSAGE value="yes it's even further now" />
@@ -509,28 +507,30 @@
     <MESSAGE value="huge if true if this works" />
     <MESSAGE value="e" />
     <MESSAGE value="huge if true" />
-    <option name="LAST_COMMIT_MESSAGE" value="huge if true" />
+    <MESSAGE value="E" />
+    <MESSAGE value="i'm tard" />
+    <option name="LAST_COMMIT_MESSAGE" value="i'm tard" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#SQL_Dialects" timestamp="1585367802421">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#SQL_Dialects/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585367802421" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1588887617377">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1588888051216">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="466" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588832558841" />
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588887617377" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588888051216" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372590272" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1588885747699">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588885747699" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1588887619525">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1588888053639">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="442" y="186" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1588832562013" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588887619525" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588888053639" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372593286" />
     <state x="570" y="130" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1588887083813">
       <screen x="0" y="0" width="1920" height="1040" />
