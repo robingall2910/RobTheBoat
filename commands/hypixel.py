@@ -1,3 +1,4 @@
+import time
 import traceback
 
 import discord
@@ -53,6 +54,9 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Last Login", value=f"{cllogin}")
             embed.add_field(name="Last Minecraft Version played", value=f"{lmv}")
             embed.add_field(name="Last Tipped User", value=f"{ltu}")
+            embed.set_footer(
+                text=f"Requested by: {ctx.message.author} / at {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
+                icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
         except hypixel.PlayerNotFoundException:
             await ctx.send("Player not found! Try another UUID or username.")
@@ -97,6 +101,9 @@ class Hypixel(commands.Cog):
             embed.add_field(name='Win/Loss Ratio', value=f"{awdr}")
             embed.add_field(name='Kill/Death Ratio', value=f"{akdr}")
             embed.add_field(name='Final Kill/Final Death Ratio', value=f"{afkdr}")
+            embed.set_footer(
+                text=f"Requested by: {ctx.message.author} / at {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
+                icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
         except Exception:
             traceback.print_exc()
@@ -135,6 +142,9 @@ class Hypixel(commands.Cog):
             akdr = '{:,.2f}'.format(kdr)
             embed.add_field(name='Win/Loss Ratio (Overall)', value=f"{awdr}")
             embed.add_field(name='Kill/Death Ratio (Overall)', value=f"{akdr}")
+            embed.set_footer(
+                text=f"Requested by: {ctx.message.author} / at {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
+                icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
         except Exception:
             traceback.print_exc()
@@ -171,7 +181,7 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Speed UHC", value=f"{hypixel.getJSON('gameCounts')['games']['SPEED_UHC']['players']}")
             embed.add_field(name="Crazy Walls", value=f"{hypixel.getJSON('gameCounts')['games']['TRUE_COMBAT']['players']}")
             embed.add_field(name="Turbo Kart Racer", value=f"{hypixel.getJSON('gameCounts')['games']['LEGACY']['modes']['GINGERBREAD']}")
-            embed.set_footer(text=f"Requested by: {ctx.message.author} / at {datetime.fromtimestamp(datetime.now()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",icon_url=ctx.message.author.avatar_url)
+            embed.set_footer(text=f"Requested by: {ctx.message.author} / at {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
