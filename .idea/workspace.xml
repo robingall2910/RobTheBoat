@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/commands/hypixel.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/hypixel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -107,27 +106,6 @@
       <workItem from="1588798543489" duration="51000" />
       <workItem from="1588798611457" duration="13387000" />
       <workItem from="1588819159017" duration="2677000" />
-    </task>
-    <task id="LOCAL-00085" summary="o rite">
-      <created>1582598053329</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1582598053329</updated>
-    </task>
-    <task id="LOCAL-00086" summary="steal a cog from another bot">
-      <created>1582598699906</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1582598699906</updated>
-    </task>
-    <task id="LOCAL-00087" summary="right piss off">
-      <created>1582599282013</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1582599282013</updated>
     </task>
     <task id="LOCAL-00088" summary="ok">
       <created>1582599465163</created>
@@ -451,7 +429,28 @@
       <option name="project" value="LOCAL" />
       <updated>1588832560501</updated>
     </task>
-    <option name="localTasksCounter" value="134" />
+    <task id="LOCAL-00134" summary="e">
+      <created>1588886657579</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1588886657579</updated>
+    </task>
+    <task id="LOCAL-00135" summary="asdasfsdfgsdf">
+      <created>1588886720825</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1588886720825</updated>
+    </task>
+    <task id="LOCAL-00136" summary="&quot;retard!&quot; -lemon">
+      <created>1588886843085</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1588886843085</updated>
+    </task>
+    <option name="localTasksCounter" value="137" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -484,8 +483,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ok" />
-    <MESSAGE value="ok one more" />
     <MESSAGE value="gay" />
     <MESSAGE value="this might be gay at first" />
     <MESSAGE value="ther" />
@@ -495,7 +492,6 @@
     <MESSAGE value="w" />
     <MESSAGE value="a$$" />
     <MESSAGE value="yeah" />
-    <MESSAGE value="e" />
     <MESSAGE value="i will get this through" />
     <MESSAGE value="k" />
     <MESSAGE value="split the entries on write" />
@@ -509,28 +505,31 @@
     <MESSAGE value="memeage" />
     <MESSAGE value="skywars" />
     <MESSAGE value="quits = games played&#10;&#10;useless stat" />
-    <option name="LAST_COMMIT_MESSAGE" value="quits = games played&#10;&#10;useless stat" />
+    <MESSAGE value="e" />
+    <MESSAGE value="asdasfsdfgsdf" />
+    <MESSAGE value="&quot;retard!&quot; -lemon" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;retard!&quot; -lemon" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#SQL_Dialects" timestamp="1585367802421">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#SQL_Dialects/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585367802421" />
-    <state x="466" y="0" key="CommitChangelistDialog2" timestamp="1588832558841">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1588886841852">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="466" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588832558841" />
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588822030567" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588886841852" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372590272" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1588885747699">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588885747699" />
-    <state x="442" y="186" key="Vcs.Push.Dialog.v2" timestamp="1588832562013">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1588886844101">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="442" y="186" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1588832562013" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588811577008" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588886844101" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372593286" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588800592798">
       <screen x="0" y="0" width="1920" height="1040" />
