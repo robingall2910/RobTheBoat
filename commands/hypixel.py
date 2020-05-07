@@ -235,7 +235,10 @@ class Hypixel(commands.Cog):
                 embed.add_field(name="Kills", value=f"{player.JSON['stats']['Duels']['kills']}")
             except KeyError:
                 embed.add_field(name="Kills", value="0")
-            embed.add_field(name="Cosmetic Title", value=f"{player.JSON['stats']['Duels']['active_cosmetictitle']}")
+            try:
+                embed.add_field(name="Cosmetic Title", value=f"{player.JSON['stats']['Duels']['active_cosmetictitle']}")
+            except KeyError:
+                pass
             embed.add_field(name="Goals Hit", value=f"{player.JSON['stats']['Duels']['goals']} times")
             embed.add_field(name="Bow Shots", value=f"{player.JSON['stats']['Duels']['bow_shots']}")
             embed.add_field(name="Bow Hits", value=f"{player.JSON['stats']['Duels']['bow_hits']}")
