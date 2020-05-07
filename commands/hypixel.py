@@ -166,11 +166,11 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Survival Games", value=f"{hypixel.getJSON('gameCount')['games']['SURVIVAL_GAMES']['players']}")
             embed.add_field(name="Stuck in Limbo", value=f"{hypixel.getJSON('gameCount')['games']['LIMBO']['players']}")
             embed.add_field(name="Cops and Crims", value=f"{hypixel.getJSON('gameCount')['games']['MCGO']['players']}")
-            embed.add_field(name="Battleground", value=f"{hypixel.getJSON('gameCount')['games']['BATTLEGROUND']['players']}")
+            embed.add_field(name="Warlords", value=f"{hypixel.getJSON('gameCount')['games']['BATTLEGROUND']['players']}")
             embed.add_field(name="Super Smash™", value=f"{hypixel.getJSON('gameCount')['games']['SUPER_SMASH']['players']}")
             embed.add_field(name="Speed UHC", value=f"{hypixel.getJSON('gameCount')['games']['SPEED_UHC']['players']}")
             embed.add_field(name="Crazy Walls", value=f"{hypixel.getJSON('gameCount')['games']['TRUE_COMBAT']['players']}")
-            embed.add_field(name="Murder Mystery", value=f"{hypixel.getJSON('gameCount')['games']['MURDER_MYSTERY']['players']}")
+            embed.add_field(name="Turbo Kart Racer", value=f"{hypixel.getJSON('gameCount')['games']['GINGERBREAD']['players']}")
         except Exception as e:
             await ctx.send(e)
 
