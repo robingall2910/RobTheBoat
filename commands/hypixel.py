@@ -123,16 +123,14 @@ class Hypixel(commands.Cog):
                             value=f"{player.JSON['achievements']['skywars_kills_solo']}")
             embed.add_field(name="Deaths",
                             value=f"{player.JSON['stats']['SkyWars']['deaths']}")
-            embed.add_field(name="Quits (Left the game)",
-                            value=f"{player.JSON['stats']['SkyWars']['quits']}")
             embed.add_field(name="Games Played",
                             value=f"{player.JSON['stats']['SkyWars']['games']}")
             try:
                 embed.add_field(name="Lucky Blocks Wins", value=f"{player.JSON['stats']['SkyWars']['lab_win_lucky_blocks_lab']}")
             except KeyError:
                 embed.add_field(name="Lucky Blowck Wins", value="They have not won in LUCKY BLOWCKS")
-            wdr = (int(player.JSON['achievements']['skywars_wins_solo'])+int(player.JSON['achievements']['skywars_wins_team']))/(int(player.JSON['stats']['SkyWars']['deaths'])+(int(player.JSON['stats']['SkyWars']['quits'])))
-            kdr = (int(player.JSON['achievements']['skywars_kills_solo'])+int(player.JSON['achievements']['skywars_kills_team']))/(int(player.JSON['stats']['SkyWars']['deaths'])+(int(player.JSON['stats']['SkyWars']['quits'])))
+            wdr = (int(player.JSON['achievements']['skywars_wins_solo'])+int(player.JSON['achievements']['skywars_wins_team']))/(int(player.JSON['stats']['SkyWars']['deaths']))
+            kdr = (int(player.JSON['achievements']['skywars_kills_solo'])+int(player.JSON['achievements']['skywars_kills_team']))/(int(player.JSON['stats']['SkyWars']['deaths']))
             awdr = '{:,.2f}'.format(wdr)
             akdr = '{:,.2f}'.format(kdr)
             embed.add_field(name='Win/Loss Ratio (Overall)', value=f"{awdr}")
