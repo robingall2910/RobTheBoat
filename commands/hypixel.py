@@ -112,7 +112,7 @@ class Hypixel(commands.Cog):
                 embed.color = ctx.me.color
             embed.add_field(name="Coins",
                             value=f"{player.JSON['stats']['SkyWars']['coins']}")
-            embed.add_field(name="Kills (Solo)", value=f"{player.JSON['stats']['achievements']['skywars_kills_solo']}")
+            embed.add_field(name="Kills (Solo)", value=f"{player.JSON['achievements']['skywars_kills_solo']}")
             embed.add_field(name="Kills (Teams)",
                             value=f"{player.JSON['achievements']['skywars_kills_team']}")
             embed.add_field(name="Wins (Solo)",
@@ -127,9 +127,12 @@ class Hypixel(commands.Cog):
                             value=f"{player.JSON['stats']['SkyWars']['quits']}")
             embed.add_field(name="Games Played",
                             value=f"{player.JSON['stats']['SkyWars']['games']}")
-            embed.add_field(name="Lucky Blocks Wins", value=f"{player.JSON['stats']['SkyWars']['lab_win_lucky_blocks_lab']}")
-            wdr = (int(player.JSON['achievements']['skywars_wins_solo'])+int(player.JSON['stats']['SkyWars']['skywars_wins_team']))/(int(player.JSON['stats']['SkyWars']['deaths'])+(int(player.JSON['stats']['SkyWars']['quits'])))
-            kdr = (int(player.JSON['achievements']['skywars_kills_solo'])+int(player.JSON['stats']['SkyWars']['skywars_kills_team']))/(int(player.JSON['stats']['SkyWars']['deaths'])+(int(player.JSON['stats']['SkyWars']['quits'])))
+            try:
+                embed.add_field(name="Lucky Blocks Wins", value=f"{player.JSON['stats']['SkyWars']['lab_win_lucky_blocks_lab']}")
+            except KeyError:
+                embed.add_field(name="Lucky Blowck Wins", value="They have not won in LUCKY BLOWCKS")
+            wdr = (int(player.JSON['achievements']['skywars_wins_solo'])+int(player.JSON['achievements']['skywars_wins_team']))/(int(player.JSON['stats']['SkyWars']['deaths'])+(int(player.JSON['stats']['SkyWars']['quits'])))
+            kdr = (int(player.JSON['achievements']['skywars_kills_solo'])+int(player.JSON['achievements']['skywars_kills_team']))/(int(player.JSON['stats']['SkyWars']['deaths'])+(int(player.JSON['stats']['SkyWars']['quits'])))
             awdr = '{:,.2f}'.format(wdr)
             akdr = '{:,.2f}'.format(kdr)
             embed.add_field(name='Win/Loss Ratio (Overall)', value=f"{awdr}")
