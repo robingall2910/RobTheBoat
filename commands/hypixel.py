@@ -220,7 +220,7 @@ class Hypixel(commands.Cog):
         except Exception:
             await ctx.send(traceback.print_exc())
 
-    @commands.command(aliases=['duelsinfo', 'dinfo'])
+    @commands.command(aliases=['duelsinfo', 'dinfo', 'hdinfo'])
     async def hduels(self, ctx, username: str):
         try:
             player = hypixel.Player(username)
