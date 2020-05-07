@@ -58,11 +58,11 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Last Login", value=f"{cllogin}")
             embed.add_field(name="Last Minecraft Version played", value=f"{lmv}")
             embed.add_field(name="Last Tipped User", value=f"{ltu}")
-            if sys.platform("windows"):
+            if sys.platform == "windows":
                 embed.set_footer(
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
                     icon_url=ctx.message.author.avatar_url)
-            elif sys.platform("linux"):
+            elif sys.platform == "linux":
                 embed.set_footer(
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}",
                     icon_url=ctx.message.author.avatar_url)
@@ -110,11 +110,11 @@ class Hypixel(commands.Cog):
             embed.add_field(name='Win/Loss Ratio', value=f"{awdr}")
             embed.add_field(name='Kill/Death Ratio', value=f"{akdr}")
             embed.add_field(name='Final Kill/Final Death Ratio', value=f"{afkdr}")
-            if sys.platform("windows"):
+            if sys.platform == "windows":
                 embed.set_footer(
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
                     icon_url=ctx.message.author.avatar_url)
-            elif sys.platform("linux"):
+            elif sys.platform == "linux":
                 embed.set_footer(
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}",
                     icon_url=ctx.message.author.avatar_url)
@@ -160,11 +160,11 @@ class Hypixel(commands.Cog):
             akdr = '{:,.2f}'.format(kdr)
             embed.add_field(name='Win/Loss Ratio (Overall)', value=f"{awdr}")
             embed.add_field(name='Kill/Death Ratio (Overall)', value=f"{akdr}")
-            if sys.platform("windows"):
+            if sys.platform == "windows":
                 embed.set_footer(
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
                     icon_url=ctx.message.author.avatar_url)
-            elif sys.platform("linux"):
+            elif sys.platform == "linux":
                 embed.set_footer(
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}",
                     icon_url=ctx.message.author.avatar_url)
@@ -208,11 +208,11 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Speed UHC", value=f"{hypixel.getJSON('gameCounts')['games']['SPEED_UHC']['players']}")
             embed.add_field(name="Crazy Walls", value=f"{hypixel.getJSON('gameCounts')['games']['TRUE_COMBAT']['players']}")
             embed.add_field(name="Turbo Kart Racer", value=f"{hypixel.getJSON('gameCounts')['games']['LEGACY']['modes']['GINGERBREAD']}")
-            if sys.platform("windows"):
+            if sys.platform == "windows":
                 embed.set_footer(
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
                     icon_url=ctx.message.author.avatar_url)
-            elif sys.platform("linux"):
+            elif sys.platform == "linux":
                 embed.set_footer(
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}",
                     icon_url=ctx.message.author.avatar_url)
