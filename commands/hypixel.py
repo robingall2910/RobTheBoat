@@ -26,9 +26,7 @@ class Hypixel(commands.Cog):
             player = hypixel.Player(username)
             embed = discord.Embed(description=None)
             flogin = player.JSON['firstLogin']
-            llogin = player.JSON['lastLogin']
             cflogin = datetime.fromtimestamp(flogin/1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')
-            cllogin = datetime.fromtimestamp(llogin/1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')
             if ctx.me.color is not None:
                 embed.color = ctx.me.color
             try:
@@ -43,6 +41,11 @@ class Hypixel(commands.Cog):
                 lmv = player.JSON['mcVersionRp']
             except KeyError:
                 lmv = "They haven't played Minecraft in years, I guess."
+            try:
+                llogin = player.JSON['lastLogin']
+                cllogin = datetime.fromtimestamp(llogin / 1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')
+            except KeyError:
+                cllogin = "They hid their last login. Figure it out yourself."
             plevel = player.getLevel()
             cplevel = '{:,.0f}'.format(plevel)
             embed.title = f"{player.getName()}'s Hypixel Stats"
@@ -55,7 +58,7 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Last Minecraft Version played", value=f"{lmv}")
             embed.add_field(name="Last Tipped User", value=f"{ltu}")
             embed.set_footer(
-                text=f"Requested by: {ctx.message.author} / at {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
+                text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
                 icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
         except hypixel.PlayerNotFoundException:
@@ -102,9 +105,11 @@ class Hypixel(commands.Cog):
             embed.add_field(name='Kill/Death Ratio', value=f"{akdr}")
             embed.add_field(name='Final Kill/Final Death Ratio', value=f"{afkdr}")
             embed.set_footer(
-                text=f"Requested by: {ctx.message.author} / at {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
+                text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
                 icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
+        except hypixel.PlayerNotFoundException:
+            await ctx.send("Player not found! Try another UUID or username.")
         except Exception:
             traceback.print_exc()
 
@@ -143,9 +148,11 @@ class Hypixel(commands.Cog):
             embed.add_field(name='Win/Loss Ratio (Overall)', value=f"{awdr}")
             embed.add_field(name='Kill/Death Ratio (Overall)', value=f"{akdr}")
             embed.set_footer(
-                text=f"Requested by: {ctx.message.author} / at {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
+                text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
                 icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
+        except hypixel.PlayerNotFoundException:
+            await ctx.send("Player not found! Try another UUID or username.")
         except Exception:
             traceback.print_exc()
 
@@ -181,7 +188,7 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Speed UHC", value=f"{hypixel.getJSON('gameCounts')['games']['SPEED_UHC']['players']}")
             embed.add_field(name="Crazy Walls", value=f"{hypixel.getJSON('gameCounts')['games']['TRUE_COMBAT']['players']}")
             embed.add_field(name="Turbo Kart Racer", value=f"{hypixel.getJSON('gameCounts')['games']['LEGACY']['modes']['GINGERBREAD']}")
-            embed.set_footer(text=f"Requested by: {ctx.message.author} / at {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",icon_url=ctx.message.author.avatar_url)
+            embed.set_footer(text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
