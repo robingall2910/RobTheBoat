@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="" />
+    <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,13 +19,14 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="Robinson Gallego &lt;robinson.leal7@gmail.com&gt;" />
         <option value="Seth &lt;13510767+zeroepoch1969@users.noreply.github.com&gt;" />
+        <option value="Robinson Gallego &lt;robinson.leal7@gmail.com&gt;" />
         <option value="ZeroEpoch1969 &lt;13510767+zeroepoch1969@users.noreply.github.com&gt;" />
         <option value="speed &lt;jsinitx4@noreply.users.github.com&gt;" />
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
   <component name="ProjectId" id="1TUmgqh6phhfDyRxvZCQktrNEDH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -104,13 +107,7 @@
       <workItem from="1588798543489" duration="51000" />
       <workItem from="1588798611457" duration="13387000" />
       <workItem from="1588819159017" duration="2677000" />
-    </task>
-    <task id="LOCAL-00103" summary="ok">
-      <created>1585366412571</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1585366412571</updated>
+      <workItem from="1588891562887" duration="583000" />
     </task>
     <task id="LOCAL-00104" summary="c">
       <created>1585368795540</created>
@@ -448,7 +445,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588889496034</updated>
     </task>
-    <option name="localTasksCounter" value="152" />
+    <task id="LOCAL-00152" summary="undo shit">
+      <created>1588892096289</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1588892096290</updated>
+    </task>
+    <option name="localTasksCounter" value="153" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,7 +485,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="this is gonna end up like the gw2 cog but&#10;&#10;&#10;i do not care" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="&gt;consistency" />
     <MESSAGE value="i hate it here" />
     <MESSAGE value="fffffffffffffffffffffffffff" />
@@ -506,28 +510,29 @@
     <MESSAGE value="fuck it" />
     <MESSAGE value="done" />
     <MESSAGE value="wait" />
-    <option name="LAST_COMMIT_MESSAGE" value="wait" />
+    <MESSAGE value="undo shit" />
+    <option name="LAST_COMMIT_MESSAGE" value="undo shit" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#SQL_Dialects" timestamp="1585367802421">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#SQL_Dialects/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585367802421" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1588889494859">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1588892095092">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="466" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588832558841" />
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588889494859" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588892095092" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372590272" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1588885747699">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588885747699" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1588889496964">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1588892135036">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="442" y="186" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1588832562013" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588889496964" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588892135036" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372593286" />
     <state x="570" y="130" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1588887083813">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -538,10 +543,10 @@
     </state>
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588800592798" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582597961430" />
-    <state x="854" y="259" width="758" height="638" key="find.popup" timestamp="1588802958391">
+    <state x="854" y="259" width="758" height="638" key="find.popup" timestamp="1588891595828">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="854" y="259" width="758" height="638" key="find.popup/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588802958391" />
+    <state x="854" y="259" width="758" height="638" key="find.popup/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588891595828" />
     <state x="645" y="242" width="758" height="638" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585368546054" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1588821813560">
       <screen x="0" y="0" width="1920" height="1040" />
