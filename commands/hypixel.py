@@ -231,18 +231,23 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Wins", value=f"{player.JSON['stats']['Duels']['wins']}")
             embed.add_field(name="Losses", value=f"{player.JSON['stats']['Duels']['losses']}")
             embed.add_field(name="Deaths", value=f"{player.JSON['stats']['Duels']['deaths']}")
-            embed.add_field(name="Kills", value=f"{player.JSON['stats']['Duels']['kills']}")
+            try:
+                embed.add_field(name="Kills", value=f"{player.JSON['stats']['Duels']['kills']}")
+            except KeyError:
+                embed.add_field(name="Kills", value="0")
             embed.add_field(name="Cosmetic Title", value=f"{player.JSON['stats']['Duels']['active_cosmetictitle']}")
             embed.add_field(name="Goals Hit", value=f"{player.JSON['stats']['Duels']['goals']} times")
             embed.add_field(name="Bow Shots", value=f"{player.JSON['stats']['Duels']['bow_shots']}")
             embed.add_field(name="Bow Hits", value=f"{player.JSON['stats']['Duels']['bow_hits']}")
             wdr = int(player.JSON['stats']['Duels']['wins'])/int(player.JSON['stats']['Duels']['losses'])
-            kdr = int(player.JSON['stats']['Duels']['kills'])/int(player.JSON['stats']['Duels']['deaths'])
+            try:
+                kdr = int(player.JSON['stats']['Duels']['kills'])/int(player.JSON['stats']['Duels']['deaths'])
+            except KeyError:
+                kdr = int(0/int(player.JSON['stats']['Duels']['deaths']))
             awdr = '{:,.2f}'.format(wdr)
             akdr = '{:,.2f}'.format(kdr)
             embed.add_field(name='Win/Loss Ratio', value=f"{awdr}")
             embed.add_field(name='Kill/Death Ratio', value=f"{akdr}")
-
             if sys.platform == "windows":
                 embed.set_footer(
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
