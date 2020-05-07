@@ -70,7 +70,7 @@ class Hypixel(commands.Cog):
         except hypixel.PlayerNotFoundException:
             await ctx.send("Player not found! Try another UUID or username.")
         except Exception:
-            traceback.print_exc()
+            await ctx.send(traceback.print_exc())
 
     @commands.command(aliases=['bedwars', 'binfo', 'bwinfo'])
     async def hbedwars(self, ctx, username: str):
@@ -124,7 +124,7 @@ class Hypixel(commands.Cog):
         except KeyError:
             await ctx.send("This user has never played Bed Wars before.")
         except Exception:
-            traceback.print_exc()
+            await ctx.send(traceback.print_exc())
 
     @commands.command(aliases=['skywars', 'sinfo', 'swinfo'])
     async def hskywars(self, ctx, username: str):
@@ -174,7 +174,7 @@ class Hypixel(commands.Cog):
         except KeyError:
             await ctx.send("This user has never played Skywars before.")
         except Exception:
-            traceback.print_exc()
+            await ctx.send(traceback.print_exc())
 
     @commands.command(aliases=['playercount'])
     async def hpc(self, ctx):
@@ -217,8 +217,8 @@ class Hypixel(commands.Cog):
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}",
                     icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
-        except Exception as e:
-            await ctx.send(e)
+        except Exception:
+            await ctx.send(traceback.print_exc())
 
     @commands.command(aliases=['duelsinfo', 'dinfo'])
     async def hduels(self, ctx, username: str):
@@ -257,7 +257,7 @@ class Hypixel(commands.Cog):
         except KeyError:
             await ctx.send("This user has never played Duels (of any kind) before.")
         except Exception:
-            traceback.print_exc()
+            await ctx.send(traceback.print_exc())
 
 
 
