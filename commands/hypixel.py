@@ -139,6 +139,41 @@ class Hypixel(commands.Cog):
         except Exception:
             traceback.print_exc()
 
+    @commands.command()
+    async def hpc(self, ctx):
+        try:
+            pc = hypixel.getJSON('playercount')['playerCount']
+            embed = discord.Embed(description=f"Total people online - {pc} players")
+            embed.title = "Hypixel Player Count"
+            if ctx.me.color is not None:
+                embed.color = ctx.me.color
+            embed.add_field(name="Skyblock", value=f"{hypixel.getJSON('gameCount')['games']['SKYBLOCK']['players']}")
+            embed.add_field(name="Bed Wars", value=f"{hypixel.getJSON('gameCount')['games']['BEDWARS']['players']}")
+            embed.add_field(name="AFK", value=f"{hypixel.getJSON('gameCount')['games']['IDLE']['players']}")
+            embed.add_field(name="Skywars", value=f"{hypixel.getJSON('gameCount')['games']['SKYWARS']['players']}")
+            embed.add_field(name="Housing", value=f"{hypixel.getJSON('gameCount')['games']['HOUSING']['players']}")
+            embed.add_field(name="Duels", value=f"{hypixel.getJSON('gameCount')['games']['DUELS']['players']}")
+            embed.add_field(name="Arcade Games", value=f"{hypixel.getJSON('gameCount')['games']['ARCADE']['players']}")
+            embed.add_field(name="Murder Mystery", value=f"{hypixel.getJSON('gameCount')['games']['MURDER_MYSTERY']['players']}")
+            embed.add_field(name="Build Battle", value=f"{hypixel.getJSON('gameCount')['games']['BUILD_BATTLE']['players']}")
+            embed.add_field(name="The Pit", value=f"{hypixel.getJSON('gameCount')['games']['PIT']['players']}")
+            embed.add_field(name="Prototype Games", value=f"{hypixel.getJSON('gameCount')['games']['PROTOTYPE']['players']}")
+            embed.add_field(name="TNT Games", value=f"{hypixel.getJSON('gameCount')['games']['TNTGAMES']['players']}")
+            embed.add_field(name="UHC", value=f"{hypixel.getJSON('gameCount')['games']['UHC']['players']}")
+            embed.add_field(name="Classic Games", value=f"{hypixel.getJSON('gameCount')['games']['LEGACY']['players']}")
+            embed.add_field(name="Mega Walls", value=f"{hypixel.getJSON('gameCount')['games']['WALLS3']['players']}")
+            embed.add_field(name="Main Lobby", value=f"{hypixel.getJSON('gameCount')['games']['MAIN_LOBBY']['players']}")
+            embed.add_field(name="Survival Games", value=f"{hypixel.getJSON('gameCount')['games']['SURVIVAL_GAMES']['players']}")
+            embed.add_field(name="Stuck in Limbo", value=f"{hypixel.getJSON('gameCount')['games']['LIMBO']['players']}")
+            embed.add_field(name="Cops and Crims", value=f"{hypixel.getJSON('gameCount')['games']['MCGO']['players']}")
+            embed.add_field(name="Battleground", value=f"{hypixel.getJSON('gameCount')['games']['BATTLEGROUND']['players']}")
+            embed.add_field(name="Super Smash™", value=f"{hypixel.getJSON('gameCount')['games']['SUPER_SMASH']['players']}")
+            embed.add_field(name="Speed UHC", value=f"{hypixel.getJSON('gameCount')['games']['SPEED_UHC']['players']}")
+            embed.add_field(name="Crazy Walls", value=f"{hypixel.getJSON('gameCount')['games']['TRUE_COMBAT']['players']}")
+            embed.add_field(name="Murder Mystery", value=f"{hypixel.getJSON('gameCount')['games']['MURDER_MYSTERY']['players']}")
+        except Exception as e:
+            await ctx.send(e)
+
     #TODO: Check skywars command
     #TODO: Duels/Bridge command
 
