@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/commands/hypixel.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/hypixel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/opus_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/opus_loader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +36,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -103,14 +106,7 @@
       <workItem from="1587949743363" duration="5000" />
       <workItem from="1587950984729" duration="2000" />
       <workItem from="1588798543489" duration="51000" />
-      <workItem from="1588798611457" duration="2981000" />
-    </task>
-    <task id="LOCAL-00080" summary="shut">
-      <created>1579929735553</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1579929735553</updated>
+      <workItem from="1588798611457" duration="11875000" />
     </task>
     <task id="LOCAL-00081" summary="i never added this to git??? uhm chile anyways SO">
       <created>1579931507536</created>
@@ -448,7 +444,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588801100460</updated>
     </task>
-    <option name="localTasksCounter" value="129" />
+    <task id="LOCAL-00129" summary="fffffffffffffffffffffffffff">
+      <created>1588801624835</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1588801624835</updated>
+    </task>
+    <option name="localTasksCounter" value="130" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,7 +484,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add kurt and patrick" />
     <MESSAGE value="and ryan" />
     <MESSAGE value="ah." />
     <MESSAGE value="Revert &quot;:)&quot;&#10;&#10;This reverts commit f4ec744b" />
@@ -506,35 +508,37 @@
     <MESSAGE value="&gt;consistency" />
     <MESSAGE value="E" />
     <MESSAGE value="i hate it here" />
-    <option name="LAST_COMMIT_MESSAGE" value="i hate it here" />
+    <MESSAGE value="fffffffffffffffffffffffffff" />
+    <option name="LAST_COMMIT_MESSAGE" value="fffffffffffffffffffffffffff" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#SQL_Dialects" timestamp="1585367802421">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#SQL_Dialects/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585367802421" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1588801099281">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1588801623691">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588801099281" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588801623691" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372590272" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1588798656524">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588798656524" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1588801101331">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1588801626442">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588801101331" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588801626442" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372593286" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588800592798">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588800592798" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582597961430" />
-    <state x="645" y="242" width="758" height="638" key="find.popup" timestamp="1585368546054">
+    <state x="854" y="259" width="758" height="638" key="find.popup" timestamp="1588802958391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="854" y="259" width="758" height="638" key="find.popup/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588802958391" />
     <state x="645" y="242" width="758" height="638" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585368546054" />
   </component>
 </project>
