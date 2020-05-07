@@ -207,6 +207,16 @@ class Fuckery(commands.Cog):
         tf2 = random.choice(chaotix)
         await ctx.send(tf2)
 
+    @commands.command()
+    async def randomimage(self, ctx):
+        """Gives you a randomized link from prnt.sc, you've been warned"""
+        num = random.randint(1000,9999)
+        let = random.choice(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+                            's', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
+        let2 = random.choice(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+                            's', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
+        await ctx.send(f"https://prnt.sc/{let}{let2}{num}")
+
     @commands.command(aliases=[':regional_indicator_NWORD:'])
     async def n(self, ctx):
         await ctx.send("<:whatgorilla:553035221474476053> NO N WORD.....")

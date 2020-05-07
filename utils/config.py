@@ -27,6 +27,7 @@ class Defaults:
     googleKey = None
     lastfmapiKey = None
     lastfmSecret = None
+    hypixelKey = None
 
 class Config:
     def __init__(self, herokudeploy=False):  # change if you're running on a pc or vps
@@ -57,7 +58,7 @@ class Config:
 
         if herokudeploy is True:
             sections = {"Credentials", "Bot", "Status", "Logging", "Osu", "Guild Wars 2", "Google",
-                        "Last.fm"}.difference(config.sections())
+                        "Last.fm", "Hypixel"}.difference(config.sections())
             if sections:
                 log.critical(
                     "Could not load a section in the config file, please obtain a new config file from the github repo if regenerating the config doesn't work!")
@@ -86,7 +87,8 @@ class Config:
             self._gw2Key = str(os.environ.get('GW2_KEY'))
             self._googleKey = str(os.environ.get('GOOGLE_KEY'))
             self._lastfmapiKey = str(os.environ.get('LASTFM_API'))
-            self._lastfmSecret =str(os.environ.get('LASTFM_SECRET'))
+            self._lastfmSecret = str(os.environ.get('LASTFM_SECRET'))
+            self._hypixelKey = str(os.environ.get('HYPIXEL_KEY'))
         else:
             sections = {"Credentials", "Bot", "Status", "Logging", "Osu", "Guild Wars 2", "Google", "Last.fm"}.difference(config.sections())
             if sections:
@@ -114,6 +116,7 @@ class Config:
             self._googleKey = config.get("Google", "key", fallback=Defaults.googleKey)
             self._lastfmapiKey = config.get("Last.fm", "api", fallback=Defaults.lastfmapiKey)
             self._lastfmSecret = config.get("Last.fm", "secret", fallback=Defaults.lastfmSecret)
+            self._hypixelKey = config.get("Hypixel", "key", fallback=Defaults.hypixelKey)
 
         self.check()
 
@@ -164,6 +167,9 @@ class Config:
 
         if not self._lastfmapiKey:
             log.critical("The last.fm cog will not work without the api key at least set.")
+
+        if not self._hypixelKey:
+            log.warning("Hypixel cog will not work without a key, disabling")
 
     @property
     def osuKey(self):

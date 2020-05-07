@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/markov.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/markov.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/hypixel.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/hypixel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,10 +32,10 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -48,24 +48,12 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="H:\Desktop\robleboat\robin2\commands" />
     </key>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -112,98 +100,13 @@
       <workItem from="1585120080614" duration="217000" />
       <workItem from="1585365201481" duration="426000" />
       <workItem from="1585366612378" duration="253000" />
-      <workItem from="1585367495551" duration="5086000" />
-    </task>
-    <task id="LOCAL-00071" summary="ok how about now">
-      <created>1579912849571</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1579912849571</updated>
-    </task>
-    <task id="LOCAL-00072" summary="o fuk">
-      <created>1579912871497</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1579912871497</updated>
-    </task>
-    <task id="LOCAL-00073" summary="ok here we go again">
-      <created>1579913571229</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1579913571229</updated>
-    </task>
-    <task id="LOCAL-00074" summary="ok here we go again">
-      <created>1579914078142</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1579914078142</updated>
-    </task>
-    <task id="LOCAL-00075" summary="ok heroku">
-      <created>1579914551910</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1579914551910</updated>
-    </task>
-    <task id="LOCAL-00076" summary="looks like i didn't even need that">
-      <created>1579914968737</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1579914968737</updated>
-    </task>
-    <task id="LOCAL-00077" summary="remove the rest of that crap">
-      <created>1579915342471</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1579915342471</updated>
-    </task>
-    <task id="LOCAL-00078" summary="oops">
-      <created>1579927583864</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1579927583864</updated>
-    </task>
-    <task id="LOCAL-00079" summary="ur mom">
-      <created>1579927966013</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1579927966013</updated>
-    </task>
-    <task id="LOCAL-00080" summary="shut">
-      <created>1579929735553</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1579929735553</updated>
-    </task>
-    <task id="LOCAL-00081" summary="i never added this to git??? uhm chile anyways SO">
-      <created>1579931507536</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1579931507536</updated>
-    </task>
-    <task id="LOCAL-00082" summary="oh?">
-      <created>1579932276945</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1579932276945</updated>
-    </task>
-    <task id="LOCAL-00083" summary="you didn't vote, COWARD">
-      <created>1582597813369</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1582597813369</updated>
+      <workItem from="1585367495551" duration="5100000" />
+      <workItem from="1587946545634" duration="1605000" />
+      <workItem from="1587949743363" duration="5000" />
+      <workItem from="1587950984729" duration="2000" />
+      <workItem from="1588798543489" duration="51000" />
+      <workItem from="1588798611457" duration="13387000" />
+      <workItem from="1588819159017" duration="2677000" />
     </task>
     <task id="LOCAL-00084" summary="adjust these">
       <created>1582597970441</created>
@@ -457,20 +360,109 @@
       <option name="project" value="LOCAL" />
       <updated>1585372354568</updated>
     </task>
-    <option name="localTasksCounter" value="120" />
+    <task id="LOCAL-00120" summary="k">
+      <created>1585372591798</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1585372591798</updated>
+    </task>
+    <task id="LOCAL-00121" summary="split the entries on write">
+      <created>1588798786185</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1588798786186</updated>
+    </task>
+    <task id="LOCAL-00122" summary="hypixel cog time :)">
+      <created>1588798949245</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1588798949245</updated>
+    </task>
+    <task id="LOCAL-00123" summary="this is gonna end up like the gw2 cog but&#10;&#10;&#10;i do not care">
+      <created>1588799447567</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1588799447567</updated>
+    </task>
+    <task id="LOCAL-00124" summary="&gt;consistency">
+      <created>1588800114154</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1588800114154</updated>
+    </task>
+    <task id="LOCAL-00125" summary="E">
+      <created>1588800330360</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1588800330360</updated>
+    </task>
+    <task id="LOCAL-00126" summary="i hate it here">
+      <created>1588800601053</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1588800601053</updated>
+    </task>
+    <task id="LOCAL-00127" summary="i hate it here">
+      <created>1588800935418</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1588800935418</updated>
+    </task>
+    <task id="LOCAL-00128" summary="i hate it here">
+      <created>1588801100460</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1588801100460</updated>
+    </task>
+    <task id="LOCAL-00129" summary="fffffffffffffffffffffffffff">
+      <created>1588801624835</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1588801624835</updated>
+    </task>
+    <task id="LOCAL-00130" summary="yes it's even further now">
+      <created>1588811332523</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1588811332523</updated>
+    </task>
+    <task id="LOCAL-00131" summary="memeage">
+      <created>1588811571230</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1588811571230</updated>
+    </task>
+    <task id="LOCAL-00132" summary="skywars">
+      <created>1588822031918</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1588822031919</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -489,18 +481,9 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="h" />
-    <MESSAGE value="ok get kae" />
-    <MESSAGE value="whoops" />
-    <MESSAGE value="g" />
-    <MESSAGE value="one more thing" />
-    <MESSAGE value="oops lol" />
-    <MESSAGE value="add kurt and patrick" />
-    <MESSAGE value="and ryan" />
-    <MESSAGE value="ah." />
-    <MESSAGE value="Revert &quot;:)&quot;&#10;&#10;This reverts commit f4ec744b" />
     <MESSAGE value="c" />
     <MESSAGE value="ok" />
     <MESSAGE value="ok one more" />
@@ -514,49 +497,52 @@
     <MESSAGE value="a$$" />
     <MESSAGE value="yeah" />
     <MESSAGE value="e" />
-    <MESSAGE value="E" />
     <MESSAGE value="i will get this through" />
-    <option name="LAST_COMMIT_MESSAGE" value="i will get this through" />
+    <MESSAGE value="k" />
+    <MESSAGE value="split the entries on write" />
+    <MESSAGE value="hypixel cog time :)" />
+    <MESSAGE value="this is gonna end up like the gw2 cog but&#10;&#10;&#10;i do not care" />
+    <MESSAGE value="&gt;consistency" />
+    <MESSAGE value="E" />
+    <MESSAGE value="i hate it here" />
+    <MESSAGE value="fffffffffffffffffffffffffff" />
+    <MESSAGE value="yes it's even further now" />
+    <MESSAGE value="memeage" />
+    <MESSAGE value="skywars" />
+    <option name="LAST_COMMIT_MESSAGE" value="skywars" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#SQL_Dialects" timestamp="1585367802421">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#SQL_Dialects/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585367802421" />
-    <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578612689738">
+    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1588822030567">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="828" y="218" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578612689738" />
-    <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1579911089402">
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588822030567" />
+    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372590272" />
+    <state x="461" y="164" key="SettingsEditor" timestamp="1588798656524">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="883" y="330" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579911089402" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1585372353097">
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588798656524" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1588811577008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372353097" />
-    <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932275527" />
-    <state x="607" y="313" key="FileChooserDialogImpl" timestamp="1579932087310">
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588811577008" />
+    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372593286" />
+    <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588800592798">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="607" y="313" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1579932087310" />
-    <state x="461" y="161" key="SettingsEditor" timestamp="1579932093326">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579932093326" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1585372356177">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372356177" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1579932278075" />
-    <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582597961430">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
+    <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588800592798" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1582597961430" />
-    <state x="645" y="242" width="758" height="638" key="find.popup" timestamp="1585368546054">
+    <state x="854" y="259" width="758" height="638" key="find.popup" timestamp="1588802958391">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="854" y="259" width="758" height="638" key="find.popup/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588802958391" />
     <state x="645" y="242" width="758" height="638" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585368546054" />
-    <state x="646" y="241" width="758" height="638" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579915325813" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1588821813560">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588821813560" />
   </component>
 </project>

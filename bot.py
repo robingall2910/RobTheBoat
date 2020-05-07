@@ -55,7 +55,8 @@ extensions = [
     "commands.terminal",
     "commands.totalfreedom",
     "commands.markov",
-    "commands.chatlog"
+    "commands.chatlog",
+    "commands.hypixel"
 ]
 
 # Thy changelog

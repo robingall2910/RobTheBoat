@@ -60,7 +60,6 @@ class MarkovChain(commands.Cog):
         """League of Legends sucks dick, kurt"""
         if message.author.bot:
             return
-
         delword(message)
         await message.channel.send("Deleted.")
 
