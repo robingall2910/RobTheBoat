@@ -171,6 +171,7 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Speed UHC", value=f"{hypixel.getJSON('gameCounts')['games']['SPEED_UHC']['players']}")
             embed.add_field(name="Crazy Walls", value=f"{hypixel.getJSON('gameCounts')['games']['TRUE_COMBAT']['players']}")
             embed.add_field(name="Turbo Kart Racer", value=f"{hypixel.getJSON('gameCounts')['games']['LEGACY']['modes']['GINGERBREAD']}")
+            embed.set_footer(text=f"Requested by: {ctx.message.author} / at {datetime.fromtimestamp(datetime.now()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
