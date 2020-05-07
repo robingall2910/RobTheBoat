@@ -171,6 +171,7 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Speed UHC", value=f"{hypixel.getJSON('gameCounts')['games']['SPEED_UHC']['players']}")
             embed.add_field(name="Crazy Walls", value=f"{hypixel.getJSON('gameCounts')['games']['TRUE_COMBAT']['players']}")
             embed.add_field(name="Turbo Kart Racer", value=f"{hypixel.getJSON('gameCounts')['games']['LEGACY']['modes']['GINGERBREAD']}")
+            await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
 
