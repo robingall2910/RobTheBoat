@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1d10152a-63ca-458b-9614-4e58fce648f0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/hypixel.py" beforeDir="false" afterPath="$PROJECT_DIR$/commands/hypixel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,13 +106,6 @@
       <workItem from="1588798543489" duration="51000" />
       <workItem from="1588798611457" duration="13387000" />
       <workItem from="1588819159017" duration="2677000" />
-    </task>
-    <task id="LOCAL-00084" summary="adjust these">
-      <created>1582597970441</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1582597970441</updated>
     </task>
     <task id="LOCAL-00085" summary="o rite">
       <created>1582598053329</created>
@@ -451,7 +443,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588822031919</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="quits = games played&#10;&#10;useless stat">
+      <created>1588832560501</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1588832560501</updated>
+    </task>
+    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -484,7 +483,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="c" />
     <MESSAGE value="ok" />
     <MESSAGE value="ok one more" />
     <MESSAGE value="gay" />
@@ -509,25 +507,28 @@
     <MESSAGE value="yes it's even further now" />
     <MESSAGE value="memeage" />
     <MESSAGE value="skywars" />
-    <option name="LAST_COMMIT_MESSAGE" value="skywars" />
+    <MESSAGE value="quits = games played&#10;&#10;useless stat" />
+    <option name="LAST_COMMIT_MESSAGE" value="quits = games played&#10;&#10;useless stat" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#SQL_Dialects" timestamp="1585367802421">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#SQL_Dialects/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585367802421" />
-    <state x="583" y="0" key="CommitChangelistDialog2" timestamp="1588822030567">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="466" y="0" key="CommitChangelistDialog2" timestamp="1588832558841">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="466" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1588832558841" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588822030567" />
     <state x="583" y="0" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372590272" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1588798656524">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588798656524" />
-    <state x="552" y="235" key="Vcs.Push.Dialog.v2" timestamp="1588811577008">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="442" y="186" key="Vcs.Push.Dialog.v2" timestamp="1588832562013">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="442" y="186" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1588832562013" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1218.1024@0.0.1920.1040" timestamp="1588811577008" />
     <state x="552" y="235" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1585372593286" />
     <state x="767" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588800592798">
