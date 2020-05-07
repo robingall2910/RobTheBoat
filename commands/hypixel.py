@@ -249,6 +249,10 @@ class Hypixel(commands.Cog):
                 kdr = int(0/int(player.JSON['stats']['Duels']['deaths']))
             awdr = '{:,.2f}'.format(wdr)
             akdr = '{:,.2f}'.format(kdr)
+            if akdr is "0.00":
+                akdr = "0"
+            else:
+                pass
             embed.add_field(name='Win/Loss Ratio', value=f"{awdr}")
             embed.add_field(name='Kill/Death Ratio', value=f"{akdr}")
             if sys.platform == "windows":
@@ -262,8 +266,8 @@ class Hypixel(commands.Cog):
             await ctx.send(embed=embed)
         except hypixel.PlayerNotFoundException:
             await ctx.send("Player not found! Try another UUID or username.")
-        #except KeyError:
-        #    await ctx.send("This user has never played Duels (of any kind) before.")
+        except KeyError:
+            await ctx.send("This user has never played Duels (of any kind) before.")
         except Exception:
             await ctx.send(traceback.print_exc())
 
