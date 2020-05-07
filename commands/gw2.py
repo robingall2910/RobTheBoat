@@ -35,7 +35,7 @@ class GuildWars2(commands.Cog):
             ctx.send(e)
         if "no such guild" in h:
             h = "nothin"
-        em = discord.Embed(description="\n")
+        em = discord.Embed()
         if h == "nothin":
             em.color = 0x0098eb
             em.add_field(name='Info', value='No such guild has been found! Type it in exactly as is.')
