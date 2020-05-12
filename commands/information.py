@@ -65,7 +65,7 @@ class Information(commands.Cog):
             self_deaf = user.voice.self_deaf
             server_mute = user.voice.mute
             server_deaf = user.voice.deaf
-        fields = {"ID":user.id, "Bot Account":user.bot, "Created on":format_time(user.created_at), "Game":game, "Status":user.status, "Role Count":len(user.roles), "Joined on":format_time(user.joined_at), "Nickname":user.nick, "Voice Channel":voice_channel, "Self Muted":self_mute, "Self Deafened":self_deaf, "Server Muted":server_mute, "Server Deafened":server_deaf}
+        fields = {"ID":user.id, "Bot Account":user.bot, "Created on":format_time(user.created_at), "Status":user.status, "Role Count":len(user.roles), "Joined on":format_time(user.joined_at), "Nickname":user.nick, "Voice Channel":voice_channel, "Self Muted":self_mute, "Self Deafened":self_deaf, "Server Muted":server_mute, "Server Deafened":server_deaf}
         embed = make_list_embed(fields)
         embed.set_footer(text="Requested by {}".format(ctx.author), icon_url=ctx.author.avatar_url)
         embed.title = str(user)
