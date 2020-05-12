@@ -86,7 +86,7 @@ class Information(commands.Cog):
             return
         color = role.color
         if color == discord.Color(value=0x000000):
-            color = "None"
+            color = None
         count = len([member for member in ctx.guild.members if discord.utils.get(member.roles, name=role.name)])
         perms = role.permissions
         fields = {
