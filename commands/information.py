@@ -73,7 +73,6 @@ class Information(commands.Cog):
             embed.title = str(user)
             embed.color = user.color
             embed.set_thumbnail(url=get_avatar(user))
-            embed.footer = ctx.author
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(traceback.format_exc())
