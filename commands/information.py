@@ -2,6 +2,7 @@ import os
 import socket
 import datetime
 import time
+import traceback
 
 from discord.ext import commands
 from utils.tools import *
@@ -75,7 +76,7 @@ class Information(commands.Cog):
             embed.footer = ctx.author
             await ctx.send(embed=embed)
         except Exception as e:
-            await ctx.send(e)
+            await ctx.send(traceback.format_exc())
 
     @commands.command()
     async def roleinfo(self, ctx, *, name:str):
