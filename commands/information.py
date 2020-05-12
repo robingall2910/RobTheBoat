@@ -49,30 +49,33 @@ class Information(commands.Cog):
     @commands.command()
     async def userinfo(self, ctx, *, user:discord.Member=None):
         """Gets your information or the information of the specified user"""
-        if user is None:
-            user = ctx.author
-        game = None
-        if user.activity:
-            game = user.activity.name
-        voice_channel = None
-        self_mute = False
-        self_deaf = False
-        server_mute = False
-        server_deaf = False
-        if user.voice:
-            voice_channel = user.voice.channel
-            self_mute = user.voice.self_mute
-            self_deaf = user.voice.self_deaf
-            server_mute = user.voice.mute
-            server_deaf = user.voice.deaf
-        fields = {"ID":user.id, "Bot Account":user.bot, "Created on":format_time(user.created_at), "Status":user.status, "Role Count":len(user.roles), "Joined on":format_time(user.joined_at), "Nickname":user.nick, "Voice Channel":voice_channel, "Self Muted":self_mute, "Self Deafened":self_deaf, "Server Muted":server_mute, "Server Deafened":server_deaf}
-        embed = make_list_embed(fields)
-        embed.set_footer(text="Requested by {}".format(ctx.author), icon_url=ctx.author.avatar_url)
-        embed.title = str(user)
-        embed.color = user.color
-        embed.set_thumbnail(url=get_avatar(user))
-        embed.footer = ctx.author
-        await ctx.send(embed=embed)
+        try:
+            if user is None:
+                user = ctx.author
+            game = None
+            if user.activity:
+                game = user.activity.name
+            voice_channel = None
+            self_mute = False
+            self_deaf = False
+            server_mute = False
+            server_deaf = False
+            if user.voice:
+                voice_channel = user.voice.channel
+                self_mute = user.voice.self_mute
+                self_deaf = user.voice.self_deaf
+                server_mute = user.voice.mute
+                server_deaf = user.voice.deaf
+            fields = {"ID":user.id, "Bot Account":user.bot, "Created on":format_time(user.created_at), "Status":user.status, "Role Count":len(user.roles), "Joined on":format_time(user.joined_at), "Nickname":user.nick, "Voice Channel":voice_channel, "Self Muted":self_mute, "Self Deafened":self_deaf, "Server Muted":server_mute, "Server Deafened":server_deaf}
+            embed = make_list_embed(fields)
+            embed.set_footer(text="Requested by {}".format(ctx.author), icon_url=ctx.author.avatar_url)
+            embed.title = str(user)
+            embed.color = user.color
+            embed.set_thumbnail(url=get_avatar(user))
+            embed.footer = ctx.author
+            await ctx.send(embed=embed)
+        except Exception as e:
+            await ctx.send(e)
 
     @commands.command()
     async def roleinfo(self, ctx, *, name:str):
