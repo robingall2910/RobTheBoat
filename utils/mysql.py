@@ -27,6 +27,9 @@ def read_data_entry(id, type):
         if type == "mod-role":
             insert_data_entry(id, type, "Dragon Commander")
             val = "Dragon Commander"
+        if type == "admin-role":
+            insert_data_entry(id, type, "Dragon Commander")
+            val = "Dragon Commander"
         elif type == "nsfw-channel":
             insert_data_entry(id, type, "nsfw")
             val = "nsfw"
@@ -66,10 +69,6 @@ def unblacklistuser(id):
 
 def getblacklistentry(id):
     cur.execute("""SELECT id FROM blacklist WHERE id=""" + str(id))
-    id = None
-    name = None
-    discrim = None
-    reason = None
     try:
         id = cur.fetchone()[0]
     except:
