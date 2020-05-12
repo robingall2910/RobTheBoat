@@ -74,62 +74,63 @@ class Information(commands.Cog):
             embed.color = user.color
             embed.set_thumbnail(url=get_avatar(user))
             await ctx.send(embed=embed)
-        except Exception as e:
+        except Exception:
             await ctx.send(traceback.format_exc())
 
     @commands.command()
     async def roleinfo(self, ctx, *, name:str):
         """Gets information on a role, warning, it might take up the entire screen"""
-        role = discord.utils.get(ctx.guild.roles, name=name)
-        if role is None:
-            await ctx.send("`{}` isn't real. Or is it?".format(name))
-            return
-        color = role.color
-        if color == discord.Color(value=0x000000):
-            color = None
-        count = len([member for member in ctx.guild.members if discord.utils.get(member.roles, name=role.name)])
-        perms = role.permissions
-        fields = {
-            "Position":role.position,
-            "User count":count,
-            "Mentionable":role.mentionable,
-            "Display seperately":role.hoist,"Add reactions":perms.add_reactions,
-            "Administrator":perms.administrator,
-            "Attach files":perms.attach_files,
-            "Ban members":perms.ban_members,
-            "Change nickname":perms.change_nickname,
-            "Connect":perms.connect,
-            "Create instant invites":perms.create_instant_invite,
-            "Deafen members":perms.deafen_members,
-            "Embed links":perms.embed_links,
-            "External emojis":perms.external_emojis,
-            "Kick members":perms.kick_members,
-            "Manage channels":perms.manage_channels,
-            "Manage emojis":perms.manage_emojis,
-            "Manage guild":perms.manage_guild,
-            "Manage messages":perms.manage_messages,
-            "Manage nicknames":perms.manage_nicknames,
-            "Manage roles":perms.manage_roles,
-            "Manage webhooks":perms.manage_webhooks,
-            "Mention everyone":perms.mention_everyone,
-            "Move members":perms.move_members,
-            "Mute members":perms.mute_members,
-            "Read message history":perms.read_message_history,
-            "Read messages":perms.read_messages,
-            "Send messages":perms.send_messages,
-            "Send TTS messages":perms.send_tts_messages,
-            "Speak":perms.speak,
-            "Use voice activation":perms.use_voice_activation,
-            "View audit logs":perms.view_audit_log
-        }
-        embed = make_list_embed(fields)
-        embed.set_footer(text="Requested by {}".format(ctx.author), icon_url=ctx.author.avatar_url)
-        embed.title = "{} - {}".format(role.name, role.id)
-        if color is None:
-            embed.color = None
-        else:
-            embed.color = color
-        await ctx.send(embed=embed)
+        try:
+            role = discord.utils.get(ctx.guild.roles, name=name)
+            if role is None:
+                await ctx.send("`{}` isn't real. Or is it?".format(name))
+                return
+            color = role.color
+            count = len([member for member in ctx.guild.members if discord.utils.get(member.roles, name=role.name)])
+            perms = role.permissions
+            fields = {
+                "Position":role.position,
+                "User count":count,
+                "Mentionable":role.mentionable,
+                "Display seperately":role.hoist,"Add reactions":perms.add_reactions,
+                "Administrator":perms.administrator,
+                "Attach files":perms.attach_files,
+                "Ban members":perms.ban_members,
+                "Change nickname":perms.change_nickname,
+                "Connect":perms.connect,
+                "Create instant invites":perms.create_instant_invite,
+                "Deafen members":perms.deafen_members,
+                "Embed links":perms.embed_links,
+                "External emojis":perms.external_emojis,
+                "Kick members":perms.kick_members,
+                "Manage channels":perms.manage_channels,
+                "Manage emojis":perms.manage_emojis,
+                "Manage guild":perms.manage_guild,
+                "Manage messages":perms.manage_messages,
+                "Manage nicknames":perms.manage_nicknames,
+                "Manage roles":perms.manage_roles,
+                "Manage webhooks":perms.manage_webhooks,
+                "Mention everyone":perms.mention_everyone,
+                "Move members":perms.move_members,
+                "Mute members":perms.mute_members,
+                "Read message history":perms.read_message_history,
+                "Read messages":perms.read_messages,
+                "Send messages":perms.send_messages,
+                "Send TTS messages":perms.send_tts_messages,
+                "Speak":perms.speak,
+                "Use voice activation":perms.use_voice_activation,
+                "View audit logs":perms.view_audit_log
+            }
+            embed = make_list_embed(fields)
+            embed.set_footer(text="Requested by {}".format(ctx.author), icon_url=ctx.author.avatar_url)
+            embed.title = "{} - {}".format(role.name, role.id)
+            if color is None:
+                embed.color = None
+            else:
+                embed.color = color
+            await ctx.send(embed=embed)
+        except Exception:
+            await ctx.send(traceback.format_exc())
 
     @commands.command()
     async def avatar(self, ctx, *, user:discord.User=None):
