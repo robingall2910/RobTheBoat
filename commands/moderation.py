@@ -201,7 +201,7 @@ class Moderation(commands.Cog):
 
 #i got REALLY fucking tired of editing every single Manage Role perm here
 
-    @checks.server_mod_or_perms(manage_roles=True)
+    @checks.server_admin_or_perms(manage_roles=True)
     @commands.command()
     async def addrole(self, ctx, user:discord.Member, *, name:str):
         """Adds the specified role to the specified user"""
@@ -220,7 +220,7 @@ class Moderation(commands.Cog):
             else:
                 await ctx.send("I do not have the `Manage Roles` permission")
 
-    @checks.server_mod_or_perms(manage_roles=True)
+    @checks.server_admin_or_perms(manage_roles=True)
     @commands.command()
     async def removerole(self, ctx, user:discord.Member, *, name:str):
         """Removes the specified role from the specified user"""
@@ -239,7 +239,7 @@ class Moderation(commands.Cog):
             else:
                 await ctx.send("I do not have the `Manage Roles` permission")
 
-    @checks.server_mod_or_perms(manage_roles=True)
+    @checks.server_admin_or_perms(manage_roles=True)
     @commands.command()
     async def createrole(self, ctx, *, name:str):
         """Creates a role with the specified name"""
@@ -249,7 +249,7 @@ class Moderation(commands.Cog):
         except discord.errors.Forbidden:
             await ctx.send("I do not have the `Manage Roles` permission")
 
-    @checks.server_mod_or_perms(manage_roles=True)
+    @checks.server_admin_or_perms(manage_roles=True)
     @commands.command()
     async def deleterole(self, ctx, *, name:str):
         """Deletes the role with the specified name"""
@@ -268,7 +268,7 @@ class Moderation(commands.Cog):
             else:
                 await ctx.send("I do not have the `Manage Roles` permission")
 
-    @checks.server_mod_or_perms(manage_roles=True)
+    @checks.server_admin_or_perms(manage_roles=True)
     @commands.command()
     async def editrole(self, ctx, type:str, value:str, *, name:str):
         """Edits a role with the specified name"""
@@ -356,7 +356,7 @@ class Moderation(commands.Cog):
         else:
             await ctx.send("Invalid type specified, valid types are `color`, `permissions`, `position`, `separate`, and `mentionable`")
 
-    @checks.server_mod_or_perms(manage_roles=True)
+    @checks.server_admin_or_perms(manage_roles=True)
     @commands.command()
     async def renamerole(self, ctx, name:str, newname:str):
         """Renames a role with the specified name, be sure to put double quotes (\") around the name and the new name"""

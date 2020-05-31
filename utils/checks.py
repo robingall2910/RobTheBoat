@@ -75,6 +75,16 @@ def server_mod_or_perms(**permissions):
             raise no_permission
     return commands.check(predicate)
 
+def server_admin_or_perms(**permissions):
+    def predicate(ctx):
+        admin_role_name = read_data_entry(ctx.guild.id, "admin-role")
+        admin = discord.utils.get(ctx.author.roles, name=admin_role_name)
+        if admin or permissions and all(getattr(ctx.channel.permissions_for(ctx.author), name, None) == value for name, value in permissions.items()):
+            return True
+        else:
+            raise no_permission
+    return commands.check(predicate)
+
 def has_permissions(**permissions):
     def predicate(ctx):
         if all(getattr(ctx.channel.permissions_for(ctx.author), name, None) == value for name, value in permissions.items()):

@@ -16,7 +16,7 @@ class Configuration(commands.Cog):
             await ctx.send("Only the server owner aka {} can use this command.".format(format_user(ctx.guild.server.owner)))
             return
         await ctx.channel.trigger_typing()
-        if type in ("mod-role", "nsfw-channel", "mute-role"):
+        if type in ("mod-role", "admin-role", "nsfw-channel", "mute-role"):
             if type == "nsfw-channel":
                 value = value.lower().strip(" ")
             update_data_entry(ctx.guild.id, type, value)
@@ -31,7 +31,7 @@ class Configuration(commands.Cog):
             await ctx.send("Back off. Only my masters can use this.")
             return
         await ctx.channel.trigger_typing()
-        if type in ("mod-role", "nsfw-channel", "mute-role"):
+        if type in ("mod-role", "admin-role", "nsfw-channel", "mute-role"):
             if type == "nsfw-channel":
                 value = value.lower().strip(" ")
             update_data_entry(ctx.guild.id, type, value)
@@ -44,12 +44,14 @@ class Configuration(commands.Cog):
         """Shows the server's configuration"""
         await ctx.channel.trigger_typing()
         mod_role_name = read_data_entry(ctx.guild.id, "mod-role")
+        admin_role_name = read_data_entry(ctx.guild.id, "admin-role")
         nsfw_channel_name = read_data_entry(ctx.guild.id, "nsfw-channel")
         mute_role_name = read_data_entry(ctx.guild.id, "mute-role")
         em = discord.Embed(description="\u200b")
         em.color = ctx.guild.me.color
         em.title = "Server Configuration for " + ctx.guild.name
         em.add_field(name='Mod Role Name', value=mod_role_name)
+        em.add_field(name='Admin Role Name', value=admin_role_name)
         em.add_field(name='NSFW Channel Name', value=nsfw_channel_name)
         em.add_field(name='Mute Role Name', value=mute_role_name)
         await ctx.send(embed=em)
