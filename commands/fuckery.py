@@ -30,7 +30,10 @@ class Fuckery(commands.Cog):
             pass
         if ctx.author is not ctx.author.bot:
             triggers = ['.', "r.", "hey dragon, ", "hey derg, ", "hey batzz, "]
-            await ctx.send(ctx.message.clean_content.replace((triggers.pop("say")), ""))
+            msg = ctx.message.clean_content
+            for trigger in triggers:
+                msg = msg.replace(trigger + "say", "")
+            await ctx.send(msg)
         else:
             return
 
