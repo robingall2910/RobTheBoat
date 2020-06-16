@@ -36,7 +36,7 @@ if config.debug:
 
 bot_triggers = [config.command_prefix, "r.", "hey dragon, ", "hey derg, ", "hey batzz, "]
 
-bot = commands.AutoShardedBot(command_prefix=bot_triggers, help_command=None, description="A bot with several purposes, like music, memes, weather, but based off of the furry fandom.", dm_help=True)
+bot = commands.AutoShardedBot(command_prefix=bot_triggers, help_command=None, description="A bot with several purposes, like music, memes, weather, but based off of the furry fandom.")
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
@@ -202,7 +202,7 @@ async def on_command_preprocess(ctx):
 async def on_message(message):
     ids = [149688910220361728, 112747894435491840, 188153050471333888]
     serverids = [400012212791541760, 510897834581557251, 142361999538520065, 502979046993559553]
-    tfserver = 142361999538520065
+    tfserver = [142361999538520065, 610422741065138179]
     #bypassids = [169597963507728384, 117678528220233731, 365274392680333329, 372078453236957185]
     if isinstance(message.author, discord.Member):
         if discord.utils.get(message.author.roles, name="Dragon Ignorance"):
