@@ -203,6 +203,7 @@ async def on_message(message):
     ids = [149688910220361728, 112747894435491840, 188153050471333888]
     serverids = [400012212791541760, 510897834581557251, 142361999538520065, 502979046993559553]
     tfserver = [142361999538520065, 610422741065138179]
+    mystupidserver = [704113908276920350]
     #bypassids = [169597963507728384, 117678528220233731, 365274392680333329, 372078453236957185]
     if isinstance(message.author, discord.Member):
         if discord.utils.get(message.author.roles, name="Dragon Ignorance"):
@@ -225,7 +226,7 @@ async def on_message(message):
         if re.match(r"(?=\s*wyoming\s*|\s*kenya\s*)\w+", message.clean_content) is not None:
             await message.channel.send("isn't real")
         if message.author.id in ids:
-            if re.match(r"(?=warm|hot|burning)\w+", message.clean_content) is not None:
+            if re.match(r"(?=\s*warm\s*|\s*hot\s*|\s*burning\s*)\w+", message.clean_content) is not None:
                 await message.channel.send("actually cold")
         if "doki doki isn't weeb" in message.content:
             await message.channel.send("doki doki is weeb")
@@ -249,9 +250,12 @@ async def on_message(message):
             await message.delete()
             log.info(f"Deleted a message due to lockdown from {message.author} in {message.channel}")
             return
-    if message.channel.guild.id == tfserver:
+    if message.channel.guild.id in tfserver:
         if "unban me" in message.content:
             await message.channel.send("shut up fat")
+    if message.channel.guild.id == mystupidserver:
+        if re.match(r"(?=\s*nigger\s*)", message.clean_content) is not None:
+            await bot.message.delete()
     await bot.process_commands(message)
 
 @bot.command(hidden=True)
