@@ -230,7 +230,7 @@ async def on_message(message):
                 await message.channel.send("actually cold")
         if "doki doki isn't weeb" in message.content:
             await message.channel.send("doki doki is weeb")
-        if re.match(r"(?=\s*colour)+", message.clean_content) is not None or ("colour" or "Colour") in message.clean_content:
+        if re.match(r"(?=\s*colour)\w+", message.clean_content) is not None or ("colour" or "Colour") in message.clean_content:
             await message.channel.send("color")
     if str(message.channel.id) in getquicklockdownstatus():
         def mod_or_perms(message, **permissions):
@@ -254,7 +254,7 @@ async def on_message(message):
         if "unban me" in message.content:
             await message.channel.send("shut up fat")
     if message.channel.guild.id == mystupidserver:
-        if re.match(r"(?=\s*nigger\s*)", message.clean_content) is not None:
+        if re.match(r"(?=\s*nigger\s*)\w+", message.clean_content) is not None:
             await bot.message.delete()
     await bot.process_commands(message)
 
