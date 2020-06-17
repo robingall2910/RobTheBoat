@@ -254,7 +254,7 @@ async def on_message(message):
         if "unban me" in message.content:
             await message.channel.send("shut up fat")
     if message.channel.guild.id == mystupidserver:
-        if re.match(r"(?=\s*nigger)\w+", message.clean_content) is not None:
+        if re.match(r"(?=\s*nigger)\w+", message.clean_content) is not None or ("nigger" or "Nigger") in message.clean_content:
             await bot.message.delete()
             await message.channel.send(f'{message.author.mention} no n word')
     await bot.process_commands(message)
