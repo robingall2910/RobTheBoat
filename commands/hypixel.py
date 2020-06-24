@@ -293,7 +293,7 @@ class Hypixel(commands.Cog):
     @checks.is_dev()
     async def hdebug(self, ctx, *, shit: str):
         try:
-            player = hypixel.Player("hardnt")
+            player = hypixel.Player("Premintex")
             rebug = eval(shit)
             if asyncio.iscoroutine(rebug):
                 rebug = await rebug
