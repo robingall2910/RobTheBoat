@@ -91,7 +91,6 @@ class Hypixel(commands.Cog):
                 embed.color = ctx.me.color
             embed.add_field(name='Coins', value=f"{guild.JSON['coins']}")
             embed.add_field(name='Experience', value=f"{guild.JSON['exp']}")
-            embed.add_field(name='Joinable?', value=f"{guild.JSON['joinable']}")
             embed.add_field(name='Created', value=f"{datetime.fromtimestamp(guild.JSON['created'] / 1000.0).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}")
             for s in range(1, len(guild.JSON['preferredGames'])):
                 embed.add_field(name='Preferred Games', value=f"{guild.JSON['preferredGames'][s]}")
