@@ -350,7 +350,7 @@ class Hypixel(commands.Cog):
     async def hdebug(self, ctx, *, shit: str):
         try:
             player = hypixel.Player("Premintex")
-            guild = hypixel.Guild("Abu Salha Industries")
+            guild = hypixel.Guild("5a8058500cf2252f5fc3ceb0")
             rebug = eval(shit)
             if asyncio.iscoroutine(rebug):
                 rebug = await rebug
