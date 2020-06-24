@@ -1,6 +1,8 @@
+import json
 import sys
 import time
 import traceback
+import urllib
 
 import discord
 import hypixel
@@ -75,7 +77,11 @@ class Hypixel(commands.Cog):
     @commands.command(aliases=['ginfo', 'hginfo', 'hg'])
     async def hguildinfo(self, ctx, gname: str):
         try:
-            guild = hypixel.Guild(gname)
+            url = f"https://api.hypixel.net/guild?key={key}&name={gname}"
+            resp = urllib.urlopen(url)
+            data = json.loads(resp.read())
+            gid = data['guild']['_id']
+            guild = hypixel.Guild(gid)
             playercount = len(guild.JSON['members'])
             embed = discord.Embed(description=f"{guild.JSON['description']}")
             embed.title = f"[{guild.JSON['tag']}] - {guild.JSON['name']} ({playercount} members)"
