@@ -78,22 +78,22 @@ class Hypixel(commands.Cog):
         try:
             link = f"https://api.hypixel.net/findGuild?key={config._hypixelKey}&byName={gname}" #raw key
             r = requests.get(link)
-            print(r.json())
+            print(r.json()['guild'])
             gid = r.json()['guild']
             guild = hypixel.Guild(gid)
-            playercount = len(guild.JSON['guild']['members'])
+            playercount = len(guild.JSON['members'])
             try:
-                embed = discord.Embed(description=f"{guild.JSON['guild']['description']}")
+                embed = discord.Embed(description=f"{guild.JSON['description']}")
             except KeyError:
                 embed = discord.Embed()
-            embed.title = f"[{guild.JSON['guild']['tag']}] - {guild.JSON['guild']['name']} ({playercount} members)"
+            embed.title = f"[{guild.JSON['tag']}] - {guild.JSON['name']} ({playercount} members)"
             if ctx.me.color is not None:
                 embed.color = ctx.me.color
-            embed.add_field(name='Coins', value=f"{guild.JSON['guild']['coins']}")
-            embed.add_field(name='Experience', value=f"{guild.JSON['guild']['exp']}")
-            embed.add_field(name='Joinable?', value=f"{guild.JSON['guild']['joinable']}")
-            embed.add_field(name='Created', value=f"{datetime.fromtimestamp(guild.JSON['guild']['created'] / 1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}")
-            embed.add_field(name="Preferred Games", value=f"\n#1 - {guild.JSON['guild']['preferredGames'][0]}\n#2 - {guild.JSON['guild']['preferredGames'][1]}\n#3 - {guild.JSON['guild']['preferredGames'][2]}\n#4 - {guild.JSON['guild']['preferredGames'][3]}", inline=True)
+            embed.add_field(name='Coins', value=f"{guild.JSON['coins']}")
+            embed.add_field(name='Experience', value=f"{guild.JSON['exp']}")
+            embed.add_field(name='Joinable?', value=f"{guild.JSON['joinable']}")
+            embed.add_field(name='Created', value=f"{datetime.fromtimestamp(guild.JSON['created'] / 1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}")
+            embed.add_field(name="Preferred Games", value=f"\n#1 - {guild.JSON['preferredGames'][0]}\n#2 - {guild.JSON['preferredGames'][1]}\n#3 - {guild.JSON['preferredGames'][2]}\n#4 - {guild.JSON['preferredGames'][3]}", inline=True)
             await ctx.send(embed=embed)
         except Exception:
             await ctx.send(traceback.format_exc())
