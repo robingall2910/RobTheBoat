@@ -82,7 +82,10 @@ class Hypixel(commands.Cog):
             gid = r.json()['guild']
             guild = hypixel.Guild(gid)
             playercount = len(guild.JSON['members'])
-            embed = discord.Embed(description=f"{guild.JSON['description']}")
+            if guild.JSON['description'] is not KeyError:
+                embed = discord.Embed(description=f"{guild.JSON['description']}")
+            else:
+                embed = discord.Embed()
             embed.title = f"[{guild.JSON['tag']}] - {guild.JSON['name']} ({playercount} members)"
             if ctx.me.color is not None:
                 embed.color = ctx.me.color
