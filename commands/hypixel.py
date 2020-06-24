@@ -100,7 +100,7 @@ class Hypixel(commands.Cog):
                                 print("gay" + str(ass))
                                 ass2 = guild.JSON['members'][w]['uuid']
                                 print("h" + str(ass2))
-                                ass3 = [ass, ass2]
+                                ass3 = [ass2, ass]
                                 explist.append(ass3)
                                 print("y" + str(ass3))
                         except KeyError:
