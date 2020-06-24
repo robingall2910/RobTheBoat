@@ -1,6 +1,8 @@
+import json
 import sys
 import time
 import traceback
+import urllib
 
 import hypixel
 import asyncio
@@ -74,10 +76,10 @@ class Hypixel(commands.Cog):
     @commands.command(aliases=['ginfo', 'hginfo', 'hg'])
     async def hguildinfo(self, ctx, gname: str):
         try:
-            url = f"https://api.hypixel.net/guild?key={key}&name={gname}"
-            r = requests.get(url)
-            print(r.json())
-            gid = r.json()['guild']['_id']
+            link = f"https://api.hypixel.net/guild?key={key}&name={gname}"
+            with urllib.request.urlopen(link) as url:
+                data = json.loads(url.read().decode())
+            print(data)
             guild = hypixel.Guild(gid)
             playercount = len(guild.JSON['members'])
             embed = discord.Embed(description=f"{guild.JSON['description']}")
