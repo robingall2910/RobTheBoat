@@ -76,10 +76,9 @@ class Hypixel(commands.Cog):
     @commands.command(aliases=['ginfo', 'hginfo', 'hg'])
     async def hguildinfo(self, ctx, gname: str):
         try:
-            link = urllib.request.Request(f"https://api.hypixel.net/guild?key={key}&name={gname}", data=None, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0'})
-            with urllib.request.urlopen(link) as url:
-                data = json.loads(url.read().decode())
-            print(data)
+            link = f"https://api.hypixel.net/guild?key={key}&name={gname}"
+            r = requests.get(link)
+            print(r.json())
             guild = hypixel.Guild(gid)
             playercount = len(guild.JSON['members'])
             embed = discord.Embed(description=f"{guild.JSON['description']}")
