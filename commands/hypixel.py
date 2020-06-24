@@ -105,7 +105,7 @@ class Hypixel(commands.Cog):
                     explist.sort(key=lambda x: x[1], reverse = True)
                     top5 = list(itertools.islice(explist, smallerone))
                     print("final" + str(top5))
-                    print("M" + str(top5[0][0]) + str([top5[0][1]]))
+                    print("M" + str(top5[0][0]) + str(top5[0][1]))
                     if len(guild.JSON['members']) == 4:
                         return f"#1 - {top5[0][0]}{top5[0][1]}\n#2 - {top5[1][0]}{top5[1][1]}\n#3 - {top5[2][0]}{top5[2][1]}\n#4 - {top5[3][0]}{top5[3][1]}"
                     if len(guild.JSON['members']) == 3:
