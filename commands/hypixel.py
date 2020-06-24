@@ -93,6 +93,7 @@ class Hypixel(commands.Cog):
                     else:
                         smallerone = 5
                     for w in range(0, len(guild.JSON['members'])):
+                        print(guild.JSON['members'][w]['expHistory'][todaysdate])
                         if guild.JSON['members'][w]['expHistory'][todaysdate] == 0:
                             pass
                         else:
