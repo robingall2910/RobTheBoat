@@ -4,6 +4,7 @@ import sys
 import time
 import traceback
 import urllib
+from datetime import timedelta
 
 import hypixel
 import asyncio
@@ -88,16 +89,17 @@ class Hypixel(commands.Cog):
                     explist = []
                     finallist = []
                     todaysdate = str(datetime.now().date().isoformat())
+                    yesterdaysdate = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
                     if 5 <= len(guild.JSON['members']):
                         smallerone = len(guild.JSON['members'])
                     else:
                         smallerone = 5
                     for w in range(0, len(guild.JSON['members'])):
-                        print("today's date var is " + todaysdate + " and w is " + str(w))
-                        if guild.JSON['members'][w]['expHistory'][todaysdate] == 0:
-                            pass
+                        print("today's date var is " + yesterdaysdate + " and w is " + str(w))
+                        if guild.JSON['members'][w]['expHistory'][yesterdaysdate] == 0:
+                            return
                         else:
-                            ass = guild.JSON['members'][w]['expHistory'][todaysdate]
+                            ass = guild.JSON['members'][w]['expHistory'][yesterdaysdate]
                             explist.append(ass)
                             print(explist)
                     explist.sort()
