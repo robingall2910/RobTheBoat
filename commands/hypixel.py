@@ -111,9 +111,8 @@ class Hypixel(commands.Cog):
                         return f"The only one - {top5[0]}"
                     else:
                         return f"#1 - {top5[0]}\n#2 - {top5[1]}\n#3 - {top5[2]}\n#4 - {top5[3]}\n#5 - {top5[4]}"
-
                 except Exception:
-                    await ctx.send(traceback.format_exc())
+                    traceback.print_exc()
             try:
                 embed = discord.Embed(description=f"{guild.JSON['description']}")
             except KeyError:
