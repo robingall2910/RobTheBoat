@@ -97,12 +97,16 @@ class Hypixel(commands.Cog):
                                 continue
                             else:
                                 ass = guild.JSON['members'][w]['expHistory'][todaysdate]
+                                print(ass)
                                 ass2 = guild.JSON['members'][w]['expHistory']['uuid']
+                                print(ass2)
                                 ass3 = [ass, ass2]
                                 explist.append(ass3)
+                                print(ass3)
                         except KeyError:
                             continue 
                     explist.sort(key=lambda x: x[1], reverse = True)
+                    print(explist)
                     top5 = list(itertools.islice(explist, smallerone))
                     print(top5)
                     if len(guild.JSON['members']) == 4:
