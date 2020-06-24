@@ -74,8 +74,9 @@ class Hypixel(commands.Cog):
             await ctx.send(traceback.print_exc())
 
     @commands.command(aliases=['ginfo', 'hginfo', 'hg'])
-    async def hguildinfo(self, ctx, gname: str):
+    async def hguildinfo(self, ctx, dirtygname: str):
         try:
+            gname = dirtygname.replace(" ", "%20")
             link = f"https://api.hypixel.net/findGuild?key={config._hypixelKey}&byName={gname}" #raw key
             r = requests.get(link)
             print(r.json()['guild'])
