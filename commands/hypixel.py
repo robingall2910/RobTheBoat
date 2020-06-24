@@ -96,7 +96,7 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Preferred Games", value=f"\n#1 - {guild.JSON['preferredGames'][0]}\n#2 - {guild.JSON['preferredGames'][1]}\n#3 - {guild.JSON['preferredGames'][2]}\n#4 - {guild.JSON['preferredGames'][3]}", inline=True)
             await ctx.send(embed=embed)
         except Exception:
-            await ctx.send(traceback.exc())
+            await ctx.send(traceback.format_exc())
 
     @commands.command(aliases=['bedwars', 'binfo', 'bwinfo'])
     async def hbedwars(self, ctx, username: str):
