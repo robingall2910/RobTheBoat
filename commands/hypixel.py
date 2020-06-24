@@ -86,22 +86,22 @@ class Hypixel(commands.Cog):
             def t5exp():
                 try:
                     explist = []
-                    finallist = []
                     todaysdate = str(datetime.now().date().isoformat())
                     if 5 <= len(guild.JSON['members']):
                         smallerone = len(guild.JSON['members'])
                     else:
                         smallerone = 5
                     for w in range(0, len(guild.JSON['members'])):
-                        print("today's date var is " + todaysdate + " and w is " + str(w))
-                        if guild.JSON['members'][w]['expHistory'][todaysdate] == 0:
-                            return
-                        else:
-                            ass = guild.JSON['members'][w]['expHistory'][todaysdate]
-                            explist.append(ass)
-                            print(explist)
-                    explist.sort()
-                    top5 = list(itertools.islice(finallist, smallerone))
+                        try:
+                            if guild.JSON['members'][w]['expHistory'][todaysdate] == 0:
+                                continue
+                            else:
+                                ass = guild.JSON['members'][w]['expHistory'][todaysdate]
+                                explist.append(ass)
+                        except KeyError:
+                            continue 
+                    explist.sort(reverse = True)
+                    top5 = list(itertools.islice(explist, smallerone))
                     if len(guild.JSON['members']) == 4:
                         return f"#1 - {top5[0]}\n#2 - {top5[1]}\n#3 - {top5[2]}\n#4 - {top5[3]}"
                     if len(guild.JSON['members']) == 3:
