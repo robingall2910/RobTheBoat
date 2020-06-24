@@ -90,7 +90,7 @@ class Config:
             self._lastfmSecret = str(os.environ.get('LASTFM_SECRET'))
             self._hypixelKey = str(os.environ.get('HYPIXEL_KEY'))
         else:
-            sections = {"Credentials", "Bot", "Status", "Logging", "Osu", "Guild Wars 2", "Google", "Last.fm"}.difference(config.sections())
+            sections = {"Credentials", "Bot", "Status", "Logging", "Osu", "Guild Wars 2", "Google", "Last.fm", "Hypixel"}.difference(config.sections())
             if sections:
                 log.critical("Could not load a section in the config file, please obtain a new config file from the github repo if regenerating the config doesn't work!")
                 os._exit(1)
