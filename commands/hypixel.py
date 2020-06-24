@@ -86,6 +86,7 @@ class Hypixel(commands.Cog):
             embed.add_field(name='Joinable?', value=f"{guild.JSON['joinable']}")
             embed.add_field(name='Created', value=f"{datetime.fromtimestamp(guild.JSON['created'] / 1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}")
             embed.add_field(name="Preferred Games", value=f"\n#1 - {guild.JSON['preferredGames'][0]}\n#2 - {guild.JSON['preferredGames'][1]}\n#3 - {guild.JSON['preferredGames'][2]}\n#4 - {guild.JSON['preferredGames'][3]}", inline=True)
+            await ctx.send(embed=embed)
         except Exception:
             await ctx.send(traceback.print_exc())
 
