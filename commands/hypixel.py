@@ -97,25 +97,23 @@ class Hypixel(commands.Cog):
                                 continue
                             else:
                                 ass = guild.JSON['members'][w]['expHistory'][todaysdate]
-                                ass2 = guild.JSON['members'][w]['expHistory']['uuid']
-                                explist.append(ass, ass2)
+                                ass2 = guild.JSON['members'][w]['uuid']
+                                ass3 = [ass2, ass]
+                                explist.append(ass3)
                         except KeyError:
-                            continue 
-                    explist.sort(reverse = True)
+                            continue
+                    explist.sort(key=lambda x: x[1], reverse = True)
                     top5 = list(itertools.islice(explist, smallerone))
-                    print(top5)
-                    for a in range(0, len(explist)):
-
                     if len(guild.JSON['members']) == 4:
-                        return f"#1 - {top5[0,0]}\n#2 - {top5[1,1]}\n#3 - {top5[2,2]}\n#4 - {top5[3,3]}"
+                        return f"#1 - {top5[0][0]}: {top5[0][1]}\n#2 - {top5[1][0]}: {top5[1][1]}\n#3 - {top5[2][0]}: {top5[2][1]}\n#4 - {top5[3][0]}: {top5[3][1]}"
                     if len(guild.JSON['members']) == 3:
-                        return f"#1 - {top5[0,0]}\n#2 - {top5[1,1]}\n#3 - {top5[2,2]}"
+                        return f"#1 - {top5[0][0]}: {top5[0][1]}\n#2 - {top5[1][0]}: {top5[1][1]}\n#3 - {top5[2][0]}: {top5[2][1]}"
                     if len(guild.JSON['members']) == 2:
-                        return f"#1 - {top5[0,0]}\n#2 - {top5[1,1]}"
+                        return f"#1 - {top5[0][0]}: {top5[0][1]}\n#2 - {top5[1][0]}: {top5[1][1]}"
                     if len(guild.JSON['members']) == 1:
-                        return f"The only one - {top5[0,0]}"
+                        return f"The only one - {top5[0][0]}: {top5[0][1]}"
                     else:
-                        return f"#1 - {top5[0,0]}\n#2 - {top5[1,1]}\n#3 - {top5[2,2]}\n#4 - {top5[3,3]}\n#5 - {top5[4,4]}"
+                        return f"#1 - {top5[0][0]}: {top5[0][1]}\n#2 - {top5[1][0]}: {top5[1][1]}\n#3 - {top5[2][0]}: {top5[2][1]}\n#4 - {top5[3][0]}: {top5[3][1]}\n#5 - {top5[4][0]}: {top5[4][1]}"
                 except Exception:
                     traceback.print_exc()
             try:
@@ -149,7 +147,7 @@ class Hypixel(commands.Cog):
             await ctx.send(embed=embed)
         except Exception:
             await ctx.send(traceback.format_exc())
-
+                                    
     @commands.command(aliases=['bedwars', 'binfo', 'bwinfo'])
     async def hbedwars(self, ctx, username: str):
         try:
