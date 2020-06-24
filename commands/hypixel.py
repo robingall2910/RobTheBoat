@@ -76,7 +76,7 @@ class Hypixel(commands.Cog):
     @commands.command(aliases=['ginfo', 'hginfo', 'hg'])
     async def hguildinfo(self, ctx, gname: str):
         try:
-            link = f"https://api.hypixel.net/findGuild?key={key}&byName={gname}"
+            link = f"https://api.hypixel.net/findGuild?key={config._hypixelKey}&byName={gname}" #raw key
             r = requests.get(link)
             print(r.json())
             gid = r.json()['guild']
