@@ -105,15 +105,30 @@ class Hypixel(commands.Cog):
                     explist.sort(key=lambda x: x[1], reverse = True)
                     top5 = list(itertools.islice(explist, smallerone))
                     if len(guild.JSON['members']) == 4:
-                        return f"#1 - {top5[0][0]}: {top5[0][1]}\n#2 - {top5[1][0]}: {top5[1][1]}\n#3 - {top5[2][0]}: {top5[2][1]}\n#4 - {top5[3][0]}: {top5[3][1]}"
+                        uuid1 = hypixel.Player(top5[0][0]).JSON['displayname']
+                        uuid2 = hypixel.Player(top5[1][0]).JSON['displayname']
+                        uuid3 = hypixel.Player(top5[2][0]).JSON['displayname']
+                        uuid4 = hypixel.Player(top5[3][0]).JSON['displayname']
+                        return f"#1 - {uuid1}: {top5[0][1]}\n#2 - {uuid2}: {top5[1][1]}\n#3 - {uuid3}: {top5[2][1]}\n#4 - {uuid4}: {top5[3][1]}"
                     if len(guild.JSON['members']) == 3:
-                        return f"#1 - {top5[0][0]}: {top5[0][1]}\n#2 - {top5[1][0]}: {top5[1][1]}\n#3 - {top5[2][0]}: {top5[2][1]}"
+                        uuid1 = hypixel.Player(top5[0][0]).JSON['displayname']
+                        uuid2 = hypixel.Player(top5[1][0]).JSON['displayname']
+                        uuid3 = hypixel.Player(top5[2][0]).JSON['displayname']
+                        return f"#1 - {uuid1}: {top5[0][1]}\n#2 - {uuid2}: {top5[1][1]}\n#3 - {uuid3}: {top5[2][1]}"
                     if len(guild.JSON['members']) == 2:
-                        return f"#1 - {top5[0][0]}: {top5[0][1]}\n#2 - {top5[1][0]}: {top5[1][1]}"
+                        uuid1 = hypixel.Player(top5[0][0]).JSON['displayname']
+                        uuid2 = hypixel.Player(top5[1][0]).JSON['displayname']
+                        return f"#1 - {uuid1}: {top5[0][1]}\n#2 - {uuid2}: {top5[1][1]}"
                     if len(guild.JSON['members']) == 1:
-                        return f"The only one - {top5[0][0]}: {top5[0][1]}"
+                        uuid1 = hypixel.Player(top5[0][0]).JSON['displayname']
+                        return f"#1 - {uuid1}: {top5[0][1]}"
                     else:
-                        return f"#1 - {top5[0][0]}: {top5[0][1]}\n#2 - {top5[1][0]}: {top5[1][1]}\n#3 - {top5[2][0]}: {top5[2][1]}\n#4 - {top5[3][0]}: {top5[3][1]}\n#5 - {top5[4][0]}: {top5[4][1]}"
+                        uuid1 = hypixel.Player(top5[0][0]).JSON['displayname']
+                        uuid2 = hypixel.Player(top5[1][0]).JSON['displayname']
+                        uuid3 = hypixel.Player(top5[2][0]).JSON['displayname']
+                        uuid4 = hypixel.Player(top5[3][0]).JSON['displayname']
+                        uuid5 = hypixel.Player(top5[4][0]).JSON['displayname']
+                        return f"#1 - {uuid1}: {top5[0][1]}\n#2 - {uuid2}: {top5[1][1]}\n#3 - {uuid3}: {top5[2][1]}\n#4 - {uuid4}: {top5[3][1]}\n#5 - {uuid5}: {top5[4][1]}"
                 except Exception:
                     traceback.print_exc()
             try:
