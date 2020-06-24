@@ -114,7 +114,7 @@ class Hypixel(commands.Cog):
                     if len(guild.JSON['members']) == 1:
                         return f"The only one - {top5[0][0]}"
                     else:
-                        return f"#1 - {top5[0][0]}{top5[0][1]}\n#2 - {top5[1][0]}{top5[1][1]}\n#3 - {top5[2][0]}{top5[2][1]]}\n#4 - {top5[3][0]}{top5[3][1]}\n#5 - {top5[4][0]}{top5[4][1]}"
+                        return f"#1 - {top5[0][0]}{top5[0][1]}\n#2 - {top5[1][0]}{top5[1][1]}\n#3 - {top5[2][0]}{top5[2][1]}\n#4 - {top5[3][0]}{top5[3][1]}\n#5 - {top5[4][0]}{top5[4][1]}"
                 except Exception:
                     traceback.print_exc()
             try:
