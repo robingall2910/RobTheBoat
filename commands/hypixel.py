@@ -15,7 +15,7 @@ from utils.tools import *
 
 config = Config()
 
-key = [config._hypixelKey] #no push perms anyway, & not my api key
+key = [config._hypixelKey, '9a37b8c2-8eb4-41b0-af4e-e846bea88e2e'] #no push perms anyway, & not my api key
 hypixel.setKeys(key)
 
 class Hypixel(commands.Cog):
