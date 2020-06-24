@@ -92,11 +92,11 @@ class Hypixel(commands.Cog):
                         smallerone = len(guild.JSON['members'])
                     else:
                         smallerone = 5
-                    for s in range(0, len(guild.JSON['members'])):
-                        if guild.JSON['members'][s]['expHistory'][todaysdate] == 0:
+                    for w in range(0, len(guild.JSON['members'])):
+                        if guild.JSON['members'][w]['expHistory'][todaysdate] == 0:
                             pass
                         else:
-                            ass = guild.JSON['members'][s]['expHistory'][todaysdate]
+                            ass = guild.JSON['members'][w]['expHistory'][todaysdate]
                             explist.append(ass)
                             print(explist)
                     explist.sort()
