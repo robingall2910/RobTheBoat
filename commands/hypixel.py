@@ -97,17 +97,13 @@ class Hypixel(commands.Cog):
                                 continue
                             else:
                                 ass = guild.JSON['members'][w]['expHistory'][todaysdate]
-                                print("gay" + str(ass))
                                 ass2 = guild.JSON['members'][w]['uuid']
-                                print("h" + str(ass2))
                                 ass3 = [ass2, ass]
                                 explist.append(ass3)
-                                print("y" + str(ass3))
                         except KeyError:
                             continue
                     explist.sort(key=lambda x: x[1], reverse = True)
                     top5 = list(itertools.islice(explist, smallerone))
-                    print("M" + str(top5[0][0]) + str(top5[0][1]))
                     if len(guild.JSON['members']) == 4:
                         return f"#1 - {top5[0][0]}: {top5[0][1]}\n#2 - {top5[1][0]}: {top5[1][1]}\n#3 - {top5[2][0]}: {top5[2][1]}\n#4 - {top5[3][0]}: {top5[3][1]}"
                     if len(guild.JSON['members']) == 3:
