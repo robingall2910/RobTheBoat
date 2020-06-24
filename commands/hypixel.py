@@ -294,6 +294,7 @@ class Hypixel(commands.Cog):
     async def hdebug(self, ctx, *, shit: str):
         try:
             player = hypixel.Player("Premintex")
+            guild = hypixel.Guild("Abu Salha Industries")
             rebug = eval(shit)
             if asyncio.iscoroutine(rebug):
                 rebug = await rebug
