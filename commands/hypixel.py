@@ -77,6 +77,7 @@ class Hypixel(commands.Cog):
             url = f"https://api.hypixel.net/guild?key={key}&name={gname}"
             r = requests.get(url)
             gid = r.json()['guild']['_id']
+            print(r.json())
             guild = hypixel.Guild(gid)
             playercount = len(guild.JSON['members'])
             embed = discord.Embed(description=f"{guild.JSON['description']}")
