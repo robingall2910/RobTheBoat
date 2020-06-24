@@ -87,7 +87,7 @@ class Hypixel(commands.Cog):
                 try:
                     explist = []
                     finallist = []
-                    todaysdate = datetime.now().date()
+                    todaysdate = datetime.now().date().isoformat()
                     if 5 <= len(guild.JSON['members']):
                         smallerone = len(guild.JSON['members'])
                     else:
@@ -129,6 +129,7 @@ class Hypixel(commands.Cog):
             embed.add_field(name='Top 5 Gained Exp', value=t5exp())
             try:
                 for s in range(0, len(guild.JSON['preferredGames'])):
+                    #except that arrays start at one @kurt
                     embed.add_field(name=f'Preferred Games #{s}', value=f"{guild.JSON['preferredGames'][s]}")
             except KeyError:
                 pass
