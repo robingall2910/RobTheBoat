@@ -139,13 +139,13 @@ class Hypixel(commands.Cog):
                 embed.title = f"[{guild.JSON['tag']}] - {guild.JSON['name']} ({playercount} members)"
             except KeyError:
                 embed.title = f"{guild.JSON['name']} - ({playercount} members)"
-            if guild.JSON['tagColor'] == "YELLOW":
+            if (guild.JSON['tagColor'] == "YELLOW") is True:
                 embed.color = discord.Color.from_rgb(255, 247, 13)
-            if guild.JSON['tagColor'] == "DARK_GREEN":
+            if (guild.JSON['tagColor'] == "DARK_GREEN") is True:
                 embed.color = discord.Color.from_rgb(0, 138, 21)
-            if guild.JSON['tagColor'] == "DARK_AQUA":
+            if (guild.JSON['tagColor'] == "DARK_AQUA") is True:
                 embed.color = discord.Color.from_rgb(12, 176, 194)
-            if guild.JSON['tagColor'] == "GOLD":
+            if (guild.JSON['tagColor'] == "GOLD") is True:
                 embed.color = discord.Color.from_rgb(227, 202, 14)
             else: # gray
                 embed.color = discord.Color.from_rgb(173, 173, 173)
