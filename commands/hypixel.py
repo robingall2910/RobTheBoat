@@ -97,11 +97,14 @@ class Hypixel(commands.Cog):
                                 continue
                             else:
                                 ass = guild.JSON['members'][w]['expHistory'][todaysdate]
-                                explist.append(ass)
+                                ass2 = guild.JSON['members'][w]['expHistory']['uuid']
+                                explist.append(ass, ass2)
                         except KeyError:
                             continue 
                     explist.sort(reverse = True)
                     top5 = list(itertools.islice(explist, smallerone))
+                    for a in range(0, len(explist)):
+
                     if len(guild.JSON['members']) == 4:
                         return f"#1 - {top5[0]}\n#2 - {top5[1]}\n#3 - {top5[2]}\n#4 - {top5[3]}"
                     if len(guild.JSON['members']) == 3:
@@ -122,13 +125,13 @@ class Hypixel(commands.Cog):
                 embed.title = f"[{guild.JSON['tag']}] - {guild.JSON['name']} ({playercount} members)"
             except KeyError:
                 embed.title = f"{guild.JSON['name']} - ({playercount} members)"
-            if guild.JSON['tagColor'] is 'YELLOW':
+            if guild.JSON['tagColor'] == 'YELLOW':
                 embed.color = 0xfff70d
-            if guild.JSON['tagColor'] is 'DARK_GREEN':
+            if guild.JSON['tagColor'] == 'DARK_GREEN':
                 embed.color = 0x008a15
-            if guild.JSON['tagColor'] is 'DARK_AQUA':
+            if guild.JSON['tagColor'] == 'DARK_AQUA':
                 embed.color = 0x0cb0c2
-            if guild.JSON['tagColor'] is 'GOLD':
+            if guild.JSON['tagColor'] == 'GOLD':
                 embed.color = 0xe3ca0e
             else: # gray
                 embed.color = 0xadadad
