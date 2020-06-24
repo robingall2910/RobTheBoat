@@ -84,6 +84,7 @@ class Hypixel(commands.Cog):
             guild = hypixel.Guild(gid)
             playercount = len(guild.JSON['members'])
             def t5exp():
+                try:
                     explist = []
                     todaysdate = str(datetime.now().date().isoformat())
                     if 5 <= len(guild.JSON['members']):
@@ -103,7 +104,7 @@ class Hypixel(commands.Cog):
                                 explist.append(ass3)
                                 print("y" + str(ass3))
                         except KeyError:
-                            continue       
+                            continue
                     explist.sort(key=lambda x: x[1], reverse = True)
                     top5 = list(itertools.islice(explist, smallerone))
                     print("M" + str(top5[0][0]) + str(top5[0][1]))
