@@ -268,7 +268,7 @@ class Hypixel(commands.Cog):
                 kdr = int(0/int(player.JSON['stats']['Duels']['deaths']))
             awdr = '{:,.2f}'.format(wdr)
             akdr = '{:,.2f}'.format(kdr)
-            if akdr is "0.00":
+            if akdr == "0.00":
                 akdr = "0"
             else:
                 pass
