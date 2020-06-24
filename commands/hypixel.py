@@ -74,7 +74,7 @@ class Hypixel(commands.Cog):
             await ctx.send(traceback.print_exc())
 
     @commands.command(aliases=['ginfo', 'hginfo', 'hg'])
-    async def hguildinfo(self, ctx, dirtygname: str):
+    async def hguildinfo(self, ctx, *, dirtygname: str):
         try:
             gname = dirtygname.replace(" ", "%20")
             link = f"https://api.hypixel.net/findGuild?key={config._hypixelKey}&byName={gname}" #raw key
@@ -96,9 +96,11 @@ class Hypixel(commands.Cog):
             embed.add_field(name='Coins', value=f"{guild.JSON['coins']}")
             embed.add_field(name='Experience', value=f"{guild.JSON['exp']}")
             embed.add_field(name='Created', value=f"{datetime.fromtimestamp(guild.JSON['created'] / 1000.0).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}")
-            for s in range(1, len(guild.JSON['preferredGames'])):
-                embed.add_field(name='Preferred Games', value=f"{guild.JSON['preferredGames'][s]}")
-            #embed.add_field(name="Preferred Games", value=f"\n#1 - {guild.JSON['preferredGames'][0]}\n#2 - {guild.JSON['preferredGames'][1]}\n#3 - {guild.JSON['preferredGames'][2]}\n#4 - {guild.JSON['preferredGames'][3]}", inline=True)
+            try:
+                for s in range(1, len(guild.JSON['preferredGames'])):
+                    embed.add_field(name='Preferred Games', value=f"{guild.JSON['preferredGames'][s]}")
+            except KeyError:
+                pass
             await ctx.send(embed=embed)
         except Exception:
             await ctx.send(traceback.format_exc())
