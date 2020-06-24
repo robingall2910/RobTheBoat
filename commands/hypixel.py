@@ -1,3 +1,4 @@
+import itertools
 import json
 import sys
 import time
@@ -79,10 +80,40 @@ class Hypixel(commands.Cog):
             gname = dirtygname.replace(" ", "%20")
             link = f"https://api.hypixel.net/findGuild?key={config._hypixelKey}&byName={gname}" #raw key
             r = requests.get(link)
-            print(link)
             gid = r.json()['guild']
             guild = hypixel.Guild(gid)
             playercount = len(guild.JSON['members'])
+            def t5exp():
+                try:
+                    explist = []
+                    finallist = []
+                    todaysdate = datetime.now().date()
+                    if 5 <= len(guild.JSON['members']):
+                        smallerone = len(guild.JSON['members'])
+                    else:
+                        smallerone = 5
+                    for s in range(0, len(guild.JSON['members'])):
+                        if guild.JSON['members'][s]['expHistory'][todaysdate] == 0:
+                            pass
+                        else:
+                            ass = guild.JSON['members'][s]['expHistory'][todaysdate]
+                            explist.append(ass)
+                            print(explist)
+                    explist.sort()
+                    top5 = itertools.islice(explist, smallerone)
+                    if len(guild.JSON['members']) == 4:
+                        return f"#1 - {top5[0]}\n#2 - {top5[1]}\n#3 - {top5[2]}\n#4 - {top5[3]}"
+                    if len(guild.JSON['members']) == 3:
+                        return f"#1 - {top5[0]}\n#2 - {top5[1]}\n#3 - {top5[2]}"
+                    if len(guild.JSON['members']) == 2:
+                        return f"#1 - {top5[0]}\n#2 - {top5[1]}"
+                    if len(guild.JSON['members']) == 1:
+                        return f"The only one - {top5[0]}"
+                    else:
+                        return f"#1 - {top5[0]}\n#2 - {top5[1]}\n#3 - {top5[2]}\n#4 - {top5[3]}\n#5 - {top5[4]}"
+
+                except Exception:
+                    await ctx.send(traceback.format_exc())
             try:
                 embed = discord.Embed(description=f"{guild.JSON['description']}")
             except KeyError:
@@ -93,12 +124,13 @@ class Hypixel(commands.Cog):
                 embed.title = f"{guild.JSON['name']} - ({playercount} members)"
             if ctx.me.color is not None:
                 embed.color = ctx.me.color
+            embed.add_field(name='Created', value=f"{datetime.fromtimestamp(guild.JSON['created'] / 1000.0).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}")
             embed.add_field(name='Coins', value=f"{guild.JSON['coins']}")
             embed.add_field(name='Experience', value=f"{guild.JSON['exp']}")
-            embed.add_field(name='Created', value=f"{datetime.fromtimestamp(guild.JSON['created'] / 1000.0).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}")
+            embed.add_field(name='Top 5 Gained Exp', value=t5exp())
             try:
-                for s in range(1, len(guild.JSON['preferredGames'])):
-                    embed.add_field(name='Preferred Games', value=f"{guild.JSON['preferredGames'][s]}")
+                for s in range(0, len(guild.JSON['preferredGames'])):
+                    embed.add_field(name=f'Preferred Games #{s}', value=f"{guild.JSON['preferredGames'][s]}")
             except KeyError:
                 pass
             await ctx.send(embed=embed)
