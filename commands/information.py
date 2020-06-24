@@ -53,9 +53,6 @@ class Information(commands.Cog):
         try:
             if user is None:
                 user = ctx.author
-            game = None
-            if user.activity:
-                game = user.activity.name
             voice_channel = None
             self_mute = False
             self_deaf = False
