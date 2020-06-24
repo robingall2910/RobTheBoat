@@ -31,7 +31,7 @@ class Hypixel(commands.Cog):
             if ctx.me.color is not None:
                 embed.color = ctx.me.color
             try:
-                ltu = hypixel.Player(player.JSON['mostRecentlyTippedUuid']).getName()
+                ltu = hypixel.Player(player.JSON['mostRecentlyTippedUuid']).getName()  #deprecated? constantly doesn't work
             except KeyError:
                 ltu = "They haven't tipped anyone recently."
             try:
@@ -39,7 +39,7 @@ class Hypixel(commands.Cog):
             except Exception: #shut up code convention i dont care
                 guildname = "They aren't in a gang."
             try:
-                lmv = player.JSON['mcVersionRp']
+                lmv = player.JSON['mcVersionRp'] #deprecated? constantly doesn't work
             except KeyError:
                 lmv = "They haven't played Minecraft in years, I guess."
             try:
@@ -69,6 +69,25 @@ class Hypixel(commands.Cog):
             await ctx.send(embed=embed)
         except hypixel.PlayerNotFoundException:
             await ctx.send("Player not found! Try another UUID or username.")
+        except Exception:
+            await ctx.send(traceback.print_exc())
+
+    @commands.command(aliases=['ginfo', 'hginfo', 'hg'])
+    async def hguildinfo(self, ctx, gname: str):
+        try:
+            guild = hypixel.Guild(gname)
+            playercount = len(guild.JSON['members'])
+            embed = discord.Embed(description=f"{guild.JSON['description']}")
+            embed.title = f"[{guild.JSON['tag']}] - {guild.JSON['name']} ({playercount} members)"
+            if ctx.me.color is not None:
+                embed.color = ctx.me.color
+            embed.add_field(name='Coins', value=f"{guild.JSON['coins']}")
+            embed.add_field(name='Experience', value=f"{guild.JSON['exp']}")
+            embed.add_field(name='Joinable?', value=f"{guild.JSON['joinable']}")
+            embed.add_field(name='Created', value=f"{datetime.fromtimestamp(guild.JSON['created'] / 1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}")
+            embed.add_field(name="Preferred Games", value=f"\n#1 - {guild.JSON['preferredGames'][0]}\n#2 - {guild.JSON['preferredGames'][1]}\n#3 - {guild.JSON['preferredGames'][2]}\n#4 - {guild.JSON['preferredGames'][3]}", inline=True)
+        except hypixel.GuildNotFoundException:
+            await ctx.send("Guild not found. Did you type it correctly?")
         except Exception:
             await ctx.send(traceback.print_exc())
 
