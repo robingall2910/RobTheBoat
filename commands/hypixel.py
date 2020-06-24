@@ -98,7 +98,7 @@ class Hypixel(commands.Cog):
                             else:
                                 ass = guild.JSON['members'][w]['expHistory'][todaysdate]
                                 print("gay" + str(ass))
-                                ass2 = guild.JSON['members'][w]['expHistory']['uuid']
+                                ass2 = guild.JSON['members'][w]['uuid']
                                 print("h" + str(ass2))
                                 ass3 = [ass, ass2]
                                 explist.append(ass3)
