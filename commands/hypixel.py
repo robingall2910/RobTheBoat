@@ -15,7 +15,7 @@ from utils.tools import *
 
 config = Config()
 
-key = [config._hypixelKey, '9a37b8c2-8eb4-41b0-af4e-e846bea88e2e'] #no push perms anyway, & not my api key
+key = [config._hypixelKey] #no push perms anyway, & not my api key
 hypixel.setKeys(key)
 
 class Hypixel(commands.Cog):
@@ -76,10 +76,10 @@ class Hypixel(commands.Cog):
     @commands.command(aliases=['ginfo', 'hginfo', 'hg'])
     async def hguildinfo(self, ctx, gname: str):
         try:
-            link = f"https://api.hypixel.net/guild?key={key}&name={gname}"
+            link = f"https://api.hypixel.net/findGuild?key={key}&byName={gname}"
             r = requests.get(link)
             print(r.json())
-            gid = r.json()['guild']['_id']
+            gid = r.json()['guild']
             guild = hypixel.Guild(gid)
             playercount = len(guild.JSON['members'])
             embed = discord.Embed(description=f"{guild.JSON['description']}")
