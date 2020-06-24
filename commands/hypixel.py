@@ -122,8 +122,16 @@ class Hypixel(commands.Cog):
                 embed.title = f"[{guild.JSON['tag']}] - {guild.JSON['name']} ({playercount} members)"
             except KeyError:
                 embed.title = f"{guild.JSON['name']} - ({playercount} members)"
-            if ctx.me.color is not None:
-                embed.color = ctx.me.color
+            if guild.JSON['tagColor'] is 'YELLOW':
+                embed.color = 0x000000
+            if guild.JSON['tagColor'] is 'DARK_GREEN':
+                embed.color = 0x000000
+            if guild.JSON['tagColor'] is 'DARK_AQUA':
+                embed.color = 0x000000
+            if guild.JSON['tagColor'] is 'GOLD':
+                embed.color = 0x000000
+            else: # gray
+                embed.color = 0x000000
             embed.add_field(name='Created', value=f"{datetime.fromtimestamp(guild.JSON['created'] / 1000.0).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}")
             embed.add_field(name='Coins', value=f"{guild.JSON['coins']}")
             embed.add_field(name='Experience', value=f"{guild.JSON['exp']}")
