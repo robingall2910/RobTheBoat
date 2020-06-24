@@ -79,7 +79,7 @@ class Hypixel(commands.Cog):
             gname = dirtygname.replace(" ", "%20")
             link = f"https://api.hypixel.net/findGuild?key={config._hypixelKey}&byName={gname}" #raw key
             r = requests.get(link)
-            print(r.json()['guild'])
+            print(link)
             gid = r.json()['guild']
             guild = hypixel.Guild(gid)
             playercount = len(guild.JSON['members'])
@@ -87,7 +87,10 @@ class Hypixel(commands.Cog):
                 embed = discord.Embed(description=f"{guild.JSON['description']}")
             except KeyError:
                 embed = discord.Embed()
-            embed.title = f"[{guild.JSON['tag']}] - {guild.JSON['name']} ({playercount} members)"
+            try:
+                embed.title = f"[{guild.JSON['tag']}] - {guild.JSON['name']} ({playercount} members)"
+            except KeyError:
+                embed.title = f"{guild.JSON['name']} - ({playercount} members)"
             if ctx.me.color is not None:
                 embed.color = ctx.me.color
             embed.add_field(name='Coins', value=f"{guild.JSON['coins']}")
