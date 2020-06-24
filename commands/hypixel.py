@@ -87,7 +87,7 @@ class Hypixel(commands.Cog):
                 try:
                     explist = []
                     finallist = []
-                    todaysdate = datetime.now().date().isoformat()
+                    todaysdate = str(datetime.now().date().isoformat())
                     if 5 <= len(guild.JSON['members']):
                         smallerone = len(guild.JSON['members'])
                     else:
