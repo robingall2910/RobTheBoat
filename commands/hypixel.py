@@ -82,9 +82,9 @@ class Hypixel(commands.Cog):
             gid = r.json()['guild']
             guild = hypixel.Guild(gid)
             playercount = len(guild.JSON['members'])
-            if guild.JSON['description'] is not KeyError:
+            try:
                 embed = discord.Embed(description=f"{guild.JSON['description']}")
-            else:
+            except KeyError:
                 embed = discord.Embed()
             embed.title = f"[{guild.JSON['tag']}] - {guild.JSON['name']} ({playercount} members)"
             if ctx.me.color is not None:
@@ -96,7 +96,7 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Preferred Games", value=f"\n#1 - {guild.JSON['preferredGames'][0]}\n#2 - {guild.JSON['preferredGames'][1]}\n#3 - {guild.JSON['preferredGames'][2]}\n#4 - {guild.JSON['preferredGames'][3]}", inline=True)
             await ctx.send(embed=embed)
         except Exception:
-            await ctx.send(traceback.print_exc())
+            await ctx.send(traceback.exc())
 
     @commands.command(aliases=['bedwars', 'binfo', 'bwinfo'])
     async def hbedwars(self, ctx, username: str):
