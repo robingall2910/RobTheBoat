@@ -106,15 +106,15 @@ class Hypixel(commands.Cog):
                     for a in range(0, len(explist)):
 
                     if len(guild.JSON['members']) == 4:
-                        return f"#1 - {top5[0]}\n#2 - {top5[1]}\n#3 - {top5[2]}\n#4 - {top5[3]}"
+                        return f"#1 - {top5[0,0]}\n#2 - {top5[1,1]}\n#3 - {top5[2,2]}\n#4 - {top5[3,3]}"
                     if len(guild.JSON['members']) == 3:
-                        return f"#1 - {top5[0]}\n#2 - {top5[1]}\n#3 - {top5[2]}"
+                        return f"#1 - {top5[0,0]}\n#2 - {top5[1,1]}\n#3 - {top5[2,2]}"
                     if len(guild.JSON['members']) == 2:
-                        return f"#1 - {top5[0]}\n#2 - {top5[1]}"
+                        return f"#1 - {top5[0,0]}\n#2 - {top5[1,1]}"
                     if len(guild.JSON['members']) == 1:
-                        return f"The only one - {top5[0]}"
+                        return f"The only one - {top5[0,0]}"
                     else:
-                        return f"#1 - {top5[0]}\n#2 - {top5[1]}\n#3 - {top5[2]}\n#4 - {top5[3]}\n#5 - {top5[4]}"
+                        return f"#1 - {top5[0,0]}\n#2 - {top5[1,1]}\n#3 - {top5[2,2]}\n#4 - {top5[3,3]}\n#5 - {top5[4,4]}"
                 except Exception:
                     traceback.print_exc()
             try:
