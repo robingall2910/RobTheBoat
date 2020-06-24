@@ -159,6 +159,7 @@ class Hypixel(commands.Cog):
                     embed.add_field(name=f'Preferred Games #{s}', value=f"{guild.JSON['preferredGames'][s]}")
             except KeyError:
                 pass
+            embed.add_field(name='Guild Tag Color', value=f"{guild.JSON['tagColor']}")
             await ctx.send(embed=embed)
         except Exception:
             await ctx.send(traceback.format_exc())
