@@ -87,32 +87,18 @@ class Information(commands.Cog):
                 print(track.result)
                 embed = discord.Embed(description=f"Currently {track.result['TrackResponse']['TrackInfo']['TrackSummary']['Event']} as of {track.result['TrackResponse']['TrackInfo']['TrackSummary']['EventDate']}")
                 embed.title = f"USPS Tracking - {track.result['TrackResponse']['TrackInfo']['@ID']}"
-                embed.add_field(name='Time difference', value='All the listed times below are based on the area the package is in.')
                 for u in range(0, len(track.result['TrackResponse']['TrackInfo']['TrackDetail'])):
                     tr = track.result['TrackResponse']['TrackInfo']['TrackDetail'][u]
                     if tr['EventState'] is None:
                         embed.add_field(name=f'Event #{u}', value=f"{tr['EventDate']} at {tr['EventTime']}: {tr['Event']} ({tr['EventCity']})")
                     else:
                         embed.add_field(name=f'Event #{u}', value=f"{tr['EventDate']} at {tr['EventTime']}: {tr['Event']} ({tr['EventCity']}, {tr['EventState']} {tr['EventZIPCode']})")
+                embed.set_footer(text='Timezone Warning: All the listed times are based on the area the package is in.')
                 await ctx.send(embed=embed)
             except Exception:
                 await ctx.send(traceback.format_exc())
         else:
             await ctx.send("No other service is available yet.")
-
-    @checks.is_dev()
-    @commands.command()
-    async def utest(self, ctx, *, shit: str):
-        try:
-            import asyncio
-            track = usps.track("9400110200828295265071")
-            rebug = eval(shit)
-            if asyncio.iscoroutine(rebug):
-                rebug = await rebug
-            else:
-                await ctx.send(py.format(rebug))
-        except Exception as damnit:
-            await ctx.send(py.format("{}: {}".format(type(damnit).__name__, damnit)))
 
     @commands.command()
     async def roleinfo(self, ctx, *, name:str):
