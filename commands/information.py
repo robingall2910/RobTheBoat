@@ -101,7 +101,11 @@ class Information(commands.Cog):
             except Exception:
                 await ctx.send(traceback.format_exc())
         if service == "FedEx" or "fedex":
-
+            fedex.SelectionDetails.PackageIdentifier.Type = 'TRACKING_NUMBER_OR_DOORTAG'
+            fedex.SelectionDetails.PackageIdentifier.Value = trackingnum
+            fedex.send_request()
+            print(fedex.response)
+            await ctx.send("should've recieved info")
         else:
             await ctx.send("No other service is available yet.")
 
