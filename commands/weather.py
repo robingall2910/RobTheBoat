@@ -23,6 +23,9 @@ def kms(func):
 class ówò(Exception):
     pass #i love you kirtus
 
+
+#WARNING: This cog is deprecated and will no longer be updated. https://blog.darksky.net/
+
 class Weather(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
