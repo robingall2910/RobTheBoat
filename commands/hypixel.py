@@ -139,16 +139,19 @@ class Hypixel(commands.Cog):
                 embed.title = f"[{guild.JSON['tag']}] - {guild.JSON['name']} ({playercount} members)"
             except KeyError:
                 embed.title = f"{guild.JSON['name']} - ({playercount} members)"
-            if guild.JSON['tagColor'] == "YELLOW":
-                embed.color = discord.Color.from_rgb(255, 247, 13)
-            elif guild.JSON['tagColor'] == "DARK_GREEN":
-                embed.color = discord.Color.from_rgb(0, 138, 21)
-            elif guild.JSON['tagColor'] == "DARK_AQUA":
-                embed.color = discord.Color.from_rgb(12, 176, 194)
-            elif guild.JSON['tagColor'] == "GOLD":
-                embed.color = discord.Color.from_rgb(227, 202, 14)
-            else:
-                embed.color = discord.Color.from_rgb(173, 173, 173)
+            try:
+                if guild.JSON['tagColor'] == "YELLOW":
+                    embed.color = discord.Color.from_rgb(255, 247, 13)
+                elif guild.JSON['tagColor'] == "DARK_GREEN":
+                    embed.color = discord.Color.from_rgb(0, 138, 21)
+                elif guild.JSON['tagColor'] == "DARK_AQUA":
+                    embed.color = discord.Color.from_rgb(12, 176, 194)
+                elif guild.JSON['tagColor'] == "GOLD":
+                    embed.color = discord.Color.from_rgb(227, 202, 14)
+                else:
+                    embed.color = discord.Color.from_rgb(173, 173, 173)
+            except KeyError:
+                embed.color = discord.Color.from_rgb(173, 173, 173)                                      
             embed.add_field(name='Created', value=f"{datetime.fromtimestamp(guild.JSON['created'] / 1000.0).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}")
             embed.add_field(name='Coins', value=f"{guild.JSON['coins']}")
             embed.add_field(name='Experience', value=f"{guild.JSON['exp']}")
