@@ -161,6 +161,8 @@ class Hypixel(commands.Cog):
                 pass
             embed.add_field(name='Guild Tag Color', value=f"{guild.JSON['tagColor']}")
             await ctx.send(embed=embed)
+        except hypixel.GuildIDNotValid:
+            await ctx.send("Guild not found! Are you sure you typed it correctly?")
         except Exception:
             await ctx.send(traceback.format_exc())
                                     
