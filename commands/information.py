@@ -3,20 +3,19 @@ import socket
 import datetime
 import time
 import traceback
-import trackingmore
 
 from discord.ext import commands
 from utils.tools import *
 from utils.logger import log
 from utils.unicode import *
 from utils.config import Config
+from usps import USPSApi
 config = Config()
 
 halloween = datetime(2020, 10, 31)
 christmas = datetime(2020, 12, 25)
 newyear = datetime(2021, 1, 1)
-
-trackingmore.set_api_key(config.trackingKey)
+usps = USPSApi(config._trackingKey)
 
 class Information(commands.Cog):
     def __init__(self, bot):
@@ -80,11 +79,11 @@ class Information(commands.Cog):
     @commands.command(aliases=['tp', 'package'])
     async def trackpackage(self, ctx, service: str, *, trackingnum: str):
         """Tracks your package for you."""
-        package = trackingmore.get_tracking_item(service, trackingnum)
-        embed = discord.Embed(description=f"Being delivered with {package['carrier_code']}")
-        embed.title = f"Tracking Number {package['tracking_number']}"
-        embed.add_field(name='Status', value=package['status'])
-        embed.add_field(name='Tracking info', value=package['trackinfo'])
+        if service == "usps" or "USPS":
+            track = usps.track(trackingnum)
+            await ctx.send(track.result)
+        else:
+            await ctx.send("No other service is available yet.")
 
     @commands.command()
     async def roleinfo(self, ctx, *, name:str):
