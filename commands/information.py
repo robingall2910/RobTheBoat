@@ -84,9 +84,15 @@ class Information(commands.Cog):
         if service == "usps" or "USPS":
             track = usps.track(trackingnum)
             print(track.result)
-            embed = discord.Embed(description=f"Currently {track.result['TrackResponse']['TrackInfo']['TrackSummary']['Event']} at {track.result['TrackResponse']['TrackInfo']['TrackSummary']['EventDate']}")
+            embed = discord.Embed(description=f"Currently {track.result['TrackResponse']['TrackInfo']['TrackSummary']['Event']} as of {track.result['TrackResponse']['TrackInfo']['TrackSummary']['EventDate']}")
             embed.title = f"USPS Tracking - {track.result['TrackResponse']['TrackInfo']['@ID']}"
-            embed.add_field(name='wip', value=None)
+            embed.add_field(name='Time difference', value='All the listed times below are based on the area the package is in.')
+            for u in range(0, track.result['TrackResponse']['TrackInfo']['TrackDetail']):
+                tr = track.result['TrackResponse']['TrackInfo']['TrackDetail'][u]
+                if tr['EventState'] is None:
+                    embed.add_field(name=f'Event #{u}', value=f"{tr['EventDate']} at {tr['EventTime']}: {tr['Event']} ({tr['EventCity']})")
+                else:
+                    embed.add_field(name=f'Event #{u}', value=f"{tr['EventDate']} at {tr['EventTime']}: {tr['Event']} ({tr['EventCity']}, {tr['EventState']} {tr['EventZIPCode']})")
             await ctx.send(embed=embed)
         else:
             await ctx.send("No other service is available yet.")
