@@ -33,10 +33,6 @@ class Hypixel(commands.Cog):
             if ctx.me.color is not None:
                 embed.color = ctx.me.color
             try:
-                ltu = hypixel.Player(player.JSON['mostRecentlyTippedUuid']).getName()  #deprecated? constantly doesn't work
-            except KeyError:
-                ltu = "They haven't tipped anyone recently."
-            try:
                 guildname = hypixel.Guild(player.getGuildID()).JSON['name']
             except Exception: #shut up code convention i dont care
                 guildname = "They aren't in a gang."
@@ -59,7 +55,6 @@ class Hypixel(commands.Cog):
             embed.add_field(name="First Login", value=f"{cflogin}")
             embed.add_field(name="Last Login", value=f"{cllogin}")
             embed.add_field(name="Last Minecraft Version played", value=f"{lmv}")
-            embed.add_field(name="Last Tipped User", value=f"{ltu}")
             if sys.platform == "windows":
                 embed.set_footer(
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
