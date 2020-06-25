@@ -165,7 +165,15 @@ class Hypixel(commands.Cog):
             try:
                 embed.add_field(name='Guild Tag Color', value=f"{guild.JSON['tagColor']}")
             except KeyError:
-                embed.add_field(name='Guild Tag Color', value="GRAY")          
+                embed.add_field(name='Guild Tag Color', value="GRAY")
+            if sys.platform == "windows":
+                embed.set_footer(
+                    text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
+                    icon_url=ctx.message.author.avatar_url)
+            elif sys.platform == "linux":
+                embed.set_footer(
+                    text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}",
+                    icon_url=ctx.message.author.avatar_url)
             await ctx.send(embed=embed)
         except hypixel.GuildIDNotValid:
             await ctx.send("Guild not found! Are you sure you typed it correctly?")
