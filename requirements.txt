@@ -24,4 +24,4 @@ ipwhois
 tweepy
 nest_asyncio
 db
-usps
+usps-api
