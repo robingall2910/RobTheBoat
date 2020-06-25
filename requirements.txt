@@ -25,3 +25,4 @@ tweepy
 nest_asyncio
 db
 usps-api
+fedex

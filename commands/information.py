@@ -12,12 +12,15 @@ from utils.logger import log
 from utils.unicode import *
 from utils.config import Config
 from usps import USPSApi
+from fedex.services.track_service import FedexTrackRequest
+
 config = Config()
 
 halloween = datetime(2020, 10, 31)
 christmas = datetime(2020, 12, 25)
 newyear = datetime(2021, 1, 1)
 usps = USPSApi(config._trackingKey)
+fedex = FedexTrackRequest(config._fedexKey)
 
 class Information(commands.Cog):
     def __init__(self, bot):
@@ -97,6 +100,8 @@ class Information(commands.Cog):
                 await ctx.send(embed=embed)
             except Exception:
                 await ctx.send(traceback.format_exc())
+        if service == "FedEx" or "fedex":
+
         else:
             await ctx.send("No other service is available yet.")
 
