@@ -3,6 +3,7 @@ import socket
 import datetime
 import time
 import traceback
+import trackingmore
 
 from discord.ext import commands
 from utils.tools import *
@@ -11,9 +12,11 @@ from utils.unicode import *
 from utils.config import Config
 config = Config()
 
-halloween = datetime(2019, 10, 31)
-christmas = datetime(2019, 12, 25)
-newyear = datetime(2020, 1, 1)
+halloween = datetime(2020, 10, 31)
+christmas = datetime(2020, 12, 25)
+newyear = datetime(2021, 1, 1)
+
+trackingmore.set_api_key(config.trackingKey)
 
 class Information(commands.Cog):
     def __init__(self, bot):
@@ -73,6 +76,15 @@ class Information(commands.Cog):
             await ctx.send(embed=embed)
         except Exception:
             await ctx.send(traceback.format_exc())
+
+    @commands.command(aliases=['tp', 'package'])
+    async def trackpackage(self, ctx, service: str, *, trackingnum: str):
+        """Tracks your package for you."""
+        package = trackingmore.get_tracking_item(service, trackingnum)
+        embed = discord.Embed(description=f"Being delivered with {package['carrier_code']}")
+        embed.title = f"Tracking Number {package['tracking_number']}"
+        embed.add_field(name='Status', value=package['status'])
+        embed.add_field(name='Tracking info', value=package['trackinfo'])
 
     @commands.command()
     async def roleinfo(self, ctx, *, name:str):
