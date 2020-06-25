@@ -49,11 +49,6 @@ class Hypixel(commands.Cog):
                 cllogin = datetime.fromtimestamp(llogin / 1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')
             except KeyError:
                 cllogin = "They hid their last login. Figure it out yourself."
-            try:
-                mvppp = player.JSON['levelUp_MVP_PLUS']
-                mvppluspurchase = datetime.fromtimestamp(mvppp / 1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')
-            except KeyError:
-                mvppluspurchase = None
             plevel = player.getLevel()
             cplevel = '{:,.0f}'.format(plevel)
             embed.title = f"{player.getName()}'s Hypixel Stats"
@@ -65,18 +60,6 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Last Login", value=f"{cllogin}")
             embed.add_field(name="Last Minecraft Version played", value=f"{lmv}")
             embed.add_field(name="Last Tipped User", value=f"{ltu}")
-            if mvppluspurchase is not None:
-                embed.add_field(name="MVP++ Purchase Date", value=f"{mvppluspurchase}")
-                def calc():
-                    mvpd = int(round(time.time() * 1000)) - mvppp
-                    mvpdadjusted = mvpd / 1000
-                    minute, second = divmod(mvpdadjusted, 60)
-                    hour, minute = divmod(minute, 60)
-                    day, hour = divmod(hour, 24)
-                    week, day = divmod(day, 7)
-                    return f"{week} week(s), {day} day(s), {hour} hour(s)"
-                mvpduration = calc()
-                embed.add_field(name="MVP++ Duration Left", value=f"{mvpduration}")
             if sys.platform == "windows":
                 embed.set_footer(
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",
