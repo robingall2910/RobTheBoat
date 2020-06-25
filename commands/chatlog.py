@@ -23,7 +23,7 @@ class ChatLog(commands.Cog):
             return
         else:
             record = self.clean_message(message.clean_content)
-            if record: #TODO: ACTUALLY seperate the words not L E T T E R S
+            if record:
                 addword(record, message.author.guild.id, message.author.id)
 
     def clean_message(self, message):

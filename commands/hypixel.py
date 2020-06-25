@@ -280,7 +280,8 @@ class Hypixel(commands.Cog):
     async def hpc(self, ctx):
         try:
             pc = hypixel.getJSON('playercount')['playerCount']
-            embed = discord.Embed(description=f"Total people online - {pc} players")
+            queue = hypixel.getJSON('gameCounts')['games']['QUEUE']
+            embed = discord.Embed(description=f"Total people online - {pc} players ({queue} in queue)")
             embed.title = "Hypixel Player Count"
             if ctx.me.color is not None:
                 embed.color = ctx.me.color
@@ -306,8 +307,8 @@ class Hypixel(commands.Cog):
             embed.add_field(name="Warlords", value=f"{hypixel.getJSON('gameCounts')['games']['BATTLEGROUND']['players']}")
             embed.add_field(name="Super Smash™", value=f"{hypixel.getJSON('gameCounts')['games']['SUPER_SMASH']['players']}")
             embed.add_field(name="Speed UHC", value=f"{hypixel.getJSON('gameCounts')['games']['SPEED_UHC']['players']}")
-            embed.add_field(name="Crazy Walls", value=f"{hypixel.getJSON('gameCounts')['games']['TRUE_COMBAT']['players']}")
             embed.add_field(name="Turbo Kart Racer", value=f"{hypixel.getJSON('gameCounts')['games']['LEGACY']['modes']['GINGERBREAD']}")
+            embed.add_field(name="Rich people doing replays", value=f"{hypixel.getJSON('gameCounts')['games']['REPLAY']['players']}")
             if sys.platform == "windows":
                 embed.set_footer(
                     text=f"Requested by: {ctx.message.author} / {datetime.fromtimestamp(time.time()).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')}",

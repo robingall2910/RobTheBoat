@@ -74,6 +74,7 @@ class Weather(commands.Cog):
                 weatheralert = True
                 a1 = a[0]
                 #TODO: check for OS version when doing the time shit
+                #no :)
                 try:
                     if a[1] is not None:
                         try:
