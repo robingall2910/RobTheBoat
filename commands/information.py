@@ -82,7 +82,10 @@ class Information(commands.Cog):
         if service == "usps" or "USPS":
             track = usps.track(trackingnum)
             print(track.result)
-            await ctx.send(track.result)
+            embed = discord.Embed(description=f"Currently {track.result['TrackResponse']['TrackInfo']['@ID']['Event']} at {track.result['TrackResponse']['TrackInfo']['@ID']['EventDate']}")
+            embed.title = f"USPS Tracking - {track.result['TrackResponse']['TrackInfo']['@ID']}"
+            embed.add_field(name='wip', value=None)
+            await ctx.send(embed=embed)
         else:
             await ctx.send("No other service is available yet.")
 
