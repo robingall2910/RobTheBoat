@@ -281,7 +281,7 @@ class Hypixel(commands.Cog):
         try:
             pc = hypixel.getJSON('playercount')['playerCount']
             queue = hypixel.getJSON('gameCounts')['games']['QUEUE']['players']
-            if queue == "0":
+            if queue == 0:
                 embed = discord.Embed(description=f"Total people online - {pc} players")
             else:
                 embed = discord.Embed(description=f"Total people online - {pc} players ({queue} in queue)")
