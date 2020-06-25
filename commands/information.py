@@ -92,6 +92,7 @@ class Information(commands.Cog):
             await ctx.send("No other service is available yet.")
 
     @checks.is_dev()
+    @commands.command()
     async def utest(self, ctx, *, shit: str):
         try:
             import asyncio
