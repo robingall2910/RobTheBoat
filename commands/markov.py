@@ -18,7 +18,7 @@ from utils.mysql import getmsgs, getmsgsuser, delword
 class MarkovChain(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-"""
+    """
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author.bot:
@@ -35,7 +35,7 @@ class MarkovChain(commands.Cog):
                 embed = discord.Embed(color=discord.Color.blue())
             embed.add_field(name=f'*{self.bot.user.name} 9000*', value=f'**{response}**')
             await message.channel.send(embed=embed)
-            """
+    """
 
     @commands.command()
     async def markovuser(self, message, user:discord.Member=None):
