@@ -75,8 +75,8 @@ async def _restart_bot():
 
 async def _shutdown_bot():
     try:
-      await aiosession.close()
       await bot.cogs["Music"].disconnect_all_voice_clients()
+      await aiosession.close()
     except:
        pass
     await bot.logout()
