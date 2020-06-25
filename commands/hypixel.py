@@ -52,7 +52,7 @@ class Hypixel(commands.Cog):
             embed.title = f"{player.getName()}'s Hypixel Stats"
             embed.set_thumbnail(url=f"https://crafatar.com/avatars/{player.UUID}?size=64")
             embed.add_field(name="Rank", value=f"{player.getRank()['rank']}")
-            embed.add_field(name="Level", value=f"{cplevel}\n({perlevel2} to {int(cplevel) + 1})")
+            embed.add_field(name="Level", value=f"{cplevel}\n({perlevel2}% to {int(cplevel) + 1})")
             embed.add_field(name="Guild Name", value=f"{guildname}")
             embed.add_field(name="First Login", value=f"{cflogin}")
             embed.add_field(name="Last Login", value=f"{cllogin}")
