@@ -73,7 +73,7 @@ class Hypixel(commands.Cog):
             await ctx.send("Player not found! Try another UUID or username.")
         except Exception:
             await ctx.send(traceback.print_exc())
-
+                            
     @commands.command(aliases=['ginfo', 'hginfo', 'hg'])
     async def hguildinfo(self, ctx, *, dirtygname: str):
         try:
@@ -139,16 +139,19 @@ class Hypixel(commands.Cog):
                 embed.title = f"[{guild.JSON['tag']}] - {guild.JSON['name']} ({playercount} members)"
             except KeyError:
                 embed.title = f"{guild.JSON['name']} - ({playercount} members)"
-            if (guild.JSON['tagColor'] == "YELLOW") is True:
-                embed.color = discord.Color.from_rgb(255, 247, 13)
-            if (guild.JSON['tagColor'] == "DARK_GREEN") is True:
-                embed.color = discord.Color.from_rgb(0, 138, 21)
-            if (guild.JSON['tagColor'] == "DARK_AQUA") is True:
-                embed.color = discord.Color.from_rgb(12, 176, 194)
-            if (guild.JSON['tagColor'] == "GOLD") is True:
-                embed.color = discord.Color.from_rgb(227, 202, 14)
-            else: # gray
-                embed.color = discord.Color.from_rgb(173, 173, 173)
+            try:
+                if guild.JSON['tagColor'] == "YELLOW":
+                    embed.color = discord.Color.from_rgb(255, 247, 13)
+                elif guild.JSON['tagColor'] == "DARK_GREEN":
+                    embed.color = discord.Color.from_rgb(0, 138, 21)
+                elif guild.JSON['tagColor'] == "DARK_AQUA":
+                    embed.color = discord.Color.from_rgb(12, 176, 194)
+                elif guild.JSON['tagColor'] == "GOLD":
+                    embed.color = discord.Color.from_rgb(227, 202, 14)
+                else:
+                    embed.color = discord.Color.from_rgb(173, 173, 173)
+            except KeyError:
+                embed.color = discord.Color.from_rgb(173, 173, 173)                                      
             embed.add_field(name='Created', value=f"{datetime.fromtimestamp(guild.JSON['created'] / 1000.0).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')}")
             embed.add_field(name='Coins', value=f"{guild.JSON['coins']}")
             embed.add_field(name='Experience', value=f"{guild.JSON['exp']}")
@@ -159,7 +162,10 @@ class Hypixel(commands.Cog):
                     embed.add_field(name=f'Preferred Games #{s}', value=f"{guild.JSON['preferredGames'][s]}")
             except KeyError:
                 pass
-            embed.add_field(name='Guild Tag Color', value=f"{guild.JSON['tagColor']}")
+            try:
+                embed.add_field(name='Guild Tag Color', value=f"{guild.JSON['tagColor']}")
+            except KeyError:
+                embed.add_field(name='Guild Tag Color', value="GRAY")          
             await ctx.send(embed=embed)
         except hypixel.GuildIDNotValid:
             await ctx.send("Guild not found! Are you sure you typed it correctly?")
