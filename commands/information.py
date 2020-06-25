@@ -82,18 +82,21 @@ class Information(commands.Cog):
     async def trackpackage(self, ctx, service: str, *, trackingnum: str):
         """Tracks your package for you."""
         if service == "usps" or "USPS":
-            track = usps.track(trackingnum)
-            print(track.result)
-            embed = discord.Embed(description=f"Currently {track.result['TrackResponse']['TrackInfo']['TrackSummary']['Event']} as of {track.result['TrackResponse']['TrackInfo']['TrackSummary']['EventDate']}")
-            embed.title = f"USPS Tracking - {track.result['TrackResponse']['TrackInfo']['@ID']}"
-            embed.add_field(name='Time difference', value='All the listed times below are based on the area the package is in.')
-            for u in range(0, track.result['TrackResponse']['TrackInfo']['TrackDetail']):
-                tr = track.result['TrackResponse']['TrackInfo']['TrackDetail'][u]
-                if tr['EventState'] is None:
-                    embed.add_field(name=f'Event #{u}', value=f"{tr['EventDate']} at {tr['EventTime']}: {tr['Event']} ({tr['EventCity']})")
-                else:
-                    embed.add_field(name=f'Event #{u}', value=f"{tr['EventDate']} at {tr['EventTime']}: {tr['Event']} ({tr['EventCity']}, {tr['EventState']} {tr['EventZIPCode']})")
-            await ctx.send(embed=embed)
+            try:
+                track = usps.track(trackingnum)
+                print(track.result)
+                embed = discord.Embed(description=f"Currently {track.result['TrackResponse']['TrackInfo']['TrackSummary']['Event']} as of {track.result['TrackResponse']['TrackInfo']['TrackSummary']['EventDate']}")
+                embed.title = f"USPS Tracking - {track.result['TrackResponse']['TrackInfo']['@ID']}"
+                embed.add_field(name='Time difference', value='All the listed times below are based on the area the package is in.')
+                for u in range(0, track.result['TrackResponse']['TrackInfo']['TrackDetail']):
+                    tr = track.result['TrackResponse']['TrackInfo']['TrackDetail'][u]
+                    if tr['EventState'] is None:
+                        embed.add_field(name=f'Event #{u}', value=f"{tr['EventDate']} at {tr['EventTime']}: {tr['Event']} ({tr['EventCity']})")
+                    else:
+                        embed.add_field(name=f'Event #{u}', value=f"{tr['EventDate']} at {tr['EventTime']}: {tr['Event']} ({tr['EventCity']}, {tr['EventState']} {tr['EventZIPCode']})")
+                await ctx.send(embed=embed)
+            except Exception:
+                await ctx.send(traceback.format_exc())
         else:
             await ctx.send("No other service is available yet.")
 
