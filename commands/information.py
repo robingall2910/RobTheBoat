@@ -5,6 +5,8 @@ import time
 import traceback
 
 from discord.ext import commands
+
+from utils import checks
 from utils.tools import *
 from utils.logger import log
 from utils.unicode import *
@@ -88,6 +90,19 @@ class Information(commands.Cog):
             await ctx.send(embed=embed)
         else:
             await ctx.send("No other service is available yet.")
+
+    @checks.is_dev()
+    async def utest(self, ctx, *, shit: str):
+        try:
+            import asyncio
+            track = usps.track("9400110200828295265071")
+            rebug = eval(shit)
+            if asyncio.iscoroutine(rebug):
+                rebug = await rebug
+            else:
+                await ctx.send(py.format(rebug))
+        except Exception as damnit:
+            await ctx.send(py.format("{}: {}".format(type(damnit).__name__, damnit)))
 
     @commands.command()
     async def roleinfo(self, ctx, *, name:str):
