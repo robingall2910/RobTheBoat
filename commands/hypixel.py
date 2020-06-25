@@ -29,7 +29,10 @@ class Hypixel(commands.Cog):
             player = hypixel.Player(username)
             embed = discord.Embed(description=None)
             flogin = player.JSON['firstLogin']
-            cflogin = datetime.fromtimestamp(flogin/1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')
+            if sys.platform == "windows":
+                cflogin = datetime.fromtimestamp(flogin / 1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')
+            elif sys.platform == "linux":
+                cflogin = datetime.fromtimestamp(flogin / 1000.0).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')
             if ctx.me.color is not None:
                 embed.color = ctx.me.color
             try:
@@ -42,7 +45,10 @@ class Hypixel(commands.Cog):
                 lmv = "They haven't played Minecraft in years, I guess."
             try:
                 llogin = player.JSON['lastLogin']
-                cllogin = datetime.fromtimestamp(llogin / 1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')
+                if sys.platform == "windows":
+                    cllogin = datetime.fromtimestamp(llogin / 1000.0).strftime('%A, %B %#d, %Y at %#I:%M %p %Z')
+                elif sys.platform == "linux":
+                    cllogin = datetime.fromtimestamp(llogin / 1000.0).strftime('%A, %B %-d, %Y at %-I:%M %p %Z')
             except KeyError:
                 cllogin = "They hid their last login. Figure it out yourself."
             plevel = player.getLevel()
