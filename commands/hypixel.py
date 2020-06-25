@@ -129,6 +129,8 @@ class Hypixel(commands.Cog):
                         uuid4 = hypixel.Player(top5[3][0]).JSON['displayname']
                         uuid5 = hypixel.Player(top5[4][0]).JSON['displayname']
                         return f"#1 - {uuid1}: {top5[0][1]}\n#2 - {uuid2}: {top5[1][1]}\n#3 - {uuid3}: {top5[2][1]}\n#4 - {uuid4}: {top5[3][1]}\n#5 - {uuid5}: {top5[4][1]}"
+                except IndexError:
+                    return "No history can be displayed."
                 except Exception:
                     traceback.print_exc()
             try:
