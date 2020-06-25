@@ -281,7 +281,10 @@ class Hypixel(commands.Cog):
         try:
             pc = hypixel.getJSON('playercount')['playerCount']
             queue = hypixel.getJSON('gameCounts')['games']['QUEUE']['players']
-            embed = discord.Embed(description=f"Total people online - {pc} players ({queue} in queue)")
+            if queue == "0":
+                embed = discord.Embed(description=f"Total people online - {pc} players")
+            else:
+                embed = discord.Embed(description=f"Total people online - {pc} players ({queue} in queue)")
             embed.title = "Hypixel Player Count"
             if ctx.me.color is not None:
                 embed.color = ctx.me.color
