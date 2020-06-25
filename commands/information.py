@@ -82,6 +82,7 @@ class Information(commands.Cog):
         if service == "usps" or "USPS":
             track = usps.track(trackingnum)
             await ctx.send(track.result)
+            print(track.result)
         else:
             await ctx.send("No other service is available yet.")
 
