@@ -30,6 +30,7 @@ class Defaults:
     hypixelKey = None
     trackingKey = None
     fedexKey = None
+    fedexPassword = None
 
 class Config:
     def __init__(self, herokudeploy=False):  # change if you're running on a pc or vps
@@ -93,6 +94,7 @@ class Config:
             self._hypixelKey = str(os.environ.get('HYPIXEL_KEY'))
             self._trackingKey = str(os.environ.get('TRACKINGKEY'))
             self._fedexKey = str(os.environ.get('FEDEXKEY'))
+            self._fedexPassword = str(os.environ.get('FEDEXPASS'))
         else:
             sections = {"Credentials", "Bot", "Status", "Logging", "Osu", "Guild Wars 2", "Google", "Last.fm", "Hypixel", "Tracking"}.difference(config.sections())
             if sections:
@@ -123,6 +125,7 @@ class Config:
             self._hypixelKey = config.get("Hypixel", "key", fallback=Defaults.hypixelKey)
             self._trackingKey = config.get("Tracking", "usps", fallback=Defaults.trackingKey)
             self._fedexKey = config.get("Tracking", "fedex", fallback=Defaults.fedexKey)
+            self._fedexPassword = config.get("Tracking", "fedexpass", fallback=Defaults.fedexPassword)
 
         self.check()
 

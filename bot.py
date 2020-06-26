@@ -752,7 +752,7 @@ async def stats(ctx):
         em.title = bot.user.name + "'s Help Server"
         em.url = "https://discord.gg/2F69NdA"
         em.set_thumbnail(url=bot.user.avatar_url)
-        em.add_field(name='Creators', value='based robin#0052\nZeroEpoch1969#0051', inline=True)
+        em.add_field(name='Developers', value='based robin#0052\nscripthead#7988\nLemon#0053', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)

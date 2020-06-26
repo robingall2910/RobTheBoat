@@ -13,6 +13,7 @@ from utils.unicode import *
 from utils.config import Config
 from usps import USPSApi
 from fedex.services.track_service import FedexTrackRequest
+from fedex.config import FedexConfig
 
 config = Config()
 
@@ -20,7 +21,12 @@ halloween = datetime(2020, 10, 31)
 christmas = datetime(2020, 12, 25)
 newyear = datetime(2021, 1, 1)
 usps = USPSApi(config._trackingKey)
-fedex = FedexTrackRequest(config._fedexKey)
+FedexConfigObj = FedexConfig(key=config._fedexKey,
+                             password=config._fedexPassword,
+                             account_number='510087240',
+                             meter_number='114084089',
+                             freight_account_number=None,
+                             use_test_server=False)
 
 class Information(commands.Cog):
     def __init__(self, bot):
@@ -101,6 +107,7 @@ class Information(commands.Cog):
             except Exception:
                 await ctx.send(traceback.format_exc())
         if service == "FedEx" or "fedex":
+            fedex = FedexTrackRequest()
             fedex.SelectionDetails.PackageIdentifier.Type = 'TRACKING_NUMBER_OR_DOORTAG'
             fedex.SelectionDetails.PackageIdentifier.Value = trackingnum
             fedex.send_request()
