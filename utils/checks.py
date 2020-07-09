@@ -43,7 +43,7 @@ def is_owner():
 def is_dev():
     terminaldevs = [365274392680333329, 372078453236957185, 147765181903011840]
     def predicate(ctx):
-        if ctx.author.id in config.dev_ids or ctx.author.id == int(config.owner_id) or ctx.author.id in terminaldevs:
+        if ctx.author.id in config.dev_ids or ctx.author.id == int(config.owner_id):
             return True
         else:
             raise dev_only

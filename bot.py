@@ -36,7 +36,7 @@ if config.debug:
 
 bot_triggers = [config.command_prefix, "r.", "hey dragon, ", "hey derg, ", "hey batzz, "]
 
-bot = commands.AutoShardedBot(command_prefix=bot_triggers, help_command=None, description="A bot with several purposes, like music, memes, weather, but based off of the furry fandom.")
+bot = commands.AutoShardedBot(command_prefix=bot_triggers, help_command=None, description="A bot with several purposes, like music, memes, weather, but based off of the furry fandom.", dm_help=True)
 channel_logger = Channel_Logger(bot)
 aiosession = aiohttp.ClientSession(loop=bot.loop)
 lock_status = config.lock_status
@@ -75,8 +75,8 @@ async def _restart_bot():
 
 async def _shutdown_bot():
     try:
-      await bot.cogs["Music"].disconnect_all_voice_clients()
       await aiosession.close()
+      await bot.cogs["Music"].disconnect_all_voice_clients()
     except:
        pass
     await bot.logout()
@@ -99,7 +99,7 @@ async def set_default_status():
         else:
             game = discord.Activity(
                 #name="New command invokes are now available!\n\"hey derg\", \"hey dragon\", \"hey batzz\", and \"r.\"! \n\n#BetoSanders2020 #AbramsForGovernor", type=discord.ActivityType.playing)
-                name="happy pride month (blm!)", type=discord.ActivityType.playing)
+                name="ryan's are gay", type=discord.ActivityType.playing)
             # pyrawanpmjadbapanwmjamtsatltsadw
         await bot.change_presence(status=type, activity=game)
     else:
@@ -202,8 +202,7 @@ async def on_command_preprocess(ctx):
 async def on_message(message):
     ids = [149688910220361728, 112747894435491840, 188153050471333888]
     serverids = [400012212791541760, 510897834581557251, 142361999538520065, 502979046993559553]
-    tfserver = [142361999538520065, 610422741065138179]
-    mystupidserver = [704113908276920350]
+    tfserver = 142361999538520065
     #bypassids = [169597963507728384, 117678528220233731, 365274392680333329, 372078453236957185]
     if isinstance(message.author, discord.Member):
         if discord.utils.get(message.author.roles, name="Dragon Ignorance"):
@@ -226,11 +225,11 @@ async def on_message(message):
         if re.match(r"(?=\s*wyoming\s*|\s*kenya\s*)\w+", message.clean_content) is not None:
             await message.channel.send("isn't real")
         if message.author.id in ids:
-            if re.match(r"(?=\s*warm\s*|\s*hot\s*|\s*burning\s*)\w+", message.clean_content) is not None:
+            if re.match(r"(?=warm|hot|burning)\w+", message.clean_content) is not None:
                 await message.channel.send("actually cold")
         if "doki doki isn't weeb" in message.content:
             await message.channel.send("doki doki is weeb")
-        if re.match(r"(?=\s*colour)\w+", message.clean_content) is not None or ("colour" or "Colour") in message.clean_content:
+        if re.match(r"(?=\s*colour)+", message.clean_content) is not None or ("colour" or "Colour") in message.clean_content:
             await message.channel.send("color")
     if str(message.channel.id) in getquicklockdownstatus():
         def mod_or_perms(message, **permissions):
@@ -250,13 +249,9 @@ async def on_message(message):
             await message.delete()
             log.info(f"Deleted a message due to lockdown from {message.author} in {message.channel}")
             return
-    if message.channel.guild.id in tfserver:
+    if message.channel.guild.id == tfserver:
         if "unban me" in message.content:
             await message.channel.send("shut up fat")
-    if message.channel.guild.id == mystupidserver:
-        if re.match(r"(?=\s*nigger)\w+", message.clean_content) is not None or ("nigger" or "Nigger") in message.clean_content:
-            await bot.message.delete()
-            await message.channel.send(f'{message.author.mention} no n word')
     await bot.process_commands(message)
 
 @bot.command(hidden=True)
@@ -272,7 +267,21 @@ async def debug(ctx, *, shit: str):
         await ctx.send(py.format(rebug))
     except Exception as damnit:
         await ctx.send(py.format("{}: {}".format(type(damnit).__name__, damnit)))
-
+        
+@bot.command(hidden=True)
+@checks.is_dev()
+async def lmao(ctx, id:int, *, file:str):
+    channel = await bot.get_channel(id).connect()
+    channel.play(discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(file)))
+    
+@bot.command(hidden=True)
+@checks.is_dev()
+async def stoplmao(ctx, id:int):
+    for client in bot.voice_clients:
+      if client.channel.id == id:
+        await client.disconnect()
+        break
+    
 @bot.command(hidden=True)
 @checks.is_owner()
 async def rename(ctx, *, username: str):
@@ -752,7 +761,7 @@ async def stats(ctx):
         em.title = bot.user.name + "'s Help Server"
         em.url = "https://discord.gg/2F69NdA"
         em.set_thumbnail(url=bot.user.avatar_url)
-        em.add_field(name='Developers', value='based robin#0052\nscripthead#7988\nLemon#0053', inline=True)
+        em.add_field(name='Creators', value='based robin#0052\nZeroEpoch1969#0051', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
