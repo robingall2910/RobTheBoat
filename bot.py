@@ -141,7 +141,6 @@ async def on_ready():
                 log.error("Woah, unauthorized?")
         except requests.exceptions.Timeout:
             log.error("The server failed to respond in time. Unable to update the bot statistics.")
-        pass
     if os.path.isdir("data/music"):
         try:
             bot.cogs["Music"].clear_data()
