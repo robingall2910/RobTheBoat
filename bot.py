@@ -128,17 +128,19 @@ async def on_ready():
     if config.enableOsu:
         log.info("The osu! module has been enabled in the config!")
     if config._dbots_token:
-        #log.info("Updating DBots Statistics...")
-        #try:
-        #    r = requests.post("https://discord.bots.gg/api/v1/bots/:{}/stats".format(bot.user.id),
-        #    	              json={"server_count": len(bot.guilds)},
-        #        	          headers={"Authorization": config._dbots_token}, timeout=3)
-        #    if r.status_code == 200:
-        #        log.info("Discord Bots Server count updated.")
-        #    elif r.status_code == 401:
-        #        log.error("Woah, unauthorized?")
-        #except requests.exceptions.Timeout:
-        #    log.error("The server failed to respond in time. Unable to update the bot statistics.")
+        log.info("Updating DBots Statistics...")
+        try:
+            r = requests.post("https://discord.bots.gg/api/v1/bots/:{}/stats".format(bot.user.id),
+            	              json={"guildCount": len(bot.guilds),
+                                    "shardCount": bot.shard_count,
+                                    "shardId": bot.shard_id},
+                	          headers={"Authorization": config._dbots_token}, timeout=3)
+            if r.status_code == 200:
+                log.info("Discord Bots Server count updated.")
+            elif r.status_code == 401:
+                log.error("Woah, unauthorized?")
+        except requests.exceptions.Timeout:
+            log.error("The server failed to respond in time. Unable to update the bot statistics.")
         pass
     if os.path.isdir("data/music"):
         try:
@@ -781,7 +783,7 @@ async def stats(ctx):
         em.title = bot.user.name + "'s Help Server"
         em.url = "https://discord.gg/2F69NdA"
         em.set_thumbnail(url=bot.user.avatar_url)
-        em.add_field(name='Creators', value='based robin#0052\nZeroEpoch1969#0051', inline=True)
+        em.add_field(name='Developers', value='based robin#0052\nscripthead#7988\nLemon#0053', inline=True)
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
