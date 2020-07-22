@@ -498,8 +498,8 @@ async def changestatus(ctx, status: str, *, name: str = None):
             return
         if name2 is None:
             await bot.change_presence(status=statustype)
-            await log.info(f"Status changed to {statustype}")
             await ctx.send("Changed status type to `{}`".format(status))
+           #await log.info(f"Status changed to {statustype}")
             await channel_logger.log_to_channel(":information_source: `{}`/`{}` has changed the status type to `{}`".format(ctx.message.author.id, ctx.message.author, status))
         else:
             await bot.change_presence(activity=game, status=statustype)
