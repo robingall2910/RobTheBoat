@@ -537,7 +537,7 @@ async def update(ctx):
             print(msg)
             if ctx.message.clean_content == "y" or "Y":
                 await ctx.send("Restarting!")
-                _restart_bot()
+                await _restart_bot()
             if ctx.message.clean_content == "n" or "N":
                 await ctx.send("Okay, not going to restart.")
             else:
