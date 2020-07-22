@@ -534,11 +534,11 @@ async def update(ctx):
             await ctx.send("Update found! Updating, give me a sec...")
             await ctx.channel.trigger_typing()
             await asyncio.sleep(2)
-            await ctx.send("Okay, it's done! Do you want to restart?")
-            await ctx.message.add_reaction('✔')
-            await ctx.message.add_reaction('❌')
+            msg = await ctx.channel.send("Okay, it's done! Do you want to restart?")
+            await msg.add_reaction('✔')
+            await msg.add_reaction('❌')
             def check(reaction, user):
-                return user == ctx.message.author and str(reaction.emoji) == '✔'
+                return user == ctx.message.author and str(reaction.emoji) == '✔' and reaction.message == msg
             try:
                 reaction, user = await bot.wait_for('reaction_add', timeout=30.0, check=check)
             except asyncio.TimeoutError:
