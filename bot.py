@@ -490,7 +490,7 @@ async def changestatus(ctx, status: str, *, name: str = None):
             await ctx.send("You can not use the status type `{}`".format(status))
             return
         try:
-            statustype = "discord.Status." + status
+            statustype = discord.Status(status)
         except ValueError:
             await ctx.send(
                 "`{}` is not a valid status type, valid status types are `online`, `idle`, `do_not_disturb`, and `dnd`".format(
@@ -498,8 +498,8 @@ async def changestatus(ctx, status: str, *, name: str = None):
             return
         if name2 is None:
             await bot.change_presence(status=statustype)
-            await ctx.send("Changed status type to `{}`".format(statustype))
-           #await log.info(f"Status changed to {statustype}")
+            await ctx.send("Changed status type to `{}`".format(status))
+            await log.info(f"Status changed to {statustype}")
             await channel_logger.log_to_channel(":information_source: `{}`/`{}` has changed the status type to `{}`".format(ctx.message.author.id, ctx.message.author, status))
         else:
             await bot.change_presence(activity=game, status=statustype)
