@@ -469,6 +469,7 @@ async def stream(ctx, *, name: str):
     await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a `streaming` status type".format(ctx.message.author.id, ctx.message.author, name2.replace("@here", "")))
 
 
+#TODO: actually fix the command @Lemon
 @bot.command()
 async def changestatus(ctx, status: str, *, name: str = None):
     """Changes the bot status to a certain status type and game/name/your shitty advertisement/seth's
