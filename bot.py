@@ -473,11 +473,14 @@ async def stream(ctx, *, name: str):
 async def changestatus(ctx, status: str, *, name: str = None):
     """Changes the bot status to a certain status type and game/name/your shitty advertisement/seth's
     life story/your favorite beyonce lyrics and so on"""
-    name2 = name.replace("@everyone", "").replace("@", "")
+    if name is not None:
+        name2 = name.replace("@everyone", "").replace("@", "")
+    else:
+        pass
     if lock_status:
         await ctx.send("Status is locked. Don't try.")
         return
-    game = None
+    game = discord.Game(name=name2)
     if status in ("invisible", "offline"):
         await ctx.send("You can not use the status type `{}`".format(status))
         return
@@ -488,17 +491,14 @@ async def changestatus(ctx, status: str, *, name: str = None):
             "`{}` is not a valid status type, valid status types are `online`, `idle`, `do_not_disturb`, and `dnd`".format(
                 status))
         return
-    if name2 != "":
-        game = discord.Game(name=name2)
-    if name2 is not None:
-        await bot.change_presence(activity=game, status=statustype)
-        await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name2.replace("@here", ""), status))
-        await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name2.replace("@here", ""), status))
-    else:
+    if name2 is None:
         await bot.change_presence(status=statustype)
         await ctx.send("Changed status type to `{}`".format(status))
         await channel_logger.log_to_channel(":information_source: `{}`/`{}` has changed the status type to `{}`".format(ctx.message.author.id, ctx.message.author, status))
-
+    else:
+        await bot.change_presence(activity=game, status=statustype)
+        await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name2.replace("@here", ""), status))
+        await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name2.replace("@here", ""), status))
 
 @bot.command(hidden=True)
 @checks.is_dev()
@@ -527,13 +527,13 @@ async def update(ctx):
             await asyncio.sleep(2)
             await ctx.send("Okay, it's done! Do you want to restart? (Y/N)")
             def check(m):
-                return m.content == "y" or "n" or "Y" or "N" or "cancel" and m.channel == ctx.channel
+                return m.clean_content == "y" or "n" or "Y" or "N" or "cancel" and m.channel == ctx.channel
             msg = await bot.wait_for('message', check=check)
             print(msg)
-            if msg == "y" or "Y":
+            if ctx.message.clean_content == "y" or "Y":
                 await ctx.send("Restarting!")
                 _restart_bot()
-            if msg == "n" or "N":
+            if ctx.message.clean_content == "n" or "N":
                 await ctx.send("Okay, not going to restart.")
             else:
                 await ctx.send("Wrong answer! Canceling operation.")
