@@ -469,7 +469,7 @@ async def stream(ctx, *, name: str):
     await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a `streaming` status type".format(ctx.message.author.id, ctx.message.author, name2.replace("@here", "")))
 
 
-#TODO: actually fix the command @Lemon
+
 @bot.command()
 async def changestatus(ctx, status: str, *, name: str = None):
     """Changes the bot status to a certain status type and game/name/your shitty advertisement/seth's
@@ -498,13 +498,13 @@ async def changestatus(ctx, status: str, *, name: str = None):
             return
         if name2 is None:
             await bot.change_presence(status=statustype)
-            await ctx.send("Changed status type to `{}`".format(statustype))
-            #await log.info(f"Status changed to {statustype}")
+            await ctx.send("Changed status type to `{}`".format(status))
+            log.info("Status changed to {}".format(statustype))
             await channel_logger.log_to_channel(":information_source: `{}`/`{}` has changed the status type to `{}`".format(ctx.message.author.id, ctx.message.author, status))
         else:
             await bot.change_presence(activity=game, status=statustype)
-            await log.info(f"Status changed to {statustype} with name as {game}")
             await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name2.replace("@here", ""), status))
+            log.info("Status changed to {} with name as {}".format(statustype, game))
             await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name2.replace("@here", ""), status))
     except:
         await ctx.send(traceback.format_exc())
