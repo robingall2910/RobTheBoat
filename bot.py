@@ -445,7 +445,7 @@ async def showblacklist(ctx):
 
 
 @bot.command(hidden=True)
-@checks.is_owner()
+@checks.is_dev()
 async def lockstatus(ctx):
     """Toggles the lock on the status"""
     global lock_status
