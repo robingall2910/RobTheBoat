@@ -97,7 +97,7 @@ async def set_default_status():
         else:
             game = discord.Activity(
                 #name="New command invokes are now available!\n\"hey derg\", \"hey dragon\", \"hey batzz\", and \"r.\"! \n\n#BetoSanders2020 #AbramsForGovernor", type=discord.ActivityType.playing)
-                name="happy pride month (blm!)", type=discord.ActivityType.playing)
+                name="ryan's are gay (blm btw)", type=discord.ActivityType.playing)
             # pyrawanpmjadbapanwmjamtsatltsadw
         await bot.change_presence(status=type, activity=game)
     else:
@@ -470,7 +470,7 @@ async def stream(ctx, *, name: str):
 
 
 @bot.command()
-async def changestatus(ctx, status: str, *, name: str = None):
+async def changestatus(ctx, type: str, status: str, *, name: str = None):
     """Changes the bot status to a certain status type and game/name/your shitty advertisement/seth's
     life story/your favorite beyonce lyrics and so on"""
     name2 = name.replace("@everyone", "").replace("@", "")
@@ -488,9 +488,14 @@ async def changestatus(ctx, status: str, *, name: str = None):
             "`{}` is not a valid status type, valid status types are `online`, `idle`, `do_not_disturb`, and `dnd`".format(
                 status))
         return
+    if type in ("playing", "listening", "watching"):
+        try:
+            type2 = f"discord.ActivityType.{type}"
+        except ValueError:
+            await ctx.send("You didn't provide the correct action type. The ones available are playing, listening, and watching.")
     if name2 != "":
-        game = discord.Activity(name=name2, type=discord.ActivityType.playing, status=statustype)
-    await bot.change_presence(activity=game)
+        game = discord.Game(name=name2, type=type2)
+    await bot.change_presence(activity=game, status=statustype)
     if name2 is not None:
         await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name2.replace("@here", ""), status))
         await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name2.replace("@here", ""), status))
