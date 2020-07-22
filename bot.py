@@ -476,7 +476,7 @@ async def changestatus(ctx, status: str, *, name: str = None):
     life story/your favorite beyonce lyrics and so on"""
     try:
         if name is not None:
-            name2 = name.replace("@everyone", "").replace("@", "")
+            name2 = name.replace("@everyone", "").replace("@", "").replace("@here", "")
         else:
             name2 = None
         if lock_status:
@@ -498,12 +498,12 @@ async def changestatus(ctx, status: str, *, name: str = None):
             return
         if name2 is None:
             await bot.change_presence(status=statustype)
-            await ctx.send("Changed status type to `{}`".format(status))
+            await ctx.send("Changed status type to `{}`".format(statustype))
             log.info("Status changed to {}".format(statustype))
             await channel_logger.log_to_channel(":information_source: `{}`/`{}` has changed the status type to `{}`".format(ctx.message.author.id, ctx.message.author, status))
         else:
             await bot.change_presence(activity=game, status=statustype)
-            await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name2.replace("@here", ""), status))
+            await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name2, statustype))
             log.info("Status changed to {} with name as {}".format(statustype, game))
             await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name2.replace("@here", ""), status))
     except:
