@@ -470,7 +470,7 @@ async def stream(ctx, *, name: str):
 
 
 @bot.command()
-async def changestatus(ctx, status: str, *, name: str = None):
+async def changestatus(ctx, status: str, *, name: str):
     """Changes the bot status to a certain status type and game/name/your shitty advertisement/seth's
     life story/your favorite beyonce lyrics and so on"""
     try:
@@ -535,7 +535,7 @@ async def update(ctx):
             await asyncio.sleep(2)
             await ctx.send("Okay, it's done! Do you want to restart? (Y/N)")
             def check(m):
-                return m.clean_content == "y" or "n" or "Y" or "N" or "cancel" and m.channel == ctx.channel
+                return m.clean_content == "y" or "n" or "Y" or "N" or "cancel" and m.channel == ctx.message.channel
             msg = await bot.wait_for('message', check=check)
             print(msg)
             if ctx.message.clean_content == "y" or "Y":
