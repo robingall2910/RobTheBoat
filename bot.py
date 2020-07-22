@@ -16,7 +16,7 @@ from utils import checks
 from utils.bootstrap import Bootstrap
 from utils.buildinfo import *
 from utils.channel_logger import Channel_Logger
-from utils.config import Config 
+from utils.config import Config
 from utils.logger import log
 from utils.mysql import *
 from utils.opus_loader import load_opus_lib
@@ -476,11 +476,14 @@ async def changestatus(ctx, status: str, *, name: str = None):
     if name is not None:
         name2 = name.replace("@everyone", "").replace("@", "")
     else:
-        pass
+        name2 = None
     if lock_status:
         await ctx.send("Status is locked. Don't try.")
         return
-    game = discord.Game(name=name2)
+    if name2 is None:
+        game = None
+    else:
+        game = discord.Game(name=name2)
     if status in ("invisible", "offline"):
         await ctx.send("You can not use the status type `{}`".format(status))
         return
@@ -493,10 +496,12 @@ async def changestatus(ctx, status: str, *, name: str = None):
         return
     if name2 is None:
         await bot.change_presence(status=statustype)
+        await log.info(f"Status changed to {statustype}")
         await ctx.send("Changed status type to `{}`".format(status))
         await channel_logger.log_to_channel(":information_source: `{}`/`{}` has changed the status type to `{}`".format(ctx.message.author.id, ctx.message.author, status))
     else:
         await bot.change_presence(activity=game, status=statustype)
+        await log.info(f"Status changed to {statustype} with name as {game}")
         await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name2.replace("@here", ""), status))
         await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name2.replace("@here", ""), status))
 
