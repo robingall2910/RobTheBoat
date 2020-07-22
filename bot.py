@@ -538,7 +538,7 @@ async def update(ctx):
             await msg.add_reaction('✔')
             await msg.add_reaction('❌')
             def check(reaction, user):
-                return user == ctx.message.author and str(reaction.emoji) == '✔' and reaction.message == msg
+                return user == ctx.message.author and str(reaction.emoji) == '✔'
             try:
                 reaction, user = await bot.wait_for('reaction_add', timeout=30.0, check=check)
             except asyncio.TimeoutError:
