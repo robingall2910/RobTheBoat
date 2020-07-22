@@ -470,7 +470,7 @@ async def stream(ctx, *, name: str):
 
 
 @bot.command()
-async def changestatus(ctx, status: str, *, name: str):
+async def changestatus(ctx, status: str, *, name: str = None):
     """Changes the bot status to a certain status type and game/name/your shitty advertisement/seth's
     life story/your favorite beyonce lyrics and so on"""
     try:
@@ -533,18 +533,18 @@ async def update(ctx):
             await ctx.send("Update found! Updating, give me a sec...")
             await ctx.channel.trigger_typing()
             await asyncio.sleep(2)
-            await ctx.send("Okay, it's done! Do you want to restart? (Y/N)")
-            def check(m):
-                return m.clean_content == "y" or "n" or "Y" or "N" or "cancel" and m.channel == ctx.message.channel
-            msg = await bot.wait_for('message', check=check)
-            print(msg)
-            if ctx.message.clean_content == "y" or "Y":
+            await ctx.send("Okay, it's done! Do you want to restart?")
+            await ctx.add_reaction('✔')
+            await ctx.add_reaction('❌')
+            def check(reaction, user):
+                return user == ctx.message.author and str(reaction.emoji) == '✔'
+            try:
+                reaction, user = await bot.wait_for('reaction_add', timeout=30.0, check=check)
+            except asyncio.TimeoutError:
+                await ctx.send("You took too long! Canceling operation.")
+            else:
                 await ctx.send("Restarting!")
                 await _restart_bot()
-            if ctx.message.clean_content == "n" or "N":
-                await ctx.send("Okay, not going to restart.")
-            else:
-                await ctx.send("Wrong answer! Canceling operation.")
     except:
         await ctx.send(traceback.print_exc())
 
