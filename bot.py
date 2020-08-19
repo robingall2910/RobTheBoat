@@ -469,14 +469,14 @@ async def stream(ctx, *, name: str):
     await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a `streaming` status type".format(ctx.message.author.id, ctx.message.author, name2.replace("@here", "")))
 
 
-#TODO: actually fix the command @Lemon
+
 @bot.command()
 async def changestatus(ctx, status: str, *, name: str = None):
     """Changes the bot status to a certain status type and game/name/your shitty advertisement/seth's
     life story/your favorite beyonce lyrics and so on"""
     try:
         if name is not None:
-            name2 = name.replace("@everyone", "").replace("@", "")
+            name2 = name.replace("@everyone", "").replace("@", "").replace("@here", "")
         else:
             name2 = None
         if lock_status:
@@ -490,7 +490,7 @@ async def changestatus(ctx, status: str, *, name: str = None):
             await ctx.send("You can not use the status type `{}`".format(status))
             return
         try:
-            statustype = "discord.Status." + status
+            statustype = discord.Status(status)
         except ValueError:
             await ctx.send(
                 "`{}` is not a valid status type, valid status types are `online`, `idle`, `do_not_disturb`, and `dnd`".format(
@@ -498,13 +498,13 @@ async def changestatus(ctx, status: str, *, name: str = None):
             return
         if name2 is None:
             await bot.change_presence(status=statustype)
-            await log.info(f"Status changed to {statustype}")
-            await ctx.send("Changed status type to `{}`".format(status))
+            await ctx.send("Changed status type to `{}`".format(statustype))
+            log.info("Status changed to {}".format(statustype))
             await channel_logger.log_to_channel(":information_source: `{}`/`{}` has changed the status type to `{}`".format(ctx.message.author.id, ctx.message.author, status))
         else:
             await bot.change_presence(activity=game, status=statustype)
-            await log.info(f"Status changed to {statustype} with name as {game}")
-            await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name2.replace("@here", ""), status))
+            await ctx.send("Changed game name to `{}` with a(n) `{}` status type".format(name2, statustype))
+            log.info("Status changed to {} with name as {}".format(statustype, game))
             await channel_logger.log_to_channel(":information_source: `{}`/`{}` Changed game name to `{}` with a(n) `{}` status type".format(ctx.message.author.id, ctx.message.author, name2.replace("@here", ""), status))
     except:
         await ctx.send(traceback.format_exc())
@@ -534,9 +534,9 @@ async def update(ctx):
             await ctx.send("Update found! Updating, give me a sec...")
             await ctx.channel.trigger_typing()
             await asyncio.sleep(2)
-            await ctx.send("Okay, it's done! Do you want to restart?")
-            await ctx.message.add_reaction('✔')
-            await ctx.message.add_reaction('❌')
+            msg = await ctx.channel.send("Okay, it's done! Do you want to restart?")
+            await msg.add_reaction('✔')
+            await msg.add_reaction('❌')
             def check(reaction, user):
                 return user == ctx.message.author and str(reaction.emoji) == '✔'
             try:
@@ -765,7 +765,6 @@ async def stats(ctx):
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
-        # em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
         em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.", inline=True)
         em.add_field(name="Servers", value=str(len(bot.guilds)), inline=True)
         em.add_field(name='Members', value=sumupuni + " ***online*** out of " + sumupmembers, inline=True)
@@ -785,7 +784,7 @@ async def stats(ctx):
         em.add_field(name='Bot Version', value="v{}".format(BUILD_VERSION), inline=True)
         em.add_field(name='Bot Version Codename', value="\"{}\"".format(BUILD_CODENAME))
         em.add_field(name="Build Date", value=BUILD_DATE, inline=True)
-        # em.add_field(name='Shard ID', value="Shard " + str(SID), inline=True)
+        em.add_field(name='Shard ID', value="Shard " + str(ctx.guild.shard_id), inline=True)
         em.add_field(name='Voice Connections', value=str(len(bot.voice_clients)) + " servers.", inline=True)
         em.add_field(name="Servers", value=str(len(bot.guilds)), inline=True)
         em.add_field(name='Members', value=sumupuni + " ***online*** out of " + sumupmembers, inline=True)
