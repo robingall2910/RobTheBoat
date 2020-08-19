@@ -295,7 +295,7 @@ class Fuckery(commands.Cog):
         """@nigato @nigato @nigato"""
         for i in range(5):
             #await ctx.channel.trigger_typing
-            await ctx.send(f"<@169597963507728384> {ctx.author} needs you thanks")
+            await ctx.send(f"<@319679435194368000> {ctx.author} needs you thanks")
             await asyncio.sleep(2)
             print(i) # you want to be used? ill use u alright
 
