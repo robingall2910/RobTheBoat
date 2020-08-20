@@ -386,7 +386,7 @@ class Information(commands.Cog):
             for guild in self.bot.guilds:
                 result = discord.utils.find(lambda m: m.name == username, guild.members)
                 if result is not None:
-                    await ctx.send(f"Result found in {result.guild} - ID {result.id}") #maybe that works
+                    await ctx.send(f"Result found in {result.guild} - ID {result.id}")
         except Exception:
             await ctx.send(traceback.format_exc())
 
