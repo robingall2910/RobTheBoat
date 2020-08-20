@@ -100,7 +100,8 @@ disable=E0602, E0603, E0401,
  R1710,
  R1703,
  C0144,
- E0011
+ E0011,
+ W0612 #i hope i dont make random unused variables ig
 
 [BASIC]
 # Variable names can be 1 to 31 characters long, with lowercase and underscores
