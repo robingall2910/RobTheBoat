@@ -379,5 +379,15 @@ class Information(commands.Cog):
         """Gets the id for the specified role"""
         await ctx.send("The role ID for `{}` is `{}`".format(role.name, role.id))
 
+    @commands.command(aliases=['rl'])
+    async def reverselookup(self, ctx, username: str):
+        """reverse looks up a user"""
+        try:
+            for memberguild in self.guild.members:
+                result = discord.utils.find(lambda m: m.name == username, memberguild)
+                await ctx.send(f"Result found in {ctx.guild} - ID {result.id}") #maybe that works
+        except Exception:
+            await ctx.send(traceback.format_exc())
+
 def setup(bot):
     bot.add_cog(Information(bot))
