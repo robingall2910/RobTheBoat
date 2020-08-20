@@ -384,7 +384,7 @@ class Information(commands.Cog):
         """reverse looks up a user"""
         try:
             for guild in self.bot.guilds:
-                result = discord.utils.find(lambda m: m.name == username, guild)
+                result = discord.utils.find(lambda m: m.name == username, guild.members)
                 await ctx.send(f"Result found in {ctx.guild} - ID {result.id}") #maybe that works
         except Exception:
             await ctx.send(traceback.format_exc())
