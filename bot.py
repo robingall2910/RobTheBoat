@@ -688,7 +688,6 @@ async def ping(ctx):
     memes = random.choice(
         ["pinging server...", "hmu on snapchat", "is \"meming\" a thing?", "sometimes I'm scared of furries myself.",
          "You might not understand, but this is gross.", "***0.0 secs***", "hi", "u h h h h h h h h h h h h h",
-         "instagram live is lit asf", "SHOW THAT ASS MY NIG",
          "fucking furries...", "fucking maxie", "AAAAAAAAAAAAAAAAAA",
          "why the fuck am I even doing this for you?", "but....", "meh.", "...",
          "Did you really expect something better?", "kek", "I'm killing your dog next time.",
@@ -699,7 +698,7 @@ async def ping(ctx):
          "marmalade.. yes.. porridge is nice, any cereal.. I like all cereals..", "hi",
          "hi can i get a  uh h hh h h h ", "stop pinging me", "go away nerd", "i secretly love you", "owo", "uwu",
          "google blobs are the best", "lets keep advertising viralbot more!", "napstabot isn't good :^)", "haha net neutrality is dead right? xd",
-         "seth be gay sometimes", "no no u", "stop pinging me", "tu eres un gay grande", "xdxdxd", "owu", "do r!neko on Ruby Rose, you'll regret it",
+         "seth be gay sometimes", "no no u", "stop pinging me", "tu eres un gay grande", "xdxdxd", "owu",
          "404 my ass", "hey! look! i'm not dead!", "quick doctow (・`ω´・)  hand me the defibwiwwatow"])
     topkek = memes
     topkek = memes
