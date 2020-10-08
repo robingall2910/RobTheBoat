@@ -2,8 +2,7 @@
 
 This module uses words from the database to construct fun sentences.
 """
-
-
+import multiprocessing
 import random
 import re
 import string
@@ -48,6 +47,15 @@ class MarkovChain(commands.Cog):
             userid = str(user.id)
 
         response = self.create_user_chain(userid)
+        processes = []
+        for i in range(0,10):
+            p = multiprocessing.Process(target=self.create_user_chain(userid), args=(i,))
+            processes.append(p)
+            p.start()
+
+        for process in processes:
+            process.join()
+
         try:
             embed = discord.Embed(colour=message.me.color)
         except Exception:
