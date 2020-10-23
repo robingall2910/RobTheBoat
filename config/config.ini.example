@@ -79,3 +79,11 @@ key = GOOGLE_KEY
 [Last.fm]
 api = LASTFM_KEY
 secret = LASTFM_SECRET
+
+[Hypixel]
+key = HYPIXEL_KEY
+
+[Tracking]
+usps = NONE
+fedex = NONE
+fedexpass = NONE
