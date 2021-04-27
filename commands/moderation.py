@@ -77,7 +77,7 @@ class Moderation(commands.Cog):
             await ctx.send("No Discord Member exists with the ID of `{}`".format(id))
             return
         except discord.errors.Forbidden:
-            await ctx.send("Can't really ban someone with an ID without the goddamn `Ban Members` permission.")
+            await ctx.send("Can't really ban someone with an ID without the `Ban Members` permission.")
             return
         banlist = await ctx.guild.bans()
         for ban in banlist:
